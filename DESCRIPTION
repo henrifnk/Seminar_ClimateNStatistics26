@@ -1,0 +1,11 @@
+Package: seminar-climate-statistics-2425
+Title: Seminar WS24/25 Climate And Statistics
+Version: 0.0.1
+Depends:
+  devtools,
+  knitr,
+  bookdown,
+  tidyverse,
+  ggpubr,
+  svglite,
+  kableExtra

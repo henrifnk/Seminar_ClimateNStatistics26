@@ -1,0 +1,56 @@
+---
+title: "Climate And Statistics"
+author: "Henri Funk, Alexander Sasse, Helmut Küchenhoff, Ralf Ludwig"
+date: "`r Sys.Date()`"
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: true
+colorlinks: true
+lot: false
+lof: false
+site: bookdown::bookdown_site
+description: A Seminar about statistical methods in climate research in WS24/25.
+graphics: yes
+documentclass: krantz
+---
+<!--- cover-image: images/cover.png -->
+
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4,
+  knitr.duplicate.label = "allow"
+)
+output <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+is.html = !is.null(output) && output == "html"
+```
+
+# Preface {-}
+
+*Author: Henri Funk*
+
+```{r cover, cache=FALSE, out.width="75%", fig.align="center", echo=FALSE, eval = TRUE}
+knitr::include_graphics('cover.jpg')
+```
+
+As the world faces the reality of climate change, natural hazards and extreme weather events have become a major concern, with devastating consequences for nature and humans. The quantification and definition of climate change, extreme events and its implications for life and health on our planet is one of the major concerns in climate science. 
+
+This book explains current statistical methods in climate science and their application.
+We do not aim to provide a comprehensive overview of all statistical methods in climate science, but rather to give an overview of the most important methods and their application.
+This book is the outcome of the seminar "Climate and Statistics" which took place in summer 2024 at the Department of Statistics, LMU Munich.
+
+![Creative Commons License](by-nc-sa.png)
+
+This book is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+
+\mainmatter
+
+## Technical Setup {-}
+
+The book chapters are written in the Markdown language.
+To combine R-code and Markdown, we used rmarkdown.
+The book was compiled with the bookdown package.
+We collaborated using git and github.
+For details, head over to the [book's repository](https://github.com/henrifnk/Seminar_ClimateNStatistics).
+
+
