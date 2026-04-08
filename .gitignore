@@ -12,17 +12,5 @@ _main.Rmd
 book.tex
 *.html
 packages.bib
-*/07-hydroLSTM/*.DS_Store
-*/07-hydroLSTM/*/lightning_logs/*
-*/07-hydroLSTM/images/.DS_Store
 .DS_Store
 work/.DS_Store
-work/04-floodfreq/R/rosm.cache/
-work/04-floodfreq/data/0 input data/*.csv
-work/04-floodfreq/data/output/hydrographs/*.png
-work/04-floodfreq/data/simulation/*.Rdata
-work/04-floodfreq/data/output/rdata/copula_dfs/*.Rdata
-work/04-floodfreq/data/output/rdata/extended_dfs/*.Rdata
-work/04-floodfreq/data/output/rdata/threshold_dfs/*.Rdata
-work/04-floodfreq/data/output/rdata/*.Rdata
-work/04-floodfreq/data/*.Rdata

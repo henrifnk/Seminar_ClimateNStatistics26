@@ -1,6 +1,6 @@
 ---
 title: "Climate And Statistics"
-author: "Henri Funk, Alexander Sasse, Helmut Küchenhoff, Ralf Ludwig"
+author: "Henri Funk, Helmut Küchenhoff"
 date: "`r Sys.Date()`"
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -9,7 +9,7 @@ colorlinks: true
 lot: false
 lof: false
 site: bookdown::bookdown_site
-description: A Seminar about statistical methods in climate research in WS24/25.
+description: A Seminar about statistical methods in climate research in SS26.
 graphics: yes
 documentclass: krantz
 ---
@@ -36,7 +36,7 @@ As the world faces the reality of climate change, natural hazards and extreme we
 
 This book explains current statistical methods in climate science and their application.
 We do not aim to provide a comprehensive overview of all statistical methods in climate science, but rather to give an overview of the most important methods and their application.
-This book is the outcome of the seminar "Climate and Statistics" which took place in summer 2024 at the Department of Statistics, LMU Munich.
+This book is the outcome of the seminar "Climate and Statistics" which took place in summer 2026 at the Department of Statistics, LMU Munich.
 
 ![Creative Commons License](by-nc-sa.png)
 

@@ -1,5 +1,5 @@
 book_filename: book
-repo: https://github.com/henrifnk/Seminar_ClimateNStatistics2425/
+repo: https://github.com/henrifnk/Seminar_ClimateNStatistics26/
 output_dir: _book
 clean: [packages.bib, bookdown.bbl]
 delete_merged_file: true

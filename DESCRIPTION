@@ -1,5 +1,5 @@
-Package: seminar-climate-statistics-2425
-Title: Seminar WS24/25 Climate And Statistics
+Package: seminar-climate-statistics-26
+Title: Seminar SoSe 26 Climate And Statistics
 Version: 0.0.1
 Depends:
   devtools,

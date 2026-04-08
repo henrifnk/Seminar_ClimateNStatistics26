@@ -11,7 +11,7 @@ jobs:
     name: Render-Book
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - uses: r-lib/actions/setup-r@v2
       - name: Install system dependencies
         run: |
@@ -36,9 +36,9 @@ jobs:
    needs: bookdown
    steps:
      - name: Checkout
-       uses: actions/checkout@master
+       uses: actions/checkout@v4
      - name: Download artifact
-       uses: actions/download-artifact@v4.0.0
+       uses: actions/download-artifact@v4
        with:
          # Artifact name
          name: _book # optional

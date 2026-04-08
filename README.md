@@ -1,6 +1,6 @@
-# Seminar Climate and Statistics II
+# Seminar Climate and Statistics III
 
-Checkout the actual version of the [book](https://henrifnk.github.io/Seminar_ClimateNStatistics2425/).
+Checkout the actual version of the [book](https://henrifnk.github.io/Seminar_ClimateNStatistics26/).
 
 As the world faces the reality of climate change, natural hazards and extreme weather events have become a major concern, with devastating consequences for nature and humans. The quantification and definition of climate change, extreme events and its implications for nature, life and health on our planet is one of the major concerns in climate science. 
 
@@ -8,7 +8,7 @@ This book explains current statistical methods in climate science and their appl
 The methods include compound events, low flow events and return periods, natural variability, teleconnections and causal discovery.
 All of those methods are used to quantify and anticipate the changing climate.
 
-This book is the outcome of the seminar "Climate and Statistics" which took place in winter 24/25 at the Department of Statistics, LMU Munich.
+This book is the outcome of the seminar "Climate and Statistics" which took place in summer 26 at the Department of Statistics, LMU Munich.
 
 ## Style guide
 
