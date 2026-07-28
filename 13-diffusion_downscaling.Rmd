@@ -1,0 +1,18 @@
+# Climate downscaling using diffusion models
+
+## Introduction
+
+
+## Theory behind climate downscaling using diffusion models
+
+### Downscaling
+
+### Diffusion models
+
+## Literature review
+
+## Data and experimental setup
+
+## Results
+
+## Limitations and Outlook
