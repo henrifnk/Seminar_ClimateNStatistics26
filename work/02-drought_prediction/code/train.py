@@ -20,7 +20,14 @@ from omegaconf import DictConfig, OmegaConf  # noqa: E402
 from pytorch_lightning import Trainer, seed_everything  # noqa: E402
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint  # noqa: E402
 from torch.utils.data import DataLoader  # noqa: E402
+from utils.paths import processed_data_dir, project_root  # noqa: E402
 from utils.timing import EpochTimer  # noqa: E402
+
+# Anchor every path-valued config key to this project folder / the configured
+# data root, never to the launching process's cwd -- so the same commands
+# work whether invoked from the GitBook repo root or from this folder directly.
+OmegaConf.register_new_resolver("project_root", lambda: str(project_root()), replace=True)
+OmegaConf.register_new_resolver("processed_data_dir", lambda: str(processed_data_dir()), replace=True)
 
 
 def _model_tag(cfg: DictConfig) -> str:
@@ -30,8 +37,6 @@ def _model_tag(cfg: DictConfig) -> str:
     parts = [cfg.model.mode, cfg.model.loss_fn]
     if cfg.model.loss_fn == "pinball":
         parts.append(f"q{cfg.model.pinball_quantile:.2f}")
-    elif cfg.model.loss_fn == "cellwise_pinball":
-        pass  # quantile is data-derived; loss name is already descriptive
     elif cfg.model.loss_fn == "weighted_mse":
         parts.append(cfg.model.weighted_loss_mode)
         parts.append(f"w{cfg.model.drought_weight}")
@@ -195,13 +200,6 @@ def main(cfg: DictConfig) -> None:
 
     if cfg.model.static_encoder in ("single", "seasonal"):
         model.register_buffer("static_map", dataset.static_features)
-
-    if cfg.model.loss_fn == "cellwise_pinball":
-        target_spei = dataset.spei[target_start:target_end]
-        q_map = (
-            (target_spei <= cfg.model.drought_threshold).float().mean(dim=0).clamp(min=0.01, max=0.5)
-        )
-        model.criterion.set_q_map(q_map, dataset.mask)
 
     # ------------------------------------------------------------------
     # Logger

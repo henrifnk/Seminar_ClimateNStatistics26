@@ -36,6 +36,7 @@ sys.stderr.reconfigure(encoding="utf-8")
 
 from dataset import DroughtDataset  # noqa: E402
 from utils.metrics import metrics_celled_drought, metrics_celled_regression  # noqa: E402
+from utils.paths import processed_data_dir  # noqa: E402
 from utils.plotting import make_heatmap  # noqa: E402
 
 # ── Defaults (mirror configs/data/default.yaml) ───────────────────────────────
@@ -45,7 +46,7 @@ PERIODS_FORWARD = 1
 VAL_FROM_YEAR   = 2005
 TEST_FROM_YEAR  = 2015
 DROUGHT_THR     = -1.5
-PROCESSED_DIR   = ROOT / "data" / "processed"
+PROCESSED_DIR   = processed_data_dir()
 FIGURES_DIR     = ROOT / "figures" / "baselines"
 
 

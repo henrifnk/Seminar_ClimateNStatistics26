@@ -24,10 +24,11 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import xarray as xr  # noqa: E402
 from dataset import _MED_GROUPS  # noqa: E402
+from utils.paths import processed_data_dir, project_root, raw_data_dir  # noqa: E402
 
-PROJECT_ROOT = Path(__file__).parent.parent
-DATA_RAW = PROJECT_ROOT / "data" / "raw"
-DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
+PROJECT_ROOT = project_root()
+DATA_RAW = raw_data_dir()
+DATA_PROCESSED = processed_data_dir()
 FIG_RAW = PROJECT_ROOT / "figures" / "raw"
 FIG_PROCESSED = PROJECT_ROOT / "figures" / "processed"
 
@@ -471,7 +472,7 @@ def visualize_processed_global_scalars() -> None:
 
     n_vars = len(ds.data_vars)
     fig, axes = plt.subplots(n_vars, 1, figsize=(12, 2.2 * n_vars), sharex=True)
-    for ax, varname in zip(axes, ds.data_vars):
+    for ax, varname in zip(axes, ds.data_vars, strict=True):
         ax.plot(ds["time"].values, ds[varname].values, lw=0.8)
         ax.set_ylabel(varname, fontsize=8)
         ax.axhline(0, color="k", lw=0.4, ls="--")
@@ -591,7 +592,7 @@ def visualize_drought_exploratory(
     norm = mpl_colors.Normalize(0, vmax)
 
     for row, (thr, rates_row) in enumerate(zip(map_thresholds, all_rates, strict=True)):
-        for col, ((label, tmask), (rate, n_years)) in enumerate(zip(period_items, rates_row, strict=True)):
+        for col, ((label, _tmask), (rate, n_years)) in enumerate(zip(period_items, rates_row, strict=True)):
             ax = axes[row, col]
             valid_rate = rate[mask]
             pct_any = 100.0 * float(np.mean(valid_rate > 0))

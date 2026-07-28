@@ -2,6 +2,7 @@ import csv
 import glob
 import itertools
 import os
+import shlex
 import sys
 import tempfile
 import textwrap
@@ -12,11 +13,23 @@ sys.stderr.reconfigure(encoding="utf-8")
 
 from invoke import Context, task  # noqa: E402
 
-SAVED_MODELS_DIR = "saved_models"
-FIGURES_DIR = "figures/models"
+# Anchor every path to this file's directory, not the launching process's cwd,
+# so the same commands work whether invoke is run from the GitBook repo root
+# or from this chapter folder directly (invoke does not cd into the directory
+# it found tasks.py in -- it only searches upward for the file).
+ROOT = Path(__file__).parent.resolve()
+SAVED_MODELS_DIR = str(ROOT / "saved_models")
+FIGURES_DIR = str(ROOT / "figures" / "models")
 
 # The `pty` module (used for proper terminal passthrough) doesn't exist on Windows.
 _PTY = os.name != "nt"
+
+
+def _run(c: Context, cmd: str, **kwargs):
+    """c.run(), but always executed with cwd = ROOT regardless of where invoke
+    itself was launched from."""
+    kwargs.setdefault("pty", _PTY)
+    return c.run(f"cd {shlex.quote(str(ROOT))} && {cmd}", **kwargs)
 
 # ---------------------------------------------------------------------------
 # Data pipeline
@@ -26,13 +39,14 @@ _PTY = os.name != "nt"
 @task
 def preprocess(c: Context):
     """Build data/processed/ from raw NetCDF files."""
-    c.run("uv run python code/preprocessing.py", pty=_PTY)
+    _run(c, "uv run python code/preprocessing.py")
 
 
 @task
 def visualize(c: Context, start: int = 0, panels: int = 12):
     """Save raw + processed EDA map figures to figures/. Use --start/--panels for the time window."""
-    c.run(
+    _run(
+        c,
         f'uv run python -c "'
         f"import sys; sys.path.insert(0, 'code'); "
         f"import visualization as v; "
@@ -45,7 +59,6 @@ def visualize(c: Context, start: int = 0, panels: int = 12):
         f"v.visualize_processed_static(); "
         f"v.visualize_processed_global_scalars()"
         f'"',
-        pty=_PTY,
     )
 
 
@@ -55,7 +68,8 @@ def explore(c: Context, val_from_year: int = 2005, test_from_year: int = 2015):
 
     Figures are written to figures/processed/exploratory/.
     """
-    c.run(
+    _run(
+        c,
         f'uv run python -c "'
         f"import sys; sys.path.insert(0, 'code'); "
         f"import visualization as v; "
@@ -63,7 +77,6 @@ def explore(c: Context, val_from_year: int = 2005, test_from_year: int = 2015):
         f"val_from_year={val_from_year}, "
         f"test_from_year={test_from_year}"
         f')"',
-        pty=_PTY,
     )
 
 
@@ -75,35 +88,69 @@ def explore(c: Context, val_from_year: int = 2005, test_from_year: int = 2015):
 @task
 def train(c: Context, overrides: str = ""):
     """Train the ConvLSTM model. Pass Hydra overrides via --overrides 'key=val ...'"""
-    c.run(f"uv run python code/train.py {overrides}", pty=_PTY)
+    _run(c, f"uv run python code/train.py {overrides}")
 
 
 @task
 def cfg(c: Context, overrides: str = ""):
     """Print the resolved Hydra config without running training."""
-    c.run(f"uv run python code/train.py --cfg job {overrides}", pty=_PTY)
+    _run(c, f"uv run python code/train.py --cfg job --resolve {overrides}")
 
 
 @task(pre=[preprocess])
 def pipeline(c: Context, overrides: str = ""):
     """Run the full pipeline: preprocess -> train."""
-    c.run(f"uv run python code/train.py {overrides}", pty=_PTY)
+    _run(c, f"uv run python code/train.py {overrides}")
 
 
 @task
-def baselines(c: Context, checkpoint: str = "", processed_dir: str = ""):
+def baselines(c: Context, processed_dir: str = ""):
     """Evaluate persistence, climatology, and linear-trend baselines on the test set.
 
     Computes the same metrics and figures as any model run (RMSE, corr, drought
     acc/F1/TPR spatial maps + test_metrics.json) and saves them once to
-    figures/baselines/{persistence,climatology,trend}/.
+    figures/baselines/{persistence,climatology,trend}/. Baselines are data-derived
+    (no checkpoint involved).
     """
     cmd = "uv run python code/eval_baselines.py"
-    if checkpoint:
-        cmd += f" --checkpoint {checkpoint}"
     if processed_dir:
         cmd += f" --processed-dir {processed_dir}"
-    c.run(cmd, pty=_PTY)
+    _run(c, cmd)
+
+
+@task
+def smoke(c: Context, epochs: int = 2, keep: bool = False):
+    """End-to-end smoke test on a tiny synthetic fixture -- no real dataset needed.
+
+    Generates a small synthetic processed_dir (8x8 grid, real 1971-2024 time
+    span, via code/make_fixture.py) and runs dataset -> model -> training ->
+    test on CPU, so the full pipeline can be verified without the ~327MB real
+    dataset. Cleans up the fixture and its checkpoint/logs afterward unless
+    --keep is passed.
+    """
+    import shutil
+    import tempfile
+
+    fixture_dir = Path(tempfile.mkdtemp(prefix="drought_fixture_"))
+    print(f"Generating synthetic fixture -> {fixture_dir}")
+    _run(c, f"uv run python code/make_fixture.py {fixture_dir}")
+
+    run_name = "smoke_test"
+    overrides = (
+        f"data.processed_dir={fixture_dir} data.num_workers=0 "
+        f"trainer.max_epochs={epochs} trainer.accelerator=cpu logger=csv "
+        f"run_name={run_name}"
+    )
+    print("\nRunning smoke train -> test ...")
+    _run(c, f"uv run python code/train.py {overrides}")
+
+    if not keep:
+        shutil.rmtree(fixture_dir, ignore_errors=True)
+        for p in Path(SAVED_MODELS_DIR).glob(f"best_model_{run_name}.*"):
+            p.unlink()
+        print(f"\nCleaned up fixture ({fixture_dir}) and smoke-test checkpoint.")
+
+    print("\nSmoke test passed.")
 
 
 # ---------------------------------------------------------------------------
@@ -142,6 +189,11 @@ _COMPARISON_METRICS = [
     "test/corr_median",
     "test/persistence/rmse_median",
     "test/clim/rmse_median",
+    # Not logged by the current model.py (kept only so older CSV rows that have
+    # them aren't silently dropped on the next merge-write; always empty for
+    # runs produced by the current code).
+    "test/trend/rmse_median",
+    "test/trend/corr_median",
     "test/residual_floor",          # test-period detrended std -- data property, not a metric
     "test/drought_f1_median",
     "test/drought_acc_median",
@@ -150,6 +202,9 @@ _COMPARISON_METRICS = [
 
 _COMPARISON_HPARAMS = [
     ("model", "loss_fn"),
+    ("model", "lr"),
+    ("model", "dropout"),
+    ("model", "weight_decay"),
     ("model", "static_encoder"),
     ("model", "global_encoder"),
     ("data", "med_sst_agg"),
@@ -303,7 +358,7 @@ def _evaluate_all(c: Context, ckpts: list[str], force: bool = False) -> None:
             f" run_name={tag}_eval logger.run_name={tag}_eval"
         )
         print(f"\nEvaluating {tag} ...")
-        c.run(cmd, pty=_PTY)
+        _run(c, cmd)
 
 
 @task
@@ -331,7 +386,7 @@ def evaluate(c: Context, checkpoint: str = "", force: bool = False):
 @task
 def report(c: Context):
     """Generate reports/results_report.html from saved_models/gridsearch_comparison.csv."""
-    c.run("uv run python reports/gen_report.py", pty=_PTY)
+    _run(c, "uv run python reports/gen_report.py")
 
 
 # ---------------------------------------------------------------------------
@@ -428,7 +483,7 @@ def _sweep_one_cell(
             continue
 
         print(f"    ({j}/{len(combos)}) {run_name}")
-        c.run(cmd, pty=_PTY)
+        _run(c, cmd)
         if Path(expected_path).exists():
             session_models.append((run_name, expected_path))
 
@@ -460,7 +515,7 @@ def _sweep_one_cell(
         f.write(score_script)
         script_path = f.name
     try:
-        result = c.run(f"uv run python {script_path}", hide=True)
+        result = _run(c, f"uv run python {script_path}", hide=True, pty=False)
     finally:
         os.unlink(script_path)
 

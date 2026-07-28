@@ -25,7 +25,7 @@ values_range: 10      # ScaledTanh output scale
 drought_threshold: -1.5   # SPEI <= this → severe drought (used for binary metrics in regression mode)
 
 # Loss function (regression mode only)
-# Options: mse | pinball | cellwise_pinball | weighted_mse
+# Options: mse | pinball | weighted_mse
 loss_fn: mse
 
 # Pinball / quantile loss
@@ -34,12 +34,12 @@ loss_fn: mse
 pinball_quantile: 0.2     # target quantile; 0.1 focuses on the lower 10th-percentile tail
 
 # Weighted MSE loss
-# mode: threshold → binary weight (drought_weight below drought_threshold, 1 elsewhere)
-#        absolute → weight = |SPEI|, scales continuously with severity (Ravuri et al. 2021)
-#        hinge    → weight = 1 + drought_weight * max(0, -SPEI); asymmetric, dry-tail only
-#                   typical drought_weight: 1–2 (at slope=1, SPEI=-1.5 → weight=2.5)
+# mode: hinge    → weight = 1 + drought_weight * max(0, -SPEI); asymmetric, dry-tail only
+#                  (default; used for the final 24-cell grid at drought_weight in {1, 5})
+#        threshold → binary weight (drought_weight below drought_threshold, 1 elsewhere)
+#        absolute  → weight = |SPEI|, scales continuously with severity (Ravuri et al. 2021)
 drought_weight: 5.0
-weighted_loss_mode: threshold
+weighted_loss_mode: hinge
 
 # Static spatial encoder (topography + mask → feature map appended to hidden state)
 # none:     disabled

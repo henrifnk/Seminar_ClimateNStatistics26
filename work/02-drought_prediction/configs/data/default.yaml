@@ -1,4 +1,6 @@
-processed_dir: ${hydra:runtime.cwd}/data/processed
+# Resolved from the DROUGHT_DATA_DIR env var if set, else <project folder>/data/processed.
+# Independent of the launching process's cwd -- see code/utils/paths.py.
+processed_dir: ${processed_data_dir:}
 
 history_length: 36      # months of input history fed to the model
 lead_time: 12            # how many months ahead to predict (direct single-horizon forecast)

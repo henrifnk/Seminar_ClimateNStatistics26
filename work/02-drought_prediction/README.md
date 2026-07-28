@@ -4,15 +4,136 @@ Spatiotemporal drought forecasting for the Alpine domain using a Convolutional L
 
 ---
 
+## Setup and run
+
+Requires Python ≥3.12 and [uv](https://docs.astral.sh/uv/). CPU is fine (`trainer.accelerator: auto`
+also picks up MPS on Mac / CUDA on a GPU cluster automatically); nothing here requires a GPU.
+
+```bash
+cd work/02-drought_prediction   # if not already there
+
+# Install dependencies (creates .venv automatically)
+uv sync
+
+# See every available command
+uv run invoke --list
+
+# Try something safe and fast first (no real dataset needed, ~10-20s on CPU)
+uv run invoke smoke
+```
+
+All commands work the same way regardless of whether your shell's cwd is this folder or the GitBook
+repo root — every `invoke` task resolves its own paths from `tasks.py`'s location, not from cwd.
+
+**Data:** `data/processed/` and `data/raw/` are supplied externally and are never committed (see
+[Data root & paths](#data-root--paths-codeutilspathspy)) — if they're already present in this
+folder, no further setup is needed. Otherwise, point at them first:
+
+```bash
+export DROUGHT_DATA_DIR=/path/to/processed
+export DROUGHT_RAW_DIR=/path/to/raw   # only needed for `invoke preprocess` / `invoke visualize`
+```
+
+### Core commands
+
+```bash
+uv run invoke preprocess              # build data/processed/ from data/raw/
+uv run invoke cfg                     # print the fully resolved Hydra config
+uv run invoke train                   # single training run with the default config
+
+# Override hyperparameters via Hydra
+uv run invoke train --overrides "model.global_encoder=film model.loss_fn=weighted_mse model.weighted_loss_mode=hinge"
+
+uv run invoke baselines               # persistence / climatology / trend baselines (once per dataset)
+```
+
+### Grid search — the 24-cell final grid
+
+`invoke gridsearch` sweeps 4 losses × 2 global encoders × 3 static encoders = **24 cells**. Within
+each cell, `lr` × `dropout` × `weight_decay` (2×2×2 = 8 combos) are swept and only the single best
+checkpoint (lowest `val/loss`) is kept — so a full run is 24 × 8 = 192 candidate training runs
+producing 24 surviving checkpoints. Checkpoints that already exist (by exact run name, including
+their HP + seed) are skipped and still count as a candidate.
+
+```bash
+# Preview the full grid without running anything (192 planned commands, grouped by cell)
+uv run invoke gridsearch --dry-run
+
+# Everything
+uv run invoke gridsearch
+
+# A subset: one loss, all static/global combinations
+uv run invoke gridsearch --loss mse
+
+# A single cell
+uv run invoke gridsearch --loss weighted_mse_w1_hinge --static-encoder seasonal --global-encoder film
+```
+
+**Flags**
+
+| Flag | Options | Default |
+|---|---|---|
+| `--loss` | `mse` / `weighted_mse_w1_hinge` / `weighted_mse_w5_hinge` / `pinball_q0.20` / `all` | `all` |
+| `--static-encoder` | `naive` / `single` / `seasonal` / `all` | `all` |
+| `--global-encoder` | `naive` / `film` / `all` | `all` |
+| `--seed` | any int | `42` |
+| `--dry-run` | — | false |
+
+Winning run names encode the loss, condition, and winning hyperparameters (e.g.
+`mse_naive_film_lr3e-03_do0.0_wd1e-04_s42`) and are used as WandB display names. After all requested
+cells complete, metrics for the winners are fetched from WandB into
+`saved_models/gridsearch_comparison.csv` (merged, not clobbered) and each winner is evaluated
+(figures written once).
+
+### Fetch metrics from WandB without re-training
+
+```bash
+# Re-fetch metrics for all checkpoints currently in saved_models/
+uv run invoke compare
+```
+
+Reads run names from `saved_models/best_model_*.ckpt` filenames, queries WandB for their metrics at
+the best-`val/loss` epoch (val metrics) and final summary (test metrics), and writes
+`saved_models/gridsearch_comparison.csv` sorted by `test/drought_f1_pooled` descending. `compare` and
+a non-dry-run `gridsearch` both need a WandB login first: `uv run wandb login`.
+
+### Evaluate saved models
+
+```bash
+# Evaluate all best_model_*.ckpt files in saved_models/
+uv run invoke evaluate
+
+# Evaluate a single checkpoint
+uv run invoke evaluate --checkpoint saved_models/best_model_mse_naive_film_lr3e-03_do0.0_wd1e-04_s42.ckpt
+```
+
+Requires a `<name>.overrides` file alongside each checkpoint (written automatically by `train.py` /
+`gridsearch`). Figures are written to `figures/models/<tag>/`; checkpoints whose figures already
+exist are skipped unless `--force` is passed.
+
+### Report generation
+
+```bash
+uv run invoke report                       # reports/results_report.html (self-contained, figures embedded as base64)
+uv run python reports/trend_baseline.py    # nonstationarity / trend-baseline audit
+```
+
+The report reads `saved_models/gridsearch_comparison.csv` and `figures/models/*/`. Baseline figures
+are read from `figures/baselines/`.
+
+---
+
 ## Research questions
 
 | ID | Question | Architectural manipulation |
 |---|---|---|
-| **RQ0** | How strong is the nonstationarity signal and what is the exploitable residual variance? | Baselines only (persistence, climatology, linear trend) |
-| **RQ1.1** | Does a learned spatial encoder for topography outperform naive channel injection? | Static encoder: `naive` (channel injection) vs `single` (shared CNN) vs `seasonal` (4×season CNNs) |
-| **RQ1.2** | Does FiLM conditioning on large-scale climate indices outperform naive channel injection? | Global encoder: `naive` (channel injection) vs `film` (FiLM-MLP) |
-| **RQ2** | Which loss function best balances RMSE skill against drought-event recall? | Five loss families: MSE, Pinball (q=0.20), Cellwise Pinball, Weighted MSE (threshold / hinge / absolute) |
-| **RQ3** | Does the full architecture (seasonal + FiLM) outperform the naive baseline? | Ablation across all six architecture conditions |
+| **RQ1** | How does the choice of loss function affect drought detection in a regression setting? | Loss (4): MSE, Pinball (q=0.20), Weighted MSE — hinge, `drought_weight` ∈ {1, 5} |
+| **RQ2** | How can dynamic global features be integrated into the ConvLSTM architecture? | Global encoder (2): `naive` (channel injection) vs `film` (FiLM-MLP) |
+| **RQ3** | How can static spatial features be integrated into the ConvLSTM architecture? | Static encoder (3): `naive` (channel injection) vs `single` (shared CNN) vs `seasonal` (4×season CNNs) |
+
+Baselines (persistence, climatology, linear trend) frame the nonstationarity/residual-variance context
+these questions are asked in — see [Baselines](#baselines-data-derived-evaluated-once) and
+[Nonstationarity diagnostics](#nonstationarity-diagnostics-reportstrend_baselinepy).
 
 ---
 
@@ -21,16 +142,18 @@ Spatiotemporal drought forecasting for the Alpine domain using a Convolutional L
 ```
 drought_prediction/
 ├── code/
-│   ├── preprocessing.py      # Build data/processed/ from raw NetCDF files
+│   ├── preprocessing.py      # Build data/processed/ from raw files
 │   ├── visualization.py      # Save cartopy map figures to figures/
 │   ├── dataset.py            # PyTorch Dataset, feature assembly, OOT split
 │   ├── model.py              # RCNNModule (ConvLSTM), loss classes, metric logging
 │   ├── train.py              # Hydra-driven training entry point
 │   ├── eval_baselines.py     # Standalone baseline evaluator (run once via inv baselines)
+│   ├── make_fixture.py       # Tiny synthetic processed_dir for `invoke smoke`
 │   └── utils/
 │       ├── conv_block.py     # Conv2d + BatchNorm2d building block
 │       ├── metrics.py        # Per-cell RMSE / Pearson r / AUROC / F1 / TPR
-│       └── plotting.py       # Spatial heatmap and forecast plot helpers
+│       ├── plotting.py       # Spatial heatmap and forecast plot helpers
+│       └── paths.py          # Shared data-root resolution (env vars, fail-early checks)
 ├── configs/
 │   ├── config.yaml           # Root config (composes the three groups below)
 │   ├── data/default.yaml     # Paths, lead time, split years, feature flags
@@ -56,6 +179,31 @@ drought_prediction/
 ---
 
 ## Data
+
+The processed dataset (~327 MB) is supplied externally and is **never committed** to this repo.
+
+### Data root & paths (`code/utils/paths.py`)
+
+Every entry point resolves the processed- and raw-data roots the same way, from exactly one
+configurable location each, independent of the launching process's cwd:
+
+| Root | Env var | Default (if unset) |
+|---|---|---|
+| Processed data (consumed by `DroughtDataset`, produced by `preprocessing.py`) | `DROUGHT_DATA_DIR` | `<this folder>/data/processed` |
+| Raw NetCDF inputs (consumed by `preprocessing.py`, `visualization.py`) | `DROUGHT_RAW_DIR` | `<this folder>/data/raw` |
+
+Outputs (`checkpoints/`, `saved_models/`, `figures/`) always resolve relative to this project
+folder (`work/02-drought_prediction/`), computed from `__file__`, not from wherever the command is
+launched — the same `invoke` commands work from the GitBook repo root or from this folder directly.
+
+If the processed-data root or any of its expected files (`dynamic_grid.nc`, `static_grid.nc`,
+`global_scalars.nc`, `normalization.json`) is missing, every entry point fails immediately with a
+one-line message naming the missing path and the env var to set — no silent fallback. A lightweight
+schema/shape check (variable names, dims, mask/grid consistency) also runs at load time.
+
+**Smoke-testing without the real dataset:** `invoke smoke` generates a tiny synthetic fixture
+(`code/make_fixture.py` — an 8×8 grid, same 1971–2024 time span so the default split years are
+non-empty) and runs the full dataset → model → training → test path on CPU in well under a minute.
 
 ### Domain and grid
 
@@ -181,10 +329,7 @@ All losses are masked to valid Alpine cells before averaging.
 |---|---|---|---|
 | MSE | `mse` | (ŷ−y)² | Unconditional regression baseline |
 | Pinball | `pinball` | max(q(y−ŷ), (q−1)(y−ŷ)) | q=0.20; missing a drought (predicting too high) penalised 4× more than a false alarm — biases model toward the drought tail |
-| Cellwise Pinball | `cellwise_pinball` | Pinball with per-cell quantile | q[i,j] = empirical P(SPEI[i,j] ≤ −1.5) over training; drought-prone cells receive lower q automatically |
-| Weighted MSE (threshold) | `weighted_mse` + `threshold` | w · (ŷ−y)², w = drought_weight below threshold, 1 elsewhere | Binary upweight; drought_weight ∈ {1, 5} |
-| Weighted MSE (absolute) | `weighted_mse` + `absolute` | \|y\| · (ŷ−y)² | Scales with SPEI severity on both tails (cf. Ravuri et al. 2021 intensity weighting); drought_weight unused |
-| Weighted MSE (hinge) | `weighted_mse` + `hinge` | (1 + drought_weight · max(0, −y)) · (ŷ−y)² | Asymmetric: weight=1 for y>0, linearly increasing for y<0. At drought_weight=1, SPEI=−1.5 → weight=2.5, SPEI=−2.0 → weight=3.0 |
+| Weighted MSE (hinge) | `weighted_mse` + `hinge` | (1 + drought_weight · max(0, −y)) · (ŷ−y)² | Asymmetric: weight=1 for y>0, linearly increasing for y<0. `drought_weight` ∈ {1, 5}; at drought_weight=1, SPEI=−1.5 → weight=2.5, SPEI=−2.0 → weight=3.0 |
 
 ---
 
@@ -209,7 +354,7 @@ Splits are defined by the **target year** (not the input window year) to prevent
 
 ### Checkpoint selection
 
-`ModelCheckpoint` monitors **`val/loss`** (the training criterion). For `weighted_mse`, the three modes (threshold / hinge / absolute) optimise incommensurable objectives and are not comparable on a common val/loss scale. Consequently, checkpoint selection for `weighted_mse` is performed **within each mode separately**, retaining one checkpoint per mode per condition. For all other losses one checkpoint is retained per loss per condition.
+`ModelCheckpoint` monitors **`val/loss`** (the training criterion). `weighted_mse` uses hinge weighting only; `drought_weight=1` and `drought_weight=5` are treated as two separate final losses (RQ1), not two values to select between — each keeps its own checkpoint. One checkpoint is retained per loss per condition.
 
 ### Baselines (data-derived, evaluated once)
 
@@ -223,13 +368,17 @@ Baselines are not model-dependent and are evaluated once via `inv baselines`, wr
 
 Climatology and linear trend never predict SPEI ≤ −1.5 (drought threshold) because both produce near-zero or slowly drifting values that do not reach the drought tail — hence TPR = 0 (confirmed empirically). Persistence achieves non-trivial TPR by repeating the last observed drought state.
 
-The **residual floor** (median per-cell test-period std after detrending the training-period trend) is ~1.06 in normalised SPEI units; `skill_margin = residual_floor − model_RMSE` is positive when a model's RMSE falls below this irreducible variance floor.
+The **residual floor** (median per-cell test-period standard deviation of the raw targets, `test/residual_floor`) is ~1.06 in normalised SPEI units — logged as context on the size of the test-period signal, not as a skill metric. The actual model-vs-baseline comparison is `test/rmse_vs_trend` (trend RMSE − model RMSE; positive = model beats the linear-trend baseline).
 
 ---
 
 ## Experimental design
 
-The full grid crosses **6 architecture conditions** × **6 loss families** × 8–16 hyperparameter combos = **432 runs** total.
+The final grid crosses **4 losses** (RQ1) × **2 global encoders** (RQ2) × **3 static encoders**
+(RQ3) = **24 cells**. Within each cell, `model.lr` × `model.dropout` × `model.weight_decay`
+(2×2×2 = 8 combos) are swept and only the single best checkpoint (lowest `val/loss`) is kept — see
+[Grid search](#grid-search--the-24-cell-final-grid). This produces 24 × 8 = 192 candidate training
+runs and 24 final checkpoints.
 
 ### Architecture conditions
 
@@ -237,29 +386,26 @@ The full grid crosses **6 architecture conditions** × **6 loss families** × 8�
 |---|---|---|---|
 | naive/naive | naive | naive | Fully naive-injection baseline |
 | single/naive | single | naive | Non-seasonal topography CNN; naive global |
-| seasonal/naive | seasonal | naive | Seasonal topography CNN; naive global — RQ1.1 |
-| naive/film | naive | film | FiLM conditioning; naive static — RQ1.2 |
+| seasonal/naive | seasonal | naive | Seasonal topography CNN; naive global |
+| naive/film | naive | film | FiLM conditioning; naive static |
 | single/film | single | film | Non-seasonal CNN + FiLM |
-| seasonal/film | seasonal | film | Full architecture — RQ3 |
+| seasonal/film | seasonal | film | Full architecture (seasonal static + FiLM global) |
 
-### Loss families
+### Losses (RQ1)
 
-| Family | Modes swept |
+| Loss | Values |
 |---|---|
 | `mse` | — |
 | `pinball` | q=0.20 fixed |
-| `cellwise_pinball` | — |
-| `weighted_mse` | threshold × {w=1, w=5}, hinge × {w=1, w=5}, absolute × {w=1, w=5} |
+| `weighted_mse` (hinge) | `drought_weight` ∈ {1, 5} — two separate final losses, not swept within a cell |
 
-### Hyperparameter axes (gridsearch)
+### Hyperparameter axes (swept within each cell)
 
 | Axis | Values |
 |---|---|
 | `model.lr` | 1×10⁻³, 3×10⁻³ |
 | `model.dropout` | 0.0, 0.1 |
 | `model.weight_decay` | 0.0, 1×10⁻⁴ |
-| `model.drought_weight` *(weighted_mse only)* | 1.0, 5.0 |
-| `model.weighted_loss_mode` *(weighted_mse only)* | threshold, hinge, absolute |
 
 ---
 
@@ -279,7 +425,6 @@ All regression metrics operate on **normalised SPEI** (z-scored against training
 | Drought F1 | `test/drought_f1_pooled` | F1 at SPEI ≤ −1.5, pooled global confusion matrix |
 | Drought ROC-AUC | `test/drought_rocauc_median` | Spatial median of per-cell AUROC (Wilcoxon rank-sum formula) |
 | RMSE vs trend | `test/rmse_vs_trend` | trend_rmse − model_rmse; positive = model beats linear-trend baseline |
-| Skill margin | `test/residual_floor` − `test/rmse_pooled` | Positive when model RMSE is below the irreducible variance floor |
 
 Baseline pooled metrics are logged per-run under `test/{persistence,clim,trend}/{rmse,drought_tpr,drought_f1}_pooled` and stored in the comparison CSV. Spatial heatmaps for baselines live in `figures/baselines/` (generated once, not per-model).
 
@@ -287,13 +432,6 @@ Baseline pooled metrics are logged per-run under `test/{persistence,clim,trend}/
 
 - **Checkpoint saved by**: `val/loss` (the training criterion, monitored by `ModelCheckpoint`)
 - **Best run selected by**: `val/drought_f1_pooled` (pooled F1 over the validation set, preferred over per-cell median F1 because Alpine drought events are spatially clustered and validation coverage is limited to ~108 months)
-
-### Loss family selection
-
-For selecting the best loss family across the full grid (`tasks.py → select_loss`):
-1. Aggregate all runs per family by computing the median `val/drought_f1_pooled` and median `val/clim/rmse_median`
-2. Gate on RMSE: families whose median val RMSE exceeds the climatology baseline by more than a slack threshold are excluded
-3. Select the family with highest median pooled val F1 among those passing the gate
 
 ---
 
@@ -334,11 +472,11 @@ Config is managed with [Hydra](https://hydra.cc). All parameters can be overridd
 | `dropout` | 0.2 | Spatial dropout rate (Dropout2d) |
 | `lr` | 3×10⁻³ | Adam learning rate |
 | `weight_decay` | 0.1 | Adam weight decay |
-| `loss_fn` | `mse` | `mse` / `pinball` / `cellwise_pinball` / `weighted_mse` |
+| `loss_fn` | `mse` | `mse` / `pinball` / `weighted_mse` |
 | `pinball_quantile` | 0.20 | Quantile for pinball loss |
 | `drought_threshold` | −1.5 | SPEI threshold for severe drought |
-| `drought_weight` | 5.0 | Upweight slope for weighted_mse (threshold: binary multiplier; hinge: slope of linear ramp) |
-| `weighted_loss_mode` | `threshold` | `threshold` / `hinge` / `absolute` |
+| `drought_weight` | 5.0 | Upweight slope for weighted_mse (hinge); the final grid uses 1.0 and 5.0 as two separate losses |
+| `weighted_loss_mode` | `hinge` | Only mode used in the final grid |
 | `static_encoder` | `none` | `none` / `naive` / `single` / `seasonal` |
 | `static_emb_size` | 16 | Output channels of the static encoder CNN(s) |
 | `global_encoder` | `none` | `none` / `naive` / `film` |
@@ -353,93 +491,3 @@ Config is managed with [Hydra](https://hydra.cc). All parameters can be overridd
 | `lr_scheduler_patience` | 5 |
 | `deterministic` | true |
 
----
-
-## Quickstart
-
-```bash
-# Install dependencies
-uv sync
-
-# Build processed data
-uv run invoke preprocess
-
-# Print the fully resolved config
-uv run invoke cfg
-
-# Single training run with default config
-uv run invoke train
-
-# Override hyperparameters via Hydra
-uv run invoke train --overrides "model.global_encoder=film model.loss_fn=weighted_mse model.weighted_loss_mode=hinge"
-
-# Evaluate persistence, climatology, and linear-trend baselines (once per dataset)
-uv run invoke baselines
-```
-
----
-
-## Grid search
-
-`invoke gridsearch` sweeps all hyperparameter combinations for one loss and one architecture condition, selects the best checkpoint per mode (within-mode for `weighted_mse`, single best for all other losses), and merges all run metrics into `saved_models/gridsearch_comparison.csv` without overwriting results from other conditions.
-
-```bash
-# Single condition, single loss
-uv run invoke gridsearch --loss weighted_mse --static-encoder naive --global-encoder film
-
-# All losses for one condition
-uv run invoke gridsearch --loss all --static-encoder seasonal --global-encoder film
-
-# Dry run — print commands without executing
-uv run invoke gridsearch --loss all --dry-run
-```
-
-**Flags**
-
-| Flag | Options | Default |
-|---|---|---|
-| `--loss` | `mse` / `pinball` / `cellwise_pinball` / `weighted_mse` / `all` | `pinball` |
-| `--static-encoder` | `none` / `naive` / `single` / `seasonal` | `none` |
-| `--global-encoder` | `none` / `naive` / `film` | `none` |
-| `--dry-run` | — | false |
-
-Run names encode all active hyperparameters (e.g. `weighted_mse_w1_hinge_naive_film_lr3e-03_do0.0_wd0e+00`) and are used as WandB display names, making each run directly identifiable in the comparison CSV. Existing checkpoints are detected by name and skipped without re-training; their metrics are included in the comparison pool.
-
----
-
-## Fetch metrics from WandB without re-training
-
-```bash
-# Re-fetch metrics for all checkpoints currently in saved_models/
-uv run invoke compare
-```
-
-Reads run names from `saved_models/best_model_*.ckpt` filenames, queries WandB for their metrics at the best-val/loss epoch (val metrics) and final summary (test metrics), and writes `saved_models/gridsearch_comparison.csv` sorted by `test/drought_rocauc_median` descending.
-
----
-
-## Evaluate saved models
-
-```bash
-# Evaluate all best_model_*.ckpt files in saved_models/
-uv run invoke evaluate
-
-# Evaluate a single checkpoint
-uv run invoke evaluate --checkpoint saved_models/best_model_mse_naive_naive_lr3e-03_do0.0_wd0e+00.ckpt
-```
-
-Requires a `<name>.overrides` file alongside each checkpoint (created automatically by the gridsearch). Figures are written to `figures/models/<tag>/`.
-
----
-
-## Report generation
-
-```bash
-# Generate reports/results_report.html (self-contained, all figures embedded as base64)
-uv run python reports/gen_report.py
-
-# Run nonstationarity / trend-baseline audit
-uv run python reports/trend_baseline.py
-```
-
-The report reads `saved_models/gridsearch_comparison.csv` and `figures/models/*/` and requires no other dependencies beyond the standard library. Baseline figures are read from `figures/baselines/`.

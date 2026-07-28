@@ -38,32 +38,6 @@ class PinballLoss(nn.Module):
         return torch.max(self.q * errors, (self.q - 1) * errors).mean()
 
 
-class CellwisePinballLoss(nn.Module):
-    """Pinball loss with a per-cell quantile derived from local drought climatology.
-
-    q[i,j] = P(SPEI[i,j] <= drought_threshold) over the training period, so
-    drought-prone cells automatically receive a lower quantile (penalising
-    missed droughts more) and rarely-dry cells receive a higher one.
-
-    q_map_flat is registered as a buffer and set via set_q_map() in train.py
-    once training data is available, then saved into the checkpoint automatically.
-    """
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.register_buffer("q_map_flat", None)
-
-    def set_q_map(self, q_map: torch.Tensor, mask: torch.Tensor) -> None:
-        """q_map: (H, W) empirical drought frequency; mask: (H, W) bool."""
-        self.q_map_flat = q_map[mask]  # (N_cells,)
-
-    def forward(self, preds: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        assert self.q_map_flat is not None, "call set_q_map() before training"
-        errors = targets - preds        # (..., N_cells)
-        q = self.q_map_flat             # (N_cells,) — broadcasts from the right
-        return torch.max(q * errors, (q - 1) * errors).mean()
-
-
 class StaticEncoder(nn.Module):
     """Single CNN that encodes static spatial fields (e.g. topography) once.
 
@@ -345,8 +319,6 @@ class RCNNModule(LightningModule):
                 self.criterion = nn.MSELoss()
             elif loss_fn == "pinball":
                 self.criterion = PinballLoss(quantile=pinball_quantile)
-            elif loss_fn == "cellwise_pinball":
-                self.criterion = CellwisePinballLoss()
             elif loss_fn == "weighted_mse":
                 self.criterion = WeightedMSELoss(
                     drought_threshold=drought_threshold,
@@ -354,10 +326,7 @@ class RCNNModule(LightningModule):
                     mode=weighted_loss_mode,
                 )
             else:
-                raise ValueError(
-                    f"Unknown loss_fn '{loss_fn}'. "
-                    "Choose 'mse', 'pinball', 'cellwise_pinball', or 'weighted_mse'."
-                )
+                raise ValueError(f"Unknown loss_fn '{loss_fn}'. Choose 'mse', 'pinball', or 'weighted_mse'.")
         else:
             self.criterion = nn.CrossEntropyLoss()
 
@@ -838,12 +807,11 @@ class RCNNModule(LightningModule):
             self.log("test/persistence/rmse_median", torch.median(rmse_p[m]))
             self.log("test/clim/rmse_median",        torch.median(rmse_c[m]))
 
-            # ── Residual floor (test-period detrended std — data property, not a metric) ──
+            # ── Residual floor (test-period std — data property, not a skill metric;
+            # context only, see test/rmse_vs_trend for the model-vs-baseline comparison) ──
             test_std       = all_targets.std(dim=0)   # (H, W)
             residual_floor = torch.median(test_std[m])
-            skill_margin   = residual_floor - torch.median(rmse[m])
             self.log("test/residual_floor", residual_floor)
-            self.log("test/skill_margin",   skill_margin)
 
             self._write_test_metrics(
                 {
@@ -875,7 +843,6 @@ class RCNNModule(LightningModule):
                     "persistence_rmse_median": torch.median(rmse_p[m]).item(),
                     "clim_rmse_median":        torch.median(rmse_c[m]).item(),
                     "residual_floor":       residual_floor.item(),
-                    "skill_margin":         skill_margin.item(),
                 }
             )
         else:

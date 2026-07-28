@@ -5,6 +5,7 @@ import numpy as np
 import torch
 import xarray as xr
 from torch.utils.data import Dataset, Subset
+from utils.paths import validate_processed_dir
 
 # Western/Eastern Mediterranean split along the Sicily Channel (Millot &
 # Taupier-Letage 2005; Lionello et al. 2006).  Mediterranean_Sea and Western_Med
@@ -61,7 +62,7 @@ class DroughtDataset(Dataset):
         static_injection: str = "none",   # none | naive
         global_injection: str = "none",   # none | naive
     ):
-        processed_dir = Path(processed_dir)
+        processed_dir = validate_processed_dir(processed_dir)
 
         # ── normalization stats (computed from training period only) ─────
         norm_path = processed_dir / "normalization.json"

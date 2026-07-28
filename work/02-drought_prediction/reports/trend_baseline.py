@@ -17,15 +17,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "code"))
 
 import json
+
 import numpy as np
-import torch
 import xarray as xr
+from utils.paths import processed_data_dir, project_root
 
 # ---------------------------------------------------------------------------
 # Load data (mirrors DroughtDataset logic without instantiating the class)
 # ---------------------------------------------------------------------------
 
-PROCESSED = Path("data/processed")
+PROCESSED = processed_data_dir()
 HISTORY   = 12    # must match config
 LEAD      = 12    # must match config
 VAL_FROM  = 2006
@@ -45,7 +46,8 @@ ds_static = xr.open_dataset(PROCESSED / "static_grid.nc")
 spei_raw = ds_dyn["spei"].transpose("time", "rlat", "rlon").values  # (T, H, W)
 times    = ds_dyn["time"].values                                      # (T,) datetime64
 mask_np  = ds_static["mask"].values.astype(bool)                     # (H, W)
-ds_dyn.close(); ds_static.close()
+ds_dyn.close()
+ds_static.close()
 
 T, H, W = spei_raw.shape
 
@@ -106,7 +108,7 @@ print(f"\nTest-period mean normalized SPEI (valid cells): "
       f"median={np.median(mean_test_per_cell):.3f}  "
       f"min={np.min(mean_test_per_cell):.3f}  "
       f"max={np.max(mean_test_per_cell):.3f}")
-print(f"(Climatology baseline RMSE is inflated by this drift away from training mean ≈ 0)")
+print("(Climatology baseline RMSE is inflated by this drift away from training mean ≈ 0)")
 
 # ---------------------------------------------------------------------------
 # 2. Per-cell linear trend fitted on training targets
@@ -166,7 +168,7 @@ print(f"{'Persistence':<20} {rmse_persist:>12.4f} {corr_persist:>12.4f}")
 print(f"{'Climatology':<20} {rmse_clim:>12.4f} {corr_clim:>12.4f}")
 print(f"{'Linear trend':<20} {rmse_trend:>12.4f} {corr_trend:>12.4f}")
 # Load model results from CSV if available, for comparison
-csv_path = Path("saved_models/gridsearch_comparison.csv")
+csv_path = project_root() / "saved_models" / "gridsearch_comparison.csv"
 model_rmse_range: str
 if csv_path.exists():
     import csv as _csv
@@ -234,4 +236,4 @@ print(f"Trend baseline barely beats climatology: "
 print(f"Best model RMSE {best_rmse:.4f} beats trend ({rmse_trend:.4f}) "
       f"by {rmse_trend - best_rmse:.4f} and climatology ({rmse_clim:.4f}) "
       f"by {rmse_clim - best_rmse:.4f}.")
-print(f"→ Model skill is NOT primarily trend-following.")
+print("→ Model skill is NOT primarily trend-following.")

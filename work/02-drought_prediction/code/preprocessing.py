@@ -2,14 +2,16 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
 sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
 
 import numpy as np  # noqa: E402
 import xarray as xr  # noqa: E402
+from utils.paths import processed_data_dir, raw_data_dir, require_raw_dir  # noqa: E402
 
-DATA_RAW = Path(__file__).parent.parent / "data" / "raw"
-DATA_PROCESSED = Path(__file__).parent.parent / "data" / "processed"
+DATA_RAW = raw_data_dir()
+DATA_PROCESSED = processed_data_dir()
 
 # Internal NetCDF variable names differ from the concept names used here
 _AL_VARS: dict[str, tuple[Path, str]] = {
@@ -171,6 +173,7 @@ def compute_normalization_stats(val_from_year: int = 2005) -> None:
 
 
 def run() -> None:
+    require_raw_dir(DATA_RAW)
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
 
     print("Loading dynamic grid (wb, pr, ps, spei, tas) ...")
