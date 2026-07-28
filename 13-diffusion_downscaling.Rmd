@@ -1,18 +1,39 @@
 # Climate downscaling using diffusion models
 
-## Introduction
+## 1. Introduction
+Climate downscaling, transforming a coarse-resolution climate field to a high-resolution climate field, has
+gained significance under a changing climate (Ling et al., 2024). A high-resolution
+climate field can represent local extremes on a fine scale, giving authorities the opportunity to allocate
+their resources more precisely (Addison et al., 2022).
+
+-- In the past decades many different statistics or ML appraoches have been applied to downscaling.
+-- A new approach in this context is using diffusion models (Song?) usually used in the context of text-to-image 
+or superesolution tasks for this downscaling. 
+-- An often cited advantage is that it is computatinally cheaper to downscale climate fields using diffusion models
+as well as that you can generate ensembles of high-resolution climate fields from a coarse-resolution climate field
+reflecting the uncertainty in weather/climate data.
+-- Past papers such as (Mardani/WM etc) have used diffusion models in this downscaling context, but they mostly did this
+in reanalysis context (what is reanalysis data => historical data), what might be an interesting caveat is to 
+assess how a model trained on reanalysis/historical data behaves on climate projection data aka on data coming from a
+different distributions, thus assessing how well the model is able to generalize in its downscaling capabilities to
+unseen climate scenarios.
 
 
-## Theory behind climate downscaling using diffusion models
+## 2. Theory behind climate downscaling using diffusion models
 
-### Downscaling
+### 2.1 Downscaling
 
-### Diffusion models
+### 2.2 Diffusion models
 
-## Literature review
+## 3. Literature review
 
-## Data and experimental setup
+## 4. Data and experimental setup
+- Lopez-Gomez fpr mountaneous terrain => justification to go over the ALps
 
-## Results
+## 5. Results
 
-## Limitations and Outlook
+### 5.1 Calibration Assessment
+
+### 5.2 Projection Assessment
+
+## 6. Limitations and Outlook
