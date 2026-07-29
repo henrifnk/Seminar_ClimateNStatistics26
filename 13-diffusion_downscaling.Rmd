@@ -4,20 +4,34 @@
 Climate downscaling, transforming a coarse-resolution climate field to a high-resolution climate field, has
 gained significance under a changing climate (Ling et al., 2024). A high-resolution
 climate field can represent local extremes on a fine scale, giving authorities the opportunity to allocate
-their resources more precisely (Addison et al., 2022).
+their resources more precisely (López-Gómez et al., 2024).
 
--- In the past decades many different statistics or ML appraoches have been applied to downscaling.
--- A new approach in this context is using diffusion models (Song?) usually used in the context of text-to-image 
-or superesolution tasks for this downscaling. 
--- An often cited advantage is that it is computatinally cheaper to downscale climate fields using diffusion models
-as well as that you can generate ensembles of high-resolution climate fields from a coarse-resolution climate field
-reflecting the uncertainty in weather/climate data.
--- Past papers such as (Mardani/WM etc) have used diffusion models in this downscaling context, but they mostly did this
-in reanalysis context (what is reanalysis data => historical data), what might be an interesting caveat is to 
-assess how a model trained on reanalysis/historical data behaves on climate projection data aka on data coming from a
-different distributions, thus assessing how well the model is able to generalize in its downscaling capabilities to
-unseen climate scenarios.
+Downscaling is performed either dynamically, utilizing regional climate models, or statistically, by learning a relationship
+between coarse and fine climate fields. (Ling et al., 2024) In the last years the application of deep learning methods for 
+statistical downscaling has gained increased traction, drawing on the similarity between downscaling and super-resolution of 
+natural images (Addison et al., 2022; Merizzi et al., 2024).
 
+In particular the use of diffusion models for downscaling is researched intensively (Springenberg et al., 2026). 
+While established approaches focus on modeling a fine-scale climate field deterministically (Ling et al., 2024), diffusion models
+make it possible to generate an ensemble of high-resolution climate fields based on a coarse-resolution field, by drawing from
+a distribution of high-resolution fields conditioned on a coarse resolution field, (Watt & Mansfield, 2024; Springenberg et al, 2026).
+
+Diffusion models for downscaling have predominantly been evaluated in an idealised setting: The target climate field was 
+degraded to a coarse resolution and the subject of analysis was in how well the diffusion model recovers the original resolution
+(Merrizi et al. 2024; Watt & Mansfield, 2024). A smaller number of studies apply the trained model to climate projections and assess
+how well the climate change signal is preserved (Addison et al., 2025; Aich et al., 2026).
+My seminar is in line with these latter papers as I want to first assess how good the diffusion model performs in downscaling a climate field 
+over a complex terrain (Alpine domain) and also how well the model is able to generalize by applying the trained model on differentl global
+warming levels (distributional shift).  
+
+-- So the subject of analysis for my seminar topic will be split into two halves
+-- Research Question 1: Can the diffusion model architecture generate calibrated high-resolution climate field ensembles for
+temperature and precipitation over the Alpine domain?
+-- Research Question 2: Is the diffusion model able to preserve the climate change signal when downscaling future climate model
+projections?
+
+-- With this seminar work I will assess the performace of a simple diffusion model architecture on a complex terrain (Alpine domain)
+and evaluate its behavior when applied on a shifted distribution.
 
 ## 2. Theory behind climate downscaling using diffusion models
 
@@ -29,6 +43,8 @@ unseen climate scenarios.
 
 ## 4. Data and experimental setup
 - Lopez-Gomez fpr mountaneous terrain => justification to go over the ALps
+- my setup is similar to addison 2025
+
 
 ## 5. Results
 
@@ -37,3 +53,5 @@ unseen climate scenarios.
 ### 5.2 Projection Assessment
 
 ## 6. Limitations and Outlook
+
+-- Lopez-Gomez 2.3 nice point on how we can use ensembles for downscaling future projections S3.2
