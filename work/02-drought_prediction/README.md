@@ -42,7 +42,7 @@ uv run invoke cfg                     # print the fully resolved Hydra config
 uv run invoke train                   # single training run with the default config
 
 # Override hyperparameters via Hydra
-uv run invoke train --overrides "model.global_encoder=film model.loss_fn=weighted_mse model.weighted_loss_mode=hinge"
+uv run invoke train --overrides "model.global_encoder=film model.loss_fn=weighted_mse model.drought_weight=5.0"
 
 uv run invoke baselines               # persistence / climatology / trend baselines (once per dataset)
 ```
@@ -114,8 +114,8 @@ exist are skipped unless `--force` is passed.
 ### Report generation
 
 ```bash
-uv run invoke report                       # reports/results_report.html (self-contained, figures embedded as base64)
-uv run python reports/trend_baseline.py    # nonstationarity / trend-baseline audit
+uv run invoke report                                 # reports/output/results_report.html (self-contained, figures embedded as base64)
+uv run python reports/generate/trend_baseline.py     # nonstationarity / trend-baseline audit
 ```
 
 The report reads `saved_models/gridsearch_comparison.csv` and `figures/models/*/`. Baseline figures
@@ -161,9 +161,14 @@ drought_prediction/
 │   ├── trainer/default.yaml  # Max epochs, early stopping, LR scheduler
 │   └── logger/               # WandB and CSV logger configs
 ├── reports/
-│   ├── gen_report.py         # Self-contained HTML report generator
-│   ├── trend_baseline.py     # Per-cell OLS trend fit and nonstationarity audit
-│   └── notes.md              # Research notes and findings
+│   ├── generate/
+│   │   ├── gen_report.py           # Self-contained HTML report generator
+│   │   ├── gen_arch_summary.py     # Baseline + architecture-sweep HTML summary
+│   │   ├── trend_baseline.py       # Per-cell OLS trend fit and nonstationarity audit
+│   │   └── loss_illustrations.py   # Loss-function concept figures for the GitBook chapter
+│   ├── figures/               # mse.pdf, pinball.pdf, hinge_loss.pdf, hinge_weight.pdf — used in the paper
+│   ├── output/                # Generated HTML reports (gitignored, not committed)
+│   └── notes.md                # Research notes and findings
 ├── figures/
 │   ├── baselines/            # One subfolder per baseline: persistence/, climatology/, trend/
 │   │   └── {name}/           # test_rmse_spatial.png, test_corr_spatial.png,
@@ -171,8 +176,8 @@ drought_prediction/
 │   └── models/               # One subfolder per evaluated model run
 │       └── {run_tag}/        # Same 5 figures + test_metrics.json per run
 ├── saved_models/
-│   ├── gridsearch_comparison.csv   # Full metric table (432 runs × 34 columns)
-│   └── best_model_*.ckpt           # Best checkpoint per loss-mode × condition
+│   ├── gridsearch_comparison.csv   # Full metric table (192 candidate runs × columns)
+│   └── best_model_*.ckpt           # 24 winning checkpoints (one per grid cell)
 └── tasks.py                  # Invoke task runner (gridsearch, compare, evaluate, baselines, …)
 ```
 
@@ -339,18 +344,22 @@ All losses are masked to valid Alpine cells before averaging.
 
 Splits are defined by the **target year** (not the input window year) to prevent look-ahead leakage from the 36-month input.
 
-| Split | Target years | Samples (~) |
+| Split | Target years | Samples |
 |---|---|---|
-| Train | 1971–2005 | 396 |
-| Validation | 2006–2014 | 108 |
+| Train | 1974–2004 | 361 |
+| Validation | 2005–2014 | 120 |
 | Test | 2015–2024 | 120 |
+
+Train starts at target year 1974, not 1971: the earliest possible target needs 36 months of
+history before it, so the first ~3 years of the 1971– raw series are consumed as input-only context.
 
 ### Optimiser and scheduling
 
 - Optimiser: Adam with weight decay (decoupled)
-- Learning rate halved after 5 epochs without `val/loss` improvement (ReduceLROnPlateau)
-- Early stopping at patience 20 on `val/loss`
-- Maximum 100 epochs; deterministic mode enabled (cuDNN seed fixed)
+- Learning rate halved after 3 epochs without `val/loss` improvement (ReduceLROnPlateau)
+- Early stopping at patience 5 on `val/rmse_median` (not `val/loss` — chosen so `min_delta` is in
+  RMSE units and comparable across loss functions with different scales)
+- Maximum 50 epochs; deterministic mode enabled (cuDNN seed fixed)
 
 ### Checkpoint selection
 
@@ -435,13 +444,13 @@ Baseline pooled metrics are logged per-run under `test/{persistence,clim,trend}/
 
 ---
 
-## Nonstationarity diagnostics (`reports/trend_baseline.py`)
+## Nonstationarity diagnostics (`reports/generate/trend_baseline.py`)
 
-Test-period (2015–2024) drought frequency is approximately **2× higher** than training-period (1971–2005) frequency (median across valid cells: ~6% training → ~12% test). The test-period mean SPEI is shifted negative relative to the training mean, inflating the climatology RMSE because the climatology predicts the training mean.
+Test-period (2015–2024) drought frequency is **2.03× higher** than training-period (1972–2004) frequency (median across valid cells: 4.9% training → 10.0% test). The test-period mean SPEI is shifted negative relative to the training mean, inflating the climatology RMSE because the climatology predicts the training mean.
 
-A per-cell OLS linear trend fitted on training targets and extrapolated to the test period (linear trend baseline) barely reduces RMSE compared to climatology (1.0659 vs 1.0758), confirming that the nonstationarity is not a smooth monotonic drift well-captured by linear extrapolation. Trend TPR = 0 (confirmed: the linear extrapolation never crosses the SPEI ≤ −1.5 drought threshold during the test period).
+A per-cell OLS linear trend fitted on training targets and extrapolated to the test period (linear trend baseline) barely reduces RMSE compared to climatology (1.0648 vs 1.0768, a 1.1% gain), confirming that the nonstationarity is not a smooth monotonic drift well-captured by linear extrapolation. Trend TPR = 0 (confirmed: the linear extrapolation never crosses the SPEI ≤ −1.5 drought threshold during the test period).
 
-The residual floor is ~1.06 in normalised SPEI units. Fewer than 40% of the 432 grid runs achieve a positive skill margin; models that do tend to have near-zero TPR, while models with non-trivial TPR all fall below the residual floor.
+The residual floor (median per-cell test-period std of a perfect-mean predictor on detrended targets) is 1.056 in normalised SPEI units. Across the 192 candidate runs in the final grid, per-cell median model RMSE ranges 0.939–1.254 (best/median 1.001/worst); the best model beats the linear trend baseline by 0.126 RMSE and climatology by 0.138 RMSE — model skill is not primarily trend-following.
 
 ---
 
@@ -458,9 +467,9 @@ Config is managed with [Hydra](https://hydra.cc). All parameters can be overridd
 | `dynamic_vars` | wb, pr, ps, tas | Input variables alongside SPEI |
 | `use_global_scalars` | false | Load NAO + Med SST; auto-enabled with `global_encoder: film` |
 | `med_sst_agg` | grouped | `grouped` (3 regional means + NAO + sin/cos month = 6 scalars) or `none` (14 basins + NAO + sin/cos = 17 scalars) |
-| `val_from_year` | 2006 | First target year of validation period |
+| `val_from_year` | 2005 | First target year of validation period |
 | `test_from_year` | 2015 | First target year of test period |
-| `batch_size` | 4 | Samples per batch |
+| `batch_size` | 32 | Samples per batch |
 
 **`configs/model/default.yaml`**
 
@@ -475,8 +484,7 @@ Config is managed with [Hydra](https://hydra.cc). All parameters can be overridd
 | `loss_fn` | `mse` | `mse` / `pinball` / `weighted_mse` |
 | `pinball_quantile` | 0.20 | Quantile for pinball loss |
 | `drought_threshold` | −1.5 | SPEI threshold for severe drought |
-| `drought_weight` | 5.0 | Upweight slope for weighted_mse (hinge); the final grid uses 1.0 and 5.0 as two separate losses |
-| `weighted_loss_mode` | `hinge` | Only mode used in the final grid |
+| `drought_weight` | 5.0 | Upweight slope for weighted_mse (hinge — the only weighting mode implemented; the final grid uses drought_weight 1.0 and 5.0 as two separate losses) |
 | `static_encoder` | `none` | `none` / `naive` / `single` / `seasonal` |
 | `static_emb_size` | 16 | Output channels of the static encoder CNN(s) |
 | `global_encoder` | `none` | `none` / `naive` / `film` |
@@ -486,8 +494,9 @@ Config is managed with [Hydra](https://hydra.cc). All parameters can be overridd
 
 | Key | Default |
 |---|---|
-| `max_epochs` | 100 |
-| `early_stopping_patience` | 20 |
-| `lr_scheduler_patience` | 5 |
+| `max_epochs` | 50 |
+| `early_stopping_patience` | 5 |
+| `early_stopping_monitor` | `val/rmse_median` |
+| `lr_scheduler_patience` | 3 |
 | `deterministic` | true |
 

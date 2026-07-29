@@ -1,0 +1,15 @@
+{
+  "rmse_pooled": 1.348867654800415,
+  "mae_pooled": 1.029747486114502,
+  "corr_pooled": 0.18636749684810638,
+  "drought_tpr_pooled": 0.2810910642147064,
+  "drought_f1_pooled": 0.2897998094558716,
+  "valid_cell_months": 241920,
+  "rmse_median": 1.330509901046753,
+  "mae_median": 1.024356722831726,
+  "corr_median": 0.18762458860874176,
+  "drought_f1_median": 0.24242424964904785,
+  "drought_acc_median": 0.8666666746139526,
+  "drought_rocauc_median": 0.6940581798553467,
+  "drought_tpr_median": 0.23076923191547394
+}

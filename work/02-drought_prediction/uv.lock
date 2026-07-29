@@ -479,8 +479,6 @@ dependencies = [
     { name = "seaborn" },
     { name = "torch", version = "2.12.0", source = { registry = "https://pypi.org/simple" }, marker = "sys_platform != 'win32'" },
     { name = "torch", version = "2.13.0+cu132", source = { registry = "https://download.pytorch.org/whl/cu132" }, marker = "sys_platform == 'win32'" },
-    { name = "torcheval" },
-    { name = "torchmetrics" },
     { name = "wandb" },
     { name = "xarray" },
 ]
@@ -497,8 +495,6 @@ requires-dist = [
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "torch", marker = "sys_platform != 'win32'", specifier = ">=2.12.0" },
     { name = "torch", marker = "sys_platform == 'win32'", specifier = ">=2.12.0", index = "https://download.pytorch.org/whl/cu132" },
-    { name = "torcheval", specifier = ">=0.0.7" },
-    { name = "torchmetrics", specifier = ">=1.9.0" },
     { name = "wandb", specifier = ">=0.27.0" },
     { name = "xarray", specifier = ">=2026.4.0" },
 ]
@@ -2026,18 +2022,6 @@ wheels = [
     { url = "https://download-r2.pytorch.org/whl/cu132/torch-2.13.0%2Bcu132-cp313-cp313-win_amd64.whl", upload-time = "2026-07-08T11:20:54Z" },
     { url = "https://download-r2.pytorch.org/whl/cu132/torch-2.13.0%2Bcu132-cp314-cp314-win_amd64.whl", upload-time = "2026-07-08T11:21:10Z" },
     { url = "https://download-r2.pytorch.org/whl/cu132/torch-2.13.0%2Bcu132-cp314-cp314t-win_amd64.whl", upload-time = "2026-07-08T11:21:21Z" },
-]
-
-[[package]]
-name = "torcheval"
-version = "0.0.7"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/f2/65/8f895a132d385c3bc60023a45501637aff63b98629cf45ce47a2035c0cc3/torcheval-0.0.7.tar.gz", hash = "sha256:a498dec34137bc66c9cf1adc7353a46c604dd62255884c72dcb4e2e4fc2cd7e9", size = 100912, upload-time = "2023-08-24T22:12:44.683Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/e4/de/e7abc784b00de9d05999657d29187f1f7a3406ed10ecaf164de06482608f/torcheval-0.0.7-py3-none-any.whl", hash = "sha256:20cc34dac7aa9b32f942c8a9f014d1d02098631b6cd0b102c078600577017956", size = 179200, upload-time = "2023-08-24T22:12:42.874Z" },
 ]
 
 [[package]]

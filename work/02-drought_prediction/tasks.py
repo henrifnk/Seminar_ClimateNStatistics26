@@ -133,11 +133,11 @@ def smoke(c: Context, epochs: int = 2, keep: bool = False):
 
     fixture_dir = Path(tempfile.mkdtemp(prefix="drought_fixture_"))
     print(f"Generating synthetic fixture -> {fixture_dir}")
-    _run(c, f"uv run python code/make_fixture.py {fixture_dir}")
+    _run(c, f"uv run python code/make_fixture.py {shlex.quote(str(fixture_dir))}")
 
     run_name = "smoke_test"
     overrides = (
-        f"data.processed_dir={fixture_dir} data.num_workers=0 "
+        f"data.processed_dir={shlex.quote(str(fixture_dir))} data.num_workers=0 "
         f"trainer.max_epochs={epochs} trainer.accelerator=cpu logger=csv "
         f"run_name={run_name}"
     )
@@ -210,7 +210,6 @@ _COMPARISON_HPARAMS = [
     ("data", "med_sst_agg"),
     ("model", "pinball_quantile"),
     ("model", "drought_weight"),
-    ("model", "weighted_loss_mode"),
 ]
 
 
@@ -334,9 +333,13 @@ def _evaluate_all(c: Context, ckpts: list[str], force: bool = False) -> None:
     """Run eval-only inference for each checkpoint and copy figures.
 
     Skips any checkpoint whose figures/models/<tag>_eval/ output already
-    exists, unless force=True. Test *metrics* are unaffected by skipping --
-    they're already logged by the original training run's own trainer.test()
-    call; this eval_only rerun only regenerates the saved spatial figures.
+    exists (both the spatial PNGs and test_metrics.json -- a partial/interrupted
+    prior run leaving only PNGs does not count as done), unless force=True.
+
+    Forces logger=csv regardless of the checkpoint's own training config: this
+    rerun only exists to regenerate local spatial figures from an already-logged
+    checkpoint, so it must never create a new WandB run -- the original training
+    run is already the authoritative WandB record for these metrics.
     """
     if not ckpts:
         print("No checkpoints to evaluate.")
@@ -344,8 +347,9 @@ def _evaluate_all(c: Context, ckpts: list[str], force: bool = False) -> None:
     for ckpt in ckpts:
         tag = Path(ckpt).stem.replace("best_model_", "")
         fig_dir = Path(FIGURES_DIR) / f"{tag}_eval"
-        if not force and fig_dir.exists() and any(fig_dir.glob("*.png")):
-            print(f"  [{tag}] figures already exist at {fig_dir} -- skipping (force=True to re-run)")
+        done = fig_dir.exists() and any(fig_dir.glob("*.png")) and (fig_dir / "test_metrics.json").exists()
+        if not force and done:
+            print(f"  [{tag}] already evaluated at {fig_dir} -- skipping (force=True to re-run)")
             continue
         overrides_path = Path(ckpt).with_suffix(".overrides")
         if not overrides_path.exists():
@@ -354,8 +358,8 @@ def _evaluate_all(c: Context, ckpts: list[str], force: bool = False) -> None:
         overrides = overrides_path.read_text().strip().replace("\n", " ")
         cmd = (
             f"uv run python code/train.py {overrides}"
-            f" eval_only=true eval_checkpoint={ckpt}"
-            f" run_name={tag}_eval logger.run_name={tag}_eval"
+            f" eval_only=true eval_checkpoint={shlex.quote(ckpt)}"
+            f" run_name={tag}_eval logger=csv"
         )
         print(f"\nEvaluating {tag} ...")
         _run(c, cmd)
@@ -385,8 +389,8 @@ def evaluate(c: Context, checkpoint: str = "", force: bool = False):
 
 @task
 def report(c: Context):
-    """Generate reports/results_report.html from saved_models/gridsearch_comparison.csv."""
-    _run(c, "uv run python reports/gen_report.py")
+    """Generate reports/output/results_report.html from saved_models/gridsearch_comparison.csv."""
+    _run(c, "uv run python reports/generate/gen_report.py")
 
 
 # ---------------------------------------------------------------------------
@@ -398,7 +402,7 @@ def report(c: Context):
 # 4 x 2 x 3 = 24 cells. Within each cell, lr x dropout x weight_decay (2x2x2=8
 # combos) are swept and only the single best checkpoint (lowest val/loss) is
 # kept -- this is what actually produced the results in reports/notes.md and
-# reports/results_report_v2.html (run names there carry the winning HP + seed,
+# reports/output/results_report.html (run names there carry the winning HP + seed,
 # e.g. `mse_naive_film_lr3e-03_do0.0_wd1e-04_s42`), not a fixed-HP run per cell.
 # ---------------------------------------------------------------------------
 

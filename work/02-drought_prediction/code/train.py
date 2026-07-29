@@ -34,11 +34,11 @@ def _model_tag(cfg: DictConfig) -> str:
     """Build a descriptive filename tag from the active model config."""
     if cfg.get("run_name"):
         return cfg.run_name
-    parts = [cfg.model.mode, cfg.model.loss_fn]
+    parts = [cfg.model.loss_fn]
     if cfg.model.loss_fn == "pinball":
         parts.append(f"q{cfg.model.pinball_quantile:.2f}")
     elif cfg.model.loss_fn == "weighted_mse":
-        parts.append(cfg.model.weighted_loss_mode)
+        parts.append("hinge")
         parts.append(f"w{cfg.model.drought_weight}")
     if cfg.model.static_encoder != "none":
         parts.append(cfg.model.static_encoder)
@@ -141,7 +141,6 @@ def main(cfg: DictConfig) -> None:
     # Model
     # ------------------------------------------------------------------
     model = RCNNModule(
-        mode=cfg.model.mode,
         embedding_size=cfg.model.embedding_size,
         hidden_state_size=cfg.model.hidden_state_size,
         kernel_size=cfg.model.kernel_size,
@@ -153,14 +152,11 @@ def main(cfg: DictConfig) -> None:
         periods_forward=cfg.model.periods_forward,
         batch_size=cfg.model.batch_size,
         num_of_additional_features=len(dataset.dynamic_var_names),
-        boundaries=list(cfg.model.boundaries),
-        num_classes=cfg.model.num_classes,
         values_range=cfg.model.values_range,
         drought_threshold=cfg.model.drought_threshold,
         loss_fn=cfg.model.loss_fn,
         pinball_quantile=cfg.model.pinball_quantile,
         drought_weight=cfg.model.drought_weight,
-        weighted_loss_mode=cfg.model.weighted_loss_mode,
         static_encoder=cfg.model.static_encoder,
         static_emb_size=cfg.model.static_emb_size,
         n_static_in=dataset.static_features.shape[0],
@@ -275,7 +271,7 @@ def main(cfg: DictConfig) -> None:
 
         trainer.test(model, test_loader)
 
-    # ── Copy figures to figures/models/{tag}/ ─────────────────────────
+    # ── Copy figures + test metrics to figures/models/{tag}/ ───────────
     if cfg.eval_only:
         fig_src = model._log_dir()
         fig_dst = Path(cfg.figures_dir) / tag
@@ -284,6 +280,9 @@ def main(cfg: DictConfig) -> None:
         for fig in fig_src.glob("*.png"):
             shutil.copy2(fig, fig_dst / fig.name)
             copied += 1
+        metrics_src = fig_src / "test_metrics.json"
+        if metrics_src.exists():
+            shutil.copy2(metrics_src, fig_dst / "test_metrics.json")
         if copied:
             print(f"Figures ({copied}) → {fig_dst}")
 

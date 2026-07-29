@@ -1,5 +1,3 @@
-mode: regression          # regression | classification
-
 embedding_size: 16
 hidden_state_size: 32
 kernel_size: 3
@@ -18,13 +16,11 @@ num_of_additional_features: 4
 n_cells_hor: 43                 # rlat
 n_cells_ver: 98                 # rlon
 
-boundaries: [-2]      # SPEI threshold for drought classification (unused in regression)
-num_classes: 2
 values_range: 10      # ScaledTanh output scale
 
-drought_threshold: -1.5   # SPEI <= this → severe drought (used for binary metrics in regression mode)
+drought_threshold: -1.5   # SPEI <= this → severe drought (used for binary metrics)
 
-# Loss function (regression mode only)
+# Loss function
 # Options: mse | pinball | weighted_mse
 loss_fn: mse
 
@@ -33,13 +29,11 @@ loss_fn: mse
 # Drought SPEI categories: < -1 moderate, < -1.5 severe, < -2 extreme
 pinball_quantile: 0.2     # target quantile; 0.1 focuses on the lower 10th-percentile tail
 
-# Weighted MSE loss
-# mode: hinge    → weight = 1 + drought_weight * max(0, -SPEI); asymmetric, dry-tail only
-#                  (default; used for the final 24-cell grid at drought_weight in {1, 5})
-#        threshold → binary weight (drought_weight below drought_threshold, 1 elsewhere)
-#        absolute  → weight = |SPEI|, scales continuously with severity (Ravuri et al. 2021)
+# Weighted MSE loss (hinge weighting only — the only mode used in the final grid):
+#   weight = 1 + drought_weight * max(0, -SPEI); asymmetric, dry-tail only.
+#   Two other weighting modes (threshold, absolute) were explored but are not part
+#   of the final 24-config grid; see README.
 drought_weight: 5.0
-weighted_loss_mode: hinge
 
 # Static spatial encoder (topography + mask → feature map appended to hidden state)
 # none:     disabled

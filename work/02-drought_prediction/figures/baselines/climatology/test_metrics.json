@@ -1,0 +1,15 @@
+{
+  "rmse_pooled": 1.0773448944091797,
+  "mae_pooled": 0.8797547817230225,
+  "corr_pooled": -0.02477646805346012,
+  "drought_tpr_pooled": 0.0,
+  "drought_f1_pooled": 0.0,
+  "valid_cell_months": 241920,
+  "rmse_median": 1.0792840719223022,
+  "mae_median": 0.8784777522087097,
+  "corr_median": 0.0,
+  "drought_f1_median": 0.0,
+  "drought_acc_median": 0.8999999761581421,
+  "drought_rocauc_median": 0.5844226479530334,
+  "drought_tpr_median": 0.0
+}

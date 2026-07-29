@@ -1,7 +1,4 @@
-import numpy as np
 import torch
-from torchmetrics.classification import AveragePrecision, ROC
-from torcheval.metrics.functional import binary_f1_score, binary_accuracy
 
 
 def _auroc_cells(score: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
@@ -125,48 +122,3 @@ def drought_rmse_pooled(
     tgt_d  = tgt_valid[drought_mask]             # (N_drought,)
     pred_d = pred_valid[drought_mask]            # (N_drought,)
     return torch.sqrt(((pred_d - tgt_d) ** 2).sum() / n_drought.to(all_targets.dtype))
-
-
-def metrics_celled(all_targets, all_preds, mode: str = "train"):
-    dev = all_preds.device
-    rocauc_table = torch.zeros(all_preds.shape[1], all_preds.shape[2], device=dev)
-    rocauc = AUROC(task="binary", num_classes=1)
-    rocauc_table = torch.tensor(
-        [
-            [
-                rocauc(all_preds[:, x, y], all_targets[:, x, y])
-                for x in range(all_preds.shape[1])
-            ]
-            for y in range(all_preds.shape[2])
-        ],
-        device=dev,
-    )
-    rocauc_table = torch.nan_to_num(rocauc_table, nan=0.0)
-
-    ap_table  = torch.zeros(all_preds.shape[1], all_preds.shape[2], device=dev)
-    acc_table = torch.zeros(all_preds.shape[1], all_preds.shape[2], device=dev)
-    f1_table  = torch.zeros(all_preds.shape[1], all_preds.shape[2], device=dev)
-    thresholds = torch.zeros(all_preds.shape[1], all_preds.shape[2], device=dev)
-
-    if mode == "test":
-        ap = AveragePrecision(task="binary")
-        roc = ROC(task="binary")
-        for x in range(all_preds.shape[1]):
-            for y in range(all_preds.shape[2]):
-                ap_table[x][y] = ap(all_preds[:, x, y], all_targets[:, x, y])
-                fpr, tpr, thr = roc(all_preds[:, x, y], all_targets[:, x, y])
-                j_stat = tpr - fpr
-                ind = torch.argmax(j_stat).item()
-                thresholds[x][y] = thr[ind]
-                acc_table[x][y] = binary_accuracy(
-                    all_preds[:, x, y], all_targets[:, x, y], threshold=thresholds[x][y]
-                )
-                f1_table[x][y] = binary_f1_score(
-                    all_preds[:, x, y], all_targets[:, x, y], threshold=thresholds[x][y]
-                )
-
-        ap_table = torch.nan_to_num(ap_table, nan=0.0)
-        f1_table = torch.nan_to_num(f1_table, nan=0.0)
-        acc_table = torch.nan_to_num(acc_table, nan=0.0)
-
-    return rocauc_table, ap_table, f1_table, acc_table, thresholds
