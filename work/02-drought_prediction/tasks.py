@@ -55,9 +55,11 @@ def visualize(c: Context, start: int = 0, panels: int = 12):
         f"v.visualize_raw_mediterranean_slt(); "
         f"v.visualize_raw_topography(); "
         f"v.visualize_raw_al_variables(start_idx={start}, n_panels={panels}); "
+        f"v.visualize_raw_mediterranean_slt_slide(); "
         f"v.visualize_processed_dynamic(start_idx={start}, n_panels={panels}); "
         f"v.visualize_processed_static(); "
-        f"v.visualize_processed_global_scalars()"
+        f"v.visualize_processed_global_scalars(); "
+        f"v.visualize_drought_frequency_severe()"
         f'"',
     )
 
