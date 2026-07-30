@@ -382,9 +382,24 @@ class RCNNModule(LightningModule):
         return x[:, -1, 0]  # (B, H, W)
 
     def _log_dir(self) -> Path:
-        """Resolve the logger's output directory, falling back to logs/."""
-        log_dir_str = getattr(self.logger, "log_dir", None) if self.logger else None
-        return Path(log_dir_str) if log_dir_str else Path("logs")
+        """Resolve the logger's per-run output directory.
+
+        WandbLogger.log_dir is always None by design (it doesn't save data
+        locally under a per-run path the same way CSVLogger does) -- its real
+        per-run local directory is the underlying wandb Run's own `.dir`.
+        Without this, every WandB-logged run fell back to a single shared
+        "logs/" folder, silently overwriting/co-mingling figures and
+        epoch_metrics.csv across unrelated runs.
+        """
+        if self.logger is not None:
+            log_dir_str = getattr(self.logger, "log_dir", None)
+            if log_dir_str:
+                return Path(log_dir_str)
+            experiment = getattr(self.logger, "experiment", None)
+            experiment_dir = getattr(experiment, "dir", None)
+            if experiment_dir:
+                return Path(experiment_dir)
+        return Path("logs")
 
     def _write_test_metrics(self, metrics: dict[str, float]) -> None:
         log_dir = self._log_dir()
