@@ -45,64 +45,6 @@ stations <- list(
   # sachsenheim = sachsenheim
 )
 
-head(stations)
-
-# check for NAs, and calculate percentage of NAs, 
-# exclude years with less then 90 percent of days available
-# exclude years with less than 15 full years available
-
-#na_check_wt <- map_dfr(names(stations), function(station_name) {
- # 
-#  df <- stations[[station_name]]
-#  
-#  df %>%
-#    mutate(
- #     date = as.Date(date),
-  #    expected_obs = if_else(leap_year(year), 366, 365)
-   # ) %>%
-    #group_by(year) %>%
-    #summarise(
-  #    station = station_name,
-   #   total_days = n(),
-#      available_wt = sum(!is.na(wt)),
-#      missing_wt = sum(is.na(wt)),
-#      expected_days = first(expected_obs),
-#      completeness = available_wt / expected_days,
- #     usable_90_percent = completeness >= 0.90,
-  #    .groups = "drop"
- #   ) %>%
-#    select(station, year, everything())
-#})
-#na_check_wt
-
-
-
-
-#na_check_Ta_C <- map_dfr(names(stations), function(station_name) {
-  
- # df <- stations[[station_name]]
-  
-  #df %>%
-   # mutate(
-#      date = as.Date(date),
-#      expected_obs = if_else(leap_year(year), 366, 365)
- #   ) %>%
-  #  group_by(year) %>%
-#    summarise(
- #     station = station_name,
-#      total_days = n(),
- #     available_Ta_C = sum(!is.na(at)),
-#      missing_Ta_C = sum(is.na(at)),
-#      expected_days = first(expected_obs),
-#      completeness = available_Ta_C / expected_days,
-#      usable_90_percent = completeness >= 0.90,
-#      .groups = "drop"
-#    ) %>%
-#    select(station, year, everything())
-#})
-
-#print(na_check_Ta_C, n = 90)
-
 # all events function, creates start, end, duration, mean_intensity, max_intensity and severity for every heatwave
 
 all_events <- map_dfr(names(stations), function(station_name) {
@@ -127,7 +69,7 @@ all_events <- map_dfr(names(stations), function(station_name) {
       .before = 1
     )
 })
-
+all_events
 
 # annualy summary df: stores for each station, the heatwave events, heatwave days, mean duration, max duration,
 # mean intensity, max intensity, mean severity and total severity per year
@@ -147,6 +89,7 @@ annual_summary <- all_events %>%
     .groups = "drop"
   )
 
+annual_summary
 
 # create framework for dataframe
 

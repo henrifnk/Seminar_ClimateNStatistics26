@@ -125,8 +125,6 @@ annual_summary %>%
   group_by(year) %>%
   summarise(n = sum(heatwave_events))
 
-annual_summary %>%
-  filter (year == 2007)
   
 station_levels <- c(
   "schwuerbitz",
@@ -183,7 +181,7 @@ annual_summary$station <- factor(
   annual_summary$station,
   levels = station_levels
 )
-
+annual_summary
 # annualy heatwave frequency by station 
 
 ggplot(
@@ -633,7 +631,11 @@ lm(mean_duration ~ river_km, data = station_summary)
 summary(lm(mean_duration ~ river_km, data = station_summary))
 
 
+# intensity
 
+lm(mean_intensity ~ river_km, data = station_summary)
+
+summary(lm(mean_intensity ~ river_km, data = station_summary))
 
 # SEVERITY
 
