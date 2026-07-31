@@ -9,24 +9,24 @@ library(tidyr)
 
 # load static features
 
-static_features <- read.csv("Water_Temp/static_features.csv")
+static_features <- read.csv("work/05-riverine_heat/data/data_raw/static_features.csv")
 static_features
 # load processed data
 
-# salz <- readRDS("data_processed/fraenkische_saale_salz.rds")
-# wolfsmuenster <- readRDS("data_processed/fraenkische_saale_wolfsmuenster.rds")
-# schenkenau <- readRDS("data_processed/Itz_Schenkenau.rds")
-# frankfurt_osthafen <- readRDS("data_processed/main_frankfurt_osthafen.rds")
-kemmern <- readRDS("data_processed/main_kemmern.rds")
-kleinheubach <- readRDS("data_processed/main_kleinheubach.rds")
-# krotzenburg <- readRDS("data_processed/main_krotzenburg.rds")
-# mainleus <- readRDS("data_processed/main_mainleus.rds")
-schweinfurt <- readRDS("data_processed/main_schweinfurt.rds")
-schwuerbitz <- readRDS("data_processed/main_schwuerbitz.rds")
-# steinbach <- readRDS("data_processed/main_steinbach.rds")
-wuerzburg <- readRDS("data_processed/main_wuerzburg.rds")
-pettstadt <- readRDS("data_processed/regnitz_pettstadt.rds")
-# sachsenheim <- readRDS("data_processed/wern_sachsenheim.rds")
+# salz <- readRDS("work/05-riverine_heat/data/data_processed/fraenkische_saale_salz.rds")
+# wolfsmuenster <- readRDS("work/05-riverine_heat/data/data_processed/fraenkische_saale_wolfsmuenster.rds")
+# schenkenau <- readRDS("work/05-riverine_heat/data/data_processed/Itz_Schenkenau.rds")
+# frankfurt_osthafen <- readRDS("work/05-riverine_heat/data/data_processed/main_frankfurt_osthafen.rds")
+kemmern <- readRDS("work/05-riverine_heat/data/data_processed/main_kemmern.rds")
+kleinheubach <- readRDS("work/05-riverine_heat/data/data_processed/main_kleinheubach.rds")
+# krotzenburg <- readRDS("work/05-riverine_heat/data/data_processed/main_krotzenburg.rds")
+# mainleus <- readRDS("work/05-riverine_heat/data/data_processed/main_mainleus.rds")
+schweinfurt <- readRDS("work/05-riverine_heat/data/data_processed/main_schweinfurt.rds")
+schwuerbitz <- readRDS("work/05-riverine_heat/data/data_processed/main_schwuerbitz.rds")
+# steinbach <- readRDS("work/05-riverine_heat/data/data_processed/main_steinbach.rds")
+wuerzburg <- readRDS("work/05-riverine_heat/data/data_processed/main_wuerzburg.rds")
+pettstadt <- readRDS("work/05-riverine_heat/data/data_processed/regnitz_pettstadt.rds")
+# sachsenheim <- readRDS("work/05-riverine_heat/data/data_processed/wern_sachsenheim.rds")
 
 # print(salz, n = 1000)
 
