@@ -1,0 +1,295 @@
+---
+title: "Riverine Heatwaves"
+author: "Tom Baumann"
+date: "15.7.2026"
+subtitle: "Supervisor: Henri Funk"
+
+output:
+  beamer_presentation:
+    slide_level: 2
+    theme: default
+    includes:
+      in_header: header.tex
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+# Introduction
+
+## Riverine Heatwaves Definition
+
+
+"Broadly, aquatic heatwaves are defined in a similar manner to atmospheric heatwaves, as periods when daily mean water temperature exceeds a local, seasonally varying 90th percentile threshold for a period of at least five days."
+
+~van Hamel, 2025
+
+
+
+## Drivers of Riverine Heatwaves
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/berch.png")
+```
+
+## Impacts of Riverine Heatwaves
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/Heatwave_impacts_png.png")
+```
+
+
+## Importance
+
+
+- Riverine heatwaves are rather unexplored
+
+- Challenges: 
+  - Universally used definition,
+  - Wide network of long term daily river temperature data
+
+- Make projections: 
+  - Understand its drivers (and how they interact to cause heatwaves)
+
+
+# Methods
+
+## Research Question
+
+
+
+1. How has the frequency of riverine heatwaves changed over time?
+
+2. How has the duration of riverine heatwaves changed over time?
+
+3. How has the intensity of riverine heatwaves changed over time?
+
+
+## Data
+
+
+Longitudinal temperature data from 14 gauges at Main river system
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(knitr)
+library(kableExtra)
+df <- read.csv("Water_Temp/Main_Kemmern.csv") 
+
+
+head(df, 5) |>
+  kable(
+    format = "latex",
+    booktabs = FALSE,
+    longtable = FALSE
+  ) |>
+  kable_styling(
+    font_size = 5,
+    latex_options = "scale_down"
+  )
+```
+
+## Locations
+
+Stations included for analysis: red
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/stations_map.png")
+```
+
+## Threshold
+
+- Adopted from definition of marine heatwaves (Hobday, 2016)
+
+- Daily water temperature
+
+- 90th percentile seasonally varying threshold
+
+- Events where threshold is exceeded by 5 consecutive days
+
+- Use temperature data within 11 day window to compute threshold
+
+
+## Threshold example: Main data (Kemmern, 2018)
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/threshold_kemmern.pdf")
+```
+
+## Metrics used
+
+1. Frequency
+
+  Heatwave events: number of heatwaves per year
+
+2. Duration
+
+  Duration: duration of a heatwaves
+  
+
+3. Intensity
+
+  Intensity: mean exceedance of threshold per heatwave
+  
+
+## Methodology
+
+
+- Compute mean temp for every day
+- Calculate threshold from data
+- Create flag for heatwaves
+- Identify heatwaves events (5 consecutive days) and tag them with ID
+- Group by ID and calculate for each the duration and intensity
+- Get heatwave events, mean duration and mean intensity per year
+
+- Use plots and regression modells to detect trends
+
+# Research
+
+
+
+
+## 1. Frequency
+
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/heatwave_events_overview.pdf")
+```
+
+## 1. Frequency
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/heatwave_events_time.pdf")
+```
+
+
+## 1. Frequency
+
+Linear model for common trend: Residuals vs. fitted
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/events_residuals.pdf")
+```
+
+## 1. Frequency
+
+Linear model for common trend: Q-Q-PLot
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/qq_events.pdf")
+```
+
+
+## 1. Frequency
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/heatwave_events_plot.pdf")
+```
+
+## 1. Frequency
+
+Linear model for common trend
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/heatwave_events_lm_table.png")
+```
+
+
+## 2. Duration
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/mean_duration_overview.pdf")
+```
+
+
+## 2. Duration
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/mean_duration.pdf")
+```
+
+## 2. Duration
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/duration_plot.pdf")
+```
+
+## 2. Duration
+
+Linear modell for common trends
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/mean_duration_table.png")
+```
+
+
+## 3. Intensity
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/mean_intensity_overview.pdf")
+```
+
+
+## 3. Intensity
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/mean_intensity.pdf")
+```
+
+## 3. Intensity
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/intensity_plot.pdf")
+```
+
+## 3. Intensity
+
+Linear Modell for common trends
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("Images/mean_intensity_table.png")
+```
+
+
+
+
+
+# Discussion
+
+## Overview of trends common models
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Metric & Slope & P - Value \\
+\hline
+Events & 0,147 & 0,0018 \\
+Mean duration & 0,085 & 0,22 \\
+Mean intensity & 0,008 & 0,19 \\
+
+\hline
+\end{tabular}
+\end{center}
+- According to linear modell: events increase by ca. 2.205 per 15 years
+- Mean duration increases by ca. 1.285 days
+- Mean intensity increases by ca. 0.12 °C
+
+
+## Conclusion
+
+- Significant increase of heatwave events over time
+
+- No significant trends in duration and intensity
+
+- No significant trends for individual stations
+
+- To examine whether duration and intensity are stagnant over time:
+
+-> Longer time series -> ideally at least 30 years 
+
+## Sources
+
+- https://www.nature.com/articles/s44221-025-00541-5#Fig1
+- https://www.sciencedirect.com/science/article/pii/S0079661116000057
+- https://www.nature.com/articles/s41467-025-66868-5?fromPaywallRec=false
+- https://www.pnas.org/doi/10.1073/pnas.2503160122

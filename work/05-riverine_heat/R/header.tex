@@ -1,0 +1,38 @@
+% Alles schwarz-weiß
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=white}
+\setbeamercolor{subtitle}{fg=black,bg=white}
+\setbeamercolor{author}{fg=black,bg=white}
+\setbeamercolor{date}{fg=black,bg=white}
+
+% Keine Navigationssymbole
+\setbeamertemplate{navigation symbols}{}
+
+% Keine Fußzeile mit Titel oder Autor
+\setbeamertemplate{footline}{
+  \hfill
+  \insertframenumber/\inserttotalframenumber
+  \hspace{0.3cm}
+}
+
+% Aktuelles Kapitel klein oben
+\setbeamertemplate{headline}{
+  \vspace{0.2cm}
+  \hspace{0.5cm}
+  {\scriptsize\insertsectionhead}
+  \vspace{0.1cm}
+  \par
+  \hrule height 0.2pt
+  \vspace{0.15cm}
+}
+
+% Schlichte Folientitel
+\setbeamertemplate{frametitle}{
+  \vspace{0.25cm}
+  \insertframetitle
+  \par
+}
+\AtBeginSection[]{
+}
