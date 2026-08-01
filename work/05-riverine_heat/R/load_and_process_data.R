@@ -250,13 +250,13 @@ for (i in seq_along(stations)) {
   stations[[i]] <- detect_heatwaves(stations[[i]])
 }
 stations[[1]]
+
 # save the processed data frames automatically
 
 for (name in names(stations)) {
   
   saveRDS(
     stations[[name]],
-    file = paste0("data_processed/", name, ".rds")
+    file = paste0("work/05-riverine_heat/data/data_processed/", name, ".rds")
   )
-  
 }
