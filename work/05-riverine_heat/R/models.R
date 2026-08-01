@@ -133,10 +133,6 @@ station_summary <- annual_summary %>%
     .groups = "drop"
   )
 
-
-
-
-
 kilometers_main <- c("frankfurt_osthafen" = 37.59,
                      "kemmern" = 390.93,
                      "kleinheubach" = 121.74,
@@ -165,16 +161,7 @@ station_summary
 # ANALYSIS
 
 
-lm_events <- lm(data = annual_summary, heatwave_events ~ year + station)
-
-summary(lm_events)
-
-
-lm_events_effects <- lm(data = annual_summary, heatwave_events ~ year*station)
-
-summary(lm_events_effects)
-
-# insignificant
+# 1. FREQUENCY
 
 poisson_events <- glm(
   heatwave_events ~ year + station,
@@ -183,7 +170,6 @@ poisson_events <- glm(
 )
 
 summary(poisson_events)
-
 
 poisson_events_effects <- glm(
   heatwave_events ~ year * station,
@@ -210,3 +196,30 @@ poisson_severity <- glm(
   data = annual_summary
 )
 summary(poisson_severity)
+
+model <- glm(
+  heatwave_days ~ year + station,
+  family = quasipoisson(link = "log"),
+  data = annual_summary
+)
+
+# 2. DURATION
+
+lm_duration <- lm(
+  mean_duration ~ year + station,
+  data = annual_summary
+)
+
+summary(lm_duration)
+
+# 3. INTENSITY
+
+lm_intensity <- lm(
+  mean_intensity ~ year + station,
+  data = annual_summary
+)
+
+summary(lm_intensity)
+
+
+
