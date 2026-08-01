@@ -221,5 +221,71 @@ lm_intensity <- lm(
 
 summary(lm_intensity)
 
+# River kilometer Trends
+
+# data transformation
+
+station_summary <- annual_summary %>%
+  group_by(station) %>%
+  summarise(
+    mean_events = mean(heatwave_events),
+    mean_duration = mean(mean_duration, na.rm = TRUE),
+    mean_intensity = mean(mean_intensity, na.rm = TRUE),
+    mean_severity = mean(mean_severity, na.rm = TRUE),
+    total_severity = mean(total_severity, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+kilometers_main <- c("frankfurt_osthafen" = 37.59,
+                     "kemmern" = 390.93,
+                     "kleinheubach" = 121.74,
+                     "krotzenburg" = 63.23,
+                     "mainleus" = 461.14,
+                     "schweinfurt" = 330.78,
+                     "schwuerbitz" = 438.29,
+                     "steinbach" = 200.52,
+                     "wuerzburg" = 251.97,
+                     "krotzenburg" = 63.23)
+
+station_summary <- station_summary %>%
+  mutate(river_km = kilometers_main[station])
+station_summary
+
+station_summary <- station_summary %>%
+  arrange(river_km)
+
+# models
+
+# frequency
+lm(mean_events ~ river_km, data = station_summary)
+summary(lm(mean_events ~ river_km, data = station_summary))
 
 
+cor(station_summary$river_km,
+    station_summary$mean_events,
+    use = "complete.obs")
+
+summary(lm(mean_events ~ river_km, data = station_summary))
+
+# sort annual summary
+
+annual_summary <- annual_summary %>%
+  mutate(river_km = kilometers_main[station])
+
+
+annual_summary <- annual_summary %>%
+  arrange(river_km) %>%
+  mutate(station = factor(station, levels = unique(station)))
+
+# duration
+
+lm(mean_duration ~ river_km, data = station_summary)
+
+
+summary(lm(mean_duration ~ river_km, data = station_summary))
+
+# intensity
+
+lm(mean_intensity ~ river_km, data = station_summary)
+
+summary(lm(mean_intensity ~ river_km, data = station_summary))

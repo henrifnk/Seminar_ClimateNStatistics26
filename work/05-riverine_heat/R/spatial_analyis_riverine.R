@@ -182,62 +182,10 @@ annual_summary$station <- factor(
   levels = station_levels
 )
 annual_summary
-# annualy heatwave frequency by station 
 
-ggplot(
-  annual_summary,
-  aes(x = station, y = heatwave_events)
-) +
-  geom_count(
-    alpha = 0.65
-  ) +
-  stat_summary(
-    fun = mean,
-    geom = "crossbar",
-    aes(
-      ymin = after_stat(y),
-      ymax = after_stat(y)
-    ),
-    width = 0.55,
-    linewidth = 0.8,
-    colour = "#D55E00"
-  ) +
-  scale_x_discrete(
-    labels = station_labels
-  ) +
-  scale_size_area(
-    max_size = 6,
-    name = "Number of years"
-  ) +
-  scale_y_continuous(
-    breaks = scales::breaks_width(1),
-    expand = expansion(mult = c(0.02, 0.08))
-  ) +
-  labs(
-    title = "Annual heatwave frequency by station",
-    #subtitle = "Points show annual values; horizontal markers show station means",
-    x = NULL,
-    y = "Heatwave events per year"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    panel.border = element_rect(
-      colour = "black",
-      fill = NA,
-      linewidth = 0.8
-    ),
-    #plot.title = element_text(face = "bold"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank(),
-    axis.text.x = element_text(
-      hjust = 1
-    ),
-    legend.position = "right"
-  )
+# 1. FREQUENCY
 
-
-# # annualy heatwave frequency by station jitter
-
+# overview
 
 annual_summary %>%
   group_by(station) %>%
@@ -247,6 +195,8 @@ annual_summary %>%
     cv_heatwave_events   = sd(heatwave_events) / mean(heatwave_events)
   )
 
+
+# annualy heatwave frequency by station jitter
 
 heatwave_events_overview <- ggplot(
   annual_summary,
@@ -297,12 +247,12 @@ heatwave_events_overview <- ggplot(
     axis.text.x = element_text(angle = 35, hjust = 1)
   )
 
+heatwave_events_overview
 
 
+# 2. DURATION
 
-# 1.2 DURATION
-
-# sd
+# overview
 
 all_events %>%
   group_by(station) %>%
@@ -366,9 +316,9 @@ mean_duration_overview <- ggplot(
     axis.text.x = element_text(angle = 35, hjust = 1)
   )
 
+mean_duration_overview
 
-
-# 1.3 INTENSITY
+# 3. INTENSITY
 
 all_events %>%
   group_by(station) %>%
@@ -377,6 +327,8 @@ all_events %>%
     sd_intensity  = sd(mean_intensity),
     cv_intensity   = sd(mean_intensity) / mean(mean_intensity)
   )
+
+# plot
 
 mean_intensity_overview <- ggplot(all_events,
        aes(station, mean_intensity)) +
@@ -422,82 +374,7 @@ mean_intensity_overview <- ggplot(all_events,
     axis.text.x = element_text(angle = 35, hjust = 1)
   )
 
-
-ggplot(all_events,
-       aes(station, mean_intensity)) +
-  geom_boxplot() +
-  labs(
-    x = "Station",
-    y = "Mean heatwave intensity (°C)"
-  ) +
-  theme_minimal()
-
-all_events$mean_intensity
-
-
-# 1.4 SEVERITY
-
-all_events %>%
-  group_by(station) %>%
-  summarise(
-    mean_severity= mean(severity),
-    sd_severity  = sd(severity),
-    cv_severity  = sd(severity) / mean(severity)
-  )
-
-ggplot(
-  all_events,
-  aes(x = station, y = severity)
-) +
-  geom_boxplot(
-    width = 0.42,
-    outlier.shape = NA,
-    fill = "grey90",
-    linewidth = 0.7
-  ) +
-  geom_jitter(
-    width = 0.12,
-    height = 0,
-    alpha = 0.7,
-    size = 2.3
-  ) +
-  stat_summary(
-    fun = mean,
-    geom = "point",
-    shape = 18,
-    size = 3.5,
-    colour = "#D55E00"
-  ) +
-  scale_x_discrete(labels = station_labels) +
-  scale_y_continuous(
-    breaks = scales::breaks_width(2),
-    expand = expansion(mult = c(0.02, 0.08))
-  ) +
-  labs(
-    title = "Total heatwave intensity by station",
-    subtitle = "Points represent individual heatwave events; diamonds show station means",
-    x = NULL,
-    y = "Tota heatwave intensity (C° days)"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    plot.title = element_text(face = "bold"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.x = element_blank(),
-    axis.text.x = element_text(angle = 35, hjust = 1)
-  )
-
-ggplot(all_events,
-       aes(station, severity)) +
-  geom_boxplot() +
-  labs(
-    x = "Station",
-    y = "Heatwave severity (°C days)"
-  ) +
-  theme_minimal()
-
-
-
+mean_intensity_overview 
 
 # 2. DOWNSTREAM DIFFERENCES
 
@@ -514,10 +391,6 @@ station_summary <- annual_summary %>%
     .groups = "drop"
   )
 
-
-
-
-
 kilometers_main <- c("frankfurt_osthafen" = 37.59,
                      "kemmern" = 390.93,
                      "kleinheubach" = 121.74,
@@ -533,62 +406,10 @@ station_summary <- station_summary %>%
   mutate(river_km = kilometers_main[station])
 station_summary
 
-
-# plots
-
-
 station_summary <- station_summary %>%
   arrange(river_km)
 
-
-ggplot(
-  station_summary,
-  aes(x = river_km, y = mean_events)
-) +
-  geom_point(
-    size = 3.5
-  ) +
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    linewidth = 0.9,
-    alpha = 0.18
-  ) +
-  geom_text(
-    aes(label = station_labels[station]),
-    nudge_y = 0.08,
-    size = 4,
-    check_overlap = TRUE
-  ) +
-  scale_x_reverse() +
-  labs(
-    title = "Longitudinal pattern in heatwave frequency",
-    subtitle = "Main River stations, ordered from upstream to downstream",
-    x = "River kilometre",
-    y = "Mean annual heatwave events"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    plot.title = element_text(face = "bold"),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.y = element_line(linewidth = 0.3)
-  )
-
-
-
-
-
-
-
-lm(mean_events ~ river_km, data = station_summary)
-summary(lm(mean_events ~ river_km, data = station_summary))
-
-
-cor(station_summary$river_km,
-    station_summary$mean_events,
-    use = "complete.obs")
-
-summary(lm(mean_events ~ river_km, data = station_summary))
+# plots
 
 # sort annual summary
 
@@ -599,72 +420,6 @@ annual_summary <- annual_summary %>%
 annual_summary <- annual_summary %>%
   arrange(river_km) %>%
   mutate(station = factor(station, levels = unique(station)))
-
-ggplot(annual_summary,
-       aes(x = station,
-           y = heatwave_events)) +
-  geom_jitter(
-    width = 0.15,
-    height = 0,
-    size = 2,
-    alpha = 0.6
-  ) +
-  stat_summary(
-    fun = mean,
-    geom = "point",
-    size = 4,
-    shape = 18,
-    colour = "red"
-  ) +
-  labs(
-    x = "Station",
-    y = "Heatwave events per year"
-  ) +
-  theme_minimal()
-
-
-# duration
-
-lm(mean_duration ~ river_km, data = station_summary)
-
-
-summary(lm(mean_duration ~ river_km, data = station_summary))
-
-
-# intensity
-
-lm(mean_intensity ~ river_km, data = station_summary)
-
-summary(lm(mean_intensity ~ river_km, data = station_summary))
-
-# SEVERITY
-
-# mean severity
-
-ggplot(station_summary,
-       aes(station, mean_severity)) +
-  geom_boxplot() +
-  labs(
-    x = "Station",
-    y = "Mean heatwave intensity (°C)"
-  ) +
-  theme_minimal()
-
-
-
-# mean(station) total(year) severity
-
-ggplot(station_summary,
-       aes(station, total_severity)) +
-  geom_boxplot() +
-  labs(
-    x = "Station",
-    y = "Mean heatwave intensity (°C)"
-  ) +
-  theme_minimal()
-
-
-
 
 
 ggsave(
@@ -685,7 +440,5 @@ ggsave(
   width = 5,
   height = 4
 )
-heatwave_events_overview
-mean_duration_overview
-mean_intensity_overview
+
 
