@@ -172,8 +172,44 @@ annual_summary$station <- factor(
 
 # 1. FREQUENCY
 
+
 # faceted plot of all stations, including common quasi poisson model trend
 
+
+# Create one prediction for every observed station-year row
+plot_data <- annual_summary %>%
+  mutate(
+    predicted = predict(
+      model,
+      newdata = annual_summary,
+      type = "response"
+    )
+  )
+
+ggplot(
+  plot_data,
+  aes(x = year, y = heatwave_days)
+) +
+  geom_point(size = 2) +
+  geom_line(
+    aes(
+      y = predicted,
+      group = station
+    ),
+    colour = "blue",
+    linewidth = 0.9
+  ) +
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Heatwave days per year and station",
+    subtitle = "Fitted quasi-Poisson model with a common temporal trend",
+    x = "Year",
+    y = "Heatwave days"
+  ) +
+  theme_minimal()
 
 # 2. DURATION
 
