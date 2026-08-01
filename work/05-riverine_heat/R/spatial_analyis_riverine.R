@@ -843,9 +843,9 @@ metric_means <- station_summary %>%
 
 radar_data <- station_summary %>%
   mutate(
-    frequency = mean_events / metric_means$frequency,
-    duration  = mean_duration  / metric_means$duration,
-    intensity = mean_intensity / metric_means$intensity
+    frequency = mean_events / metric_means$mean_events,
+    duration  = mean_duration  / metric_means$mean_duration,
+    intensity = mean_intensity / metric_means$mean_intensity
   )
 
 max_value <- max(
