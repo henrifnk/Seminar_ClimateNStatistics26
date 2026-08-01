@@ -421,24 +421,493 @@ annual_summary <- annual_summary %>%
   arrange(river_km) %>%
   mutate(station = factor(station, levels = unique(station)))
 
+station_summary
 
-ggsave(
-  "Images/heatwave_events_overview.pdf",
-  plot = heatwave_events_overview,
-  width = 5,
-  height = 4
+
+# radar chart
+
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# ------------------------------------------------------------
+# 1. Stationsnamen für die Facet-Beschriftung
+# ------------------------------------------------------------
+
+station_labels <- c(
+  kemmern = "Kemmern",
+  kleinheubach = "Kleinheubach",
+  schweinfurt = "Schweinfurt",
+  schwuerbitz = "Schwürbitz",
+  wuerzburg = "Würzburg",
+  pettstadt = "Pettstadt"
 )
-ggsave(
-  "Images/mean_duration_overview.pdf",
-  plot = mean_duration_overview,
-  width = 5,
-  height = 4
+
+# Falls deine Stationsnamen noch "main_" oder "regnitz_" enthalten,
+# passe den Vektor entsprechend an, zum Beispiel:
+#
+# station_labels <- c(
+#   main_kemmern = "Kemmern",
+#   main_kleinheubach = "Kleinheubach",
+#   main_schweinfurt = "Schweinfurt",
+#   main_schwuerbitz = "Schwürbitz",
+#   main_wuerzburg = "Würzburg",
+#   regnitz_pettstadt = "Pettstadt"
+# )
+
+
+# ------------------------------------------------------------
+# 2. Mittelwerte über alle Stationen berechnen
+# ------------------------------------------------------------
+station_summary
+metric_means <- station_summary %>%
+  summarise(
+    frequency_mean = mean(mean_events, na.rm = TRUE),
+    duration_mean = mean(mean_duration, na.rm = TRUE),
+    intensity_mean = mean(mean_intensity, na.rm = TRUE)
+  )
+
+metric_means
+
+
+# ------------------------------------------------------------
+# 3. Werte relativ zum Mittelwert standardisieren
+#
+# Wert = 1: genau durchschnittlich
+# Wert > 1: überdurchschnittlich
+# Wert < 1: unterdurchschnittlich
+# ------------------------------------------------------------
+
+radar_data <- station_summary %>%
+  transmute(
+    station,
+    
+    frequency = mean_events / metric_means$frequency_mean,
+    duration = mean_duration / metric_means$duration_mean,
+    intensity = mean_intensity / metric_means$intensity_mean
+  )
+
+radar_data
+
+# ------------------------------------------------------------
+# 4. Daten ins Long-Format bringen
+# ------------------------------------------------------------
+
+radar_long <- radar_data %>%
+  pivot_longer(
+    cols = c(frequency, duration, intensity),
+    names_to = "metric",
+    values_to = "relative_value"
+  ) %>%
+  mutate(
+    metric = factor(
+      metric,
+      levels = c(
+        "frequency",
+        "duration",
+        "intensity"
+      )
+    )
+  )
+
+# ------------------------------------------------------------
+# 5. Winkel und Achsenbeschriftungen definieren
+# ------------------------------------------------------------
+
+axis_information <- tibble(
+  metric = factor(
+    c("duration", "intensity", "frequency"),
+    levels = c("frequency", "duration", "intensity")
+  ),
+  
+  angle = c(
+    pi / 2,          # Duration: oben
+    -pi / 6,         # Intensity: rechts unten
+    7 * pi / 6       # Frequency: links unten
+  ),
+  
+  metric_label = c(
+    "Duration",
+    "Intensity",
+    "Frequency"
+  )
 )
-ggsave(
-  "Images/mean_intensity_overview.pdf",
-  plot = mean_intensity_overview,
-  width = 5,
-  height = 4
+
+radar_long <- radar_long %>%
+  left_join(
+    axis_information,
+    by = "metric"
+  ) %>%
+  mutate(
+    x = relative_value * cos(angle),
+    y = relative_value * sin(angle)
+  )
+
+# ------------------------------------------------------------
+# 6. Reihenfolge der Ecken festlegen
+# ------------------------------------------------------------
+
+radar_polygon <- radar_long %>%
+  mutate(
+    polygon_order = case_when(
+      metric == "duration" ~ 1,
+      metric == "intensity" ~ 2,
+      metric == "frequency" ~ 3
+    )
+  ) %>%
+  arrange(
+    station,
+    polygon_order
+  )
+
+# ------------------------------------------------------------
+# 7. Referenzdreieck für jede Station
+# ------------------------------------------------------------
+
+reference_polygon <- crossing(
+  station = unique(radar_data$station),
+  axis_information
+) %>%
+  mutate(
+    relative_value = 1,
+    
+    polygon_order = case_when(
+      metric == "duration" ~ 1,
+      metric == "intensity" ~ 2,
+      metric == "frequency" ~ 3
+    ),
+    
+    x = cos(angle),
+    y = sin(angle)
+  ) %>%
+  arrange(
+    station,
+    polygon_order
+  )
+
+# ------------------------------------------------------------
+# 8. Rasterdreiecke erzeugen
+# ------------------------------------------------------------
+
+grid_levels <- c(0.5, 1.0, 1.5)
+
+grid_polygons <- crossing(
+  station = unique(radar_data$station),
+  grid_level = grid_levels,
+  axis_information
+) %>%
+  mutate(
+    polygon_order = case_when(
+      metric == "duration" ~ 1,
+      metric == "intensity" ~ 2,
+      metric == "frequency" ~ 3
+    ),
+    
+    x = grid_level * cos(angle),
+    y = grid_level * sin(angle)
+  ) %>%
+  arrange(
+    station,
+    grid_level,
+    polygon_order
+  )
+
+# ------------------------------------------------------------
+# 9. Achsenlinien
+# ------------------------------------------------------------
+
+maximum_value <- max(
+  1.5,
+  radar_data$frequency,
+  radar_data$duration,
+  radar_data$intensity,
+  na.rm = TRUE
 )
+
+# Etwas Platz für die Beschriftungen hinzufügen
+
+maximum_value <- max(
+  1.5,
+  radar_data$frequency,
+  radar_data$duration,
+  radar_data$intensity,
+  na.rm = TRUE
+)
+
+
+plot_limit <- maximum_value * 1.18
+
+axis_lines <- crossing(
+  station = unique(radar_data$station),
+  axis_information
+) %>%
+  mutate(
+    x_start = 0,
+    y_start = 0,
+    x_end = maximum_value * cos(angle),
+    y_end = maximum_value * sin(angle)
+  )
+
+axis_labels <- crossing(
+  station = unique(radar_data$station),
+  axis_information
+) %>%
+  mutate(
+    x = plot_limit * cos(angle),
+    y = plot_limit * sin(angle),
+    
+    hjust = case_when(
+      metric == "frequency" ~ 1,
+      metric == "intensity" ~ 0,
+      TRUE ~ 0.5
+    ),
+    
+    vjust = case_when(
+      metric == "duration" ~ 0,
+      TRUE ~ 0.5
+    )
+  )
+
+# ------------------------------------------------------------
+# 10. Facettierter Radar Chart
+# ------------------------------------------------------------
+
+ggplot() +
+  
+  # Rasterdreiecke
+  geom_polygon(
+    data = grid_polygons,
+    aes(
+      x = x,
+      y = y,
+      group = interaction(station, grid_level)
+    ),
+    fill = NA,
+    colour = "grey85",
+    linewidth = 0.4
+  ) +
+  
+  # Drei Radarachsen
+  geom_segment(
+    data = axis_lines,
+    aes(
+      x = x_start,
+      y = y_start,
+      xend = x_end,
+      yend = y_end
+    ),
+    colour = "grey80",
+    linewidth = 0.4
+  ) +
+  
+  # Graues Referenzdreieck: Mittelwert aller Stationen
+  geom_polygon(
+    data = reference_polygon,
+    aes(
+      x = x,
+      y = y,
+      group = station
+    ),
+    fill = "grey70",
+    colour = "grey45",
+    alpha = 0.25,
+    linewidth = 0.8,
+    linetype = "dashed"
+  ) +
+  
+  # Stationsdreieck
+  geom_polygon(
+    data = radar_polygon,
+    aes(
+      x = x,
+      y = y,
+      group = station
+    ),
+    fill = "#0072B2",
+    colour = "#0072B2",
+    alpha = 0.25,
+    linewidth = 1
+  ) +
+  
+  # Punkte an den drei Ecken
+  geom_point(
+    data = radar_polygon,
+    aes(
+      x = x,
+      y = y
+    ),
+    colour = "#0072B2",
+    size = 2.3
+  ) +
+  
+  # Achsenbeschriftungen
+  geom_text(
+    data = axis_labels,
+    aes(
+      x = x,
+      y = y,
+      label = metric_label,
+      hjust = hjust,
+      vjust = vjust
+    ),
+    size = 3.7,
+    fontface = "bold"
+  ) +
+  
+  # Eine Grafik pro Station
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels),
+    ncol = 3
+  ) +
+  
+  coord_equal(
+    xlim = c(-plot_limit, plot_limit),
+    ylim = c(-plot_limit, plot_limit),
+    clip = "off"
+  ) +
+  
+  labs(
+    title = "Heatwave characteristics by station",
+    subtitle = paste(
+      "Values are expressed relative to the mean across all stations;",
+      "the dashed grey triangle represents the overall mean"
+    ),
+    caption = paste(
+      "1.0 = mean across all stations;",
+      "values above 1 indicate above-average conditions"
+    )
+  ) +
+  
+  theme_void(base_size = 13) +
+  
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 16,
+      hjust = 0
+    ),
+    
+    plot.subtitle = element_text(
+      size = 11,
+      margin = margin(
+        b = 15
+      )
+    ),
+    
+    plot.caption = element_text(
+      size = 9,
+      colour = "grey35",
+      hjust = 0
+    ),
+    
+    strip.text = element_text(
+      face = "bold",
+      size = 12,
+      margin = margin(
+        b = 8
+      )
+    ),
+    
+    panel.spacing = unit(
+      1.5,
+      "lines"
+    ),
+    
+    plot.margin = margin(
+      15,
+      20,
+      15,
+      20
+    )
+  )
+
+
+
+# fmsb
+
+install.packages("fmsb")
+
+library(fmsb)
+library(dplyr)
+
+# Relative Werte, wie zuvor
+metric_means <- station_summary %>%
+  summarise(
+    across(
+      c(frequency, duration, intensity),
+      ~ mean(.x, na.rm = TRUE)
+    )
+  )
+
+radar_data <- station_summary %>%
+  mutate(
+    frequency = mean_events / metric_means$frequency,
+    duration  = mean_duration  / metric_means$duration,
+    intensity = mean_intensity / metric_means$intensity
+  )
+
+max_value <- max(
+  1.5,
+  radar_data$frequency,
+  radar_data$duration,
+  radar_data$intensity,
+  na.rm = TRUE
+)
+
+# 2 × 3 Anordnung
+par(
+  mfrow = c(2, 3),
+  mar = c(1.5, 1.5, 3, 1.5)
+)
+
+for (i in seq_len(nrow(radar_data))) {
+  
+  station_values <- radar_data[i, ] %>%
+    select(frequency, duration, intensity)
+  
+  plot_values <- rbind(
+    max = c(max_value, max_value, max_value),
+    min = c(0, 0, 0),
+    reference = c(1, 1, 1),
+    station = station_values
+  )
+  
+  radarchart(
+    plot_values,
+    
+    # Keine oder nur sehr wenige Rasterlinien
+    seg = 1,
+    cglcol = "grey90",
+    cglty = 1,
+    cglwd = 0.6,
+    
+    # Referenzdreieck und Stationsdreieck
+    pcol = c("grey45", "#0072B2"),
+    plty = c(2, 1),
+    plwd = c(1.5, 2.5),
+    
+    pfcol = c(
+      adjustcolor("grey60", alpha.f = 0.08),
+      adjustcolor("#0072B2", alpha.f = 0.20)
+    ),
+    
+    pty = c(NA, 16),
+    
+    vlabels = c(
+      "Frequency",
+      "Duration",
+      "Intensity"
+    ),
+    
+    axistype = 0,
+    title = station_labels[radar_data$station[i]]
+  )
+}
+
+par(mfrow = c(1, 1))
+
+
 
 
