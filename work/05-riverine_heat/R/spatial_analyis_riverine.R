@@ -836,7 +836,7 @@ library(dplyr)
 metric_means <- station_summary %>%
   summarise(
     across(
-      c(frequency, duration, intensity),
+      c(mean_events, mean_duration, mean_intensity),
       ~ mean(.x, na.rm = TRUE)
     )
   )
