@@ -676,30 +676,30 @@ axis_labels <- crossing(
 ggplot() +
   
   # Rasterdreiecke
-  geom_polygon(
-    data = grid_polygons,
-    aes(
-      x = x,
-      y = y,
-      group = interaction(station, grid_level)
-    ),
-    fill = NA,
-    colour = "grey85",
-    linewidth = 0.4
-  ) +
+  #geom_polygon(
+  #  data = grid_polygons,
+  #  aes(
+  #    x = x,
+  #    y = y,
+  #    group = interaction(station, grid_level)
+   # ),
+  #  fill = NA,
+  #  colour = "grey85",
+  #  linewidth = 0.4
+  #) +
   
   # Drei Radarachsen
-  geom_segment(
-    data = axis_lines,
-    aes(
-      x = x_start,
-      y = y_start,
-      xend = x_end,
-      yend = y_end
-    ),
-    colour = "grey80",
-    linewidth = 0.4
-  ) +
+  #geom_segment(
+  #  data = axis_lines,
+  #  aes(
+  #    x = x_start,
+  #    y = y_start,
+  #    xend = x_end,
+  #    yend = y_end
+  #  ),
+#    colour = "grey80",
+ #   linewidth = 0.4
+  #) +
   
   # Graues Referenzdreieck: Mittelwert aller Stationen
   geom_polygon(
@@ -822,7 +822,6 @@ ggplot() +
       20
     )
   )
-
 
 
 # fmsb
