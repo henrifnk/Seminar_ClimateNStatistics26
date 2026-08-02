@@ -907,6 +907,26 @@ for (i in seq_len(nrow(radar_data))) {
 
 par(mfrow = c(1, 1))
 
-
+ggsave(
+  "work/05-riverine_heat/figures/heatwave_events_overview.pdf",
+  plot = heatwave_events_overview,
+  width = 5,
+  height = 4
+)
+heatwave_events_overview
+ggsave(
+  "work/05-riverine_heat/figures/mean_duration_overview.pdf",
+  plot = mean_duration_overview,
+  width = 5,
+  height = 4
+)
+mean_duration_overview
+ggsave(
+  "work/05-riverine_heat/figures/mean_intensity_overview.pdf",
+  plot = mean_intensity_overview,
+  width = 5,
+  height = 4
+)
+mean_intensity_overview
 
 
