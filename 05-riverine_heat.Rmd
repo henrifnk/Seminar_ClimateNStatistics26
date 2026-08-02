@@ -35,15 +35,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 
 ## Drivers of Riverine Heatwaves
 
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/berch.png")
-```
+
 
 ## Impacts of Riverine Heatwaves
 
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/Heatwave_impacts_png.png")
-```
+
 
 
 ## Importance
@@ -77,35 +73,20 @@ knitr::include_graphics("Images/Heatwave_impacts_png.png")
 
 Longitudinal temperature data from 14 gauges at Main river system
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
-library(knitr)
-library(kableExtra)
-df <- read.csv("Water_Temp/Main_Kemmern.csv") 
-
-
-head(df, 5) |>
-  kable(
-    format = "latex",
-    booktabs = FALSE,
-    longtable = FALSE
-  ) |>
-  kable_styling(
-    font_size = 5,
-    latex_options = "scale_down"
-  )
-```
 
 ## Locations
 
 Stations included for analysis: red
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/stations_map.png")
+knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
 ```
 
 ## Threshold
 
 - Adopted from definition of marine heatwaves (Hobday, 2016)
+include formula
+describe more precicely here
 
 - Daily water temperature
 
@@ -119,7 +100,7 @@ knitr::include_graphics("Images/stations_map.png")
 ## Threshold example: Main data (Kemmern, 2018)
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/threshold_kemmern.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.pdf")
 ```
 
 ## Metrics used
@@ -127,18 +108,21 @@ knitr::include_graphics("Images/threshold_kemmern.pdf")
 1. Frequency
 
   Heatwave events: number of heatwaves per year
+  formula
 
 2. Duration
 
   Duration: duration of a heatwaves
+  formula
   
 
 3. Intensity
 
   Intensity: mean exceedance of threshold per heatwave
+  formula
   
 
-## Methodology
+## Methodology (include this mostly already in the other parts maybe)
 
 
 - Compute mean temp for every day
@@ -159,73 +143,40 @@ knitr::include_graphics("Images/threshold_kemmern.pdf")
 
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/heatwave_events_overview.pdf")
-```
-
-## 1. Frequency
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/heatwave_events_time.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.pdf")
 ```
 
 
-## 1. Frequency
+talk about also the sinlge modells,
 
-Linear model for common trend: Residuals vs. fitted
+quasi poisson modell for common trend: Residuals vs. fitted
 
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/events_residuals.pdf")
-```
 
-## 1. Frequency
 
 Linear model for common trend: Q-Q-PLot
 
+
+
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/qq_events.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf")
 ```
 
 
-## 1. Frequency
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/heatwave_events_plot.pdf")
-```
-
-## 1. Frequency
-
-Linear model for common trend
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/heatwave_events_lm_table.png")
-```
 
 
 ## 2. Duration
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/mean_duration_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pdf")
 ```
 
 
-## 2. Duration
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/mean_duration.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 ```
 
-## 2. Duration
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/duration_plot.pdf")
-```
-
-## 2. Duration
-
-Linear modell for common trends
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/mean_duration_table.png")
-```
+linear modell for common trends
 
 
 ## 3. Intensity
@@ -235,33 +186,20 @@ knitr::include_graphics("Images/mean_intensity_overview.pdf")
 ```
 
 
-## 3. Intensity
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/mean_intensity.pdf")
-```
-
-## 3. Intensity
-
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("Images/intensity_plot.pdf")
 ```
 
-## 3. Intensity
 
 Linear Modell for common trends
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("Images/mean_intensity_table.png")
-```
-
-
-
 
 
 # Discussion
 
 ## Overview of trends common models
+
+polygon plots
+
 \begin{center}
 \begin{tabular}{|l|l|l|}
 \hline

@@ -186,7 +186,7 @@ plot_data <- annual_summary %>%
     )
   )
 
-ggplot(
+heatwave_events_plot <- ggplot(
   plot_data,
   aes(x = year, y = heatwave_days)
 ) +
@@ -215,7 +215,7 @@ ggplot(
 
 # 2.1 mean duration
 
-mean_duration <- ggplot(annual_summary,
+duration_plot <- ggplot(annual_summary,
        aes(x = year,
            y = mean_duration)) +
   geom_point() +
@@ -243,13 +243,13 @@ mean_duration <- ggplot(annual_summary,
     )
   )
 
-mean_duration
+
 
 # 3. INTENSITY
 
 # 3. 1 mean intensity
 
-mean_intensity <- ggplot(annual_summary,
+intensity_plot <- ggplot(annual_summary,
        aes(x = year,
            y = mean_intensity)) +
   geom_point() +
@@ -277,7 +277,7 @@ mean_intensity <- ggplot(annual_summary,
     )
   )
 
-mean_intensity
+
 
 # 4. SEVERITY
 
@@ -342,23 +342,26 @@ ggplot(annual_summary,
 # SAVE PLOTS
 
 ggsave(
-  "Images/heatwave_events_time.pdf",
-  plot = heatwave_events_time,
+  "work/05-riverine_heat/figures/heatwave_events_plot.pdf",
+  plot = heatwave_events_plot,
   width = 5,
   height = 4
 )
+heatwave_events_plot
 ggsave(
-  "Images/mean_duration.pdf",
-  plot = mean_duration,
+  "work/05-riverine_heat/figures/duration_plot.pdf",
+  plot = duration_plot,
   width = 5,
   height = 4
 )
+duration_plot
 ggsave(
-  "Images/mean_intensity.pdf",
-  plot = mean_intensity,
+  "work/05-riverine_heat/figures/intensity_plot.pdf",
+  plot = intensity_plot,
   width = 5,
   height = 4
 )
+intensity_plot
 
 
 
