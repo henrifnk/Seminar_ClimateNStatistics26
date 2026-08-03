@@ -1,6 +1,6 @@
 # Climate downscaling using diffusion models
 
-## 1. Introduction
+## Introduction
 Climate downscaling, transforming a coarse-resolution climate field to a high-resolution climate field, has
 gained significance under a changing climate (Ling et al., 2024). A high-resolution
 climate field can represent local extremes on a fine scale, giving authorities the opportunity to allocate
@@ -20,38 +20,76 @@ Diffusion models for downscaling have predominantly been evaluated in an idealis
 degraded to a coarse resolution and the subject of analysis was in how well the diffusion model recovers the original resolution
 (Merrizi et al. 2024; Watt & Mansfield, 2024). A smaller number of studies apply the trained model to climate projections and assess
 how well the climate change signal is preserved (Addison et al., 2025; Aich et al., 2026).
-My seminar is in line with these latter papers as I want to first assess how good the diffusion model performs in downscaling a climate field 
-over a complex terrain (Alpine domain) and also how well the model is able to generalize by applying the trained model on differentl global
-warming levels (distributional shift).  
 
--- So the subject of analysis for my seminar topic will be split into two halves
--- Research Question 1: Can the diffusion model architecture generate calibrated high-resolution climate field ensembles for
-temperature and precipitation over the Alpine domain?
--- Research Question 2: Is the diffusion model able to preserve the climate change signal when downscaling future climate model
-projections?
+My seminar work incorporates both topics assessed by these papers. More precisely, I train the diffusion model architecture on reanalysis data 
+of the Alps, where due to its complex terrain the value added by downscaling is rather large (CITATION). I will investigate the 
+two following questions: First, can the diffusion model generate calibrated high-resolution ensembles for temperature and precipitation over the 
+Alpine domain? Second, is the model able to preserve the climate change signal when downscaling unseen global warming levels.
 
--- With this seminar work I will assess the performace of a simple diffusion model architecture on a complex terrain (Alpine domain)
-and evaluate its behavior when applied on a shifted distribution.
+## Theory behind climate downscaling using diffusion models
+In the context of climate downscaling we want the diffusion model to generate samples drawn from the conditional probability density p(x|y) whereas
+y is the context given to the model (input field, orography map and date). We will follow the diffusion-model architecture established by
+Song et al., 2021 and refined by Karras et al., 2022, called the EDM-formulation.
+The EDM-formulation has beed adopted in several downscaling papers (Watt & Mansfield, 2024; Mardani et al, 2024; López-Gómez et al., 2024) and will also be
+the model logic I utilize for my seminar.
 
-## 2. Theory behind climate downscaling using diffusion models
+Conceptually, the idea of diffusion models is that they generate an image by denoising a Gaussian noise sample iteratively (Song et al., 2021).
+The first step to generate training data is by corrupting a high-resolution image $\boldsymbol{x}_0$ by adding Gaussian noise $\boldsymbol{\epsilon}_i$ on it. 
+This is done for different noise levels $\boldsymbol{\sigma}_i$, that are drawn from a log-normal distribution.
+$$
+\begin{aligned}
+\boldsymbol{x}_i &= \boldsymbol{x}_0 + \boldsymbol{\sigma}_i\, \boldsymbol{\epsilon}_i
+&&\text{with } \boldsymbol{\epsilon}_i \sim \mathcal{N}(0, \mathbf{I}) &\text{and } \ \boldsymbol{\sigma}_i \sim \mathrm{LogN}(\alpha, \beta^2)
+\end{aligned}
+$$
+The model will now have as a target the clean high-resolution image $\boldsymbol{x}_0$ and as input the corrupted field $\boldsymbol{x}_i$
+as well as the low-resolution field $\boldsymbol{y}$, the topography of the field and the date.
 
-### 2.1 Downscaling
+The model $D_\theta(x_i; \sigma_i)$ will now be trained so that it estimates the clean field for a given noise level. So now the model is able to estimate a clean image $\hat{\boldsymbol{x}}_{0i}$ 
+for a given level of corruption of the image.
+Now we use the model to generate a high-resolution image. We start off with a sample of gaussian noise and will now iteratively reduce that noise in the image
+over many steps. At each step the image (in practice a tensor) is moved into the direction of the clean estimate until the noise level is reduced accordingly.
+In the next step the image with the lower noise level will be used as the next input. At the end we have generated a noise-free image over that many steps.
+What is now special is that this image generation process is stochastic and not deterministic because each ensemble member starts from an independent 
+Gaussian noise draw and we inject at each noise level gaussian noise in the image, which is the stochastic component.
+This lets us generate an ensemble of high-resolution climate fields based on the same low-resolution climate field.
 
-### 2.2 Diffusion models
+As outlined in Figure \@ref(fig:downscaling-workflow) for climate downscaling we first interpolate our coarse field bilinearly, then we compute the residual between
+fine-scale field and coarse-scale field. The residual is the target image that we try to generate, after generating a clean residual field we add it on the interpolated field so
+we get the downscaled field.
 
-## 3. Literature review
+```{r downscaling-workflow, echo=FALSE, fig.cap="Residual downscaling workflow: the coarse climate field is bilinearly interpolated to the target resolution, the diffusion model generates the residual, and their sum yields the downscaled field.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/13-diffusion_downscaling/figures/model_structure.png")
+```
 
-## 4. Data and experimental setup
-- Lopez-Gomez fpr mountaneous terrain => justification to go over the ALps
-- my setup is similar to addison 2025
+## Data and experimental setup
+The data set utilized for this seminar topic consists of two different types of data source.
+-- Our data sources will be reanalysis data and climate projection data
+-- As mentioned earlier we will perform downscaling on the two climate variables temperature and precipitation
+-----  Lopez-Gomez fpr mountaneous terrain => justification to go over the ALps
+-- Modelling setup
+----- my setup is similar to addison 2025
+-- we first train the model on reanalysis data where we coarsen the fine-scaled climate field so the model learns a mapping between coarse and fine resolution. The model is trained on the years 2001 - 2016 validated on
+2017 and 2018. After the model has been trained we will apply the trained model on a coarse field from the climate projection data (thanks to A-DROP), to retrieve downscaled version of that field.
+
+## Results
+### Calibration Assessment
+-- In the calibration assessment we use the trained model on data from 2001 - 2018 and evaluate it on held-out test data from 2019 and 2020. In detail we will try to assess the YYY questions,
+
+-- Result CRPS plot
+-- Result Error prone area
+-- Assessment precipitation failure case
+-- Result Power Spectrum
+-- Result Spread-Skill Plot
+
+### Projection Assessment
+-- In projectuo period we downscale climate projection data for the 4 GWLs (explain GWLs and adjusted density plot after feedback)
+-- We assess climate change signal without ground truth so we assess how the climate field changes from coarse to downscaled field
+-- Result summary statistics plot (adjusted after feedback)
+-- Climate change signal climate field plot
+-- New downscaled climate field for extreme dates
 
 
-## 5. Results
-
-### 5.1 Calibration Assessment
-
-### 5.2 Projection Assessment
-
-## 6. Limitations and Outlook
+## Limitations and Outlook
 
 -- Lopez-Gomez 2.3 nice point on how we can use ensembles for downscaling future projections S3.2
