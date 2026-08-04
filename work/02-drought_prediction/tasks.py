@@ -121,11 +121,24 @@ def baselines(c: Context, processed_dir: str = ""):
 
 
 @task
+def feature_importance(c: Context):
+    """Phase 1 interpretability: occlusion feature importance across the six
+    Pinball architecture conditions (saved_models/best_model_pinball_q0.20_*.ckpt).
+
+    No retraining -- test period only. Prints per-checkpoint/per-feature
+    progress as it runs. Writes reports/interpretability/feature_importance_pinball.csv
+    and one two-panel (dRMSE, Ddrought-F1) SVG per condition to
+    figures/interpretability/feature_importance/.
+    """
+    _run(c, "uv run python code/interpretability.py feature-importance")
+
+
+@task
 def smoke(c: Context, epochs: int = 2, keep: bool = False):
     """End-to-end smoke test on a tiny synthetic fixture -- no real dataset needed.
 
     Generates a small synthetic processed_dir (8x8 grid, real 1971-2024 time
-    span, via code/make_fixture.py) and runs dataset -> model -> training ->
+    span, via code/utils/make_fixture.py) and runs dataset -> model -> training ->
     test on CPU, so the full pipeline can be verified without the ~327MB real
     dataset. Cleans up the fixture and its checkpoint/logs afterward unless
     --keep is passed.
@@ -135,7 +148,7 @@ def smoke(c: Context, epochs: int = 2, keep: bool = False):
 
     fixture_dir = Path(tempfile.mkdtemp(prefix="drought_fixture_"))
     print(f"Generating synthetic fixture -> {fixture_dir}")
-    _run(c, f"uv run python code/make_fixture.py {shlex.quote(str(fixture_dir))}")
+    _run(c, f"uv run python code/utils/make_fixture.py {shlex.quote(str(fixture_dir))}")
 
     run_name = "smoke_test"
     overrides = (

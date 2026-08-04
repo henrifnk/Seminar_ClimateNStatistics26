@@ -9,7 +9,7 @@ non-empty train/val/test splits exactly like the real dataset -- no config
 overrides needed beyond pointing data.processed_dir at the fixture.
 
 Usage:
-    python code/make_fixture.py [output_dir]   # defaults to a fresh temp dir; prints the path
+    python code/utils/make_fixture.py [output_dir]   # defaults to a fresh temp dir; prints the path
 """
 
 import json

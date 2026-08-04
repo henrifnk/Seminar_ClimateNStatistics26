@@ -28,6 +28,4 @@ outputs/
 .DS_Store
 
 # Tests / dev utilities
-code/verify_dataset.py
-code/verify_model.py
-code/verify_metrics.py
+code/verify_*

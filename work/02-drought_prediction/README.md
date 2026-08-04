@@ -149,12 +149,12 @@ drought_prediction/
 │   ├── model.py              # RCNNModule (ConvLSTM), loss classes, metric logging
 │   ├── train.py              # Hydra-driven training entry point
 │   ├── eval_baselines.py     # Standalone baseline evaluator (run once via inv baselines)
-│   ├── make_fixture.py       # Tiny synthetic processed_dir for `invoke smoke`
 │   └── utils/
 │       ├── conv_block.py     # Conv2d + BatchNorm2d building block
 │       ├── metrics.py        # Per-cell RMSE / Pearson r / AUROC / F1 / TPR
 │       ├── plotting.py       # Spatial heatmap and forecast plot helpers
 │       ├── paths.py          # Shared data-root resolution (env vars, fail-early checks)
+│       ├── make_fixture.py   # Tiny synthetic processed_dir for `invoke smoke`
 │       └── timing.py         # EpochTimer callback (per-epoch wall-clock logging)
 ├── configs/
 │   ├── config.yaml           # Root config (composes the three groups below)
@@ -209,7 +209,7 @@ one-line message naming the missing path and the env var to set — no silent fa
 schema/shape check (variable names, dims, mask/grid consistency) also runs at load time.
 
 **Smoke-testing without the real dataset:** `invoke smoke` generates a tiny synthetic fixture
-(`code/make_fixture.py` — an 8×8 grid, same 1971–2024 time span so the default split years are
+(`code/utils/make_fixture.py` — an 8×8 grid, same 1971–2024 time span so the default split years are
 non-empty) and runs the full dataset → model → training → test path on CPU in well under a minute.
 
 ### Domain and grid
