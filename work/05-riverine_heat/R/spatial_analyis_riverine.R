@@ -2,8 +2,6 @@ library(ggplot2)
 library(dplyr)
 library(lubridate)
 library(purrr)
-library(Matrix)
-library(lme4)
 library(tidyr)
 
 
@@ -764,86 +762,6 @@ ggplot() +
       20
     )
   )
-
-# fmsb
-
-install.packages("fmsb")
-
-library(fmsb)
-
-metric_means <- station_summary %>%
-  summarise(
-    across(
-      c(mean_events, mean_duration, mean_intensity),
-      ~ mean(.x, na.rm = TRUE)
-    )
-  )
-
-radar_data <- station_summary %>%
-  mutate(
-    frequency = mean_events / metric_means$mean_events,
-    duration  = mean_duration  / metric_means$mean_duration,
-    intensity = mean_intensity / metric_means$mean_intensity
-  )
-
-max_value <- max(
-  1.5,
-  radar_data$frequency,
-  radar_data$duration,
-  radar_data$intensity,
-  na.rm = TRUE
-)
-
-par(
-  mfrow = c(2, 3),
-  mar = c(1.5, 1.5, 3, 1.5)
-)
-
-for (i in seq_len(nrow(radar_data))) {
-  
-  station_values <- radar_data[i, ] %>%
-    select(frequency, duration, intensity)
-  
-  plot_values <- rbind(
-    max = c(max_value, max_value, max_value),
-    min = c(0, 0, 0),
-    reference = c(1, 1, 1),
-    station = station_values
-  )
-  
-  radarchart(
-    plot_values,
-    
-    # Keine oder nur sehr wenige Rasterlinien
-    seg = 1,
-    cglcol = "grey90",
-    cglty = 1,
-    cglwd = 0.6,
-    
-    # Referenzdreieck und Stationsdreieck
-    pcol = c("grey45", "#0072B2"),
-    plty = c(2, 1),
-    plwd = c(1.5, 2.5),
-    
-    pfcol = c(
-      adjustcolor("grey60", alpha.f = 0.08),
-      adjustcolor("#0072B2", alpha.f = 0.20)
-    ),
-    
-    pty = c(NA, 16),
-    
-    vlabels = c(
-      "Frequency",
-      "Duration",
-      "Intensity"
-    ),
-    
-    axistype = 0,
-    title = station_labels[radar_data$station[i]]
-  )
-}
-
-par(mfrow = c(1, 1))
 
 ggsave(
   "work/05-riverine_heat/figures/heatwave_events_overview.pdf",
