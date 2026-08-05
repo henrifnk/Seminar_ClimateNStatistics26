@@ -39,7 +39,7 @@ exceeds a local seasonally varying percentile based threshold for a prolonged pe
 baseline period is used, to calculate the threshold, which is then applied to the examined time series, of the same 
 location. [@hobday2016] (hamel, hobday, chen)
 Although the definition is similar, aquatic heatwaves and atmospheric heatwaves behave differently, as aquatic heatwaves 
-tend to be more rare, but more persistent, than atmospheric heatwaves. (hamel)
+tend to be more rare, but more persistent, than atmospheric heatwaves. [@hamel2024]
 
 ### Drivers
 
@@ -54,7 +54,7 @@ However, so far very little is know on how riverine heatwaves are caused. It is 
 are usually processes that include a number of these drivers.
 From literature we know, that usually riverine heatwaves relate to high air temperature and solar radiation, low 
 discharge and changes in water sources. Also they tend to appear most frequently above dams and in free-flowing rivers 
-(hamel).
+[@hamel2024].
 Although there have been some studies indicating correlations between these processes and riverine heatwaves, they are 
 not fully understood yet, and there still remains a large knowledge gap.
 
@@ -144,7 +144,7 @@ The definition of marine heatwaves by Hobday uses a 90th percentile seasonally v
 with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
 each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding 
 window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is 
-depicted below, where i is... and x is...(Hobday 2016, \@ref(eq:threshold)) This procedure will be repeated for each day of year, until the 
+depicted below, where i is... and x is...[@hobday2016], \@ref(eq:threshold) This procedure will be repeated for each day of year, until the 
 threshold for the entire year is completed. 
 
 \begin{equation}
