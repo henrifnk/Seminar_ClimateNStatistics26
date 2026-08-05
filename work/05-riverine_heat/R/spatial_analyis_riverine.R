@@ -426,14 +426,7 @@ station_summary
 
 # radar chart
 
-
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
-# ------------------------------------------------------------
-# 1. Stationsnamen für die Facet-Beschriftung
-# ------------------------------------------------------------
+#1
 
 station_labels <- c(
   kemmern = "Kemmern",
@@ -444,22 +437,8 @@ station_labels <- c(
   pettstadt = "Pettstadt"
 )
 
-# Falls deine Stationsnamen noch "main_" oder "regnitz_" enthalten,
-# passe den Vektor entsprechend an, zum Beispiel:
-#
-# station_labels <- c(
-#   main_kemmern = "Kemmern",
-#   main_kleinheubach = "Kleinheubach",
-#   main_schweinfurt = "Schweinfurt",
-#   main_schwuerbitz = "Schwürbitz",
-#   main_wuerzburg = "Würzburg",
-#   regnitz_pettstadt = "Pettstadt"
-# )
+#2
 
-
-# ------------------------------------------------------------
-# 2. Mittelwerte über alle Stationen berechnen
-# ------------------------------------------------------------
 station_summary
 metric_means <- station_summary %>%
   summarise(
@@ -470,14 +449,7 @@ metric_means <- station_summary %>%
 
 metric_means
 
-
-# ------------------------------------------------------------
-# 3. Werte relativ zum Mittelwert standardisieren
-#
-# Wert = 1: genau durchschnittlich
-# Wert > 1: überdurchschnittlich
-# Wert < 1: unterdurchschnittlich
-# ------------------------------------------------------------
+#3
 
 radar_data <- station_summary %>%
   transmute(
@@ -490,9 +462,7 @@ radar_data <- station_summary %>%
 
 radar_data
 
-# ------------------------------------------------------------
-# 4. Daten ins Long-Format bringen
-# ------------------------------------------------------------
+#4
 
 radar_long <- radar_data %>%
   pivot_longer(
@@ -511,9 +481,7 @@ radar_long <- radar_data %>%
     )
   )
 
-# ------------------------------------------------------------
-# 5. Winkel und Achsenbeschriftungen definieren
-# ------------------------------------------------------------
+#5
 
 axis_information <- tibble(
   metric = factor(
@@ -522,9 +490,9 @@ axis_information <- tibble(
   ),
   
   angle = c(
-    pi / 2,          # Duration: oben
-    -pi / 6,         # Intensity: rechts unten
-    7 * pi / 6       # Frequency: links unten
+    pi / 2,
+    -pi / 6,
+    7 * pi / 6       
   ),
   
   metric_label = c(
@@ -544,9 +512,7 @@ radar_long <- radar_long %>%
     y = relative_value * sin(angle)
   )
 
-# ------------------------------------------------------------
-# 6. Reihenfolge der Ecken festlegen
-# ------------------------------------------------------------
+#6
 
 radar_polygon <- radar_long %>%
   mutate(
@@ -561,9 +527,7 @@ radar_polygon <- radar_long %>%
     polygon_order
   )
 
-# ------------------------------------------------------------
-# 7. Referenzdreieck für jede Station
-# ------------------------------------------------------------
+#7
 
 reference_polygon <- crossing(
   station = unique(radar_data$station),
@@ -586,9 +550,7 @@ reference_polygon <- crossing(
     polygon_order
   )
 
-# ------------------------------------------------------------
-# 8. Rasterdreiecke erzeugen
-# ------------------------------------------------------------
+#8
 
 grid_levels <- c(0.5, 1.0, 1.5)
 
@@ -613,9 +575,7 @@ grid_polygons <- crossing(
     polygon_order
   )
 
-# ------------------------------------------------------------
-# 9. Achsenlinien
-# ------------------------------------------------------------
+#9
 
 maximum_value <- max(
   1.5,
@@ -624,8 +584,6 @@ maximum_value <- max(
   radar_data$intensity,
   na.rm = TRUE
 )
-
-# Etwas Platz für die Beschriftungen hinzufügen
 
 maximum_value <- max(
   1.5,
@@ -669,13 +627,9 @@ axis_labels <- crossing(
     )
   )
 
-# ------------------------------------------------------------
-# 10. Facettierter Radar Chart
-# ------------------------------------------------------------
+#10
 
 ggplot() +
-  
-  # Rasterdreiecke
   geom_polygon(
     data = grid_polygons,
     aes(
@@ -687,8 +641,6 @@ ggplot() +
     colour = "grey85",
     linewidth = 0.4
   ) +
-  
-  # Drei Radarachsen
   geom_segment(
     data = axis_lines,
     aes(
@@ -700,8 +652,6 @@ ggplot() +
     colour = "grey80",
     linewidth = 0.4
   ) +
-  
-  # Graues Referenzdreieck: Mittelwert aller Stationen
   geom_polygon(
     data = reference_polygon,
     aes(
@@ -715,8 +665,6 @@ ggplot() +
     linewidth = 0.8,
     linetype = "dashed"
   ) +
-  
-  # Stationsdreieck
   geom_polygon(
     data = radar_polygon,
     aes(
@@ -729,8 +677,6 @@ ggplot() +
     alpha = 0.25,
     linewidth = 1
   ) +
-  
-  # Punkte an den drei Ecken
   geom_point(
     data = radar_polygon,
     aes(
@@ -740,8 +686,6 @@ ggplot() +
     colour = "orange",
     size = 2.3
   ) +
-  
-  # Achsenbeschriftungen
   geom_text(
     data = axis_labels,
     aes(
@@ -754,8 +698,6 @@ ggplot() +
     size = 3.7,
     fontface = "bold"
   ) +
-  
-  # Eine Grafik pro Station
   facet_wrap(
     ~ station,
     labeller = as_labeller(station_labels),
@@ -823,15 +765,12 @@ ggplot() +
     )
   )
 
-
 # fmsb
 
 install.packages("fmsb")
 
 library(fmsb)
-library(dplyr)
 
-# Relative Werte, wie zuvor
 metric_means <- station_summary %>%
   summarise(
     across(
@@ -855,7 +794,6 @@ max_value <- max(
   na.rm = TRUE
 )
 
-# 2 × 3 Anordnung
 par(
   mfrow = c(2, 3),
   mar = c(1.5, 1.5, 3, 1.5)
