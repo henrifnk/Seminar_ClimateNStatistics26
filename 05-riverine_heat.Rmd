@@ -57,18 +57,6 @@ discharge and changes in water sources. Also they tend to appear most frequently
 Although there have been some studies indicating correlations between these processes and riverine heatwaves, they are 
 not fully understood yet, and there still remains a large knowledge gap.
 
-e.g. flow + temperature
-entweder: besipeile
-oder: however it remains to be examined more closely, how these different driving factors combine to cause heatwaves.
- In general, river water temperature is controlled by atmospheric conditions (the energy budget at the air–water interface), hydrologic conditions (discharge and the interaction with different water bodies, such as lakes and tributaries), processes at the water–streambed interface (for example, groundwater–surface water interactions), the surrounding environment (for example, riparian vegetation, impervious surfaces and shading) and management impacts (for example, thermal effluents from industries and urban wastewater)14,59,60,61.  (hamel)
- 
- Specifically, little is known about how different processes interact during the development of riverine heatwaves. These processes include high atmospheric energy inputs (dominated by intense solar radiation), slower streamflow velocities and reduced volume (permitting more time for heat absorption and lower thermal capacity, respectively), and changes in water sources (for example, reduced groundwater inflow, which normally cools rivers during the summer). (hamel)
- 
- !!
- From the literature, we know that riverine heatwaves generally relate to high air temperature, low streamflow and drought conditions29, particularly the most severe events27,28, and tend to occur most frequently above dams and in free-flowing rivers1 (hamel)
- 
- However, it has been found25 that water temperature extremes are less closely linked to air temperature than non-extreme water temperatures, and are also partially explained by soil moisture and streamflow amounts. These first studies on the drivers of riverine heatwaves suggest that riverine heatwave development is influenced by a number of processes. This emphasizes the need to study and understand the (combination of) drivers that lead to riverine heatwaves more thoroughly. (hamel)
-
 ## Impacts
 
 The appearance of riverine heatwaves can have both ecological and socioeconomic impacts. These can be parted into 
@@ -196,16 +184,9 @@ different aspects.
 
 To quantify the evolution of frequency, for each heatwave the number of heatwave events per year will be used. This 
 will be Calculated per station, or may be summarized over different stations or years. For the calculation, we will use 
-the IDs given to the heatwaves.
-1. Frequency
-
-  Heatwave events: number of heatwaves per year
-  formula
-
-summary statistics for each heatwave
-Furthermore, we will consider the duration of the heatwaves. This is calculated using the first and last day of each 
-heatwave \@ref(eq:duration). The duration plays an important role, as especially longer heatwaves can have more severs 
-impacts.
+the IDs given to the heatwaves. Furthermore, we will consider the duration of the heatwaves. This is calculated using 
+the first and last day of each heatwave \@ref(eq:duration). The duration plays an important role, as especially longer 
+heatwaves can have more severe impacts.
 
 \begin{equation}
 D = t_e - t_s
@@ -213,14 +194,13 @@ D = t_e - t_s
 \end{equation}
   
 Lastly, we will use intensity, to assess the amount of the heat spike. The intensity, is defined as the temperature, by 
-which the heatwave threshold is exceeded. In this paper it is defined, as the mean of this temperature exceedence per 
-heatwave. As shown in Equation \@ref(eq:intensity), heatwave intensity is calculated as ...
-3. Intensity
+which the 90 percent temperature threshold is exceeded. In this paper it is defined, as the mean of this temperature 
+exceedance per heatwave\@ref(eq:intensity).
 
 \begin{equation}
 i_{\mathrm{mean}}
 =
-\overline{T(t)-T_m(j)}
+\overline{T(t)-T_{90}(j)}
 (\#eq:intensity)
 \end{equation}
 
