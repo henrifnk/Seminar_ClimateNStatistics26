@@ -84,6 +84,10 @@ cases.
 
 ## Importance / research possibilities
 
+just ennumerate research possibilities in general, no need to relate to my paper, no need to go much into detail
+
+evtl when touching on universal definition (aber eigtl nicht mein paper ist ja allgemein über riverine heatwaves)
+
 Multiple studies have shown that mean river temperatures have increased over recent decades in different parts of the world, including in Europe21,25,30,62,63,64, North America22,65,66, the Eurasian Arctic67,68 and globally69.
 
 Such an increase has already been documented in the United States, where the number of riverine heatwaves has doubled, with on average 11 heatwave days per year in 1996 to 25 in 20211. This rising trend in riverine heatwave occurrence appears to be outpacing that of atmospheric heatwaves24.
@@ -98,6 +102,8 @@ Although changes in mean water temperature have received considerable scientific
 
 - Make projections: 
   - Understand its drivers (and how they interact to cause heatwaves)
+
+Dense monitoring networks along individual rivers could facilitate a better understanding of the small-scale variability of processes leading to riverine heatwaves and on how processes generating riverine heatwaves change from upstream to downstream or from low-order to high-order streams82.
 
 models: Finally, the construction of reliable models to forecast and predict future riverine heatwave occurrence requires calibration and evaluation data to ensure robust performance and quantify and constrain their uncertainty. Models developed on limited data often fail when applied beyond their original scope or for the projection of extremes83,84,85. Using datasets that cover diverse elevation and climate zones is probably going to improve model accuracy, because it enables capturing a broader range of water temperature regimes, which is especially important when studying riverine heatwaves.
 Water temperature models are essential tools for quantifying the contributions of different driving processes of water temperature (for example, refs. 18,25) and to generate water temperature forecasts and future projections (for example, refs. 34,73). However, they might not yet be fit for the purpose of modelling riverine heatwaves.
@@ -223,11 +229,40 @@ the metrics differ between the stations.
 
 # Research
 
-Dense monitoring networks along individual rivers could facilitate a better understanding of the small-scale variability of processes leading to riverine heatwaves and on how processes generating riverine heatwaves change from upstream to downstream or from low-order to high-order streams82.
-
 
 ## 1. Frequency
 
+Figure 1 shows the distribution of heatwave frequency for each station, with the stations being ordered by their 
+position along the river from upstream to downstream. We can see, that for each station the mean frequency lies 
+between 2.5 and 3. Both its mean and its variance seem to slighty increase in a downstream direction. To investigate
+this more thoroughly, a linear model between the mean frequency per station, and the river kilometer, a static variable, 
+that indicates for each station its distance from the river source??, was used. It indicated a increasing, however 
+insignificant of ... .
+
+To examine the temporal trend of frequency, the heatwave events for each station were grouped by the year, and we used a 
+quasi poisson modell, to look for correlation between the frequency and year. Fitting a modell for each individual station
+led only to 1 significant and 5 insignificant results. Also a common quasi poisson modell of frequency and year was used, 
+treating the station variable as a static effect. This resulted into a significant positive trend over time. The common
+quasi poisson is depicted in figure 2 where it is plotted into the frequency distribution of each station individually.
+The offset represents the intercept of the station effect, as the frequency of heatwaves differs from station to station.
+
+figure 1
+annual frequency per station
+sorted by the order in the river system (from source to mouth)
+frequency mean between 2,5 and 3 
+some with 0 events, max is 10
+mean and variance slightly increase downstream
+fitted lm with river kilometer, not significant, maybe interesting to look into with more station
+
+figure 2
+frequency each station incorporated common quasi poisson trend
+    1. seems to be increasing, but insignificant
+    2. but bc seems to be i wanted to look for general trend → common lm
+    3. a bit higher variance in the end but seems to be ok
+    4. on diagonal lines (count variable)
+    5. qq plot (see if residual are normally distributed), seems to fit, just end→ is normal for small sample sized (extremes weigh more)
+    6. seems to be ok → fitted: see increasing trend, seems to go along with the trend of most stations
+    7. significant,  0,147 per year
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.pdf")
@@ -253,6 +288,16 @@ knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf"
 
 ## 2. Duration
 
+2. duration
+    1. heatwave duration by station (of each heatwave)
+        1. starts at 5 (makes sense), up to 28, high outliers , variance increases
+        2. mean between 8 and 10 days
+        3. no trend mean wise
+    2. same pocedure: fitted lms
+        1. this time: for the 3 source stations there seems to be a positive trend, but no general trends
+    3. and in fact when we fit a common lm, there is only a slight increase, goes against some station trends
+    4. also its insignificant
+
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pdf")
 ```
@@ -267,6 +312,20 @@ linear modell for common trends
 
 
 ## 3. Intensity
+
+3. intensity
+    1. heatwave intensity per station
+        1. range of 0 to 2 degrees
+        2. variance decrease slightly
+        3. mean seems to decrease
+        4. fitted lm, again no significant trends
+    2. yearly mean heatwave intensity per station
+        1. again lm
+        2. high variance in the upstream stations
+        3. seems to be no trend
+    3. common lm
+        1. confirms that, flat line
+        2. not significant
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.pdf")
