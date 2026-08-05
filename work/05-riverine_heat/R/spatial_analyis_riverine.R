@@ -794,4 +794,237 @@ ggsave(
 )
 mean_intensity_overview
 
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 
+# ============================================================
+# 1. Prepare yearly radar data
+# ============================================================
+
+radar_data_year <- annual_summary %>%
+  group_by(year) %>%
+  summarise(
+    frequency = mean(heatwave_events, na.rm = TRUE),
+    duration  = mean(mean_duration, na.rm = TRUE),
+    intensity = mean(mean_intensity, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(year)
+
+# Relative to overall mean (= reference triangle)
+
+radar_data_year <- radar_data_year %>%
+  mutate(
+    frequency = frequency / mean(frequency),
+    duration  = duration  / mean(duration),
+    intensity = intensity / mean(intensity)
+  )
+
+# Chronological order
+
+radar_data_year$year <- factor(
+  radar_data_year$year,
+  levels = sort(unique(radar_data_year$year))
+)
+
+# ============================================================
+# 2. Determine common scale
+# ============================================================
+
+maximum_value <- max(
+  radar_data_year$frequency,
+  radar_data_year$duration,
+  radar_data_year$intensity
+)
+
+maximum_value <- ceiling(maximum_value * 10) / 10
+
+grid_levels <- c(0.5, 1.0, 1.5)
+
+if(maximum_value > 1.5){
+  grid_levels <- c(grid_levels, maximum_value)
+}
+
+# ============================================================
+# 3. Convert to long format
+# ============================================================
+
+plot_data <- radar_data_year %>%
+  pivot_longer(
+    cols = c(frequency, duration, intensity),
+    names_to = "metric",
+    values_to = "value"
+  )
+
+plot_data$metric <- factor(
+  plot_data$metric,
+  levels = c("duration", "intensity", "frequency")
+)
+
+angles <- c(
+  duration = 90,
+  intensity = 330,
+  frequency = 210
+)
+
+plot_data <- plot_data %>%
+  mutate(
+    angle = angles[metric],
+    angle_rad = angle * pi / 180,
+    x = value * cos(angle_rad),
+    y = value * sin(angle_rad)
+  )
+
+plot_data <- plot_data %>%
+  group_by(year) %>%
+  arrange(metric) %>%
+  bind_rows(slice(., 1)) %>%
+  ungroup()
+
+# ============================================================
+# 4. Reference triangle (overall mean = 1)
+# ============================================================
+
+reference <- data.frame(
+  metric = factor(
+    c("duration", "intensity", "frequency", "duration"),
+    levels = c("duration", "intensity", "frequency")
+  ),
+  value = 1
+)
+
+reference <- reference %>%
+  mutate(
+    angle = angles[metric],
+    angle_rad = angle * pi / 180,
+    x = value * cos(angle_rad),
+    y = value * sin(angle_rad)
+  )
+
+# ============================================================
+# 5. Background grid
+# ============================================================
+
+grid <- expand.grid(
+  metric = factor(
+    c("duration", "intensity", "frequency"),
+    levels = c("duration", "intensity", "frequency")
+  ),
+  level = grid_levels
+)
+
+grid <- grid %>%
+  mutate(
+    angle = angles[metric],
+    angle_rad = angle * pi / 180,
+    x = level * cos(angle_rad),
+    y = level * sin(angle_rad)
+  )
+
+grid <- grid %>%
+  group_by(level) %>%
+  arrange(metric) %>%
+  bind_rows(slice(., 1)) %>%
+  ungroup()
+
+# ============================================================
+# 6. Axes
+# ============================================================
+
+axes <- data.frame(
+  metric = c("duration", "intensity", "frequency"),
+  x = maximum_value * cos(angles * pi / 180),
+  y = maximum_value * sin(angles * pi / 180)
+)
+
+labels <- data.frame(
+  metric = c("Duration", "Intensity", "Frequency"),
+  x = (maximum_value + 0.20) * cos(angles * pi / 180),
+  y = (maximum_value + 0.20) * sin(angles * pi / 180)
+)
+
+# ============================================================
+# 7. Plot
+# ============================================================
+
+ggplot() +
+  
+  geom_polygon(
+    data = grid,
+    aes(x, y, group = level),
+    fill = NA,
+    colour = "grey90",
+    linewidth = 0.4
+  ) +
+  
+  geom_segment(
+    data = axes,
+    aes(
+      x = 0,
+      y = 0,
+      xend = x,
+      yend = y
+    ),
+    colour = "grey85",
+    linewidth = 0.4
+  ) +
+  
+  geom_polygon(
+    data = reference,
+    aes(x, y),
+    fill = "grey70",
+    alpha = 0.10,
+    colour = "grey45",
+    linewidth = 0.9,
+    linetype = 2
+  ) +
+  
+  geom_polygon(
+    data = plot_data,
+    aes(
+      x,
+      y,
+      group = year
+    ),
+    fill = "#0072B2",
+    alpha = 0.20,
+    colour = "#0072B2",
+    linewidth = 1.2
+  ) +
+  
+  geom_point(
+    data = plot_data,
+    aes(x, y),
+    colour = "#0072B2",
+    size = 2
+  ) +
+  
+  geom_text(
+    data = labels,
+    aes(x, y, label = metric),
+    fontface = "bold",
+    size = 4.5
+  ) +
+  
+  coord_equal() +
+  
+  facet_wrap(
+    ~year,
+    ncol = 5
+  ) +
+  
+  theme_void() +
+  
+  theme(
+    strip.text = element_text(
+      face = "bold",
+      size = 12
+    ),
+    panel.spacing = unit(1.4, "lines")
+  ) +
+  
+  labs(
+    title = "Heatwave characteristics by year",
+    subtitle = "Values are expressed relative to the mean across all years; the dashed grey triangle represents the overall mean"
+  )

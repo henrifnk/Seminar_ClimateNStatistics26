@@ -29,9 +29,9 @@ quantified and assessed. This will be helpful, to gain a better understanding of
 especially important to explore how riverine heatwaves evolve during climate change, as all three metrics to quantify
 frequency, duration and intensity seem to be increasing.
 
-# Introduction
+# Introduction to Riverine Heatwaves
 
-## Riverine Heatwaves Definition
+## Definition
 
 Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature 
 exceeds a local seasonally varying percentile based threshold for a prolonged period of time. Usually, a historical 
@@ -40,7 +40,7 @@ location. (hamel, hobday, chen)
 Although the definition is similar, aquatic heatwaves and atmospheric heatwaves behave differently, as aquatic heatwaves 
 tend to be more rare, but more persistent, than atmospheric heatwaves. (hamel)
 
-## Drivers of Riverine Heatwaves
+## Drivers
 
 As riverine heatwaves are a phenomenon that has not gained much attention so far, its drivers are not fully understood 
 yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric 
@@ -69,7 +69,7 @@ oder: however it remains to be examined more closely, how these different drivin
  
  However, it has been found25 that water temperature extremes are less closely linked to air temperature than non-extreme water temperatures, and are also partially explained by soil moisture and streamflow amounts. These first studies on the drivers of riverine heatwaves suggest that riverine heatwave development is influenced by a number of processes. This emphasizes the need to study and understand the (combination of) drivers that lead to riverine heatwaves more thoroughly. (hamel)
 
-## Impacts of Riverine Heatwaves
+## Impacts
 
 The appearance of riverine heatwaves can have both ecological and socioeconomic impacts. These can be parted into 
 different layers. Firstly there are the immediate effects of prolonged periods of high water temperature. The higher 
@@ -82,7 +82,7 @@ Moreover, high water temperatures can also negatively impact energy production, 
 relies on cooling water from close by river system, which already has been unavailable due to riverine heatwaves in some 
 cases.
 
-## Importance / research possibilities
+## Research possibilities
 
 just ennumerate research possibilities in general, no need to relate to my paper, no need to go much into detail
 
@@ -120,7 +120,7 @@ pledge for universal definition
 
 # Data
 
-## Data
+## Data Set
 
 For the analysis we will use a data set of longitudinal temperature data from 14 gauges at Main river system in Bavaria. 
 The data set includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000 
@@ -155,8 +155,17 @@ The definition of marine heatwaves by Hobday uses a 90th percentile seasonally v
 with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
 each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding 
 window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is 
-depicted below, where i is... and x is...(Hobday 2016) This procedure will be repeated for each day of year, until the 
+depicted below, where i is... and x is...(Hobday 2016, \@ref(eq:threshold)) This procedure will be repeated for each day of year, until the 
 threshold for the entire year is completed. 
+
+\begin{equation}
+T_{90}(j) = P_{90}(X),
+\quad \text{where}
+\quad
+X = \left\{T(y,d)\;\middle|\; y_s \le y \le y_e,\; j-5 \le d \le j+5 \right\}
+(\#eq:threshold)
+\end{equation}
+
 Usually, for this a historical baseline period is used. But since here the data set only covers a relatively short time 
 period, the same time period is used for the calculation of the threshold and the analysis. Even if the same threshold 
 definition is used, comparing results from different studies on riverine heatwaves has to be treated carefully. It can 
@@ -195,21 +204,25 @@ the IDs given to the heatwaves.
 
 summary statistics for each heatwave
 Furthermore, we will consider the duration of the heatwaves. This is calculated using the first and last day of each 
-heatwave (see formula 1). The duration plays an important role, as especially longer heatwaves can have more severs 
+heatwave \@ref(eq:duration). The duration plays an important role, as especially longer heatwaves can have more severs 
 impacts.
-2. Duration
 
-  Duration: duration of a heatwaves
-  formula
+\begin{equation}
+D = t_e - t_s
+(\#eq:duration)
+\end{equation}
   
 Lastly, we will use intensity, to assess the amount of the heat spike. The intensity, is defined as the temperature, by 
 which the heatwave threshold is exceeded. In this paper it is defined, as the mean of this temperature exceedence per 
-heatwave. (see formula)
+heatwave. As shown in Equation \@ref(eq:intensity), heatwave intensity is calculated as ...
 3. Intensity
 
-For results of studies to be consistent, it is important to have a clear common definition of metrics. 
-  Intensity: mean exceedance of threshold per heatwave
-  formula
+\begin{equation}
+i_{\mathrm{mean}}
+=
+\overline{T(t)-T_m(j)}
+(\#eq:intensity)
+\end{equation}
 
 These metrics can also be used to summarize two or more of these characteristics. For example, the heatwave events can 
 be multiplied with the mean annual duration, to obtain the number of heatwave days per year. Or the duration of a 
@@ -234,7 +247,7 @@ the data, to look for significant temporal and spatial trends.
 
 # Results
 
-## 1. Frequency
+## Frequency
 
 Figure 1 shows the distribution of heatwave frequency for each station, with the stations being ordered by their 
 position along the river from upstream to downstream. We can see, that for each station the mean frequency lies 
@@ -262,13 +275,13 @@ knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf"
 
 
 
-## 2. Duration
+## Duration
 
 The duration of heatwaves of Main river in the considered period lay between 5 and 28, with an avergae between 8 and 10.
 Again the stations are placed in their order along the river, and while the mean stays consistent, the variance seems 
 to increase downstream. Again there was a model fitted between the mean duration of each station and the river kilometer, this time a linear model was used, however it showed no significant trend Another idea would be to examine the maximum duration of each station and look a downstream trend. This approach delivered...
 
-For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each a linear modell was fitted. Three of the six stations show a positive trend, however insignificant, while the other stations show no trend. Fitting a common linear modell, a increasing, however insignificant, trend of  can be observed.
+For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each a linear modell was fitted. Three of the six stations show a positive trend, however insignificant, while the other stations show no trend. Fitting a common linear modell, a increasing, however insignificant, trend of duration can be observed.
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pdf")
@@ -281,7 +294,7 @@ knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 ```
 
 
-## 3. Intensity
+## Intensity
 
 3. intensity
     1. heatwave intensity per station
@@ -314,6 +327,9 @@ Linear Modell for common trends
 
 ## Overview of trends common models
 
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
+```
 
 \begin{center}
 \begin{tabular}{|l|l|l|}
@@ -347,10 +363,6 @@ discuss possibilities of simulated temperature data
 
 
 ## Conclusion
-
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
-```
 
 - Significant increase of heatwave events over time
 
