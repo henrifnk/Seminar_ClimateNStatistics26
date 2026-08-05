@@ -21,16 +21,15 @@ library(kableExtra)
 ## Abstract
 
 Riverine Heatwaves, which are prolonged periods of exceptionally high water temperatures in river systems, are a 
-underexplored hydrological phenomenom, that is expected to gain considerable importance in the next years, also due
+underexplored hydrological phenomenon, that is expected to gain considerable importance in the next years, also due
 to climate change. The following paper will give an introduction to the precise definition of riverine heatwaves, as 
 well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect riverine heatwaves
 from temperature time series, and how their development, both spatially and temporally, can be quantified and assessed.
-This will be helpful, to gain a better udnerstanding of riverine heatwaves. It will be especially important to explore 
-how riverine heatwaves evolve during climate change, as all three quantifying metrics freuquency, duration and intensity 
+This will be helpful, to gain a better understanding of riverine heatwaves. It will be especially important to explore 
+how riverine heatwaves evolve during climate change, as all three quantifying metrics frequency, duration and intensity 
 seem to be increasing.
 
 # Introduction
-
 
 ## Riverine Heatwaves Definition
 
@@ -44,10 +43,19 @@ tend to be more rare, but more persistent, than atmospheric heatwaves. (hamel)
 ## Drivers of Riverine Heatwaves
 
 As riverine heatwaves are a phenomenon that has not gained much attention so far, its drivers are not fully understood 
-yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric conditions like air temperature, wind, rainfall and solar radiation, or the hydrologic conditions which means the discharge and how the river interacts with different water bodies within its proximity and processes at the water streambed interface, for example the interaction of the river with ground water. On top of that, the water temperature can be influenced by its environment, for example by the amunt of vegetation and shanding, by impervious surfaces nearby or by the presence of thermal effluents from near industries or human wastewater.
-However, so far very little is know on how riverine heatwaves are caused. It is assumed, that what leads to heatwaves are usually processes that include a number of these drivers.
-From literature we know, that usually riverine heatwaves relate to high air temperature and solar radiation, low discharge and changes in water sources. Also they tend to appear most frequently above dams and in free-flowing rivers (hamel).
-Although there have some studies indicating correlations between these processes and riverine heatwaves, they are not fully understood yet, and there remains a large knowledge gap.
+yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric 
+conditions like air temperature, wind, rainfall and solar radiation, or the hydrologic conditions which means the 
+discharge and how the river interacts with different water bodies within its proximity and processes at the water 
+streambed interface, for example the interaction of the river with ground water. On top of that, the water temperature 
+can be influenced by its environment, for example by the amunt of vegetation and shanding, by impervious surfaces nearby 
+or by the presence of thermal effluents from near industries or human wastewater.
+However, so far very little is know on how riverine heatwaves are caused. It is assumed, that what leads to heatwaves 
+are usually processes that include a number of these drivers.
+From literature we know, that usually riverine heatwaves relate to high air temperature and solar radiation, low 
+discharge and changes in water sources. Also they tend to appear most frequently above dams and in free-flowing rivers 
+(hamel).
+Although there have some studies indicating correlations between these processes and riverine heatwaves, they are not 
+fully understood yet, and there remains a large knowledge gap.
 
 e.g. flow + temperature
 entweder: besipeile
@@ -108,9 +116,16 @@ pledge for universal definition
 
 ## Data
 
-For the analysis we will use a dataset of Longitudinal temperature data from 14 gauges at Main river system in Bavaria. The dataset includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000 and 2020.
-Literature suggests, that the analysis of riverine heatwaves requires time series of river temperature of at least 10, ideally 30 years with at least daily data and not more than 50 percent, ideally 25 percent of missing data. Also for this anlysis it will be necessary to have a common time period for all stations, to obtain comparable and consistent results between stations.
-As many of the stations do not cover a common time period, and as some of the stations have a high amount of missing data for some years, the analysis has be limited to six of the stations to guarantee these standarts. Excluding the other stations gives us a 15 year common period time series of daily water temperature, with almost not missing values (how many?)
+For the analysis we will use a data set of longitudinal temperature data from 14 gauges at Main river system in Bavaria. 
+The data set includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000 
+and 2020.
+Literature suggests, that the analysis of riverine heatwaves requires time series of at least 10, ideally 30 years with 
+at least daily data and not more than 50 percent, ideally not more than 25 percent of missing data. 
+Also for this analysis it will be necessary to have a common time period for all stations, to obtain comparable results 
+between stations. As many of the stations do not cover a common time period, and as some of the stations have a 
+high amount of missing data for some years, the analysis has be limited to six of the stations to guarantee these 
+standards. Excluding the other stations gives us a 15 year common period time series of daily water temperature, with 
+almost no missing values (each station has at data available for at least 90 percent of days for every year).
 These stations are marked in figure 1, which also shows their position along the main river system.
 
 ## Locations
@@ -123,17 +138,32 @@ knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
 
 ## Threshold
 
-The threshold which classifies riverine heatwaves has to be precisely defined. This paper is going to use a definition adopted originally from marine heatwaves, however, this definition has also been widely used in work on riverine heatwaves (hamel, ..., ,...).
+The threshold which classifies riverine heatwaves has to be precisely defined. This paper is going to use the definition
+of Hobday, adopted originally from marine heatwaves. However this definition has also been widely used in work on 
+riverine heatwaves (hamel, chen, ,...).
 
-This definition uses a 90th percentile seasonally varying threshold which is also varying with location and therefore calculated seperately for each station. To calculate the seasonally varying threshold, for each day the historical temperature measurements, as well as the measurements from a 11 day surrounding window are taken. From these datapoints, the 90 percent quantile is taken. The excant formula for this calculation is depicted below, where i is... and x is...(Hobday 2016) This process will be repeated for each day of year, until the threshold for the entire year is completed. Usually, for this process a historical baseline period is used. But since the 
-dataset only covers a relatively short time period, the same time period as used for the analysis is used for the calculation of the threshold. This can in harmful in some ways: when comparing exact number for riverine heatwaves between different stations, the same baseline period should be used for all of them. however, as in this paper our focus is to demonstrate, how the heatwaves evove relatively to another over time, and not to compare exact metrics to other literature, this definition also suffices. But it has to be considered within the results.
-Resulting from this process, we then obtain a threshold for each station, that can be used to compare with the time series of each year, to detect heatwaves. In figure 2 an example of this is shown for the Kemmern station and the year 2018.
+The definition of marine heatwaves by Hobday uses a 90th percentile seasonally varying threshold, which is also varying 
+with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
+each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding 
+window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is 
+depicted below, where i is... and x is...(Hobday 2016) This procedure will be repeated for each day of year, until the 
+threshold for the entire year is completed. Usually, for this a historical baseline period is used. But since here the 
+data set only covers a relatively short time period, the same time period is used for the analysis and the calculation 
+of the threshold. 
+Even if the same threshold definition is used, comparing results from different studies on riverine heatwaves has to be 
+treated carefully. It can be problematic to compare exact numbers for metrics between different studies, as climate 
+change suggests a temperature biased over time. Therefore for a case like that, the different studies should be centered
+around the same baseline period. However, as in this paper the focus is only to demonstrate how heatwaves evolve 
+relatively to another over time, this approach also suffices. This paper is only going to compare measurements from the 
+same stations with the same baseline period between another and will look for general trends rather than compare exact 
+metrics with other literature.
 
-Heatwaves can then be detected, by firstly marking all potential candidates, all days exceeding the thresholds. After, the time series are examined for events of at least five consecutive days exceeding the thresholds. These are marked as heatwaves and given an ID, while all short events are discarded.
-To ??? an event wit two heatwaves only disrupted by one or two on heatwave days, are summarised as one heatwaves, while the days in between get what temperature ?( hobday 2016)
-
-
-discrete’: A MHW event is discrete with well-defined start and end times. However, in our proposed definition and in common with atmospheric heatwaves, gaps between events of two days or less with subsequent five day or more events will be considered as a continuous event. For example, five anomalously warm days followed by two cool and then six anomalously warm days would be defined as a 13 day MHW event [5hot, 2cool, 6hot]. In contrast, five anomalously warm days, followed by one cool day, and then two more anomalously warm days would be defined as a five day event [5hot, 1cool, 2hot = 5 MHW days]; as would the converse [2hot, 1cool, 5hot]. A sequence of five anomalously warm days followed by four cool days and then six anomalously warm days [5hot, 4cool, 6hot] would be defined as two MHW events, one of five days duration, and one of six days duration.
+Resulting from this procedure, we obtain a threshold for each station, that can be used for comparison with the time 
+series of each year. In figure 2 an example of this is shown for the Kemmern station and the year 2018. Heatwaves can 
+then be detected, by firstly marking all potential candidates, all days exceeding the thresholds. After, the time series 
+are examined for events of at least five consecutive days exceeding the threshold. These are marked as heatwaves and 
+given an ID, while all short events are discarded. When there is a gap of only one or two days between two or more
+heatwaves that all individually have a duration of at least five days, the heatwaves, are merged into one heatwave.
 
 ## Threshold example: Main data (Kemmern, 2018)
 
@@ -143,33 +173,44 @@ knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.pdf")
 
 ## Metrics used
 
-important to have a clear common definition of metrics, for results to be comparable. primary metrics (hobday)three metrics that together covermost f the extend of heatwaves, freq, dur, intensity. one metric to wuantify each Ths paper will use three different metrics to be able to quantify riverine heatwaves. To quantify their frequency, the number of heatwave events per year, will be used. This will be Calculated per station, or may be summarized over different stations or years.
-To calculate this, we will use the IDs given to the heatwaves. This will be interesting, to see whether riverine heatwaves have become more frequent over the years
-
+For results of studies to be consistent, it is important to have a clear common definition of metrics. In this paper, 
+the focus will be on three primary metrics, that will be used to quantify the evolution of riverine heatwaves. We will
+use a frequency metric, a duration metric and an intensity metric, to be able to describe the evolution under different
+aspects.
+To quantify the evolution of frequency, for each heatwave the number of heatwave events per year will be used. This 
+will be Calculated per station, or may be summarized over different stations or years. For the calculation, we will use 
+the IDs given to the heatwaves.
 1. Frequency
 
   Heatwave events: number of heatwaves per year
   formula
 
 summary statistics for each heatwave
-Furthermore, we will consider the duration of the heatwaves. This is also calculated for each heatwave and plays an important role,
-as especially longer heatwaves can be harmful for the flora, fauna and the téconomy (cource???)
+Furthermore, we will consider the duration of the heatwaves. This is calculated using the first and last day of each 
+heatwave (see formula 1). The duration plays an important role, as especially longer heatwaves can have more severs 
+impacts.
 2. Duration
 
   Duration: duration of a heatwaves
   formula
   
-Lastly, we will use intensity, to assess the amiunt of the heat spike. The intensity, is defined as the temperature, by which the heatwave threshold is exceeded. In this paper is is defined, as the mean of this temperature exceedance per heatwave. (see formula)
+Lastly, we will use intensity, to assess the amount of the heat spike. The intensity, is defined as the temperature, by 
+which the heatwave threshold is exceeded. In this paper it is defined, as the mean of this temperature exceedence per 
+heatwave. (see formula)
 3. Intensity
 
   Intensity: mean exceedance of threshold per heatwave
   formula
 
-These metrics can also be used to summarize two or more of these characteristics. For example, the heatwave events can be multiplied with the mean annual duration, to obtain the number of heatwave days per year. Or the duration of a heatwave can be ultiplied with its mean intensity, to obtatin its mean severity. 
+These metrics can also be used to summarize two or more of these characteristics. For example, the heatwave events can 
+be multiplied with the mean annual duration, to obtain the number of heatwave days per year. Or the duration of a 
+heatwave can be multiplied with its mean intensity, to obtain its mean severity. 
 
 ## Research Question
 
-This paper wants to examine the evolvement of riverine heatwaves over climate change. Therefore we want to focus primarely on their changes over time, using the period of the used data. To do this, we will focus on the previously defined mthree metrics and examine the following questions:
+This paper wants to examine the evolution of riverine heatwaves over climate change. Therefore we want to focus 
+primarily on the changes over time, using the period of the used data. To do this, we will examine the development of
+the three previously defined metrics and pose the following questions:
 
 1. How has the frequency of riverine heatwaves changed over time?
 
@@ -177,7 +218,8 @@ This paper wants to examine the evolvement of riverine heatwaves over climate ch
 
 3. How has the intensity of riverine heatwaves changed over time?
 
-Given the availability of stations with different locations along the same river system, we will also look into, how the metrics differ between the stations.
+Given the availability of stations with different locations along the same river system, we will also look into, how 
+the metrics differ between the stations.
 
 # Research
 
