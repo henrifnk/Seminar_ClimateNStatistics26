@@ -47,6 +47,21 @@ uv run invoke train --overrides "model.global_encoder=film model.loss_fn=weighte
 uv run invoke baselines               # persistence / climatology / trend baselines (once per dataset)
 ```
 
+### Running without Weights & Biases (no account needed)
+
+The default logger is WandB, which asks for a login on first use. To run **fully locally** with no
+account, add `logger=csv` — this uses PyTorch Lightning's built-in CSV logger and writes
+`epoch_metrics.csv` and `test_metrics.json` into the run's log directory. Nothing is sent to WandB.
+
+```bash
+uv run invoke train --overrides "logger=csv"
+uv run invoke train --overrides "logger=csv model.loss_fn=pinball trainer.max_epochs=5"
+```
+
+`invoke smoke` and `invoke evaluate` already force `logger=csv`, so they need no account either.
+(Alternatively, keep the WandB code path but stay offline with `WANDB_MODE=offline uv run invoke
+train` — logs to a local `wandb/` dir, syncable later.)
+
 ### Grid search — the 24-cell final grid
 
 `invoke gridsearch` sweeps 4 losses × 2 global encoders × 3 static encoders = **24 cells**. Within
@@ -121,6 +136,26 @@ uv run python reports/generate/trend_baseline.py     # nonstationarity / trend-b
 The report reads `saved_models/gridsearch_comparison.csv` and `figures/models/*/`. Baseline figures
 are read from `figures/baselines/`.
 
+### Interpretability analyses
+
+```bash
+uv run invoke feature-importance   # Phase 1: occlusion feature importance (6 Pinball conditions)
+uv run invoke film-extremes        # Phase 2: does FiLM benefit the extremes? (4 losses)
+```
+
+Both run entirely on existing `saved_models/` checkpoints, test period only -- no retraining. See
+`code/interpretability.py` (the shared eval-time ablation harness) and
+`CODING_AGENT_PROMPT_INTERPRETABILITY.md` for the full methodology.
+
+- `feature-importance` occludes each input feature to zero at its correct injection site and reports
+  the metric drop vs. the un-ablated model, per architecture condition. Writes
+  `reports/interpretability/feature_importance_pinball.csv` and one two-panel (ΔRMSE, Δdrought-F1) SVG
+  per condition to `figures/interpretability/feature_importance/`.
+- `film-extremes` compares naive/naive, naive/film, and seasonal/film checkpoints per loss: stratified
+  error by observed-SPEI bin, a worked 2022 case-study figure, and a genuineness counterfactual
+  (zeroed vs. true global scalars). Writes 3 CSVs to `reports/interpretability/` and 3 figures per loss
+  to `figures/interpretability/film_extremes/`.
+
 ---
 
 ## Research questions
@@ -149,6 +184,7 @@ drought_prediction/
 │   ├── model.py              # RCNNModule (ConvLSTM), loss classes, metric logging
 │   ├── train.py              # Hydra-driven training entry point
 │   ├── eval_baselines.py     # Standalone baseline evaluator (run once via inv baselines)
+│   ├── interpretability.py   # Eval-time ablation harness + feature-importance/film-extremes analyses
 │   └── utils/
 │       ├── conv_block.py     # Conv2d + BatchNorm2d building block
 │       ├── metrics.py        # Per-cell RMSE / Pearson r / AUROC / F1 / TPR

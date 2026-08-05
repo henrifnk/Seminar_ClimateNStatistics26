@@ -16,13 +16,16 @@ See CODING_AGENT_PROMPT_INTERPRETABILITY.md for the full brief.
 """
 
 import contextlib
+import csv as csv_mod
 from dataclasses import dataclass
 from pathlib import Path
 
+import numpy as np
 import torch
 from dataset import DroughtDataset, MonthAwareSubset, MonthScalarSubset, ScalarSubset
 from model import RCNNModule
 from torch.utils.data import DataLoader
+from utils.metrics import drought_rmse_pooled
 from utils.paths import processed_data_dir, project_root
 
 # ── Fixed data config (mirrors configs/data/default.yaml) ──────────────────
@@ -151,18 +154,49 @@ def load_model(ckpt_path: Path | str, dataset: DroughtDataset, static_encoder: s
 
 @dataclass(frozen=True)
 class AblationSpec:
-    name: str  # e.g. "spei", "wb", "global", "static"
+    name: str  # e.g. "spei", "wb", "nao", "month", "med_sst", "global", "static"
     kind: str  # "dynamic" | "global" | "static"
+    # For global specs: which columns of the global-scalar vector to zero.
+    # None = the whole vector (group-level "did conditioning matter" summary /
+    # Phase-2 counterfactual). Ignored for dynamic/static specs.
+    channels: tuple[int, ...] | None = None
 
 
-def applicable_ablations(static_encoder: str, global_encoder: str, dynamic_var_names: list[str]) -> list[AblationSpec]:
-    """The 5 dynamic variables always; global/static groups only where the
-    architecture actually uses that pathway.
+def _global_ablation_specs(med_sst_agg: str, n_global: int) -> list[AblationSpec]:
+    """Per-driver global ablations so feature importance can distinguish NAO,
+    seasonality, and Mediterranean SST rather than lumping them together.
+
+    Grouped-mode column layout (dataset.py):
+        [nao(0), month_sin(1), month_cos(2), western(3), eastern(4), black_sea(5)]
+    month_sin/cos jointly encode one thing (seasonality) so they're ablated
+    together; the three SST means are ablated together as "med_sst".
+    """
+    if med_sst_agg == "grouped" and n_global == 6:
+        return [
+            AblationSpec("nao", "global", (0,)),
+            AblationSpec("month", "global", (1, 2)),
+            AblationSpec("med_sst", "global", (3, 4, 5)),
+        ]
+    # Any other layout (e.g. med_sst_agg="none"): fall back to a single
+    # whole-vector global ablation rather than guess an unknown column order.
+    return [AblationSpec("global", "global")]
+
+
+def applicable_ablations(
+    static_encoder: str,
+    global_encoder: str,
+    dynamic_var_names: list[str],
+    med_sst_agg: str = "grouped",
+    n_global: int = 6,
+) -> list[AblationSpec]:
+    """The 5 dynamic variables always; the global drivers (NAO / month /
+    Med SST, individually) and static topography only where the architecture
+    actually uses that pathway.
     """
     specs = [AblationSpec("spei", "dynamic")]
     specs += [AblationSpec(v, "dynamic") for v in dynamic_var_names]
     if global_encoder != "none":
-        specs.append(AblationSpec("global", "global"))
+        specs += _global_ablation_specs(med_sst_agg, n_global)
     if static_encoder != "none":
         specs.append(AblationSpec("static", "static"))
     return specs
@@ -224,15 +258,26 @@ def ablate_batch(batch, spec: AblationSpec, dataset: DroughtDataset, static_enco
         # else: single/seasonal encoder -- ablated via ablate_static_map() around
         # the whole eval pass instead (topography isn't part of a batch).
     elif spec.kind == "global":
+        # spec.channels selects columns of the global-scalar vector to zero;
+        # None = the whole vector.
         sl = _naive_global_slice(dataset)
         if sl is not None:
             x = batch[0].clone()
-            x[:, :, sl] = 0.0
+            if spec.channels is None:
+                x[:, :, sl] = 0.0
+            else:
+                for c in spec.channels:
+                    x[:, :, sl.start + c] = 0.0
             batch[0] = x
         else:
             idx = _scalars_batch_index(static_encoder, global_encoder)
             if idx is not None:
-                batch[idx] = torch.zeros_like(batch[idx])
+                t = batch[idx].clone()
+                if spec.channels is None:
+                    t.zero_()
+                else:
+                    t[..., list(spec.channels)] = 0.0
+                batch[idx] = t
     else:
         raise ValueError(f"Unknown ablation kind: {spec.kind!r}")
     return tuple(batch)
@@ -264,23 +309,34 @@ def run_eval(
     global_encoder: str,
     spec: AblationSpec | None = None,
     device: str = "cpu",
+    progress: bool = False,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     """One deterministic forward pass over `loader`, optionally with `spec`
     ablated. Returns (all_preds, all_targets), each (T_test, H, W).
+
+    progress=True prints a live "batch i/N" counter on one line (each full
+    pass over the real test set can take minutes on CPU, so silence here
+    reads as a hang -- this is the only per-run feedback available between
+    the caller's own before/after status lines).
     """
     model.eval()
     static_ablate = spec is not None and spec.kind == "static" and static_encoder in ("single", "seasonal")
     cm = ablate_static_map(model) if static_ablate else contextlib.nullcontext()
 
+    n_batches = len(loader)
     all_preds, all_targets = [], []
     with cm:
-        for batch in loader:
+        for i, batch in enumerate(loader, 1):
+            if progress:
+                print(f"\r      batch {i}/{n_batches}", end="", flush=True)
             batch = tuple(t.to(device) for t in batch)
             if spec is not None:
                 batch = ablate_batch(batch, spec, dataset, static_encoder, global_encoder)
             _, preds, targets = model.step(batch)
             all_preds.append(preds)
             all_targets.append(targets)
+    if progress:
+        print(f"\r      batch {n_batches}/{n_batches} done", flush=True)
     return torch.cat(all_preds), torch.cat(all_targets)
 
 
@@ -351,12 +407,19 @@ def evaluate_checkpoint(
     batch_size: int = 16,
     num_workers: int = 0,
     processed_dir: Path | str | None = None,
+    progress: bool = False,
 ) -> dict:
     """Load a checkpoint, run the un-ablated test-set eval plus each requested
     ablation, and return baseline + per-ablation pooled metrics and deltas.
 
     ablations=None runs every ablation applicable to this checkpoint's
     architecture; pass [] for baseline only.
+
+    progress=True prints a live status line before/after the baseline and
+    each ablation (plus a per-batch counter within each pass, via
+    run_eval(progress=True)) -- a full pass over the real test set can take
+    minutes on CPU, and each checkpoint here does 1 + len(ablations) of them,
+    so this is the difference between visible progress and an apparent hang.
     """
     ckpt_path = Path(ckpt_path)
     overrides = read_overrides(ckpt_path)
@@ -371,12 +434,23 @@ def evaluate_checkpoint(
     mask = model.mask
 
     if ablations is None:
-        ablations = applicable_ablations(static_encoder, global_encoder, dataset.dynamic_var_names)
+        ablations = applicable_ablations(
+            static_encoder, global_encoder, dataset.dynamic_var_names,
+            med_sst_agg=med_sst_agg, n_global=dataset.n_global,
+        )
 
+    if progress:
+        print(f"    baseline (un-ablated)  [{len(loader)} batches]")
     baseline_preds, baseline_targets = run_eval(
-        model, loader, dataset, static_encoder, global_encoder, spec=None, device=device
+        model, loader, dataset, static_encoder, global_encoder, spec=None, device=device, progress=progress
     )
     baseline = pooled_metrics(baseline_targets, baseline_preds, mask)
+    if progress:
+        print(
+            f"    baseline  rmse_pooled={baseline['rmse_pooled']:.4f}  "
+            f"drought_f1_pooled={baseline['drought_f1_pooled']:.4f}  "
+            f"drought_tpr_pooled={baseline['drought_tpr_pooled']:.4f}"
+        )
 
     results: dict = {
         "checkpoint": ckpt_path.name,
@@ -384,9 +458,20 @@ def evaluate_checkpoint(
         "baseline": baseline,
         "ablations": {},
     }
-    for spec in ablations:
-        preds, targets = run_eval(model, loader, dataset, static_encoder, global_encoder, spec=spec, device=device)
+    for j, spec in enumerate(ablations, 1):
+        if progress:
+            print(f"    [{j}/{len(ablations)}] ablating {spec.name}  [{len(loader)} batches]")
+        preds, targets = run_eval(
+            model, loader, dataset, static_encoder, global_encoder, spec=spec, device=device, progress=progress
+        )
         m = pooled_metrics(targets, preds, mask)
+        if progress:
+            print(
+                f"    [{j}/{len(ablations)}] {spec.name:8s}  "
+                f"dRMSE={m['rmse_pooled'] - baseline['rmse_pooled']:+.4f}  "
+                f"dF1={m['drought_f1_pooled'] - baseline['drought_f1_pooled']:+.4f}  "
+                f"dTPR={m['drought_tpr_pooled'] - baseline['drought_tpr_pooled']:+.4f}"
+            )
         results["ablations"][spec.name] = {
             **m,
             "delta_rmse": m["rmse_pooled"] - baseline["rmse_pooled"],
@@ -411,18 +496,31 @@ def evaluate_checkpoint(
 # occlusion attributes credit to whichever correlated feature happens to still
 # be present, not to the "true" cause (Hooker, Mentch & Zhou 2021).
 
-# Fixed feature -> color mapping, validated as a colorblind-safe categorical
-# palette (dataviz skill, adjacent-pair gates: worst CVD dE 9.1, worst
-# normal-vision dE 19.6). Order matches applicable_ablations() so a feature
-# keeps the same color across every condition's chart.
+# Fixed feature -> color mapping: the 5 dynamic vars + static keep the
+# documented 8-slot categorical palette (dataviz skill; this subsequence
+# validates clean -- worst adjacent CVD dE 8.0, worst normal-vision dE 17.4).
+# nao/month/med_sst are sub-components of one parent feature (the global-
+# scalar group), not independent nominal categories, so per the skill's
+# categorical-vs-ordinal rule they take a single-hue light->dark ordinal
+# ramp (green) instead of three more ad-hoc hues -- inventing new undocumented
+# hex values would violate "documented palette only" and, when checked,
+# failed CVD separation outright (month/med_sst read near-gray and sat next
+# to nao at dE 3.6, well under the floor). The ramp passes --ordinal
+# (monotone L, adjacent dL>=0.06, light-end contrast 2.42:1); the dark step's
+# FAIL under the *categorical* validator is expected and not a real issue --
+# it's an intentional dark ordinal step, not a mistuned categorical slot.
 FEATURE_COLORS = {
     "spei": "#2a78d6",
     "wb": "#eb6834",
     "pr": "#1baf7a",
     "ps": "#eda100",
     "tas": "#e87ba4",
-    "global": "#008300",
+    "nao": "#5cb85c",       # global driver: North Atlantic Oscillation (light green)
+    "month": "#008300",     # global driver: seasonality, month sin/cos (mid green)
+    "med_sst": "#004d00",   # global driver: Mediterranean SST, 3 regional means (dark green)
     "static": "#4a3aa7",
+    "global": "#008300",    # fallback: whole global vector (non-grouped layouts; mutually
+                             # exclusive with nao/month/med_sst, so reusing "month"'s hue is safe)
 }
 FEATURE_ORDER = list(FEATURE_COLORS)
 
@@ -466,6 +564,16 @@ def plot_feature_importance(tag: str, rows: list[dict], fig_path: Path) -> None:
     plt.close(fig)
 
 
+def _write_csv(path: Path, rows: list[dict]) -> None:
+    if not rows:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", newline="") as f:
+        writer = csv_mod.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def run_feature_importance(
     saved_models_dir: Path | None = None,
     csv_path: Path | None = None,
@@ -476,8 +584,6 @@ def run_feature_importance(
     one two-panel bar chart per condition. Prints progress per checkpoint and
     per feature as it runs. Returns the CSV rows.
     """
-    import csv as csv_mod
-
     saved_models_dir = saved_models_dir or (project_root() / "saved_models")
     csv_path = csv_path or (project_root() / "reports" / "interpretability" / "feature_importance_pinball.csv")
     fig_dir = fig_dir or (project_root() / "figures" / "interpretability" / "feature_importance")
@@ -490,17 +596,12 @@ def run_feature_importance(
     csv_path.parent.mkdir(parents=True, exist_ok=True)
 
     for i, ckpt in enumerate(ckpts, 1):
-        print(f"[{i}/{len(ckpts)}] {ckpt.name}")
-        result = evaluate_checkpoint(ckpt)
+        print(f"\n[{i}/{len(ckpts)}] {ckpt.name}")
+        result = evaluate_checkpoint(ckpt, progress=True)
         static_encoder = result["architecture"]["static_encoder"]
         global_encoder = result["architecture"]["global_encoder"]
         tag = f"{static_encoder}_{global_encoder}"
         baseline = result["baseline"]
-        print(
-            f"    baseline  rmse_pooled={baseline['rmse_pooled']:.4f}  "
-            f"drought_f1_pooled={baseline['drought_f1_pooled']:.4f}  "
-            f"drought_tpr_pooled={baseline['drought_tpr_pooled']:.4f}"
-        )
 
         rows_for_plot: list[dict] = []
         for feature in FEATURE_ORDER:
@@ -524,28 +625,381 @@ def run_feature_importance(
             }
             all_rows.append(row)
             rows_for_plot.append(row)
-            print(f"    {feature:8s}  dRMSE={m['delta_rmse']:+.4f}  dF1={m['delta_drought_f1']:+.4f}  "
-                  f"dTPR={m['delta_drought_tpr']:+.4f}")
 
         plot_feature_importance(tag, rows_for_plot, fig_dir / f"{tag}.svg")
         print(f"    figure -> {fig_dir / f'{tag}.svg'}")
 
-    fieldnames = list(all_rows[0].keys())
-    with open(csv_path, "w", newline="") as f:
-        writer = csv_mod.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(all_rows)
+    _write_csv(csv_path, all_rows)
     print(f"\n{len(all_rows)} rows -> {csv_path}")
     print(f"{len(ckpts)} figures -> {fig_dir}/")
     return all_rows
+
+
+# ── Phase 2: does FiLM benefit the extremes? (all four losses) ─────────────
+#
+# For each loss, compares three checkpoints -- naive/naive (base), naive/film
+# (isolates FiLM), seasonal/film (full model) -- with three deliverables:
+#   1. Stratified error: RMSE and mean bias per observed-SPEI bin.
+#   2. A worked 2022 case study (worst Alpine month, naive/naive vs naive/film).
+#   3. A genuineness counterfactual: does the FiLM models' extreme-bin skill
+#      collapse when the global scalars are zeroed (Phase 0's harness, reused
+#      verbatim -- see interpretability.md's Phase 0 note that this same
+#      zeroing is what Phase 2's counterfactual uses)?
+
+FILM_LOSSES = ["mse", "pinball_q0.20", "wmse_w1_hinge", "wmse_w5_hinge"]
+FILM_CONDITIONS = [("naive", "naive"), ("naive", "film"), ("seasonal", "film")]
+CONDITION_LABELS = {cond: f"{cond[0]}/{cond[1]}" for cond in FILM_CONDITIONS}
+
+# First 3 slots of the same validated categorical palette used in Phase 1 --
+# that subset also clears the stricter *all-pairs* CVD gate, not just the
+# adjacent-pair one, so it's safe here even though this legend has no fixed
+# visual adjacency (bars can reorder across panels).
+CONDITION_COLORS = {
+    "naive/naive": "#2a78d6",
+    "naive/film": "#eb6834",
+    "seasonal/film": "#1baf7a",
+}
+
+# Columns of DroughtDataset.global_scalars in med_sst_agg="grouped" mode
+# (dataset.py: [nao, month_sin, month_cos, western, eastern, black_sea]) --
+# every saved_models/ checkpoint uses "grouped" (no .overrides sets
+# data.med_sst_agg), so this ordering is safe to hard-code.
+DRIVER_LABELS = {0: "NAO", 3: "W. Med SST", 4: "E. Med SST", 5: "Black Sea SST"}
+
+# Rotated-pole CRS for the AL domain -- same parameters as visualization.py /
+# utils/plotting.py (each already duplicates this locally rather than sharing
+# a private import across modules).
+_CRS_ROTATED_MODULE = None  # lazily created (needs cartopy.crs), see _crs()
+
+
+def _crs():
+    import cartopy.crs as ccrs
+
+    global _CRS_ROTATED_MODULE
+    if _CRS_ROTATED_MODULE is None:
+        _CRS_ROTATED_MODULE = (
+            ccrs.RotatedPole(pole_longitude=-162.0, pole_latitude=39.25),
+            ccrs.PlateCarree(),
+        )
+    return _CRS_ROTATED_MODULE
+
+
+def _rotated_extent(rlat: np.ndarray, rlon: np.ndarray, pad: float = 0.5) -> list[float]:
+    rotated, plate = _crs()
+    xs = [rlon.min(), rlon.max(), rlon.min(), rlon.max()]
+    ys = [rlat.min(), rlat.min(), rlat.max(), rlat.max()]
+    pts = plate.transform_points(rotated, np.array(xs), np.array(ys))
+    return [pts[:, 0].min() - pad, pts[:, 0].max() + pad, pts[:, 1].min() - pad, pts[:, 1].max() + pad]
+
+
+@dataclass
+class _ConditionRun:
+    preds: torch.Tensor
+    targets: torch.Tensor
+    mask: torch.Tensor
+    dataset: DroughtDataset
+    model: RCNNModule
+    loader: DataLoader
+    static_encoder: str
+    global_encoder: str
+
+
+def find_loss_checkpoint(saved_models_dir: Path, loss_tag: str, static_encoder: str, global_encoder: str) -> Path:
+    """Find the one best_model_{loss_tag}_*.ckpt whose .overrides matches the
+    requested architecture. Never infers architecture from the filename.
+    """
+    matches = []
+    for ckpt in sorted(saved_models_dir.glob(f"best_model_{loss_tag}_*.ckpt")):
+        se, ge, _ = architecture_from_overrides(read_overrides(ckpt))
+        if se == static_encoder and ge == global_encoder:
+            matches.append(ckpt)
+    assert len(matches) == 1, (
+        f"Expected exactly 1 checkpoint for loss={loss_tag!r} static={static_encoder!r} "
+        f"global={global_encoder!r}, found {len(matches)}: {matches}"
+    )
+    return matches[0]
+
+
+def test_target_dates(dataset: DroughtDataset) -> np.ndarray:
+    """Target dates for the test split, aligned with run_eval()'s returned
+    tensors along dim 0 (both derive from the same shuffle=False test Subset).
+    """
+    _, _, test_sub = dataset.split_by_years(val_from=VAL_FROM_YEAR, test_from=TEST_FROM_YEAR)
+    return dataset.target_times[test_sub.indices]
+
+
+def worst_2022_month_index(dates: np.ndarray, targets: torch.Tensor, mask: torch.Tensor) -> int:
+    """Index (into `dates`/`targets`) of the 2022 target month with the lowest
+    domain-mean observed SPEI over valid Alpine cells.
+    """
+    years = dates.astype("datetime64[Y]").astype(int) + 1970
+    idx_2022 = np.where(years == 2022)[0]
+    assert len(idx_2022) > 0, "No 2022 target months found in the test period"
+    domain_mean = targets[idx_2022][:, mask].mean(dim=1)
+    worst_local = int(torch.argmin(domain_mean).item())
+    return int(idx_2022[worst_local])
+
+
+def plot_stratified_comparison(loss_tag: str, per_condition: dict[str, list[dict]], fig_path: Path) -> None:
+    """One two-panel figure per loss: RMSE-by-bin and bias-by-bin, grouped
+    bars colored by condition (never a shared/dual y-axis).
+    """
+    import matplotlib.pyplot as plt
+
+    bin_labels = [b[0] for b in SPEI_BINS]
+    conditions = list(per_condition.keys())
+    x = np.arange(len(bin_labels))
+    width = 0.8 / len(conditions)
+
+    fig, (ax_rmse, ax_bias) = plt.subplots(1, 2, figsize=(9.0, 3.2))
+    for i, cond in enumerate(conditions):
+        rows = per_condition[cond]
+        offset = (i - (len(conditions) - 1) / 2) * width
+        color = CONDITION_COLORS[cond]
+        ax_rmse.bar(x + offset, [r["rmse"] for r in rows], width=width, color=color, label=cond)
+        ax_bias.bar(x + offset, [r["mean_bias"] for r in rows], width=width, color=color, label=cond)
+
+    ax_rmse.set_xticks(x)
+    ax_rmse.set_xticklabels(bin_labels, fontsize=8)
+    ax_rmse.set_ylabel("RMSE", fontsize=9)
+    ax_rmse.set_title("Error by observed-SPEI bin", fontsize=9)
+
+    ax_bias.set_xticks(x)
+    ax_bias.set_xticklabels(bin_labels, fontsize=8)
+    ax_bias.set_ylabel("Mean bias  (pred $-$ obs)", fontsize=9)
+    ax_bias.set_title("Bias by observed-SPEI bin", fontsize=9)
+
+    for ax in (ax_rmse, ax_bias):
+        _style_axes(ax)
+    ax_bias.legend(fontsize=7, frameon=False, loc="best")
+
+    fig.suptitle(f"Stratified error — {loss_tag}", fontsize=10)
+    fig.tight_layout()
+    fig_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(fig_path, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_case_study(
+    loss_tag: str,
+    date: np.datetime64,
+    obs: torch.Tensor,
+    pred_naive: torch.Tensor,
+    pred_film: torch.Tensor,
+    mask: torch.Tensor,
+    rlat: np.ndarray,
+    rlon: np.ndarray,
+    driver_values: dict[str, float],
+    fig_path: Path,
+) -> None:
+    """Multi-panel worked example: observed SPEI, naive/naive and naive/film
+    predictions (shared colour scale), their error maps (separate shared
+    colour scale), and the global driver state FiLM conditioned on.
+    """
+    import cartopy.feature as cfeature
+    import matplotlib.pyplot as plt
+
+    rotated, plate = _crs()
+    m = mask.cpu().numpy().astype(bool)
+
+    def _masked(t: torch.Tensor) -> np.ndarray:
+        a = t.detach().cpu().numpy().copy()
+        a[~m] = np.nan
+        return a
+
+    obs_np, pn_np, pf_np = _masked(obs), _masked(pred_naive), _masked(pred_film)
+    en_np, ef_np = pn_np - obs_np, pf_np - obs_np
+
+    vabs_spei = float(np.nanmax(np.abs(np.stack([obs_np, pn_np, pf_np]))))
+    vabs_err = float(np.nanmax(np.abs(np.stack([en_np, ef_np]))))
+
+    fig = plt.figure(figsize=(11.0, 6.5), layout="constrained")
+    map_axes = [fig.add_subplot(2, 3, i, projection=plate) for i in (1, 2, 3, 4, 5)]
+    ax_bar = fig.add_subplot(2, 3, 6)
+
+    panels = [
+        (obs_np, "Observed SPEI", "RdBu", -vabs_spei, vabs_spei),
+        (pn_np, "naive/naive prediction", "RdBu", -vabs_spei, vabs_spei),
+        (pf_np, "naive/film prediction", "RdBu", -vabs_spei, vabs_spei),
+        (en_np, "naive/naive error (pred$-$obs)", "PuOr", -vabs_err, vabs_err),
+        (ef_np, "naive/film error (pred$-$obs)", "PuOr", -vabs_err, vabs_err),
+    ]
+    spei_im = err_im = None
+    for ax, (data, title, cmap, vmin, vmax) in zip(map_axes, panels, strict=True):
+        im = ax.pcolormesh(rlon, rlat, data, transform=rotated, cmap=cmap, vmin=vmin, vmax=vmax, shading="auto")
+        ax.add_feature(cfeature.COASTLINE.with_scale("10m"), linewidth=0.5, edgecolor="black")
+        ax.add_feature(cfeature.BORDERS.with_scale("10m"), linewidth=0.4, edgecolor="black", linestyle="--")
+        ax.set_extent(_rotated_extent(rlat, rlon), crs=plate)
+        ax.set_title(title, fontsize=9)
+        if cmap == "RdBu":
+            spei_im = im
+        else:
+            err_im = im
+
+    fig.colorbar(spei_im, ax=map_axes[:3], orientation="horizontal", fraction=0.05, pad=0.1, shrink=0.7, label="SPEI")
+    fig.colorbar(
+        err_im, ax=map_axes[3:5], orientation="horizontal", fraction=0.05, pad=0.1, shrink=0.7, label="error"
+    )
+
+    names = list(driver_values.keys())
+    vals = [driver_values[n] for n in names]
+    ax_bar.bar(names, vals, color="#4a3aa7", width=0.6)
+    ax_bar.axhline(0, color="#c3c2b7", lw=0.8)
+    ax_bar.set_ylabel("z-score (FiLM input)", fontsize=8)
+    ax_bar.set_title("Global driver state", fontsize=9)
+    ax_bar.tick_params(axis="x", labelsize=7, rotation=30)
+    ax_bar.tick_params(axis="y", labelsize=7)
+    ax_bar.spines[["top", "right"]].set_visible(False)
+
+    fig.suptitle(f"{loss_tag} — worst 2022 Alpine month: {str(date)[:7]}", fontsize=11)
+    fig_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(fig_path, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_counterfactual(loss_tag: str, rows: list[dict], fig_path: Path) -> None:
+    """One bar per FiLM condition: how much extreme-bin (SPEI<=-1.5) RMSE
+    changes when the global scalars are zeroed vs. the true-scalar run.
+    """
+    import matplotlib.pyplot as plt
+
+    labels = [r["condition"] for r in rows]
+    colors = [CONDITION_COLORS[c] for c in labels]
+    deltas = [r["delta_extreme_rmse"] for r in rows]
+
+    fig, ax = plt.subplots(figsize=(4.0, 3.2))
+    ax.bar(labels, deltas, color=colors, width=0.5)
+    ax.set_ylabel(r"$\Delta$RMSE, SPEI$\leq$-1.5  (zeroed $-$ true scalars)", fontsize=8)
+    ax.set_title(f"Genuineness counterfactual — {loss_tag}", fontsize=9)
+    _style_axes(ax)
+    ax.tick_params(axis="x", rotation=15)
+    fig.tight_layout()
+    fig_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(fig_path, bbox_inches="tight")
+    plt.close(fig)
+
+
+def run_film_extremes(
+    saved_models_dir: Path | None = None,
+    csv_dir: Path | None = None,
+    fig_dir: Path | None = None,
+) -> dict:
+    """Phase 2 entry point: for each of the 4 losses, run the stratified
+    comparison, the 2022 case study, and the genuineness counterfactual.
+    Prints progress per loss/condition as it runs. Writes 3 CSVs and
+    3 figures per loss (12 figures total) and returns the raw rows.
+    """
+    saved_models_dir = saved_models_dir or (project_root() / "saved_models")
+    csv_dir = csv_dir or (project_root() / "reports" / "interpretability")
+    fig_dir = fig_dir or (project_root() / "figures" / "interpretability" / "film_extremes")
+    csv_dir.mkdir(parents=True, exist_ok=True)
+    fig_dir.mkdir(parents=True, exist_ok=True)
+
+    stratified_rows: list[dict] = []
+    case_study_rows: list[dict] = []
+    counterfactual_rows: list[dict] = []
+
+    for li, loss_tag in enumerate(FILM_LOSSES, 1):
+        print(f"\n[{li}/{len(FILM_LOSSES)}] loss={loss_tag}")
+
+        runs: dict[str, _ConditionRun] = {}
+        strat_by_condition: dict[str, list[dict]] = {}
+        for static_encoder, global_encoder in FILM_CONDITIONS:
+            label = CONDITION_LABELS[(static_encoder, global_encoder)]
+            ckpt = find_loss_checkpoint(saved_models_dir, loss_tag, static_encoder, global_encoder)
+            dataset = build_dataset(static_encoder, global_encoder)
+            model = load_model(ckpt, dataset, static_encoder, global_encoder)
+            loader = DataLoader(
+                wrap_test_subset(dataset, static_encoder, global_encoder), batch_size=16, shuffle=False
+            )
+            print(f"    [{label}] baseline eval  [{len(loader)} batches]")
+            preds, targets = run_eval(model, loader, dataset, static_encoder, global_encoder, progress=True)
+            runs[label] = _ConditionRun(
+                preds, targets, model.mask, dataset, model, loader, static_encoder, global_encoder
+            )
+
+            strat = stratified_metrics(targets, preds, model.mask)
+            strat_by_condition[label] = strat
+            for row in strat:
+                stratified_rows.append({"loss": loss_tag, "condition": label, **row})
+            print(f"    [{label}] " + "  ".join(f"{r['bin']}:rmse={r['rmse']:.3f}" for r in strat))
+
+        stratified_fig = fig_dir / f"{loss_tag}_stratified.svg"
+        plot_stratified_comparison(loss_tag, strat_by_condition, stratified_fig)
+        print(f"    stratified figure -> {stratified_fig}")
+
+        # ── 2022 case study: naive/naive vs naive/film ──────────────────────
+        nn, nf = runs["naive/naive"], runs["naive/film"]
+        dates = test_target_dates(nn.dataset)
+        worst_idx = worst_2022_month_index(dates, nn.targets, nn.mask)
+        worst_date = dates[worst_idx]
+
+        obs = nn.targets[worst_idx]
+        pred_nn = nn.preds[worst_idx]
+        pred_nf = nf.preds[worst_idx]
+
+        _, _, nf_test_sub = nf.dataset.split_by_years(val_from=VAL_FROM_YEAR, test_from=TEST_FROM_YEAR)
+        sample_idx = nf_test_sub.indices[worst_idx]
+        t_last_input = sample_idx + HISTORY_LENGTH - 1
+        scalars_at_t = nf.dataset.global_scalars[t_last_input]
+        driver_values = {label: scalars_at_t[i].item() for i, label in DRIVER_LABELS.items()}
+
+        case_fig = fig_dir / f"{loss_tag}_2022_case_study.svg"
+        plot_case_study(
+            loss_tag, worst_date, obs, pred_nn, pred_nf, nn.mask,
+            nn.dataset.rlat, nn.dataset.rlon, driver_values, case_fig,
+        )
+        print(f"    2022 case study: {str(worst_date)[:7]}  -> {case_fig}")
+        case_study_rows.append({
+            "loss": loss_tag,
+            "date": str(worst_date)[:10],
+            "domain_mean_observed_spei": float(obs[nn.mask].mean().item()),
+            **{f"driver_{k}": v for k, v in driver_values.items()},
+        })
+
+        # ── Genuineness counterfactual: naive/film, seasonal/film ───────────
+        cf_rows_this_loss = []
+        for label in ("naive/film", "seasonal/film"):
+            run = runs[label]
+            spec = AblationSpec("global", "global")
+            print(f"    [{label}] zeroed-scalar counterfactual eval  [{len(run.loader)} batches]")
+            preds_zeroed, _ = run_eval(
+                run.model, run.loader, run.dataset, run.static_encoder, run.global_encoder, spec=spec, progress=True
+            )
+            rmse_true = drought_rmse_pooled(run.targets, run.preds, run.mask, DROUGHT_THRESHOLD).item()
+            rmse_zeroed = drought_rmse_pooled(run.targets, preds_zeroed, run.mask, DROUGHT_THRESHOLD).item()
+            row = {
+                "loss": loss_tag,
+                "condition": label,
+                "extreme_rmse_true_scalars": rmse_true,
+                "extreme_rmse_zeroed_scalars": rmse_zeroed,
+                "delta_extreme_rmse": rmse_zeroed - rmse_true,
+            }
+            counterfactual_rows.append(row)
+            cf_rows_this_loss.append(row)
+            print(f"    [{label}] extreme RMSE (SPEI<=-1.5): true={rmse_true:.4f}  "
+                  f"zeroed={rmse_zeroed:.4f}  delta={row['delta_extreme_rmse']:+.4f}")
+
+        cf_fig = fig_dir / f"{loss_tag}_counterfactual.svg"
+        plot_counterfactual(loss_tag, cf_rows_this_loss, cf_fig)
+        print(f"    counterfactual figure -> {cf_fig}")
+
+    _write_csv(csv_dir / "film_stratified.csv", stratified_rows)
+    _write_csv(csv_dir / "film_2022_case_studies.csv", case_study_rows)
+    _write_csv(csv_dir / "film_counterfactual.csv", counterfactual_rows)
+    print(f"\nCSVs -> {csv_dir}/")
+    print(f"Figures -> {fig_dir}/")
+    return {"stratified": stratified_rows, "case_studies": case_study_rows, "counterfactual": counterfactual_rows}
 
 
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["feature-importance"])
+    parser.add_argument("command", choices=["feature-importance", "film-extremes"])
     args = parser.parse_args()
 
     if args.command == "feature-importance":
         run_feature_importance()
+    elif args.command == "film-extremes":
+        run_film_extremes()

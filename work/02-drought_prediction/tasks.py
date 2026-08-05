@@ -134,6 +134,20 @@ def feature_importance(c: Context):
 
 
 @task
+def film_extremes(c: Context):
+    """Phase 2 interpretability: does FiLM benefit the extremes?
+
+    For each of the 4 losses (mse, pinball_q0.20, wmse_w1_hinge, wmse_w5_hinge),
+    compares naive/naive, naive/film, and seasonal/film checkpoints. No
+    retraining -- test period only. Prints per-loss/per-condition progress as
+    it runs. Writes 3 CSVs (stratified error, 2022 case studies, genuineness
+    counterfactual) to reports/interpretability/ and 3 figures per loss (12
+    total) to figures/interpretability/film_extremes/.
+    """
+    _run(c, "uv run python code/interpretability.py film-extremes")
+
+
+@task
 def smoke(c: Context, epochs: int = 2, keep: bool = False):
     """End-to-end smoke test on a tiny synthetic fixture -- no real dataset needed.
 
