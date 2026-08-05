@@ -625,9 +625,9 @@ axis_labels <- crossing(
     )
   )
 
-#10
+#10 plot
 
-ggplot() +
+polygon_spatial <- ggplot() +
   geom_polygon(
     data = grid_polygons,
     aes(
@@ -770,6 +770,15 @@ ggsave(
   height = 4
 )
 heatwave_events_overview
+
+ggsave(
+  "work/05-riverine_heat/figures/polygon_spatial.pdf",
+  plot = polygon_spatial,
+  width = 5,
+  height = 4
+)
+polygon_spatial
+
 ggsave(
   "work/05-riverine_heat/figures/mean_duration_overview.pdf",
   plot = mean_duration_overview,

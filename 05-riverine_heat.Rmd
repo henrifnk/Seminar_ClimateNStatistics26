@@ -344,7 +344,6 @@ Linear Modell for common trends
 
 ## Overview of trends common models
 
-polygon plots
 
 \begin{center}
 \begin{tabular}{|l|l|l|}
@@ -378,6 +377,10 @@ discuss possibilities of simulated temperature data
 
 
 ## Conclusion
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
+```
 
 - Significant increase of heatwave events over time
 

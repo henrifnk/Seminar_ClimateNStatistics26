@@ -3,11 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(lubridate)
 library(purrr)
-library(Matrix)
-library(lme4)
 library(tidyr)
-
-#
 
 # salz <- readRDS("work/05-riverine_heat/data/data_processed/fraenkische_saale_salz.rds")
 # wolfsmuenster <- readRDS("work/05-riverine_heat/data/data_processed/fraenkische_saale_wolfsmuenster.rds")
@@ -196,7 +192,7 @@ plots_all_years <- function(station, year_cons) {
 threshold_kemmern <- plots_all_years("kemmern", 2018)
 
 ggsave(
-  "Images/threshold_kemmern.pdf",
+  "work/05-riverine_heat/figures/threshold_kemmern.pdf",
   plot = threshold_kemmern,
   width = 6,
   height = 4
