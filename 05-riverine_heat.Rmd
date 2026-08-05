@@ -118,7 +118,7 @@ while the quantity of water (droughts, floods) has already been braodly explored
 underrated (hamel)
 pledge for universal definition
 
-# Methods
+# Data
 
 ## Data
 
@@ -141,6 +141,9 @@ Stations included for analysis: red, find out how to make graphic captions in r 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
 ```
+
+
+# Methods
 
 ## Threshold
 
@@ -225,10 +228,11 @@ previously defined metrics and pose the following questions:
 3. How has the intensity of riverine heatwaves changed over time?
 
 Given the availability of stations with different locations along the same river system, we will also look into, how 
-the metrics differ between the stations.
+the metrics differ between the stations. To answer these research question, we will perform exploratory analysis on the
+heatwave data, and look for differences between stations and years. Also linear and quasi poisson modells were fitted on
+the data, to look for significant temporal and spatial trends.
 
-# Research
-
+# Results
 
 ## 1. Frequency
 
