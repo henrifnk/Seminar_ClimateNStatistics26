@@ -2,6 +2,7 @@
 output:
   pdf_document: default
   html_document: default
+bibliography: work/05-riverine_heat/R/references.bib
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -29,18 +30,18 @@ quantified and assessed. This will be helpful, to gain a better understanding of
 especially important to explore how riverine heatwaves evolve during climate change, as all three metrics to quantify
 frequency, duration and intensity seem to be increasing.
 
-# Introduction to Riverine Heatwaves
+## Introduction
 
-## Definition
+### Definition
 
 Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature 
 exceeds a local seasonally varying percentile based threshold for a prolonged period of time. Usually, a historical 
 baseline period is used, to calculate the threshold, which is then applied to the examined time series, of the same 
-location. (hamel, hobday, chen)
+location. [@hobday2016] (hamel, hobday, chen)
 Although the definition is similar, aquatic heatwaves and atmospheric heatwaves behave differently, as aquatic heatwaves 
 tend to be more rare, but more persistent, than atmospheric heatwaves. (hamel)
 
-## Drivers
+### Drivers
 
 As riverine heatwaves are a phenomenon that has not gained much attention so far, its drivers are not fully understood 
 yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric 
@@ -57,7 +58,7 @@ discharge and changes in water sources. Also they tend to appear most frequently
 Although there have been some studies indicating correlations between these processes and riverine heatwaves, they are 
 not fully understood yet, and there still remains a large knowledge gap.
 
-## Impacts
+### Impacts
 
 The appearance of riverine heatwaves can have both ecological and socioeconomic impacts. These can be parted into 
 different layers. Firstly there are the immediate effects of prolonged periods of high water temperature. The higher 
@@ -70,7 +71,7 @@ Moreover, high water temperatures can also negatively impact energy production, 
 relies on cooling water from close by river system, which already has been unavailable due to riverine heatwaves in some 
 cases.
 
-## Research possibilities
+### Research possibilities
 
 just ennumerate research possibilities in general, no need to relate to my paper, no need to go much into detail
 
@@ -106,9 +107,9 @@ while the quantity of water (droughts, floods) has already been braodly explored
 underrated (hamel)
 pledge for universal definition
 
-# Data
+## Data
 
-## Data Set
+### Data Set
 
 For the analysis we will use a data set of longitudinal temperature data from 14 gauges at Main river system in Bavaria. 
 The data set includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000 
@@ -122,7 +123,7 @@ standards. Excluding the other stations gives us a 15 year common period time se
 almost no missing values (not more than ten percent per yearly station specific time series).
 The used stations are marked in figure 1, which also shows their position along the main river system.
 
-## Locations
+### Locations
 
 Stations included for analysis: red, find out how to make graphic captions in r markdwon
 
@@ -131,9 +132,9 @@ knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
 ```
 
 
-# Methods
+## Methods
 
-## Threshold
+### Threshold
 
 The threshold which classifies riverine heatwaves has to be precisely defined. This paper is going to use the definition
 of Hobday, adopted originally from marine heatwaves. However this definition has also been widely used in work on 
@@ -170,13 +171,13 @@ are examined for events of at least five consecutive days exceeding the threshol
 given an ID, while all short events are discarded. When there is a gap of only one or two days between two or more
 heatwaves that all individually have a duration of at least five days, the heatwaves, are merged into one heatwave.
 
-## Threshold example: Main data (Kemmern, 2018)
+### Threshold example: Main data (Kemmern, 2018)
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.pdf")
 ```
 
-## Metrics used
+### Metrics used
 
 This paper will focus on three primary metrics, that will be used to quantify the evolution of riverine heatwaves. We 
 will use a frequency metric, a duration metric and an intensity metric, to be able to describe the evolution under 
@@ -208,7 +209,7 @@ These metrics can also be used to summarize two or more of these characteristics
 be multiplied with the mean annual duration, to obtain the number of heatwave days per year. Or the duration of a 
 heatwave can be multiplied with its mean intensity, to obtain its mean severity. 
 
-## Research Question
+### Research Question
 
 This paper examines the evolution of riverine heatwaves over climate change. Therefore we want to focus primarily on 
 the changes over time, using the period of the used data. To do this, we will examine the development of the three 
@@ -225,9 +226,9 @@ the metrics differ between the stations. To answer these research question, we w
 heatwave data, and look for differences between stations and years. Also linear and quasi poisson modells were fitted on
 the data, to look for significant temporal and spatial trends.
 
-# Results
+## Results
 
-## Frequency
+### Frequency
 
 Figure 1 shows the distribution of heatwave frequency for each station, with the stations being ordered by their 
 position along the river from upstream to downstream. We can see, that for each station the mean frequency lies 
@@ -255,7 +256,7 @@ knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf"
 
 
 
-## Duration
+### Duration
 
 The duration of heatwaves of Main river in the considered period lay between 5 and 28, with an avergae between 8 and 10.
 Again the stations are placed in their order along the river, and while the mean stays consistent, the variance seems 
@@ -274,7 +275,7 @@ knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 ```
 
 
-## Intensity
+### Intensity
 
 3. intensity
     1. heatwave intensity per station
@@ -303,9 +304,9 @@ knitr::include_graphics("work/05-riverine_heat/figures/intensity_plot.pdf")
 Linear Modell for common trends
 
 
-# Discussion
+## Discussion
 
-## Overview of trends common models
+### Overview of trends common models
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
@@ -342,7 +343,7 @@ discuss possibilities of simulated temperature data
 
 
 
-## Conclusion
+### Conclusion
 
 - Significant increase of heatwave events over time
 
@@ -354,7 +355,7 @@ discuss possibilities of simulated temperature data
 
 -> Longer time series -> ideally at least 30 years 
 
-## Sources
+### quellen
 
 https://www.nature.com/articles/s44221-025-00541-5
 (van Hamel 2025)
@@ -363,3 +364,6 @@ https://www.nature.com/articles/s41467-025-66868-5?fromPaywallRec=false
 - https://www.sciencedirect.com/science/article/pii/S0079661116000057
 - https://www.nature.com/articles/s41467-025-66868-5?fromPaywallRec=false
 - https://www.pnas.org/doi/10.1073/pnas.2503160122
+
+# References
+
