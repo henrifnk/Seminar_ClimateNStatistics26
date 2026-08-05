@@ -246,37 +246,9 @@ treating the station variable as a static effect. This resulted into a significa
 quasi poisson is depicted in figure 2 where it is plotted into the frequency distribution of each station individually.
 The offset represents the intercept of the station effect, as the frequency of heatwaves differs from station to station.
 
-figure 1
-annual frequency per station
-sorted by the order in the river system (from source to mouth)
-frequency mean between 2,5 and 3 
-some with 0 events, max is 10
-mean and variance slightly increase downstream
-fitted lm with river kilometer, not significant, maybe interesting to look into with more station
-
-figure 2
-frequency each station incorporated common quasi poisson trend
-    1. seems to be increasing, but insignificant
-    2. but bc seems to be i wanted to look for general trend → common lm
-    3. a bit higher variance in the end but seems to be ok
-    4. on diagonal lines (count variable)
-    5. qq plot (see if residual are normally distributed), seems to fit, just end→ is normal for small sample sized (extremes weigh more)
-    6. seems to be ok → fitted: see increasing trend, seems to go along with the trend of most stations
-    7. significant,  0,147 per year
-
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.pdf")
 ```
-
-
-talk about also the sinlge modells,
-
-quasi poisson modell for common trend: Residuals vs. fitted
-
-
-
-Linear model for common trend: Q-Q-PLot
-
 
 
 ```{r, echo=FALSE, out.width="80%"}
@@ -288,15 +260,11 @@ knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf"
 
 ## 2. Duration
 
-2. duration
-    1. heatwave duration by station (of each heatwave)
-        1. starts at 5 (makes sense), up to 28, high outliers , variance increases
-        2. mean between 8 and 10 days
-        3. no trend mean wise
-    2. same pocedure: fitted lms
-        1. this time: for the 3 source stations there seems to be a positive trend, but no general trends
-    3. and in fact when we fit a common lm, there is only a slight increase, goes against some station trends
-    4. also its insignificant
+The duration of heatwaves of Main river in the considered period lay between 5 and 28, with an avergae between 8 and 10.
+Again the stations are placed in their order along the river, and while the mean stays consistent, the variance seems 
+to increase downstream. Again there was a model fitted between the mean duration of each station and the river kilometer, this time a linear model was used, however it showed no significant trend Another idea would be to examine the maximum duration of each station and look a downstream trend. This approach delivered...
+
+For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each a linear modell was fitted. Three of the six stations show a positive trend, however insignificant, while the other stations show no trend. Fitting a common linear modell, a increasing, however insignificant, trend of  can be observed.
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pdf")
@@ -307,8 +275,6 @@ knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pd
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 ```
-
-linear modell for common trends
 
 
 ## 3. Intensity
