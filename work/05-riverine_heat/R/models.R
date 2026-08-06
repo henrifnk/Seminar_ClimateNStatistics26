@@ -225,9 +225,12 @@ summary(lm_intensity)
 
 # data transformation
 
+annual_summary
+
 station_summary <- annual_summary %>%
   group_by(station) %>%
   summarise(
+    max_duration = mean(max_duration, na.rm = TRUE),
     mean_events = mean(heatwave_events),
     mean_duration = mean(mean_duration, na.rm = TRUE),
     mean_intensity = mean(mean_intensity, na.rm = TRUE),
@@ -254,8 +257,19 @@ station_summary
 station_summary <- station_summary %>%
   arrange(river_km)
 
+# sort annual summary
+
+annual_summary <- annual_summary %>%
+  mutate(river_km = kilometers_main[station])
+
+
+annual_summary <- annual_summary %>%
+  arrange(river_km) %>%
+  mutate(station = factor(station, levels = unique(station)))
+
 # models
 
+station_summary
 # frequency
 lm(mean_events ~ river_km, data = station_summary)
 summary(lm(mean_events ~ river_km, data = station_summary))
@@ -267,15 +281,6 @@ cor(station_summary$river_km,
 
 summary(lm(mean_events ~ river_km, data = station_summary))
 
-# sort annual summary
-
-annual_summary <- annual_summary %>%
-  mutate(river_km = kilometers_main[station])
-
-
-annual_summary <- annual_summary %>%
-  arrange(river_km) %>%
-  mutate(station = factor(station, levels = unique(station)))
 
 # duration
 
@@ -283,6 +288,10 @@ lm(mean_duration ~ river_km, data = station_summary)
 
 
 summary(lm(mean_duration ~ river_km, data = station_summary))
+
+# lm mean max duration per station
+
+summary(lm(max_duration ~ river_km, data = station_summary))
 
 # intensity
 

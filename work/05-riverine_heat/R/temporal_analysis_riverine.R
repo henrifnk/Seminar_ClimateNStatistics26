@@ -214,8 +214,14 @@ heatwave_events_plot <- ggplot(
     x = "Year",
     y = "Heatwave days"
   ) +
-  theme_minimal()
-
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    )
+  )
 heatwave_events_plot
 
 # 2. DURATION
@@ -260,7 +266,14 @@ duration_plot <- ggplot(
     x = "Year",
     y = "Mean Duration (days)"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    )
+  )
 
 duration_plot
 
@@ -306,30 +319,7 @@ intensity_plot <- ggplot(
     x = "Year",
     y = "Mean intensity (°C)"
   ) +
-  theme_minimal()
-
-intensity_plot
-
-intensity_plot <- ggplot(annual_summary,
-       aes(x = year,
-           y = mean_intensity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    linewidth = 0.8,
-    alpha = 0.25
-  ) +
-  facet_wrap(
-    ~station,
-    labeller = as_labeller(station_labels)
-  ) +
-  labs(
-    title = "Yearly mean heatwave intensity per station",
-    x = "Year",
-    y = "Mean heatwave intensity (°C)"
-  ) +
-  theme_minimal()+
+  theme_minimal() +
   theme(
     panel.border = element_rect(
       colour = "black",
@@ -338,7 +328,7 @@ intensity_plot <- ggplot(annual_summary,
     )
   )
 
-
+intensity_plot
 
 # 4. SEVERITY
 

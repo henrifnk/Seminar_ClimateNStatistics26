@@ -59,6 +59,7 @@ discharge and changes in water sources. Also they tend to appear most frequently
 heatwaves, they are not fully understood yet, and there still remains a large knowledge gap.
 
 We additionally identified the most influential drivers of riverine heat wave trends using a Boosted Regression Tree (BRT, see Methods) model (37).
+Riverine heat wave Trends Driven Predominantly by Climate-induced Temperature and Water Changes, Followed by Dams and Agriculture Activities.
 
 ### Impacts
 
@@ -241,8 +242,8 @@ Figure 1 shows the distribution of heatwave frequency for each station, with the
 position along the river from upstream to downstream. We can see, that for each station the mean frequency lies 
 between 2.5 and 3. Both its mean and its variance seem to slighty increase in a downstream direction. To investigate
 this more thoroughly, a linear model between the mean frequency per station, and the river kilometer, a static variable, 
-that indicates for each station its distance from the river source??, was used. It indicated a increasing, however 
-insignificant of ... .
+that indicates for each station its distance from the river mouth in kilometers, was used. It indicated a increasing, 
+however insignificant of ... .
 
 To examine the temporal trend of frequency, the heatwave events for each station were grouped by the year, and we used a 
 quasi poisson modell, to look for correlation between the frequency and year. Fitting a modell for each individual station
@@ -347,16 +348,14 @@ discuss severity (evtl already in analysis)
 discuss possibilities of simulated temperature data
 
 
-
-
-
-### Conclusion
+Riverine heat wave duration has become significantly longer (p ≤ 0.05) in about 62% of sites, whereas intensity and cumulative intensity have increased in 54 and 81% of the sites,
 
 - Significant increase of heatwave events over time
 
 - No significant trends in duration and intensity
 
 - No significant trends for individual stations
+downstream trends might be beacuse heatwaves stay inside theriver ad move with its current
 
 - To examine whether duration and intensity are stagnant over time:
 
