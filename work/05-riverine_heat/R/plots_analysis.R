@@ -794,14 +794,9 @@ ggsave(
 )
 mean_intensity_overview
 
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+# polygon plot per year
 
-# ============================================================
-# 1. Prepare yearly radar data
-# ============================================================
-
+#1
 radar_data_year <- annual_summary %>%
   group_by(year) %>%
   summarise(
@@ -812,7 +807,6 @@ radar_data_year <- annual_summary %>%
   ) %>%
   arrange(year)
 
-# Relative to overall mean (= reference triangle)
 
 radar_data_year <- radar_data_year %>%
   mutate(
@@ -821,16 +815,12 @@ radar_data_year <- radar_data_year %>%
     intensity = intensity / mean(intensity)
   )
 
-# Chronological order
-
 radar_data_year$year <- factor(
   radar_data_year$year,
   levels = sort(unique(radar_data_year$year))
 )
 
-# ============================================================
-# 2. Determine common scale
-# ============================================================
+#2
 
 maximum_value <- max(
   radar_data_year$frequency,
@@ -846,9 +836,7 @@ if(maximum_value > 1.5){
   grid_levels <- c(grid_levels, maximum_value)
 }
 
-# ============================================================
-# 3. Convert to long format
-# ============================================================
+#3
 
 plot_data <- radar_data_year %>%
   pivot_longer(
@@ -882,9 +870,7 @@ plot_data <- plot_data %>%
   bind_rows(slice(., 1)) %>%
   ungroup()
 
-# ============================================================
-# 4. Reference triangle (overall mean = 1)
-# ============================================================
+#4
 
 reference <- data.frame(
   metric = factor(
@@ -902,9 +888,7 @@ reference <- reference %>%
     y = value * sin(angle_rad)
   )
 
-# ============================================================
-# 5. Background grid
-# ============================================================
+#5
 
 grid <- expand.grid(
   metric = factor(
@@ -928,9 +912,7 @@ grid <- grid %>%
   bind_rows(slice(., 1)) %>%
   ungroup()
 
-# ============================================================
-# 6. Axes
-# ============================================================
+#6
 
 axes <- data.frame(
   metric = c("duration", "intensity", "frequency"),
@@ -944,9 +926,7 @@ labels <- data.frame(
   y = (maximum_value + 0.20) * sin(angles * pi / 180)
 )
 
-# ============================================================
-# 7. Plot
-# ============================================================
+#7
 
 ggplot() +
   
@@ -1028,6 +1008,7 @@ ggplot() +
     title = "Heatwave characteristics by year",
     subtitle = "Values are expressed relative to the mean across all years; the dashed grey triangle represents the overall mean"
   )
+
 
 # TEMPORAL TRENDS
 

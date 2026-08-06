@@ -278,6 +278,8 @@ treating the station variable as a static effect. This resulted into a significa
 quasi poisson is depicted in figure 2 where it is plotted into the frequency distribution of each station individually.
 The offset represents the intercept of the station effect, as the frequency of heatwaves differs from station to station.
 
+confidence intervals !
+
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.pdf")
 ```
@@ -298,6 +300,8 @@ to increase downstream. Again there was a model fitted between the mean duration
 
 For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each a linear modell was fitted. Three of the six stations show a positive trend, however insignificant, while the other stations show no trend. Fitting a common linear modell, a increasing, however insignificant, trend of duration can be observed.
 
+confidence intervals !
+
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pdf")
 ```
@@ -311,20 +315,14 @@ knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 
 ### Intensity
 
+The intensity lies between 0 and 2 degrees celsius over the threshold, with the stations means laying between 0.5 and 
+0.8 degrees celsius. Again the plot suggests a trend between the location of the stations, it seems like the mean 
+intensity and its variance decrease stream downwards. To capture this trend a linear modell was used, which gave a slope
+of... per km, however again this result was not significant. 
 
-3. intensity
-    1. heatwave intensity per station
-        1. range of 0 to 2 degrees
-        2. variance decrease slightly
-        3. mean seems to decrease
-        4. fitted lm, again no significant trends
-    2. yearly mean heatwave intensity per station
-        1. again lm
-        2. high variance in the upstream stations
-        3. seems to be no trend
-    3. common lm
-        1. confirms that, flat line
-        2. not significant
+Looking at the yearly data, the plots again reflect the higher variance for upstream stations Schwürbitz, Schweinfurt 
+and Kemmern, however a clear temporal trend is not visible. Also neither the station specific linear modells, not the
+common linear modell show a significant trend. The result of the common modell was a slope of ...with a p value of ...
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.pdf")
