@@ -311,6 +311,7 @@ knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 
 ### Intensity
 
+
 3. intensity
     1. heatwave intensity per station
         1. range of 0 to 2 degrees
