@@ -13,12 +13,44 @@ def run_step(python_exe: str, script_name: str, cwd: Path) -> None:
     subprocess.run(cmd, cwd=cwd, check=True)
 
 
+def has_neuralhydrology(python_exe: str) -> bool:
+    probe = [python_exe, "-c", "import neuralhydrology"]
+    result = subprocess.run(probe, capture_output=True, text=True)
+    return result.returncode == 0
+
+
+def resolve_python_exe(requested: str | None, code_dir: Path) -> str:
+    if requested:
+        return requested
+
+    candidates: list[Path] = []
+    candidates.append(Path(sys.executable))
+
+    try:
+        github_root = code_dir.parents[3]
+        candidates.append(github_root / "climate-change" / ".venv" / "Scripts" / "python.exe")
+    except IndexError:
+        pass
+
+    for cand in candidates:
+        if cand.exists() and has_neuralhydrology(str(cand)):
+            return str(cand)
+
+    tried = "\n".join(str(c) for c in candidates)
+    raise RuntimeError(
+        "Cannot find a Python interpreter with 'neuralhydrology' installed. "
+        "Use --python-exe to specify one explicitly. Tried:\n"
+        f"{tried}"
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build and sync result CSV files.")
-    parser.add_argument("--python-exe", default=sys.executable, help="Python executable used for core scripts.")
+    parser.add_argument("--python-exe", default=None, help="Python executable used for core scripts.")
     args = parser.parse_args()
 
     code_dir = Path(__file__).resolve().parent
+    python_exe = resolve_python_exe(args.python_exe, code_dir)
     core_dir = code_dir / "90_core" / "rq3_finetune_full"
     out_dir = code_dir.parent / "results"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -26,8 +58,9 @@ def main() -> None:
     if not core_dir.exists():
         raise FileNotFoundError(f"Core directory not found: {core_dir}")
 
-    run_step(args.python_exe, "eval_global_true_by_group.py", core_dir)
-    run_step(args.python_exe, "gen_three_way_comparison.py", core_dir)
+    print(f"[results] using python: {python_exe}")
+    run_step(python_exe, "eval_global_true_by_group.py", core_dir)
+    run_step(python_exe, "gen_three_way_comparison.py", core_dir)
 
     required = [
         "results_folder_groups_summary_with_global_true_ea.csv",
