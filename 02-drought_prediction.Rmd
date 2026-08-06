@@ -46,8 +46,8 @@ knitr::include_graphics("work/02-drought_prediction/figures/general/drought_type
 ```
 
 This work targets meteorological drought, the first stage and earliest signal, driven by a precipitation deficit together with high evapotranspiration.
-It is quantified with standardized indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) [@vicente-serranoMultiscalarDroughtIndex2010].
-SPEI extends the precipitation-only Standardized Precipitation Index [@mckeeRelationshipDroughtFrequency1993] by using the climatic water balance, so that temperature enters through evapotranspiration and warming is reflected in the index.
+It is quantified with standardized indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) [@vicente-serranoMultiscalarDroughtIndex2010]. 
+SPEI extends the precipitation-only Standardized Precipitation Index [@mckeeRelationshipDroughtFrequency1993] by using the water balance, so that temperature enters through evapotranspiration, which can account more for rising temperatures under climate change.
 
 The SPEI is built on the monthly climatic water balance,
 
@@ -60,7 +60,7 @@ $\mathbf{D = P - PET}\begin{cases} > 0 & \text{water surplus} \\ < 0 & \text{wat
     $\mathbf{PET}$ & Potential Evapotranspiration \\
 \end{tabular}
 
-For each grid cell the water balance is accumulated over the chosen timescale, fitted to a distribution, and transformed to a standard normal, so that the resulting SPEI is expressed in standard deviations from the local climatological mean.
+For each grid cell the water balance is accumulated over the chosen timescale, fitted to a distribution, and transformed to a standard normal, so that the resulting SPEI is expressed in standard deviations from the local mean.
 It is computed as in @funk2026probabilisticdeeplearningdrought, with a three-parameter gamma fit calibrated over 1990 to 2019.
 
 ## Related Work
@@ -94,11 +94,10 @@ and, above all, studies how the loss and the conditioning on global and static f
 
 ### Domain and source
 
-The study region is the Alpine domain on the EUR-11 CORDEX rotated-pole grid, at monthly resolution from 1971 to 2024 (648 months).
-The data are derived from the ERA5-Land reanalysis, regridded to this grid and provided in preprocessed form.
+The study region is the Alpine domain at monthly resolution from 1971 to 2024 (648 months).
+The data is derived from the ERA5-Land reanalysis, regridded to this grid and provided in preprocessed form.
 SPEI was supplied already computed, following @funk2026probabilisticdeeplearningdrought.
-Topography comes from a EUR-11 CORDEX orography file, and the North Atlantic Oscillation index and Mediterranean sea-surface temperatures are provided as separate monthly series.
-A fixed mask marks the valid Alpine cells, and the remaining cells, a little under half the grid, lie outside the domain and are excluded from training and evaluation.
+A fixed mask marks the valid Alpine cells.
 
 <!-- FIGURE: raw topography of the Alpine domain -->
 
@@ -106,20 +105,13 @@ A fixed mask marks the valid Alpine cells, and the remaining cells, a little und
 
 The inputs fall into three groups.
 
-*Dynamic spatial* variables vary in space and time: SPEI, precipitation, near-surface temperature, surface pressure, and the climatic water balance.
-SPEI is the target and is also given to the model as history, so it can build on the recent drought state.
-Precipitation is the primary water input and the direct driver of a precipitation deficit.
-Temperature governs evapotranspiration, the water-loss side of the balance, and its role grows under a warming climate.
-The water balance, precipitation minus potential evapotranspiration, is the surplus or deficit that SPEI is built on.
-Surface pressure serves as a proxy for the synoptic state, since persistent high pressure suppresses precipitation and favors drought.
+*Dynamic spatial* variables vary in space and time: SPEI (the target, also supplied as history), precipitation, near-surface temperature, surface pressure, and the climatic water balance (precipitation minus potential evapotranspiration).
+Together these capture the local water supply and demand and the large-scale circulation that drive meteorological drought.
 
-*Dynamic global* variables vary in time but not space: the North Atlantic Oscillation index, Mediterranean sea-surface temperatures, and a cyclical encoding of the calendar month.
-The NAO is a dominant mode of North Atlantic variability that modulates European precipitation [@nao_TODO].
-The Mediterranean is a regional moisture source whose surface temperature influences evaporation and precipitation over the surrounding land [@millotCirculationMediterraneanSea2005; @lionelloMediterraneanClimateOverview2006], and its fourteen basin series are grouped into three regional means: western Mediterranean, eastern Mediterranean, and Black Sea.
-The month is encoded as sine and cosine to capture the annual cycle of drought onset and evapotranspiration without a discontinuity between December and January.
+*Dynamic global* variables vary in time only: the North Atlantic Oscillation index [@nao_TODO], grouped Mediterranean sea-surface temperatures, and a cyclical month encoding.
+These capture large-scale drivers of European moisture and its seasonality, with the fourteen Mediterranean basins grouped into three regional means (western Mediterranean, eastern Mediterranean, Black Sea) [@millotCirculationMediterraneanSea2005; @lionelloMediterraneanClimateOverview2006].
 
-*Static spatial* variables vary in space but not time: the topography.
-Alpine elevation strongly shapes precipitation and temperature, so a fixed elevation field lets the model condition its predictions on location.
+*Static spatial* variables vary in space only: the topography, since Alpine elevation strongly shapes precipitation and temperature.
 
 <!-- FIGURE: SPEI for one or a few selected months -->
 <!-- FIGURE: grouped Mediterranean SST series and NAO index -->
@@ -128,13 +120,13 @@ Alpine elevation strongly shapes precipitation and temperature, so a fixed eleva
 
 Cells outside the Alpine mask are filled and excluded from all statistics.
 All variables, including SPEI, are standardized to zero mean and unit variance using statistics from the training years and valid cells only, so that every input shares a common scale and the normalization draws on no information beyond the training period.
-SPEI, supplied on its own 1990 to 2019 reference, is thereby brought onto the same training-period footing as the other variables, which leaves its values almost unchanged since the two references nearly coincide.
+SPEI, supplied on its own 1990 to 2019 reference, is thereby brought onto the same training-period footing as the other variables.
 
 ### Split and nonstationarity
 
 The data are split chronologically to prevent look-ahead leakage: training on 1971 to 2004, validation on 2005 to 2014, and testing on 2015 to 2024.
 Because the split is by time rather than at random, the periods differ in climate.
-Severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is both out of sample and drier than the training period, a deliberately demanding evaluation.
+The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is both out of sample and drier than the training period.
 
 <!-- FIGURE: split-wise severe-drought frequency (Train / Val / Test) -->
 
