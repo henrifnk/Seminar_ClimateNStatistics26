@@ -1028,3 +1028,253 @@ ggplot() +
     title = "Heatwave characteristics by year",
     subtitle = "Values are expressed relative to the mean across all years; the dashed grey triangle represents the overall mean"
   )
+
+# TEMPORAL TRENDS
+
+# 1. FREQUENCY
+
+
+# faceted plot of all stations, including common quasi poisson model trend
+
+
+# Create one prediction for every observed station-year row
+
+glm_frequency <- glm(
+  heatwave_events ~ year + station,
+  family = quasipoisson(link = "log"),
+  data = annual_summary
+)
+
+
+plot_data <- annual_summary %>%
+  mutate(
+    predicted = predict(
+      glm_frequency,
+      newdata = annual_summary,
+      type = "response"
+    )
+  )
+
+heatwave_events_plot <- ggplot(
+  plot_data,
+  aes(x = year, y = heatwave_events)
+) +
+  geom_point(size = 2) +
+  geom_line(
+    aes(
+      y = predicted,
+      group = station
+    ),
+    colour = "blue",
+    linewidth = 0.9
+  ) +
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Heatwaves per year and station",
+    subtitle = "Fitted quasi-Poisson model with a common temporal trend",
+    x = "Year",
+    y = "Heatwave days"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    )
+  )
+heatwave_events_plot
+
+# 2. DURATION
+
+# 2.1 mean duration
+
+lm_duration <- lm(
+  mean_duration ~ year + station,
+  data = annual_summary
+)
+
+
+plot_data_dur <- annual_summary %>%
+  mutate(
+    predicted_dur = predict(
+      lm_duration,
+      newdata = annual_summary,
+      type = "response"
+    )
+  )
+
+duration_plot <- ggplot(
+  plot_data_dur,
+  aes(x = year, y = mean_duration)
+) +
+  geom_point(size = 2) +
+  geom_line(
+    aes(
+      y = predicted_dur,
+      group = station
+    ),
+    colour = "blue",
+    linewidth = 0.9
+  ) +
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Mean duration per year and station",
+    subtitle = "Fitted linear modell with a common temporal trend",
+    x = "Year",
+    y = "Mean Duration (days)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    )
+  )
+
+duration_plot
+
+# 3. INTENSITY
+
+# 3. 1 mean intensity
+
+lm_intensity <- lm(
+  mean_intensity ~ year + station,
+  data = annual_summary
+)
+
+plot_data_int <- annual_summary %>%
+  mutate(
+    predicted_int = predict(
+      lm_intensity,
+      newdata = annual_summary,
+      type = "response"
+    )
+  )
+
+
+intensity_plot <- ggplot(
+  plot_data_int,
+  aes(x = year, y = mean_intensity)
+) +
+  geom_point(size = 2) +
+  geom_line(
+    aes(
+      y = predicted_int,
+      group = station
+    ),
+    colour = "blue",
+    linewidth = 0.9
+  ) +
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Mean Intensity per year and station",
+    subtitle = "Fitted linear model with a common temporal trend",
+    x = "Year",
+    y = "Mean intensity (°C)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.border = element_rect(
+      colour = "black",
+      fill = NA,
+      linewidth = 0.8
+    )
+  )
+
+intensity_plot
+
+# 4. SEVERITY
+
+# 4.1 mean severity over time
+
+ggplot(annual_summary,
+       aes(x = year, y = mean_severity)) +
+  geom_line(
+    colour = "grey60",
+    linewidth = 0.5
+  ) +
+  geom_point(
+    colour = "black",
+    size = 2
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = TRUE,
+    linewidth = 0.8,
+    alpha = 0.25
+  ) +
+  facet_wrap(
+    ~station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Yearly mean heatwave severity per station",
+    x = "Year",
+    y = "Mean severity per heatwave (°C days)"
+  ) +
+  theme_minimal()
+
+# 4.2 total annual severity
+
+ggplot(annual_summary,
+       aes(x = year, y = total_severity)) +
+  geom_line(
+    colour = "grey60",
+    linewidth = 0.5
+  ) +
+  geom_point(
+    colour = "black",
+    size = 2
+  )+
+  geom_smooth(
+    method = "lm",
+    se = TRUE,
+    linewidth = 0.8,
+    alpha = 0.25
+  ) +
+  facet_wrap(
+    ~station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Yearly total heatwave severity per station",
+    x = "Year",
+    y = "Total annual severity (°C days)"
+  ) +
+  theme_minimal()
+
+# SAVE PLOTS
+
+ggsave(
+  "work/05-riverine_heat/figures/heatwave_events_plot.pdf",
+  plot = heatwave_events_plot,
+  width = 5,
+  height = 4
+)
+heatwave_events_plot
+ggsave(
+  "work/05-riverine_heat/figures/duration_plot.pdf",
+  plot = duration_plot,
+  width = 5,
+  height = 4
+)
+duration_plot
+ggsave(
+  "work/05-riverine_heat/figures/intensity_plot.pdf",
+  plot = intensity_plot,
+  width = 5,
+  height = 4
+)
+intensity_plot
+

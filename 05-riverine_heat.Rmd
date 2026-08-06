@@ -33,15 +33,23 @@ quantify frequency, duration and intensity seem to be increasing.
 
 ## Introduction
 
-### Definition
+### Introduction
 
-In contrast to air, lake and ocean heatwaves, research on river heatwaves is still emerging. However it is a topic that
-is only projected to become more relevant over time, as increasing water temperatures are closely linked to climate
-change, and also riverine heatwaves are expected to become more frequent, long and intense.
-This paper is going to give an overview on the topic of riverine heatwaves, by introducing its definition, its drivers 
-and its impacts. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time
+In contrast to air, lake and ocean heatwaves, research on river heatwaves is still just emerging. However it is a topic 
+that is only projected to become more relevant over time, as increasing water temperatures are closely linked to climate
+change, and also riverine heatwaves are expected to become more frequent, long and intense. In fact, they are even 
+projected to increase more rapidly than air heatwaves (source).To research riverine heatwaves, it is important to 
+understand precisely how they are defined, how they can be quantified, and what sort of data is required for their 
+analysis. Also the drivers and impacts of riverine heatwaves need to be examined, to understand their appearance, and 
+how they can be mitigated. Lastly, it is important to be able to forecast and predict riverine heatwaves, which requires 
+the construction of reliable models. 
+This paper is going to give an overview on the topic of riverine heatwaves, by introducing their definition, drivers and
+impacts. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time
 series, and what metrics can be used to quantify them. Later these methods will be used to perform an exploratory
-analysis on a data set of water temperature data from the Main river system. 
+analysis on a data set of water temperature data from the Main river system, focusing on the evolution of riverine 
+heatwaves over time and the differences between stations.
+
+### Definition
 
 Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature 
 exceeds a local seasonally varying percentile based threshold for a prolonged period of time. Usually, a historical 
