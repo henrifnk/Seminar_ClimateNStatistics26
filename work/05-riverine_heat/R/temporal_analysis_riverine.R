@@ -174,10 +174,18 @@ annual_summary$station <- factor(
 
 
 # Create one prediction for every observed station-year row
+
+glm_frequency <- glm(
+  heatwave_events ~ year + station,
+  family = quasipoisson(link = "log"),
+  data = annual_summary
+)
+
+
 plot_data <- annual_summary %>%
   mutate(
     predicted = predict(
-      model,
+      glm_frequency,
       newdata = annual_summary,
       type = "response"
     )
@@ -185,7 +193,7 @@ plot_data <- annual_summary %>%
 
 heatwave_events_plot <- ggplot(
   plot_data,
-  aes(x = year, y = heatwave_days)
+  aes(x = year, y = heatwave_events)
 ) +
   geom_point(size = 2) +
   geom_line(
@@ -201,50 +209,106 @@ heatwave_events_plot <- ggplot(
     labeller = as_labeller(station_labels)
   ) +
   labs(
-    title = "Heatwave days per year and station",
+    title = "Heatwaves per year and station",
     subtitle = "Fitted quasi-Poisson model with a common temporal trend",
     x = "Year",
     y = "Heatwave days"
   ) +
   theme_minimal()
 
+heatwave_events_plot
+
 # 2. DURATION
 
 # 2.1 mean duration
 
-duration_plot <- ggplot(annual_summary,
-       aes(x = year,
-           y = mean_duration)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    linewidth = 0.8,
-    alpha = 0.25
-  ) +
-  facet_wrap(
-    ~station,
-    labeller = as_labeller(station_labels)
-  ) +
-  labs(
-    title = "Mean heatwave duration per year and station",
-    x = "Year",
-    y = expression("Mean duration (days)")
-  ) +
-  theme_minimal() +
-  theme(
-    panel.border = element_rect(
-      colour = "black",
-      fill = NA,
-      linewidth = 0.8
+lm_duration <- lm(
+  mean_duration ~ year + station,
+  data = annual_summary
+)
+
+
+plot_data_dur <- annual_summary %>%
+  mutate(
+    predicted_dur = predict(
+      lm_duration,
+      newdata = annual_summary,
+      type = "response"
     )
   )
 
+duration_plot <- ggplot(
+  plot_data_dur,
+  aes(x = year, y = mean_duration)
+) +
+  geom_point(size = 2) +
+  geom_line(
+    aes(
+      y = predicted_dur,
+      group = station
+    ),
+    colour = "blue",
+    linewidth = 0.9
+  ) +
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Mean duration per year and station",
+    subtitle = "Fitted linear modell with a common temporal trend",
+    x = "Year",
+    y = "Mean Duration (days)"
+  ) +
+  theme_minimal()
 
+duration_plot
 
 # 3. INTENSITY
 
 # 3. 1 mean intensity
+
+lm_intensity <- lm(
+  mean_intensity ~ year + station,
+  data = annual_summary
+)
+
+plot_data_int <- annual_summary %>%
+  mutate(
+    predicted_int = predict(
+      lm_intensity,
+      newdata = annual_summary,
+      type = "response"
+    )
+  )
+
+
+intensity_plot <- ggplot(
+  plot_data_int,
+  aes(x = year, y = mean_intensity)
+) +
+  geom_point(size = 2) +
+  geom_line(
+    aes(
+      y = predicted_int,
+      group = station
+    ),
+    colour = "blue",
+    linewidth = 0.9
+  ) +
+  facet_wrap(
+    ~ station,
+    labeller = as_labeller(station_labels)
+  ) +
+  labs(
+    title = "Mean Intensity per year and station",
+    subtitle = "Fitted linear model with a common temporal trend",
+    x = "Year",
+    y = "Mean intensity (°C)"
+  ) +
+  theme_minimal()
+
+intensity_plot
 
 intensity_plot <- ggplot(annual_summary,
        aes(x = year,

@@ -3,6 +3,7 @@ output:
   pdf_document: default
   html_document: default
 bibliography: work/05-riverine_heat/R/references.bib
+csl: https://www.zotero.org/styles/apa
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -25,10 +26,10 @@ Riverine Heatwaves, which are prolonged periods of exceptionally high water temp
 underexplored hydrological phenomenon, that is expected to gain considerable importance throughout the next years, also 
 due to their link to climate change. The following paper will give an introduction to the precise definition of riverine 
 heatwaves, as well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect 
-riverine heatwavesfrom temperature time series, and how their development, both spatially and temporally, can be 
+riverine heatwaves from temperature time series, and how their development, both spatially and temporally, can be 
 quantified and assessed. This will be helpful, to gain a better understanding of riverine heatwaves. It will be 
-especially important to explore how riverine heatwaves evolve during climate change, as all three metrics to quantify
-frequency, duration and intensity seem to be increasing.
+especially important to explore how riverine heatwaves evolve during climate change, as all three metrics used to 
+quantify frequency, duration and intensity seem to be increasing.
 
 ## Introduction
 
@@ -38,8 +39,8 @@ Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods wh
 exceeds a local seasonally varying percentile based threshold for a prolonged period of time. Usually, a historical 
 baseline period is used, to calculate the threshold, which is then applied to the examined time series, of the same 
 location. [@hobday2016] (hamel, hobday, chen)
-Although the definition is similar, aquatic heatwaves and atmospheric heatwaves behave differently, as aquatic heatwaves 
-tend to be more rare, but more persistent, than atmospheric heatwaves. [@hamel2024]
+Although their definitions are similar, aquatic heatwaves and atmospheric heatwaves behave differently, as aquatic 
+heatwaves tend to be more rare, but more persistent, than atmospheric heatwaves. [@sadayappan2025]
 
 ### Drivers
 
@@ -54,21 +55,23 @@ However, so far very little is know on how riverine heatwaves are caused. It is 
 are usually processes that include a number of these drivers.
 From literature we know, that usually riverine heatwaves relate to high air temperature and solar radiation, low 
 discharge and changes in water sources. Also they tend to appear most frequently above dams and in free-flowing rivers 
-[@hamel2024].
-Although there have been some studies indicating correlations between these processes and riverine heatwaves, they are 
-not fully understood yet, and there still remains a large knowledge gap.
+[@hamel2024]. Although there have been some studies indicating correlations between these processes and riverine 
+heatwaves, they are not fully understood yet, and there still remains a large knowledge gap.
+
+We additionally identified the most influential drivers of riverine heat wave trends using a Boosted Regression Tree (BRT, see Methods) model (37).
 
 ### Impacts
 
 The appearance of riverine heatwaves can have both ecological and socioeconomic impacts. These can be parted into 
 different layers. Firstly there are the immediate effects of prolonged periods of high water temperature. The higher 
 temperature could lead to an increased rate of open water evaporation. Moreover, they might lead to an increased spread 
-of diseases, harmful algee bloom and a decrease in water quality in gerneral. This in turn can reduce the availability 
+of diseases, harmful algee bloom and a decrease in water quality in general. This in turn can reduce the availability 
 of drinking water or the possibility of recreational activities and be harmful to flora and fauna living in, or close by 
 the river systems. Also the prolonged high temperatures can cause thermal stress on fish and other aquatic species. 
-Together this is threatening fishing and aquaculture which is a vital source of food for a large part of the population (Chen).
-Moreover, high water temperatures can also negatively impact energy production, as nuclear power production often 
-relies on cooling water from close by river system, which already has been unavailable due to riverine heatwaves in some 
+Together this is threatening fishing and aquaculture which is a vital source of food for a large part of the population 
+[@chen2026]. Moreover, high water temperatures can also negatively impact energy production, as nuclear power production 
+often relies on cooling water from close by river system, which already has been unavailable due to riverine heatwaves 
+in some 
 cases.
 
 ### Research possibilities
@@ -96,6 +99,7 @@ Dense monitoring networks along individual rivers could facilitate a better unde
 
 models: Finally, the construction of reliable models to forecast and predict future riverine heatwave occurrence requires calibration and evaluation data to ensure robust performance and quantify and constrain their uncertainty. Models developed on limited data often fail when applied beyond their original scope or for the projection of extremes83,84,85. Using datasets that cover diverse elevation and climate zones is probably going to improve model accuracy, because it enables capturing a broader range of water temperature regimes, which is especially important when studying riverine heatwaves.
 Water temperature models are essential tools for quantifying the contributions of different driving processes of water temperature (for example, refs. 18,25) and to generate water temperature forecasts and future projections (for example, refs. 34,73). However, they might not yet be fit for the purpose of modelling riverine heatwaves.
+We overcome the challenge of data limitations by employing a deep learning long short-term memory (LSTM) model, a type of recurrent neural network known for leveraging diverse, inconsistent observations to reconstruct continuous time series data (34–36). [@sadayappan2025]
 
 All of these models share some limitations. First, all model types are mostly evaluated in terms of their overall accuracy, and are less often evaluated on their performance during extremely high temperatures79,102,103,104, and hardly ever specifically on riverine heatwaves31. Second, most existing models do not incorporate information on streamflow partitioning, such as meltwater and groundwater contributions, which have been shown to influence the development of extreme water temperatures25. Consequently, the ability of currently available set-ups to model riverine heatwaves is limited and not yet fully understood.
 
@@ -106,6 +110,9 @@ provide a baseline on how to detect and examine riverine heatwaves. use a data s
 while the quantity of water (droughts, floods) has already been braodly explored, the quality of water (eg temp) remains
 underrated (hamel)
 pledge for universal definition
+also the increase more rapidly than air heatwaves [@sadayappan2025]
+Which factor drives the rising trends of riverine heat wave more: anthropogenic climate change or direct human activities?
+[@sadayappan2025]
 
 ## Data
 
