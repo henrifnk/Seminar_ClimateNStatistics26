@@ -35,12 +35,21 @@ quantify frequency, duration and intensity seem to be increasing.
 
 ### Definition
 
+In contrast to air, lake and ocean heatwaves, research on river heatwaves is still emerging. However it is a topic that
+is only projected to become more relevant over time, as increasing water temperatures are closely linked to climate
+change, and also riverine heatwaves are expected to become more frequent, long and intense.
+This paper is going to give an overview on the topic of riverine heatwaves, by introducing its definition, its drivers 
+and its impacts. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time
+series, and what metrics can be used to quantify them. Later these methods will be used to perform an exploratory
+analysis on a data set of water temperature data from the Main river system. 
+
 Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature 
 exceeds a local seasonally varying percentile based threshold for a prolonged period of time. Usually, a historical 
 baseline period is used, to calculate the threshold, which is then applied to the examined time series, of the same 
 location. [@hobday2016] (hamel, hobday, chen)
-Although their definitions are similar, aquatic heatwaves and atmospheric heatwaves behave differently, as aquatic 
+Although their definitions are similar, riverine heatwaves and atmospheric heatwaves behave differently, as riverine 
 heatwaves tend to be more rare, but more persistent, than atmospheric heatwaves. [@sadayappan2025]
+
 
 ### Drivers
 
@@ -60,6 +69,11 @@ heatwaves, they are not fully understood yet, and there still remains a large kn
 
 We additionally identified the most influential drivers of riverine heat wave trends using a Boosted Regression Tree (BRT, see Methods) model (37).
 Riverine heat wave Trends Driven Predominantly by Climate-induced Temperature and Water Changes, Followed by Dams and Agriculture Activities.
+we ranked influential drivers of riverine heat wave trends using the BRT model (Fig. 5, Methods). Climate drivers, especially trends of minimum and maximum AT, consistently rank as the top drivers and correlates positively (red) with heat wave trends. Immediately following are other climate characteristics including winter precipitation percentage (PPT%winter) and trends of snow water equivalent (SWEtrend), often correlating negatively (blue) with rising heat waves. Groundwater contribution, quantified as the amplitude ratio of water and AT (AR and ARtrend) (30, 40), also emerges in the top five attributes, underscoring the essential role of more groundwater in buffering warming climate conditions. Trends in low streamflow (below 5th percentile) characteristics also rank in the top ten (SI Appendix, Fig. S4), including the trends in the annual number of low-flow days (LFDp5-trend), annual average flow (LFQp5-trend), and annual average flow shortage (LFSp5-trend) during low-flow days. Subsurface characteristics such as water table depth and soil properties influence heat wave trends to some extent, although not predominantly.
+heat wave trends are additionally shaped by human infrastructure and activities such as dams and agriculture (Fig. 5). In particular, the water storage of dams (Damstorage) is the most influential in elongating heat waves. The trends in the frequency and intensity of river heat waves in mixed and agriculture sites decrease with higher percentage of agriculture land (Agri%), not surprising given the cooling trends observed in the Midwest (Fig. 3). Trends of agricultural cover however are not important, as land use has mostly stabilized in the past few decades (SI Appendix, Table S5). Interestingly, although urban heat island effects are commonly perceived as important (32, 41), urban riverine heat waves are predominantly driven by changing AT and winter precipitation. The percentage of developed areas (Dev%) and its trend emerge in the top five only for the trends of heat wave frequency.
+The analysis of influential drivers potentially indicates that climate change drives river–air interactions and serves as the primary external drivers of riverine heat waves. In contrast, land structures such as dams and agriculture shaped by human activities serve as the secondary internal drivers that modulate river–land interactions and determine when, where, and to what extent rivers respond to anthropogenic climate change.
+Riverine heat wave characteristics increase most rapidly at sites with decreasing groundwater contribution (increasing ARtrend). Groundwater responds to AT slowly (47) and buffer hot air impacts on WT (48). Rivers with more groundwater contribution therefore are less sensitive to AT changes (30, 40), whereas rivers receiving more water through overland flow and shallow groundwater are more responsive to AT fluctuation. Similarly, low streamflow reduces thermal capacity of running water, elongates water residence times (49), and exacerbate riverine heat waves (50, 51).
+The positive correlation between dam storage and riverine heat wave duration (Fig. 5) indicates that large dams tend to elongate riverine heat waves. This contrasts observations in literature that dams can either increase or alleviate river heat waves, depending on dam location, characteristics, and timing and duration of water release from dams (29, 57, 58). For example, increasing heat wave durations has been observed upstream of dams or reservoirs (21). The release of upper warm epilimnion water has been shown to escalate but the release of deeper cool hypolimnetic water can dampen seasonal variations in WT downstream (57). Results here potentially indicate that in dams with large water volume, stagnant standing water leads to continued increase of WT even at depth, such that even water released at the bottom of reservoir still exacerbates riverine heat waves.
 
 ### Impacts
 
@@ -76,6 +90,8 @@ in some
 cases.
 
 ### Research possibilities
+
+modells for water temperature reconstruction
 
 just ennumerate research possibilities in general, no need to relate to my paper, no need to go much into detail
 
@@ -105,6 +121,8 @@ We overcome the challenge of data limitations by employing a deep learning long 
 All of these models share some limitations. First, all model types are mostly evaluated in terms of their overall accuracy, and are less often evaluated on their performance during extremely high temperatures79,102,103,104, and hardly ever specifically on riverine heatwaves31. Second, most existing models do not incorporate information on streamflow partitioning, such as meltwater and groundwater contributions, which have been shown to influence the development of extreme water temperatures25. Consequently, the ability of currently available set-ups to model riverine heatwaves is limited and not yet fully understood.
 
 Based on the above, we are calling for the development of a centralized database of open-source river water temperature data75. 
+
+LSTM modells for data Nonetheless, the analysis here illustrates the strength of LSTM models in integrating spatially fragmented and temporally inconsistent data under diverse conditions, coined “data synergy” in literature (59). Only 57 of the 1,471 sites have data exceeding 70% d coverage (Fig. 1),
 
 blablabla: this paper will focus on: / in the analysis part, we will focus on ...
 provide a baseline on how to detect and examine riverine heatwaves. use a data set, to apply these methods to a data set, as well as examine it using the defined characteristics while focusing on its temporal trends during cimate change
@@ -145,8 +163,8 @@ knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
 ### Threshold
 
 The threshold which classifies riverine heatwaves has to be precisely defined. This paper is going to use the definition
-of Hobday, adopted originally from marine heatwaves. However this definition has also been widely used in work on 
-riverine heatwaves (hamel, chen, ,...).
+of marine heatwaves by Hobday. Although it was originally defined for marine heatwaves, it has since been used on many 
+different studies about riverine heatwaves as well. (hamel, chen, ,...).
 
 The definition of marine heatwaves by Hobday uses a 90th percentile seasonally varying threshold, which is also varying 
 with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
@@ -337,15 +355,32 @@ Mean intensity & 0,008 & 0,19 \\
 - Mean intensity increases by ca. 0.12 °C
 
 
+In agricultural sites, riverine heat waves are generally longer and more intense but slightly less frequent than under other land uses (payanana)
+Overall, riverine heat waves have increased more rapidly in frequency and cumulative intensity in urban sites, and more rapidly in duration and intensity in undeveloped sites compared to air heat waves.
+Contradictory to common perceptions that rivers are cool refuges, riverine heat waves have increased at double to quadruple rates compared with air heat waves in 65 to 76% of the sites.
+
+With more than a thousand sites under diverse climate and land use conditions, the analysis here unequivocally shows that climate change is the direct, primary driver of the trends in riverine heat waves, although we recognize that climate change itself is driven by human activities. 
+
+With projected climate warming and increasing demand for freshwater, diffusive and advective heat fluxes are expected to intensify throughout the 21st century and increase the frequency, duration, and intensity of extreme high water temperature conditions (Meehl et al. 2007; Wuebbles et al. 2017). 
+
+themen:
+recent topic, only just now got recogniction, mny research possibilities
+
+discuss link to climate change
+
+-> discuss temporaltrends 
+
+discuss own theory on spatial trends, include knowledge from eg agricultural sites
+
 discuss baseline period, moving period
 
 discuss threshold definition (percentile based vs fixed)
 
-discuss temporal and spatioal trends
+discuss future trends of duration
 
 discuss severity (evtl already in analysis)
 
-discuss possibilities of simulated temperature data
+discuss data scarcity and possibilities of simulated temperature data
 
 
 Riverine heat wave duration has become significantly longer (p ≤ 0.05) in about 62% of sites, whereas intensity and cumulative intensity have increased in 54 and 81% of the sites,
