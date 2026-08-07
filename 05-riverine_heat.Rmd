@@ -129,8 +129,8 @@ The definition of marine heatwaves by Hobday uses a 90th percentile seasonally v
 with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
 each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding 
 window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is 
-depicted below, where y is the year and d is the day for the considered temperature. $Y_s$ and $y_e$ are the years 
-between the considered period lies, $P_{90}(X)$ is the 90 percent quantile of $X$ \@ref(eq:threshold). This procedure 
+depicted below, where y is the year and d is the day for the considered temperature \@ref(eq:threshold). $Y_s$ and 
+$y_e$ are the years between the considered period lies, $P_{90}(X)$ is the 90 percent quantile of $X$ . This procedure 
 will be repeated for each day of year, until the threshold for the entire year is completed [@hobday2016].
 
 \begin{equation}
@@ -182,7 +182,7 @@ D = t_e - t_s
   
 Lastly, we will use intensity, to assess the amount of the heat spike. The intensity, is defined as the temperature, by 
 which the 90 percent temperature threshold is exceeded. In this paper it is defined, as the mean of this temperature 
-exceedance per heatwave\@ref(eq:intensity) [@hobday2016].
+exceedance per heatwave\@ref(eq:intensity).
 
 \begin{equation}
 i_{\mathrm{mean}}
