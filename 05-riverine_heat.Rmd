@@ -77,6 +77,21 @@ heatwaves, they are not fully understood yet, and there still remains a large kn
 
 We additionally identified the most influential drivers of riverine heat wave trends using a Boosted Regression Tree (BRT, see Methods) model (37).
 Riverine heat wave Trends Driven Predominantly by Climate-induced Temperature and Water Changes, Followed by Dams and Agriculture Activities.
+
+- climate drivers: especially trends of min and max temp
+
+- winter precipitaion percentage, trends of snow water equivalent
+
+- groundwater contribution, (more groundwater buffers climatic conditions)
+
+- trends in low streamflow / discharge
+
+-human drivers: 
+
+- dams and agriculture, damstorage elongates heatwaves, (frequency and intensity decrease with higher percentage of agricultural) land
+
+- pattayan
+
 we ranked influential drivers of riverine heat wave trends using the BRT model (Fig. 5, Methods). Climate drivers, especially trends of minimum and maximum AT, consistently rank as the top drivers and correlates positively (red) with heat wave trends. Immediately following are other climate characteristics including winter precipitation percentage (PPT%winter) and trends of snow water equivalent (SWEtrend), often correlating negatively (blue) with rising heat waves. Groundwater contribution, quantified as the amplitude ratio of water and AT (AR and ARtrend) (30, 40), also emerges in the top five attributes, underscoring the essential role of more groundwater in buffering warming climate conditions. Trends in low streamflow (below 5th percentile) characteristics also rank in the top ten (SI Appendix, Fig. S4), including the trends in the annual number of low-flow days (LFDp5-trend), annual average flow (LFQp5-trend), and annual average flow shortage (LFSp5-trend) during low-flow days. Subsurface characteristics such as water table depth and soil properties influence heat wave trends to some extent, although not predominantly.
 heat wave trends are additionally shaped by human infrastructure and activities such as dams and agriculture (Fig. 5). In particular, the water storage of dams (Damstorage) is the most influential in elongating heat waves. The trends in the frequency and intensity of river heat waves in mixed and agriculture sites decrease with higher percentage of agriculture land (Agri%), not surprising given the cooling trends observed in the Midwest (Fig. 3). Trends of agricultural cover however are not important, as land use has mostly stabilized in the past few decades (SI Appendix, Table S5). Interestingly, although urban heat island effects are commonly perceived as important (32, 41), urban riverine heat waves are predominantly driven by changing AT and winter precipitation. The percentage of developed areas (Dev%) and its trend emerge in the top five only for the trends of heat wave frequency.
 The analysis of influential drivers potentially indicates that climate change drives river–air interactions and serves as the primary external drivers of riverine heat waves. In contrast, land structures such as dams and agriculture shaped by human activities serve as the secondary internal drivers that modulate river–land interactions and determine when, where, and to what extent rivers respond to anthropogenic climate change.
