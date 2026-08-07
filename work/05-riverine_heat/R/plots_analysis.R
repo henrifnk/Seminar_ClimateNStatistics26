@@ -1038,6 +1038,14 @@ plot_data <- annual_summary %>%
     )
   )
 
+plot_data <- plot_data %>%
+  mutate(
+    station = factor(
+      station,
+      levels = station_levels
+    )
+  )
+
 heatwave_events_plot <- ggplot(
   plot_data,
   aes(x = year, y = heatwave_events)
@@ -1090,6 +1098,14 @@ plot_data_dur <- annual_summary %>%
     )
   )
 
+plot_data_dur <- plot_data_dur %>%
+  mutate(
+    station = factor(
+      station,
+      levels = station_levels
+    )
+  )
+
 duration_plot <- ggplot(
   plot_data_dur,
   aes(x = year, y = mean_duration)
@@ -1139,6 +1155,14 @@ plot_data_int <- annual_summary %>%
       lm_intensity,
       newdata = annual_summary,
       type = "response"
+    )
+  )
+
+plot_data_int <- plot_data_int %>%
+  mutate(
+    station = factor(
+      station,
+      levels = station_levels
     )
   )
 
