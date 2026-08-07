@@ -125,12 +125,12 @@ annual_summary %>%
 
   
 station_levels <- c(
-  "schwuerbitz",
-  "pettstadt",
-  "kemmern",
-  "schweinfurt",
+  "kleinheubach",
   "wuerzburg",
-  "kleinheubach"
+  "schweinfurt",
+  "kemmern",
+  "pettstadt",
+  "schwuerbitz"
 )
 
 annual_summary$station <- factor(
@@ -159,20 +159,22 @@ annual_summary$station
 # station labels fr plot
 
 station_labels <- c(
-  schwuerbitz = "Main: Schwürbitz",
-  pettstadt = "Regnitz: Pettstadt",
-  kemmern = "Main: Kemmern",
-  schweinfurt = "Main: Schweinfurt",
+  kleinheubach = "Main: Kleinheubach",
   wuerzburg = "Main: Würzburg",
-  kleinheubach = "Main: Kleinheubach"
+  schweinfurt = "Main: Schweinfurt",
+  kemmern = "Main: Kemmern",
+  pettstadt = "Regnitz: Pettstadt",
+  schwuerbitz = "Main: Schwürbitz"
 )
 
-station_levels <- c("schwuerbitz",
-                    "pettstadt",
-                    "kemmern",
-                    "schweinfurt",
-                    "wuerzburg",
-                    "kleinheubach")
+station_levels <- c(
+  "kleinheubach",
+  "wuerzburg",
+  "schweinfurt",
+  "kemmern",
+  "pettstadt",
+  "schwuerbitz"
+)
 
 
 annual_summary$station <- factor(

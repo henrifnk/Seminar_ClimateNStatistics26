@@ -108,12 +108,12 @@ annual_summary <- all_years %>%
     total_severity = replace_na(total_severity, 0)
   )
 
-station_levels <- c("schwuerbitz",
-                    "pettstadt",
-                    "kemmern",
-                    "schweinfurt",
+station_levels <- c("kleinheubach",
                     "wuerzburg",
-                    "kleinheubach")
+                    "schweinfurt",
+                    "kemmern",
+                    "pettstadt",
+                    "schwuerbitz")
 
 
 annual_summary$station <- factor(
@@ -121,45 +121,8 @@ annual_summary$station <- factor(
   levels = station_levels
 )
 
-station_summary <- annual_summary %>%
-  group_by(station) %>%
-  summarise(
-    mean_events = mean(heatwave_events),
-    max_duration = max(mean_duration, na.rm = TRUE),
-    mean_duration = mean(mean_duration, na.rm = TRUE),
-    mean_intensity = mean(mean_intensity, na.rm = TRUE),
-    mean_severity = mean(mean_severity, na.rm = TRUE),
-    total_severity = mean(total_severity, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-kilometers_main <- c("frankfurt_osthafen" = 37.59,
-                     "kemmern" = 390.93,
-                     "kleinheubach" = 121.74,
-                     "krotzenburg" = 63.23,
-                     "mainleus" = 461.14,
-                     "schweinfurt" = 330.78,
-                     "schwuerbitz" = 438.29,
-                     "steinbach" = 200.52,
-                     "wuerzburg" = 251.97,
-                     "krotzenburg" = 63.23)
-
-station_summary <- station_summary %>%
-  mutate(river_km = kilometers_main[station])
-station_summary
-
-station_summary <- station_summary %>%
-  arrange(river_km)
-
-all_events
-annual_summary
-station_summary
-
-
-
-
 # ANALYSIS
-
+annual_summary
 
 # 1. FREQUENCY
 
@@ -228,6 +191,7 @@ summary(lm_intensity)
 annual_summary
 
 station_summary <- annual_summary %>%
+  filter(station != "pettstadt") %>%
   group_by(station) %>%
   summarise(
     max_duration = mean(max_duration, na.rm = TRUE),
@@ -239,37 +203,28 @@ station_summary <- annual_summary %>%
     .groups = "drop"
   )
 
-kilometers_main <- c("frankfurt_osthafen" = 37.59,
+kilometers_main <- c("schwuerbitz" = 438.29,
+                     #"pettstadt" = kemmern + 13.96
                      "kemmern" = 390.93,
-                     "kleinheubach" = 121.74,
-                     "krotzenburg" = 63.23,
-                     "mainleus" = 461.14,
                      "schweinfurt" = 330.78,
-                     "schwuerbitz" = 438.29,
-                     "steinbach" = 200.52,
                      "wuerzburg" = 251.97,
-                     "krotzenburg" = 63.23)
+                     "kleinheubach" = 121.74)
 
 station_summary <- station_summary %>%
-  mutate(river_km = kilometers_main[station])
+  mutate(
+    river_km = unname(
+      kilometers_main[as.character(station)]
+    )
+  )
 station_summary
 
 station_summary <- station_summary %>%
   arrange(river_km)
 
-# sort annual summary
-
-annual_summary <- annual_summary %>%
-  mutate(river_km = kilometers_main[station])
-
-
-annual_summary <- annual_summary %>%
-  arrange(river_km) %>%
-  mutate(station = factor(station, levels = unique(station)))
-
 # models
 
 station_summary
+
 # frequency
 lm(mean_events ~ river_km, data = station_summary)
 summary(lm(mean_events ~ river_km, data = station_summary))
@@ -289,9 +244,12 @@ lm(mean_duration ~ river_km, data = station_summary)
 
 summary(lm(mean_duration ~ river_km, data = station_summary))
 
-# lm mean max duration per station
+# max duration 
+
+lm(max_duration ~ river_km, data = station_summary)
 
 summary(lm(max_duration ~ river_km, data = station_summary))
+
 
 # intensity
 
