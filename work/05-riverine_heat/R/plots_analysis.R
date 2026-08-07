@@ -229,7 +229,7 @@ heatwave_events_overview <- ggplot(
     labels = station_labels
   )+
   labs(
-    title = "Annual heatwave frequency by station",
+    title = "Annual heatwave events by station",
     # subtitle = "Points represent individual years; horizontal markers represent station means",
     x = NULL,
     y = "Heatwave events per year"

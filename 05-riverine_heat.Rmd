@@ -225,12 +225,12 @@ however insignificant of -0.001935 events / year with a p value of 0.19710. As P
 and not directly on Main, it was excluded from this model.
 
 To examine the temporal trend of frequency, the heatwave events for each station were grouped by the year, and a 
-quasi poisson modell was used, to look for correlation between the frequency and year. Fitting a modell for each 
-individual station led only to 1 significant and 5 insignificant results. Furthermore a common quasi poisson modell of 
-frequency and year was used, treating the station variable as a static effect. This resulted into a significant positive 
-trend over time (slope: 0.05350 events / year, p value : 0.00184). The common quasi poisson is depicted in figure 2 
-where it is plotted into the frequency distribution of each station individually. The offset represents the intercept 
-of the station effect, as the frequency of heatwaves differs from station to station.
+quasi poisson modell was used, to look for correlation between the frequency and year. Fitting a model for each 
+individual station led only to 1 significant and 5 insignificant results. Furthermore a common temporal trend quasi 
+poisson model of frequency and year was used, treating the station variable as a static effect. This resulted into a 
+significant positive trend over time (slope: 0.05350 events / year, p value : 0.00184). The common quasi poisson is 
+depicted in figure 2 where it is plotted into the frequency distribution of each station individually. The offset 
+represents the intercept of the station effect, as the frequency of heatwaves differs from station to station.
 
 confidence intervals !
 
@@ -258,8 +258,8 @@ deliver a significant result (slope: -0.002475 days / km, p value: 0.61585 ).
 
 For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each 
 a linear modell was fitted. Three of the six stations showed a positive trend, however insignificant, while the other 
-stations showed no trend. Fitting a common linear modell, an increasing, however insignificant, temporal trend of 
-duration was observed (slope: 0.08490 days / year, p value: 0.2165).
+stations showed no trend. Fitting a linear modell for the common trend, an increasing, however insignificant, temporal 
+trend of duration was observed (slope: 0.08490 days / year, p value: 0.2165).
 
 confidence intervals !
 
@@ -283,9 +283,9 @@ of 0.0011531 °C per km, however again this result was not significant for the 9
 of 0.0585. 
 
 Looking at the yearly data, the plots again reflect the higher variance for upstream stations Schwürbitz, Schweinfurt 
-and Kemmern, however a clear temporal trend is not visible. Also neither the station specific linear modells, not the
-common linear modell show a significant trend. The result of the common modell was a slope 0.008265 °C per year with a 
-p value of 0.186933.
+and Kemmern, however a clear temporal trend is not visible. Also neither the station specific linear models, nor the
+common temporal trend model show a significant trend. The result of the common modell was a slope 0.008265 °C per year 
+with a p value of 0.186933.
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.pdf")
@@ -308,6 +308,12 @@ Linear Modell for common trends
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
 ```
+
+The observed results of all three metrics are summarized for the temporal trends in figure 1 and for the differences between stations in figure 2. From the literature we would expect a increasing trend over time for all three metrics. This analysis only reflects a significant increasing trend for frequency, while duration and intensity also show increasing, but insignificant trends.
+However, the recommended data size of time series with a length of ideally at least 30 years were not met, as only a period of 15 years was considered. Also there was no historical period used to calculate the heatwave threshold. This might explain the insignificance of the duration and intensity trend. Moreover, only data from one river was considered, and a trend of one river does not necessarily match the global trend of riverine heatwave increase. With a longer time series it might be possible to obtain significant results for the temporal trends of duration and intensity, or it might be possible to have a larger confidence in their insignificance. 
+However, finding usable data for the analysis of riverine heatwaves is difficult, as due to the the suspected climate change bias it is not always reasonable to use a long period of historical data as a baseline. With the temperatures being in general a lot higher than in the past, a historical threshold would not be able to capture heatwaves anymore, as a too large amount of temperatures would exceed it. Leading to permanent heatwave states, which would make the examination of frequency and duration meaningless, and a temporal trend would not be able to be detected. An idea to account for the temporal bias in temperature data would be to use simulated data. Using simulated data longer time series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for future development of riverine heatwaves would be possible.
+
+The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The implication was, that the frequency of heatwaves increase downstrem ward, while their intensity decreases. These trend however could not be verified using linear models, which did not deliver significant results. However, it could be interesting to perfom further examinations on this trends, using longer time series, or a larger number of station along the same river, maybe also on a different river with a denser network of gauges. The frequency trend might indicate, that there is a downstream movement of riverine heatwaves, that might explain the higher frequency downstream wards. This could be interesting to make predictions on the appearance of heatwaves downstreams, after one has appeared further upstream.
 
 polygons plots to sum up trend
 
