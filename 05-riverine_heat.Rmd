@@ -309,68 +309,41 @@ Linear Modell for common trends
 knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
 ```
 
-The observed results of all three metrics are summarized for the temporal trends in figure 1 and for the differences between stations in figure 2. From the literature we would expect a increasing trend over time for all three metrics. This analysis only reflects a significant increasing trend for frequency, while duration and intensity also show increasing, but insignificant trends.
-However, the recommended data size of time series with a length of ideally at least 30 years were not met, as only a period of 15 years was considered. Also there was no historical period used to calculate the heatwave threshold. This might explain the insignificance of the duration and intensity trend. Moreover, only data from one river was considered, and a trend of one river does not necessarily match the global trend of riverine heatwave increase. With a longer time series it might be possible to obtain significant results for the temporal trends of duration and intensity, or it might be possible to have a larger confidence in their insignificance. 
-However, finding usable data for the analysis of riverine heatwaves is difficult, as due to the the suspected climate change bias it is not always reasonable to use a long period of historical data as a baseline. With the temperatures being in general a lot higher than in the past, a historical threshold would not be able to capture heatwaves anymore, as a too large amount of temperatures would exceed it. Leading to permanent heatwave states, which would make the examination of frequency and duration meaningless, and a temporal trend would not be able to be detected. An idea to account for the temporal bias in temperature data would be to use simulated data. Using simulated data longer time series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for future development of riverine heatwaves would be possible.
+The observed results of all three metrics are summarized for the temporal trends in figure 1 and for the differences 
+between stations in figure 2. From the literature we would expect a increasing trend over time for all three metrics. 
+This analysis only reflects a significant increasing trend for frequency, while duration and intensity also show 
+increasing, but insignificant trends.However, the recommended data size of time series with a length of ideally at least 
+30 years were not met, as only a period of 15 years was considered. Also there was no historical period used to 
+calculate the heatwave threshold. This might explain the insignificance of the duration and intensity trend. Moreover, 
+only data from one river was considered, and a trend of one river does not necessarily match the global trend of 
+riverine heatwave increase. With a longer time series it might be possible to obtain significant results for the 
+temporal trends of duration and intensity, or it might be possible to have a larger confidence in their insignificance.
 
-The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The implication was, that the frequency of heatwaves increase downstrem ward, while their intensity decreases. These trend however could not be verified using linear models, which did not deliver significant results. However, it could be interesting to perfom further examinations on this trends, using longer time series, or a larger number of station along the same river, maybe also on a different river with a denser network of gauges. The frequency trend might indicate, that there is a downstream movement of riverine heatwaves, that might explain the higher frequency downstream wards. This could be interesting to make predictions on the appearance of heatwaves downstreams, after one has appeared further upstream.
+However, finding usable data for the analysis of riverine heatwaves is difficult, as due to the the suspected climate 
+change bias it is not always reasonable to use a long period of historical data as a baseline. With the temperatures 
+being in general a lot higher than in the past, a historical threshold would not be able to capture heatwaves anymore, 
+as a too large amount of temperatures would exceed it. Leading to permanent heatwave states, which would make the 
+examination of frequency and duration meaningless, and a temporal trend would not be able to be detected. An idea to 
+account for the temporal bias in temperature data would be to use simulated data. Using simulated data longer time 
+series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for 
+future development of riverine heatwaves would be possible.
 
-polygons plots to sum up trend
+The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The 
+implication was, that the frequency of heatwaves increase downstream ward, while their intensity decreases. These trend 
+however could not be verified using linear models, which did not deliver significant results. However, it could be 
+interesting to perfom further examinations on this trends, using longer time series, or a larger number of station along 
+the same river, maybe also on a different river with a denser network of gauges. The frequency trend might indicate, 
+that there is a downstream movement of riverine heatwaves, that might explain the higher frequency downstream wards. 
+This could be interesting to make predictions on the appearance of heatwaves downstreams, after one has appeared further 
+upstream.
 
-1. discuss trends 
- temporal
-  discuss link to climate change
-  discuss future trends of duration
- spatial
-  (just general directions and compare to literature)
-  discuss own theory on spatial trends, include knowledge from eg agricultural sites
-  give outloot-> maybe with more data significant results (longer, more stations)
-  for spatial -> give outlook
-  
-  
-  discuss data scarcity and possibilities of simulated temperature data
-  discuss baseline period, moving period -> possibilities of simulated temperature data
-  discuss threshold definition (percentile based vs fixed)
-
-
-
-discuss severity (evtl already in analysis)
-
-
-
-themen:
-recent topic, only just now got recogniction, mny research possibilities
-In agricultural sites, riverine heat waves are generally longer and more intense but slightly less frequent than under other land uses (payanana)
-Overall, riverine heat waves have increased more rapidly in frequency and cumulative intensity in urban sites, and more rapidly in duration and intensity in undeveloped sites compared to air heat waves.
-Contradictory to common perceptions that rivers are cool refuges, riverine heat waves have increased at double to quadruple rates compared with air heat waves in 65 to 76% of the sites.
-
-With more than a thousand sites under diverse climate and land use conditions, the analysis here unequivocally shows that climate change is the direct, primary driver of the trends in riverine heat waves, although we recognize that climate change itself is driven by human activities. 
-
-With projected climate warming and increasing demand for freshwater, diffusive and advective heat fluxes are expected to intensify throughout the 21st century and increase the frequency, duration, and intensity of extreme high water temperature conditions (Meehl et al. 2007; Wuebbles et al. 2017). 
-
-
-Riverine heat wave duration has become significantly longer (p ≤ 0.05) in about 62% of sites, whereas intensity and cumulative intensity have increased in 54 and 81% of the sites,
-
-- Significant increase of heatwave events over time
-
-- No significant trends in duration and intensity
-
-- No significant trends for individual stations
-downstream trends might be beacuse heatwaves stay inside theriver ad move with its current
-
-- To examine whether duration and intensity are stagnant over time:
-
--> Longer time series -> ideally at least 30 years 
-
-### quellen
-
-https://www.nature.com/articles/s44221-025-00541-5
-(van Hamel 2025)
-https://www.nature.com/articles/s41467-025-66868-5?fromPaywallRec=false
-(chen)
-- https://www.sciencedirect.com/science/article/pii/S0079661116000057
-- https://www.nature.com/articles/s41467-025-66868-5?fromPaywallRec=false
-- https://www.pnas.org/doi/10.1073/pnas.2503160122
+The results, in a way, show the difficulties of data scarcities when working on temporal trend analysis with riverine 
+heatwaves during climate change. This underlines the importance of constructing a dense network of temperature data, 
+perhaps with the help of simulated data. Although a significant temporal trend was only detected for frequency, there 
+were some implications for increasing trends from the other metrics, which, as potential trends between the river
+kilometer and frequency and intensity, might be an interesting relation to examine in a larger data set. In conclusion
+riverine heatwaves remain a relevant phenomenon, during climate change, that still offers many interesting research
+possibilities.
 
 # References
 
