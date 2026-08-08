@@ -1184,45 +1184,45 @@ intensity_plot
 ggsave(
   "work/05-riverine_heat/figures/heatwave_events_plot.png",
   plot = heatwave_events_plot,
-  width = 5,
-  height = 4
+  width = 8,
+  height = 6
 )
 heatwave_events_plot
 ggsave(
   "work/05-riverine_heat/figures/duration_plot.png",
   plot = duration_plot,
-  width = 5,
-  height = 4
+  width = 8,
+  height = 6
 )
 duration_plot
 ggsave(
   "work/05-riverine_heat/figures/intensity_plot.png",
   plot = intensity_plot,
-  width = 5,
-  height = 4
+  width = 8,
+  height = 6
 )
 intensity_plot
 
 ggsave(
   "work/05-riverine_heat/figures/heatwave_events_overview.png",
   plot = heatwave_events_overview,
-  width = 5,
-  height = 4
+  width = 8,
+  height = 6
 )
 heatwave_events_overview
 
 ggsave(
   "work/05-riverine_heat/figures/mean_duration_overview.png",
   plot = mean_duration_overview,
-  width = 5,
-  height = 4
+  width = 8,
+  height = 6
 )
 mean_duration_overview
 ggsave(
   "work/05-riverine_heat/figures/mean_intensity_overview.png",
   plot = mean_intensity_overview,
-  width = 5,
-  height = 4
+  width = 8,
+  height = 6
 )
 mean_intensity_overview
 

@@ -111,7 +111,7 @@ values (not more than ten percent per yearly station specific time series).The u
 
 Stations included for analysis: red, find out how to make graphic captions in r markdwon
 
-```{r stations-map, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r stations-map, echo=FALSE, fig.cap="Map of Main river systen. The station included in the analysis are marked red"}
 knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
 ```
 
@@ -159,7 +159,7 @@ merged into one heatwave.
 
 ### Threshold example: Main data (Kemmern, 2018)
 
-```{r threshold-kemmern, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r threshold-kemmern, echo=FALSE, fig.cap="Temperature time series for Main Kemmern in 2018 (black line). The dotted orage line represents the heatwave threshold for Kemmern station. The red areas mark heatwaves in that year for Kemmern station"}
 knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.png")
 ```
 
@@ -243,12 +243,12 @@ where it is plotted into the frequency distribution of each station individually
 the station effect, as the frequency of heatwaves differs from station to station.
 
 
-```{r heatwave-events-overview, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r heatwave-events-overview, echo=FALSE, fig.cap="Frequency distribution over all stations. The orange square signifies station mean value"}
 knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.png")
 ```
 
 
-```{r heatwave-events-plot, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r heatwave-events-plot, echo=FALSE, fig.cap="Temporal development of heatwave events by station. The blue line shows the common temporal trend quasi poisson model"}
 knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.png")
 ```
 
@@ -273,13 +273,13 @@ main effects, analogously to the frequency trend, this time using a analysis of 
 appeared againinsignificant, the model with only the main effects was chosen. This resulted in a increasing, however 
 insignificant, temporal trend of duration was observed (slope: 0.08490 days / year, p value: 0.217).
 
-```{r mean-duration-overview, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r mean-duration-overview, echo=FALSE, fig.cap="Distribution of mean duration for all stations. Each point signifies a single heatwave. The orange square signifies the average duration per station"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.png")
 ```
 
 
 
-```{r duration-plot, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r duration-plot, echo=FALSE, fig.cap="Temporal development of mean heatwave duration by station. Each point signifies the annual mean duration for the considered station. The blue line shows the common temporal trend linear model"}
 knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.png")
 ```
 
@@ -298,12 +298,12 @@ linear models, nor thecommon temporal trend model without year x station interac
 result of the common modell was a slope 0.008265 °C per year with a p value of 0.187, while the individual models showed 
 no significant trend for any of the stations.
 
-```{r mean-intensity-overview, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r mean-intensity-overview, echo=FALSE, fig.cap="Distribution of heatwave intensity by station. Each point represents the intensity of one heatwave. The orange square signifies the mean heatwave intensity for each station"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.png")
 ```
 
 
-```{r intensity-plot, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r intensity-plot, echo=FALSE, fig.cap="Temporal development of mean heatwave intensity by station. Each point signifies the annual mean heatwave intensity for the considered station. The blue line shows the common temporal trend linear model"}
 knitr::include_graphics("work/05-riverine_heat/figures/intensity_plot.png")
 ```
 
@@ -319,7 +319,7 @@ Linear Modell for common trends
 
 
 
-```{r polygon-temporal, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r polygon-temporal, echo=FALSE, fig.cap="All three heatwave metrics by year. Values are expressed relative to the mean across years (1.0 = overall mean); the dashed grey triangle indicates the overall mean."}
 knitr::include_graphics(
   "work/05-riverine_heat/figures/polygon_temporal.png"
 )
@@ -348,7 +348,7 @@ account for the temporal bias in temperature data would be to use simulated data
 series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for 
 future development of riverine heatwaves would be possible.
 
-```{r polygon-spatial, echo=FALSE, fig.cap="Heatwave characteristics by year. Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean."}
+```{r polygon-spatial, echo=FALSE, fig.cap="All three heatwave metrics by station. Values are expressed relative to the mean across all stations (1.0 = overall mean); the dashed grey triangle indicates the overall mean."}
 knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.png")
 ```
 
