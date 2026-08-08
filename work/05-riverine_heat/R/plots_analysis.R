@@ -674,8 +674,8 @@ polygon_spatial <- ggplot() +
     ),
     fill = "#5B84B1",
     colour = "#5B84B1",
-    alpha = 0.25,
-    linewidth = 1
+    alpha = 0.20,
+    linewidth = 0.9
   ) +
   geom_point(
     data = radar_polygon,
@@ -684,7 +684,7 @@ polygon_spatial <- ggplot() +
       y = y
     ),
     colour = "#5B84B1",
-    size = 2.3
+    size = 2
   ) +
   geom_text(
     data = axis_labels,
@@ -726,7 +726,7 @@ polygon_spatial <- ggplot() +
   theme(
     plot.title = element_text(
       face = "bold",
-      size = 16,
+      size = 12,
       hjust = 0
     ),
     
@@ -745,14 +745,14 @@ polygon_spatial <- ggplot() +
     
     strip.text = element_text(
       face = "bold",
-      size = 12,
+      size = 10,
       margin = margin(
         b = 8
       )
     ),
     
     panel.spacing = unit(
-      1.5,
+      4.7,
       "lines"
     ),
     
@@ -892,8 +892,16 @@ axes <- data.frame(
 
 labels <- data.frame(
   metric = c("Duration", "Intensity", "Frequency"),
-  x = (maximum_value + 0.20) * cos(angles * pi / 180),
-  y = (maximum_value + 0.20) * sin(angles * pi / 180)
+  x = c(
+    0,
+    (maximum_value + 0.20) * cos(330 * pi / 180),
+    (maximum_value + 0.20) * cos(210 * pi / 180)
+  ),
+  y = c(
+    maximum_value + 0.05,
+    (maximum_value + 0.20) * sin(330 * pi / 180),
+    (maximum_value + 0.20) * sin(210 * pi / 180)
+  )
 )
 
 #7
@@ -957,7 +965,11 @@ polygon_temporal <- ggplot() +
     size = 2.5
   ) +
   
-  coord_equal() +
+  coord_equal(
+    xlim = c(-1.9, 1.9),
+    ylim = c(-1.9, 1.9),
+    clip = "off"
+  ) +
   
   facet_wrap(
     ~year,
@@ -965,21 +977,17 @@ polygon_temporal <- ggplot() +
   ) +
   
   theme_void() +
-  
   theme(
-    plot.margin = margin(
-      10, 20, 10, 20
-    ),
     strip.text = element_text(
       face = "bold",
       size = 10
     ),
-    panel.spacing = unit(1.4, "lines")
+    panel.spacing = unit(4.7, "lines")
   ) +
   
   labs(
-    title = "Heatwave characteristics by year",
-    subtitle = "Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean"
+    title = "Heatwave characteristics by year"
+    #subtitle = "Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean"
   )
 
 
@@ -1222,15 +1230,15 @@ mean_intensity_overview
 ggsave(
   "work/05-riverine_heat/figures/polygon_spatial.png",
   plot = polygon_spatial,
-  width = 5,
-  height = 4
+  width = 12,
+  height = 7
 )
 polygon_spatial
 
 ggsave(
   "work/05-riverine_heat/figures/polygon_temporal.png",
   plot = polygon_temporal,
-  width = 5,
-  height = 4
+  width = 9,
+  height = 12
 )
 polygon_temporal

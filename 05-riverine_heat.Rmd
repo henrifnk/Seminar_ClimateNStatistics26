@@ -316,13 +316,15 @@ Linear Modell for common trends
 ### Overview of trends common models
 
 
+
+
+
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/polygon_temporal.png")
 ```
 
-```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.png")
-```
+
+
 
 The observed results of all three metrics are summarized for the temporal trends in figure 1 and for the differences 
 between stations in figure 2. From the literature we would expect a increasing trend over time for all three metrics. 
@@ -343,6 +345,10 @@ examination of frequency and duration meaningless, and a temporal trend would no
 account for the temporal bias in temperature data would be to use simulated data. By using simulated data, longer time 
 series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for 
 future development of riverine heatwaves would be possible.
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.png")
+```
 
 The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The 
 implication was, that the frequency of heatwaves increase downstream ward, while their intensity decreases. These trend 
