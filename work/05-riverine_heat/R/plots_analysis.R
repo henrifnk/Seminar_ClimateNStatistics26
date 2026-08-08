@@ -899,7 +899,7 @@ labels <- data.frame(
 
 #7
 
-ggplot() +
+polygon_temporal <- ggplot() +
   
   geom_polygon(
     data = grid,
@@ -938,16 +938,16 @@ ggplot() +
       y,
       group = year
     ),
-    fill = "#0072B2",
+    fill = "orange",
     alpha = 0.20,
-    colour = "#0072B2",
+    colour = "orange",
     linewidth = 1.2
   ) +
   
   geom_point(
     data = plot_data,
     aes(x, y),
-    colour = "#0072B2",
+    colour = "orange",
     size = 2
   ) +
   
@@ -1170,66 +1170,6 @@ intensity_plot <- ggplot(
 
 intensity_plot
 
-# 4. SEVERITY
-
-# 4.1 mean severity over time
-
-ggplot(annual_summary,
-       aes(x = year, y = mean_severity)) +
-  geom_line(
-    colour = "grey60",
-    linewidth = 0.5
-  ) +
-  geom_point(
-    colour = "black",
-    size = 2
-  ) +
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    linewidth = 0.8,
-    alpha = 0.25
-  ) +
-  facet_wrap(
-    ~station,
-    labeller = as_labeller(station_labels)
-  ) +
-  labs(
-    title = "Yearly mean heatwave severity per station",
-    x = "Year",
-    y = "Mean severity per heatwave (°C days)"
-  ) +
-  theme_minimal()
-
-# 4.2 total annual severity
-
-ggplot(annual_summary,
-       aes(x = year, y = total_severity)) +
-  geom_line(
-    colour = "grey60",
-    linewidth = 0.5
-  ) +
-  geom_point(
-    colour = "black",
-    size = 2
-  )+
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    linewidth = 0.8,
-    alpha = 0.25
-  ) +
-  facet_wrap(
-    ~station,
-    labeller = as_labeller(station_labels)
-  ) +
-  labs(
-    title = "Yearly total heatwave severity per station",
-    x = "Year",
-    y = "Total annual severity (°C days)"
-  ) +
-  theme_minimal()
-
 # SAVE PLOTS
 
 ggsave(
@@ -1255,14 +1195,6 @@ ggsave(
 intensity_plot
 
 ggsave(
-  "work/05-riverine_heat/figures/polygon_spatial.png",
-  plot = polygon_spatial,
-  width = 5,
-  height = 4
-)
-polygon_spatial
-
-ggsave(
   "work/05-riverine_heat/figures/heatwave_events_overview.png",
   plot = heatwave_events_overview,
   width = 5,
@@ -1284,3 +1216,23 @@ ggsave(
   height = 4
 )
 mean_intensity_overview
+
+ggsave(
+  "work/05-riverine_heat/figures/polygon_spatial.png",
+  plot = polygon_spatial,
+  width = 5,
+  height = 4
+)
+polygon_spatial
+
+ggsave(
+  "work/05-riverine_heat/figures/polygon_temporal.png",
+  plot = polygon_temporal,
+  width = 5,
+  height = 4
+)
+polygon_temporal
+
+
+
+
