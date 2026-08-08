@@ -2,6 +2,8 @@
 
 This README is the only documentation needed to reproduce the workflow in `work/04-neural_hyd`.
 
+More detailed code structure is stored in https://github.com/yuxinqiu9/NeuralHydrology.
+
 ## 1. Reproducibility scope
 
 This project reproduces the EA-LSTM workflow in three steps:
