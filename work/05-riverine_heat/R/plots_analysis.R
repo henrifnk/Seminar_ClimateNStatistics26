@@ -765,37 +765,6 @@ polygon_spatial <- ggplot() +
     )
   )
 
-ggsave(
-  "work/05-riverine_heat/figures/heatwave_events_overview.pdf",
-  plot = heatwave_events_overview,
-  width = 5,
-  height = 4
-)
-heatwave_events_overview
-
-ggsave(
-  "work/05-riverine_heat/figures/polygon_spatial.pdf",
-  plot = polygon_spatial,
-  width = 5,
-  height = 4
-)
-polygon_spatial
-
-ggsave(
-  "work/05-riverine_heat/figures/mean_duration_overview.pdf",
-  plot = mean_duration_overview,
-  width = 5,
-  height = 4
-)
-mean_duration_overview
-ggsave(
-  "work/05-riverine_heat/figures/mean_intensity_overview.pdf",
-  plot = mean_intensity_overview,
-  width = 5,
-  height = 4
-)
-mean_intensity_overview
-
 # polygon plot per year
 
 #1
@@ -1264,24 +1233,54 @@ ggplot(annual_summary,
 # SAVE PLOTS
 
 ggsave(
-  "work/05-riverine_heat/figures/heatwave_events_plot.pdf",
+  "work/05-riverine_heat/figures/heatwave_events_plot.png",
   plot = heatwave_events_plot,
   width = 5,
   height = 4
 )
 heatwave_events_plot
 ggsave(
-  "work/05-riverine_heat/figures/duration_plot.pdf",
+  "work/05-riverine_heat/figures/duration_plot.png",
   plot = duration_plot,
   width = 5,
   height = 4
 )
 duration_plot
 ggsave(
-  "work/05-riverine_heat/figures/intensity_plot.pdf",
+  "work/05-riverine_heat/figures/intensity_plot.png",
   plot = intensity_plot,
   width = 5,
   height = 4
 )
 intensity_plot
 
+ggsave(
+  "work/05-riverine_heat/figures/polygon_spatial.png",
+  plot = polygon_spatial,
+  width = 5,
+  height = 4
+)
+polygon_spatial
+
+ggsave(
+  "work/05-riverine_heat/figures/heatwave_events_overview.png",
+  plot = heatwave_events_overview,
+  width = 5,
+  height = 4
+)
+heatwave_events_overview
+
+ggsave(
+  "work/05-riverine_heat/figures/mean_duration_overview.png",
+  plot = mean_duration_overview,
+  width = 5,
+  height = 4
+)
+mean_duration_overview
+ggsave(
+  "work/05-riverine_heat/figures/mean_intensity_overview.png",
+  plot = mean_intensity_overview,
+  width = 5,
+  height = 4
+)
+mean_intensity_overview

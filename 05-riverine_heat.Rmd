@@ -1,6 +1,8 @@
 ---
 output:
-  pdf_document: default
+  pdf_document: 
+    keep_tex: true
+    fig_crop: false
   html_document: default
 bibliography: work/05-riverine_heat/R/references.bib
 csl: https://www.zotero.org/styles/apa
@@ -23,13 +25,13 @@ library(kableExtra)
 ## Abstract
 
 Riverine Heatwaves, which are prolonged periods of exceptionally high water temperatures in river systems, are a 
-underexplored hydrological phenomenon, that is expected to gain considerable importance throughout the next years, also 
-due to their link to climate change. The following paper will give an introduction to the precise definition of riverine 
-heatwaves, as well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect 
-riverine heatwaves from temperature time series, and how their development, both spatially and temporally, can be 
-quantified and assessed. This will be helpful, to gain a better understanding of riverine heatwaves. It will be 
-especially important to explore how riverine heatwaves evolve during climate change, as all three metrics used to 
-quantify frequency, duration and intensity seem to be increasing.
+hydrological phenomenon, that is expected to gain considerable importance throughout the next years, also due to their 
+link to climate change. The following paper will give an introduction to the precise definition of riverine heatwaves, 
+as well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect riverine 
+heatwaves from temperature time series, and how their development, both spatially and temporally, can be quantified and 
+assessed. This will be helpful, to gain a better understanding of riverine heatwaves. It will be especially important to 
+explore how riverine heatwaves evolve during climate change, as all three metrics used to quantify frequency, duration 
+and intensity seem to have increased throughout the last years.
 
 ## Introduction
 
@@ -52,9 +54,8 @@ heatwaves over time and the differences between stations.
 ### Definition
 
 Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature 
-exceeds a local seasonally varying percentile based threshold for a prolonged period of time. Usually, a historical 
-baseline period is used, to calculate the threshold, which is then applied to the examined time series, of the same 
-location. [@hamel2024]
+exceeds a local seasonally varying percentile based threshold for a prolonged period of time. For riverine heatwaves,
+usually a 90th percentile threshold and a 5 day period are used. [@hamel2024]
 Although their definitions are similar, riverine heatwaves and atmospheric heatwaves behave differently, as riverine 
 heatwaves tend to be more rare, but more persistent, than atmospheric heatwaves [@sadayappan2025].
 
@@ -64,19 +65,18 @@ heatwaves tend to be more rare, but more persistent, than atmospheric heatwaves 
 As riverine heatwaves are a phenomenon that has not gained much attention so far, its drivers are not fully understood 
 yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric 
 conditions like air temperature, wind, rainfall and solar radiation, the hydrologic conditions which means the 
-discharge and how the river interacts with different water bodies within its proximity and processes at the water 
-stream bed interface, for example the interaction of the river with ground water. On top of that, the water temperature 
-can be influenced by its environment, for example by the amount of vegetation and shading, by impervious surfaces nearby 
-or by the presence of thermal effluents from near industries or human waste water [@hamel2024].
+discharge, how the river interacts with different water bodies within its proximity and processes at the water stream 
+bed interface, for example the interaction of the river with ground water. On top of that, the water temperature can be 
+influenced by its environment, for example by the amount of vegetation and shading, by impervious surfaces nearby or by 
+the presence of thermal effluents from near industries or human waste water [@hamel2024].
 
-However, so far little is known on how specifically riverine heatwaves are caused. It is assumed, that what leads to 
-heatwaves are usually processes that include a number of these drivers. From literature we know, that what drives 
-riverine heatwaves are primarely climate drivers. These include air temperature, while especially trends of minimum and 
-maximum temperature play a role and trends in low discharge. Also the contribution of groundwater, winter precipitation 
-percentage and trends of snow water play a role, as these help to buffer the impact of extremely hot air temperatures on 
-river temperature [@sadayappan2025]. Behind climate drivers, there are also direct anthropogenic drivers, such as river 
-dams, which typically tend to elongate riverine heatwaves [@sadayappan2025]. Nevertheless, the processes that cause 
-riverine heatwaves are still not fully understood.
+However, so far little is known on how specifically riverine heatwaves are caused. From literature we know, that 
+riverine heatwaves are primarely driven by climate drivers. These include air temperature, while especially trends of 
+minimum and maximum temperature play a role, and trends in low discharge. Also the contribution of groundwater, winter 
+precipitation percentage and trends of snow water play a role, as these help to buffer the impact of extremely hot air 
+temperatures on river temperature [@sadayappan2025]. Behind climate drivers, there are also direct anthropogenic 
+drivers, such as river dams, which typically tend to elongate riverine heatwaves [@sadayappan2025]. Nevertheless, the 
+processes that cause riverine heatwaves are still not fully understood.
 
 ### Impacts
 
@@ -129,9 +129,9 @@ The definition of marine heatwaves by Hobday uses a 90th percentile seasonally v
 with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
 each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding 
 window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is 
-depicted below, where y is the year and d is the day for the considered temperature \@ref(eq:threshold). $Y_s$ and 
-$y_e$ are the years between the considered period lies, $P_{90}(X)$ is the 90 percent quantile of $X$ . This procedure 
-will be repeated for each day of year, until the threshold for the entire year is completed [@hobday2016].
+depicted below, where y is the year variable, d is the day variable and j is the day for the considered temperature \@ref(eq:threshold). $Y_s$ and $y_e$ are the years between the considered period lies, $P_{90}(X)$ is the 90 percent 
+quantile of $X$ . This procedure will be repeated for each day of year, until the threshold for the entire year is 
+completed [@hobday2016].
 
 \begin{equation}
 T_{90}(j) = P_{90}(X),
@@ -146,22 +146,25 @@ period, the same time period is used for the calculation of the threshold and th
 definition is used, comparing results from different studies on riverine heatwaves has to be treated carefully. It can 
 be problematic to compare exact numbers for metrics between studies with different baseline periods, as climate change 
 suggests a temperature biased over time. However, as in this paper the focus is only to demonstrate how heatwaves evolve 
-relatively to another over time by looking for general trends rather than comparing exact metrics with other studies, 
-and in this paper only measurements from the same stations with the same baseline period are going to compared, this 
-approach also suffices.
+relatively to another over time by looking for general trends rather than comparing exact metrics with other studies.
+And since in this paper only measurements from the same stations with the same baseline period are going to compared, 
+this approach also suffices.
 
 Resulting from this procedure, we obtain a threshold for each station, that can be used for comparison with the time 
 series of each year. In figure 2 an example of this is shown for the Kemmern station and the year 2018. Heatwaves can 
 then be detected, by firstly marking all potential candidates, all days exceeding the thresholds. After, the time series 
 are examined for events of at least five consecutive days exceeding the threshold. These are marked as heatwaves and 
-given an ID, while all short events are discarded. When there is a gap of only one or two days between two or more
+given an ID, while all shorter events are discarded. When there is a gap of only one or two days between two or more
 heatwaves that all individually have a duration of at least five days, the heatwaves, are merged into one heatwave.
 
 ### Threshold example: Main data (Kemmern, 2018)
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.png")
 ```
+
+
+
 
 ### Metrics used
 
@@ -169,11 +172,12 @@ This paper will focus on three primary metrics, that will be used to quantify th
 will use a frequency metric, a duration metric and an intensity metric, to be able to describe the evolution under 
 different aspects.
 
-To quantify the evolution of frequency, for each heatwave the number of heatwave events per year will be used. This 
-will be Calculated per station, or may be summarized over different stations or years. For the calculation, we will use 
-the IDs given to the heatwaves. Furthermore, we will consider the duration of the heatwaves. This is calculated using 
-the first and last day of each heatwave \@ref(eq:duration). The duration plays an important role, as especially longer 
-heatwaves can have more severe impacts [@hobday2016].
+To quantify the evolution of frequency the number of heatwave events per year will be used. For this, we simply count
+the number of different heatwaves IDs per year and station.
+
+Furthermore, we will consider the duration of the heatwaves. This is calculated using the first and last day of each 
+heatwave \@ref(eq:duration). The duration plays an important role, as especially longer heatwaves can have more severe 
+impacts [@hobday2016].
 
 \begin{equation}
 D = t_e - t_s
@@ -181,8 +185,8 @@ D = t_e - t_s
 \end{equation}
   
 Lastly, we will use intensity, to assess the amount of the heat spike. The intensity, is defined as the temperature, by 
-which the 90 percent temperature threshold is exceeded. In this paper it is defined, as the mean of this temperature 
-exceedance per heatwave\@ref(eq:intensity).
+which the 90 percent temperature threshold is exceeded. In this paper we define intensity, as the mean of the daily 
+temperature exceedance per heatwave\@ref(eq:intensity).
 
 \begin{equation}
 i_{\mathrm{mean}}
@@ -208,7 +212,7 @@ previously defined metrics and pose the following questions:
 3. How has the intensity of riverine heatwaves changed over time?
 
 Given the availability of stations with different locations along the same river system, we will also look into, how 
-the metrics differ between the stations. To answer these research question, we will perform exploratory analysis on the
+the metrics differ between the stations. To answer these research questions, we will perform exploratory analysis on the
 heatwave data, and look for differences between stations and years. Also linear and quasi poisson modells were fitted on
 the data, to look for significant temporal and spatial trends.
 
@@ -216,31 +220,33 @@ the data, to look for significant temporal and spatial trends.
 
 ### Frequency
 
-Figure 1 shows the distribution of heatwave frequency for each station, with the stations being ordered by their 
-position along the river from downstream to upstream. We can see, that for each station the mean frequency lies 
-between 2.5 and 3. Both its mean and its variance seem to slighty increase in a downstream direction. To investigate
-this more thoroughly, a linear model between the mean frequency per station, and the river kilometer, a static variable, 
-that indicates for each station its distance from the river mouth in kilometers, was used. It indicated a decreasing, 
-however insignificant of -0.001935 events / year with a p value of 0.19710. As Pettstadt station lies on an inflow river
-and not directly on Main, it was excluded from this model.
+Figure 1 shows the distribution of the number of heatwave events per year for each station, with the stations being 
+ordered by their position along the river from downstream to upstream. We can see, that for each station the mean number 
+of heatwave events lies between 2.5 and 3. Both its mean and its variance seem to slighty increase in a downstream 
+direction. To investigatethis more thoroughly, a linear model between the mean frequency per station, and the river 
+kilometer, a static variable, that indicates for each station its distance from the river mouth in kilometers, was used. 
+It indicated a decreasing, however insignificant trend of -0.001935 events / year with a p value of 0.197. As 
+Pettstadt station lies on an inflow river and not directly on Main, it was excluded from this model.
 
-To examine the temporal trend of frequency, the heatwave events for each station were grouped by the year, and a 
-quasi poisson modell was used, to look for correlation between the frequency and year. Fitting a model for each 
-individual station led only to 1 significant and 5 insignificant results. Furthermore a common temporal trend quasi 
-poisson model of frequency and year was used, treating the station variable as a static effect. This resulted into a 
-significant positive trend over time (slope: 0.05350 events / year, p value : 0.00184). The common quasi poisson is 
-depicted in figure 2 where it is plotted into the frequency distribution of each station individually. The offset 
-represents the intercept of the station effect, as the frequency of heatwaves differs from station to station.
+To examine the temporal trend of frequency, the heatwave events were groped by their station, and a quasi poisson model 
+was used, to look for correlation between the frequency and year. Fitting a model for each individual station led only 
+to 1 significant and 5 insignificant results. Furthermore a common temporal trend quasi poisson model of frequency and 
+year was used, to examine the general temporal frequency trend. The interaction model provided no evidence for 
+differences in temporal trends among stations, after comparing the it to a model without the station year interactions 
+using ANOVA. Therefore, the model with station as a fixed effect and a common temporal trend was used for the analysis. 
+This resulted into a significant positive trend over time (slope: 0.05350, p value : 0.002). This indicates an increase 
+of heatwave events by 5.5 % per year. The common quasi poisson is depicted in figure 2 where it is plotted into the 
+frequency distribution of each station individually. The offset represents the intercept of the station effect, as the 
+frequency of heatwaves differs from station to station.
 
-confidence intervals !
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.png")
 ```
 
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.png")
 ```
 
 
@@ -250,27 +256,26 @@ knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.pdf"
 
 The durations of heatwaves of Main river in the considered period lay between 5 and 28, with an average between 8 and 
 10 days. Again the stations in the plot are placed according to their order along the river, and while the mean stays 
-consistent, the variance seems to increase downstream. Again there was a model fitted between the mean duration of each 
-station and the river kilometer, this time a linear model was used, however it showed no significant trend 
-(slope: -0.002058 days / km, p value: 0.45859). Another idea would be to examine the mean of the yearly maximum 
-durations of each station and look for a downstream trend. However, for this data set, this approach also did not 
-deliver a significant result (slope: -0.002475 days / km, p value: 0.61585 ).
+consistent, the variance seems to increase downstream. Also extremely long heatwaves seem more common at the downstream 
+stations. Again there was a model fitted between the mean duration of each station and the river kilometer, this time a 
+linear model was used, however it showed no significant trend (slope: -0.002058 days / km, p value: 0.459). Another 
+idea would be to examine the mean of the yearly maximum durations of each station and look for a downstream trend. 
+However, for this data set, this approach also did not deliver a significant result (slope: -0.002475 days / km, 
+p value: 0.616 ).
 
 For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each 
-a linear modell was fitted. Three of the six stations showed a positive trend, however insignificant, while the other 
-stations showed no trend. Fitting a linear modell for the common trend, an increasing, however insignificant, temporal 
-trend of duration was observed (slope: 0.08490 days / year, p value: 0.2165).
-
-confidence intervals !
+a linear modell was fitted. Four of the six stations showed a positive trend, with only one of them being significant, 
+while the other stations showed a insignificant negative trend. Fitting a linear modell for the common trend, an 
+increasing, however insignificant, temporal trend of duration was observed (slope: 0.08490 days / year, p value: 0.217).
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.png")
 ```
 
 
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.png")
 ```
 
 
@@ -278,22 +283,22 @@ knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.pdf")
 
 The intensity lies between 0 and 2 degrees celsius over the threshold, with the stations means laying between 0.5 and 
 0.8 degrees celsius. Again the plot suggests a trend between the location of the stations, it seems like the mean 
-intensity and its variance decrease stream downwards. To capture this trend a linear model was used, which gave a slope
+intensity and its variance decrease stream downwards. To capture this trend, a linear model was used, which gave a slope
 of 0.0011531 °C per km, however again this result was not significant for the 95 percent confidence level with a p value 
-of 0.0585. 
+of 0.059. 
 
 Looking at the yearly data, the plots again reflect the higher variance for upstream stations Schwürbitz, Schweinfurt 
 and Kemmern, however a clear temporal trend is not visible. Also neither the station specific linear models, nor the
 common temporal trend model show a significant trend. The result of the common modell was a slope 0.008265 °C per year 
-with a p value of 0.186933.
+with a p value of 0.187, while the individual models showed no significant trend for any of the stations.
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.png")
 ```
 
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/intensity_plot.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/intensity_plot.png")
 ```
 
 
@@ -306,7 +311,7 @@ Linear Modell for common trends
 
 
 ```{r, echo=FALSE, out.width="80%"}
-knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.png")
 ```
 
 The observed results of all three metrics are summarized for the temporal trends in figure 1 and for the differences 
@@ -317,14 +322,15 @@ increasing, but insignificant trends.However, the recommended data size of time 
 calculate the heatwave threshold. This might explain the insignificance of the duration and intensity trend. Moreover, 
 only data from one river was considered, and a trend of one river does not necessarily match the global trend of 
 riverine heatwave increase. With a longer time series it might be possible to obtain significant results for the 
-temporal trends of duration and intensity, or it might be possible to have a larger confidence in their insignificance.
+temporal trends of duration and intensity, or it might be possible to have a larger confidence that there is no 
+significant temporal trend for these metrics in Main river system.
 
 However, finding usable data for the analysis of riverine heatwaves is difficult, as due to the the suspected climate 
 change bias it is not always reasonable to use a long period of historical data as a baseline. With the temperatures 
 being in general a lot higher than in the past, a historical threshold would not be able to capture heatwaves anymore, 
 as a too large amount of temperatures would exceed it. Leading to permanent heatwave states, which would make the 
 examination of frequency and duration meaningless, and a temporal trend would not be able to be detected. An idea to 
-account for the temporal bias in temperature data would be to use simulated data. Using simulated data longer time 
+account for the temporal bias in temperature data would be to use simulated data. By using simulated data, longer time 
 series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for 
 future development of riverine heatwaves would be possible.
 

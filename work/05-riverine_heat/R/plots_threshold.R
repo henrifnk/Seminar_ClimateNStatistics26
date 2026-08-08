@@ -191,13 +191,7 @@ plots_all_years <- function(station, year_cons) {
 
 threshold_kemmern <- plots_all_years("kemmern", 2018)
 
-ggsave(
-  "work/05-riverine_heat/figures/threshold_kemmern.pdf",
-  plot = threshold_kemmern,
-  width = 6,
-  height = 4
-)
-
+ggsave("work/05-riverine_heat/figures/threshold_kemmern.png", plot = threshold_kemmern, width = 10, height = 8, dpi = 300)
 
 
 
