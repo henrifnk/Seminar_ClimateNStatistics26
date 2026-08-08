@@ -1,0 +1,709 @@
+---
+title: "Climate And Statistics"
+author: "Henri Funk, Helmut Küchenhoff"
+date: "`r Sys.Date()`"
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: true
+colorlinks: true
+lot: false
+lof: false
+site: bookdown::bookdown_site
+description: A Seminar about statistical methods in climate research in SS26.
+graphics: yes
+documentclass: krantz
+---
+
+# Preface {-}
+
+Placeholder
+
+
+## Technical Setup {-}
+
+<!--chapter:end:index.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Melting Perspectives on Uncertainty in Climate {#unc}
+
+*Author: *
+
+*Supervisor: Henri Funk*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:01-climate_uncertainty.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Long-term drought prediction using deep neural networks based on geospatial weather data {#dp}
+
+*Author: *
+
+*Supervisor: Henri Funk*
+
+*Degree: Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:02-drought_prediction.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Hydrology under Climate Change {#hyd}
+
+*Author: *
+
+*Supervisor: Henri Funk*
+
+*Degree: Bachelor*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:03-hydrology_cc.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Neural Hydrology {#nh}
+
+*Author: *
+
+*Supervisor: Henri Funk*
+
+*Degree: Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:04-neural_hyd.Rmd-->
+
+---
+output:
+  pdf_document: 
+    keep_tex: true
+    fig_crop: false
+  html_document: default
+bibliography: work/05-riverine_heat/R/references.bib
+csl: https://www.zotero.org/styles/apa
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Riverine Heatwaves {#rh}
+
+*Author: Tom Baumann*
+
+*Supervisor: Henri Funk*
+
+*Degree: Bachelor*
+
+## Abstract
+
+Riverine Heatwaves, which are prolonged periods of exceptionally high water temperatures in river systems, are a 
+hydrological phenomenon, that is expected to gain considerable importance throughout the next years, also due to their 
+link to climate change. The following paper will give an introduction to the precise definition of riverine heatwaves, 
+as well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect riverine 
+heatwaves from temperature time series, and how their development, both spatially and temporally, can be quantified and 
+assessed. This will be helpful, to gain a better understanding of riverine heatwaves. It will be especially important to 
+explore how riverine heatwaves evolve during climate change, as all three metrics used to quantify frequency, duration 
+and intensity seem to have increased throughout the last years.
+
+## Introduction
+
+### Introduction
+
+In contrast to air, lake and ocean heatwaves, research on river heatwaves is still just emerging. However it is a topic 
+that is only projected to become more relevant over time, as increasing water temperatures are closely linked to climate
+change, and also riverine heatwaves are expected to become more frequent, long and intense. In fact, they are even 
+projected to increase more rapidly than air heatwaves [@sadayappan2025]. To research riverine heatwaves, it is important 
+to understand precisely how they are defined, how they can be quantified, and what sort of data is required for their 
+analysis. Also the drivers and impacts of riverine heatwaves need to be examined, to understand their appearance, and 
+how they can be mitigated. Lastly, it is important to be able to forecast and predict riverine heatwaves, which requires 
+the construction of reliable models. 
+This paper is going to give an overview on the topic of riverine heatwaves, by introducing their definition, drivers and
+impacts. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time
+series, and what metrics can be used to quantify them. Later these methods will be used to perform an exploratory
+analysis on a data set of water temperature data from the Main river system, focusing on the evolution of riverine 
+heatwaves over time and the differences between stations.
+
+### Definition
+
+Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature 
+exceeds a local seasonally varying percentile based threshold for a prolonged period of time. For riverine heatwaves,
+usually a 90th percentile threshold and a 5 day period are used. [@hamel2024]
+Although their definitions are similar, riverine heatwaves and atmospheric heatwaves behave differently, as riverine 
+heatwaves tend to be more rare, but more persistent, than atmospheric heatwaves [@sadayappan2025].
+
+
+### Drivers
+
+As riverine heatwaves are a phenomenon that has not gained much attention so far, its drivers are not fully understood 
+yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric 
+conditions like air temperature, wind, rainfall and solar radiation, the hydrologic conditions which means the 
+discharge, how the river interacts with different water bodies within its proximity and processes at the water stream 
+bed interface, for example the interaction of the river with ground water. On top of that, the water temperature can be 
+influenced by its environment, for example by the amount of vegetation and shading, by impervious surfaces nearby or by 
+the presence of thermal effluents from near industries or human waste water [@hamel2024].
+
+However, so far little is known on how specifically riverine heatwaves are caused. From literature we know, that 
+riverine heatwaves are primarely driven by climate drivers. These include air temperature, while especially trends of 
+minimum and maximum temperature play a role, and trends in low discharge. Also the contribution of groundwater, winter 
+precipitation percentage and trends of snow water play a role, as these help to buffer the impact of extremely hot air 
+temperatures on river temperature [@sadayappan2025]. Behind climate drivers, there are also direct anthropogenic 
+drivers, such as river dams, which typically tend to elongate riverine heatwaves [@sadayappan2025]. Nevertheless, the 
+processes that cause riverine heatwaves are still not fully understood.
+
+### Impacts
+
+The appearance of riverine heatwaves can have both ecological and socioeconomic impacts. These can be parted into 
+different layers. Firstly there are the immediate effects of prolonged periods of high water temperature. The higher 
+temperature could lead to an increased rate of open water evaporation. Moreover, they might lead to an increased spread 
+of diseases, harmful algee bloom and a decrease in water quality in general. This in turn can reduce the availability 
+of drinking water or the possibility of recreational activities and be harmful to flora and fauna living in, or close by 
+the river systems. Also the prolonged high temperatures can cause thermal stress on fish and other aquatic species 
+[@hamel2024]. Together this is threatening fishing and aquaculture which is a vital source of food for a large part of 
+the population [@chen2026]. Moreover, high water temperatures can also negatively impact energy production, as nuclear 
+power production often relies on cooling water from close by river system, which already has been unavailable due to 
+riverine heatwaves in some cases [@hamel2024].
+
+
+## Data
+
+### Data Set
+
+For the analysis we will use a data set of longitudinal temperature data from 14 gauges at Main river system in Bavaria. 
+The data set includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000 
+and 2020.
+Literature suggests, that the analysis of riverine heatwaves requires time series of at least 10, ideally 30 years with 
+at least daily data and not more than 50 percent, ideally not more than 25 percent of missing data. 
+Also for this analysis it will be necessary to have a common time period for all stations, to obtain comparable results 
+between stations. As many of the stations do not cover a common time period, and as some of the stations have a 
+high amount of missing data for some years, the analysis has be limited to six of the stations to guarantee these 
+standards. Excluding the other stations gives us a 15 year common period time series of daily water temperature, with 
+almost no missing values (not more than ten percent per yearly station specific time series).
+The used stations are marked in figure 1, which also shows their position along the main river system.
+
+### Locations
+
+Stations included for analysis: red, find out how to make graphic captions in r markdwon
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/stations_map.png")
+```
+
+
+## Methods
+
+### Threshold
+
+The threshold which classifies riverine heatwaves has to be precisely defined. This paper is going to use the definition
+of marine heatwaves by Hobday. Although it was originally defined for marine heatwaves, it has since been used on many 
+different studies about riverine heatwaves as well.
+
+The definition of marine heatwaves by Hobday uses a 90th percentile seasonally varying threshold, which is also varying 
+with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for 
+each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding 
+window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is 
+depicted below, where y is the year variable, d is the day variable and j is the day for the considered temperature \@ref(eq:threshold). $Y_s$ and $y_e$ are the years between the considered period lies, $P_{90}(X)$ is the 90 percent 
+quantile of $X$ . This procedure will be repeated for each day of year, until the threshold for the entire year is 
+completed [@hobday2016].
+
+\begin{equation}
+T_{90}(j) = P_{90}(X),
+\quad \text{where}
+\quad
+X = \left\{T(y,d)\;\middle|\; y_s \le y \le y_e,\; j-5 \le d \le j+5 \right\}
+(\#eq:threshold)
+\end{equation}
+
+Usually, for this a historical baseline period is used. But since here the data set only covers a relatively short time 
+period, the same time period is used for the calculation of the threshold and the analysis. Even if the same threshold 
+definition is used, comparing results from different studies on riverine heatwaves has to be treated carefully. It can 
+be problematic to compare exact numbers for metrics between studies with different baseline periods, as climate change 
+suggests a temperature biased over time. However, as in this paper the focus is only to demonstrate how heatwaves evolve 
+relatively to another over time by looking for general trends rather than comparing exact metrics with other studies.
+And since in this paper only measurements from the same stations with the same baseline period are going to compared, 
+this approach also suffices.
+
+Resulting from this procedure, we obtain a threshold for each station, that can be used for comparison with the time 
+series of each year. In figure 2 an example of this is shown for the Kemmern station and the year 2018. Heatwaves can 
+then be detected, by firstly marking all potential candidates, all days exceeding the thresholds. After, the time series 
+are examined for events of at least five consecutive days exceeding the threshold. These are marked as heatwaves and 
+given an ID, while all shorter events are discarded. When there is a gap of only one or two days between two or more
+heatwaves that all individually have a duration of at least five days, the heatwaves, are merged into one heatwave.
+
+### Threshold example: Main data (Kemmern, 2018)
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/threshold_kemmern.png")
+```
+
+
+
+
+### Metrics used
+
+This paper will focus on three primary metrics, that will be used to quantify the evolution of riverine heatwaves. We 
+will use a frequency metric, a duration metric and an intensity metric, to be able to describe the evolution under 
+different aspects.
+
+To quantify the evolution of frequency the number of heatwave events per year will be used. For this, we simply count
+the number of different heatwaves IDs per year and station.
+
+Furthermore, we will consider the duration of the heatwaves. This is calculated using the first and last day of each 
+heatwave \@ref(eq:duration). The duration plays an important role, as especially longer heatwaves can have more severe 
+impacts [@hobday2016].
+
+\begin{equation}
+D = t_e - t_s
+(\#eq:duration)
+\end{equation}
+  
+Lastly, we will use intensity, to assess the amount of the heat spike. The intensity, is defined as the temperature, by 
+which the 90 percent temperature threshold is exceeded. In this paper we define intensity, as the mean of the daily 
+temperature exceedance per heatwave\@ref(eq:intensity).
+
+\begin{equation}
+i_{\mathrm{mean}}
+=
+\overline{T(t)-T_{90}(j)}
+(\#eq:intensity)
+\end{equation}
+
+These metrics can also be used to summarize two or more of these characteristics. For example, the heatwave events can 
+be multiplied with the mean annual duration, to obtain the number of heatwave days per year. Or the duration of a 
+heatwave can be multiplied with its mean intensity, to obtain its mean severity. 
+
+### Research Question
+
+This paper examines the evolution of riverine heatwaves over climate change. Therefore we want to focus primarily on 
+the changes over time, using the period of the used data. To do this, we will examine the development of the three 
+previously defined metrics and pose the following questions:
+
+1. How has the frequency of riverine heatwaves changed over time?
+
+2. How has the duration of riverine heatwaves changed over time?
+
+3. How has the intensity of riverine heatwaves changed over time?
+
+Given the availability of stations with different locations along the same river system, we will also look into, how 
+the metrics differ between the stations. To answer these research questions, we will perform exploratory analysis on the
+heatwave data, and look for differences between stations and years. Also linear and quasi poisson modells were fitted on
+the data, to look for significant temporal and spatial trends.
+
+## Results
+
+### Frequency
+
+Figure 1 shows the distribution of the number of heatwave events per year for each station, with the stations being 
+ordered by their position along the river from downstream to upstream. We can see, that for each station the mean number 
+of heatwave events lies between 2.5 and 3. Both its mean and its variance seem to slighty increase in a downstream 
+direction. To investigate this more thoroughly, a linear model between the mean frequency per station, and the river 
+kilometer, a static variable, that indicates for each station its distance from the river mouth in kilometers, was used. 
+It indicated a decreasing, however insignificant trend of -0.001935 events / year with a p value of 0.197. As 
+Pettstadt station lies on an inflow river and not directly on Main, it was excluded from this model.
+
+To examine the temporal trend of frequency, the heatwave events were groped by their station, and a quasi poisson model 
+was used, to look for correlation between the frequency and year. Fitting a model for each individual station led only 
+to 1 significant and 5 insignificant results. Furthermore a common temporal trend quasi poisson model of frequency and 
+year was used, to examine the general temporal frequency trend. An analysis-of-deviance F-test was used to assess 
+whether including a year x station interaction significantly improved the quasi-Poisson model compared with a model 
+containing only year and station main effects. The year × station interaction did not significantly improve model fit (analysis-of-deviance F-test: F(5, 78) = 0.737, p = 0.598), indicating no statistical evidence that temporal trends 
+differed among stations.Therefore, the model with station as a fixed effect and a common temporal trend was used for the 
+analysis. 
+This resulted into a significant positive trend over time (slope: 0.05350, p value : 0.002). This indicates an increase 
+of heatwave events by 5.5 % per year. The common quasi poisson is depicted in figure 2 where it is plotted into the 
+frequency distribution of each station individually. The offset represents the intercept of the station effect, as the 
+frequency of heatwaves differs from station to station.
+
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_overview.png")
+```
+
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/heatwave_events_plot.png")
+```
+
+
+
+
+### Duration
+
+The durations of heatwaves of Main river in the considered period lay between 5 and 28, with an average between 8 and 
+10 days. Again the stations in the plot are placed according to their order along the river, and while the mean stays 
+consistent, the variance seems to increase downstream. Also extremely long heatwaves seem more common at the downstream 
+stations. Again there was a model fitted between the mean duration of each station and the river kilometer, this time a 
+linear model was used, however it showed no significant trend (slope: -0.002058 days / km, p value: 0.459). Another 
+idea would be to examine the mean of the yearly maximum durations of each station and look for a downstream trend. 
+However, for this data set, this approach also did not deliver a significant result (slope: -0.002475 days / km, 
+p value: 0.616 ).
+
+For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each 
+a linear modell was fitted. Four of the six stations showed a positive trend, with only one of them being significant, 
+while the other stations showed a insignificant negative trend. To fit a linear modell for the common temporal duration
+trend, again the model with year x station interaction was tested against the model including only the main effects, 
+analogously to the frequency trend, this time using a analysis of variance F-Test. As no the interactions appeared again
+insignificant, the model with only the main effects was chosen. This resulted in a increasing, however insignificant, 
+temporal trend of duration was observed (slope: 0.08490 days / year, p value: 0.217).
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.png")
+```
+
+
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/duration_plot.png")
+```
+
+
+### Intensity
+
+The intensity lies between 0 and 2 degrees celsius over the threshold, with the stations means laying between 0.5 and 
+0.8 degrees celsius. Again the plot suggests a trend between the location of the stations, it seems like the mean 
+intensity and its variance decrease stream downwards. To capture this trend, a linear model was used, which gave a slope
+of 0.0011531 °C per km, however again this result was not significant for the 95 percent confidence level with a p value 
+of 0.059. 
+
+Looking at the yearly data, the plots again reflect the higher variance for upstream stations Schwürbitz, Schweinfurt 
+and Kemmern, however a clear temporal trend is not visible. Also neither the station specific linear models, nor the
+common temporal trend model without year x station interactions show a significant trend. The result of the common 
+modell was a slope 0.008265 °C per year with a p value of 0.187, while the individual models showed no significant trend 
+for any of the stations.
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.png")
+```
+
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/intensity_plot.png")
+```
+
+
+Linear Modell for common trends
+
+
+## Discussion
+
+### Overview of trends common models
+
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.png")
+```
+
+The observed results of all three metrics are summarized for the temporal trends in figure 1 and for the differences 
+between stations in figure 2. From the literature we would expect a increasing trend over time for all three metrics. 
+This analysis only reflects a significant increasing trend for frequency, while duration and intensity also show 
+increasing, but insignificant trends.However, the recommended data size of time series with a length of ideally at least 
+30 years were not met, as only a period of 15 years was considered. Also there was no historical period used to 
+calculate the heatwave threshold. This might explain the insignificance of the duration and intensity trend. Moreover, 
+only data from one river was considered, and a trend of one river does not necessarily match the global trend of 
+riverine heatwave increase. With a longer time series it might be possible to obtain significant results for the 
+temporal trends of duration and intensity, or it might be possible to have a larger confidence that there is no 
+significant temporal trend for these metrics in Main river system.
+
+However, finding usable data for the analysis of riverine heatwaves is difficult, as due to the the suspected climate 
+change bias it is not always reasonable to use a long period of historical data as a baseline. With the temperatures 
+being in general a lot higher than in the past, a historical threshold would not be able to capture heatwaves anymore, 
+as a too large amount of temperatures would exceed it. Leading to permanent heatwave states, which would make the 
+examination of frequency and duration meaningless, and a temporal trend would not be able to be detected. An idea to 
+account for the temporal bias in temperature data would be to use simulated data. By using simulated data, longer time 
+series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for 
+future development of riverine heatwaves would be possible.
+
+The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The 
+implication was, that the frequency of heatwaves increase downstream ward, while their intensity decreases. These trend 
+however could not be verified using linear models, which did not deliver significant results. However, it could be 
+interesting to perfom further examinations on this trends, using longer time series, or a larger number of station along 
+the same river, maybe also on a different river with a denser network of gauges. The frequency trend might indicate, 
+that there is a downstream movement of riverine heatwaves, that might explain the higher frequency downstream wards. 
+This could be interesting to make predictions on the appearance of heatwaves downstreams, after one has appeared further 
+upstream.
+
+The results, in a way, show the difficulties of data scarcities when working on temporal trend analysis with riverine 
+heatwaves during climate change. This underlines the importance of constructing a dense network of temperature data, 
+perhaps with the help of simulated data. Although a significant temporal trend was only detected for frequency, there 
+were some implications for increasing trends from the other metrics, which, as potential trends between the river
+kilometer and frequency and intensity, might be an interesting relation to examine in a larger data set. In conclusion
+riverine heatwaves remain a relevant phenomenon, during climate change, that still offers many interesting research
+possibilities.
+
+# References
+
+
+<!--chapter:end:05-riverine_heat.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Interpretable Riverine Heatwaves {#irh}
+
+*Author: *
+
+*Supervisor: Henri Funk*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:06-interpretable_heat.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Changepoint analysis is statistics {#cs}
+
+*Author: *
+
+*Supervisor: Helmut Küchenhoff*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:07-change_stats.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Uncertainty of tipping points in climate research {#utp}
+
+*Author: *
+
+*Supervisor: Helmut Küchenhoff*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:08-uncertainty_tp.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# The case of permafrost {#pf}
+
+*Author: *
+
+*Supervisor: Helmut Küchenhoff*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:09-permafrost.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Atlantic Meridional Overturning Circulation {#amoc}
+
+*Author: *
+
+*Supervisor: Helmut Küchenhoff*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:10-amoc.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Positive tipping points {#ptp}
+
+*Author: *
+
+*Supervisor: Helmut Küchenhoff*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:11-positive_tp.Rmd-->
+
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+library(kableExtra)
+```
+
+# Graphics and communication of risks by tipping points {#ctp}
+
+*Author: *
+
+*Supervisor: Helmut Küchenhoff*
+
+*Degree: Bachelor/Master*
+
+## Abstract
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+## Introduction
+
+<!--chapter:end:12-communicating_tp.Rmd-->
+
+`r if (knitr:::is_html_output()) '# References {-}'`
+
+```{r include=FALSE}
+# generate a BibTeX database automatically for some R packages
+knitr::write_bib(c(
+  .packages()[-1], 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+
+<!--chapter:end:99-references.Rmd-->
+
