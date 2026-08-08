@@ -712,24 +712,22 @@ polygon_spatial <- ggplot() +
   
   labs(
     title = "Heatwave characteristics by station",
-    subtitle = paste(
-      "Values are expressed relative to the mean across stations (1.0 = overall station mean); the dashed grey triangle indicates the overall mean."
-    ),
-    caption = paste(
-      "1.0 = mean across all stations;",
-      "values above 1 indicate above-average conditions"
-    )
+    #subtitle = paste(
+    #  "Values are expressed relative to the mean across stations (1.0 = overall station mean); the dashed grey triangle indicates the overall mean."
+    #),
   ) +
   
   theme_void(base_size = 13) +
   
   theme(
+    plot.margin = margin(
+      30, 20, 10, 20
+    ),
     plot.title = element_text(
-      face = "bold",
-      size = 12,
+      margin = margin(b = 10),
+      size = 18,
       hjust = 0
     ),
-    
     plot.subtitle = element_text(
       size = 11,
       margin = margin(
@@ -750,18 +748,10 @@ polygon_spatial <- ggplot() +
         b = 8
       )
     ),
-    
     panel.spacing = unit(
       4.7,
       "lines"
     ),
-    
-    plot.margin = margin(
-      15,
-      20,
-      15,
-      20
-    )
   )
 
 # polygon plot per year
@@ -978,12 +968,21 @@ polygon_temporal <- ggplot() +
   
   theme_void() +
   theme(
+    plot.margin = margin(
+      30, 20, 10, 20
+    ),
+    plot.title = element_text(
+      margin = margin(b = 15)
+    ),
+    plot.subtitle = element_text(
+      margin = margin(b = 15)
+    ),
     strip.text = element_text(
       face = "bold",
       size = 10
     ),
     panel.spacing = unit(4.7, "lines")
-  ) +
+  )+
   
   labs(
     title = "Heatwave characteristics by year"
