@@ -317,6 +317,10 @@ Linear Modell for common trends
 
 
 ```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("work/05-riverine_heat/figures/polygon_temporal.png")
+```
+
+```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/polygon_spatial.png")
 ```
 

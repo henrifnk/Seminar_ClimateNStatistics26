@@ -552,7 +552,7 @@ reference_polygon <- crossing(
 
 #8
 
-grid_levels <- c(0.5, 1.0, 1.5)
+grid_levels <- c(0.5, 1.5)
 
 grid_polygons <- crossing(
   station = unique(radar_data$station),
@@ -672,8 +672,8 @@ polygon_spatial <- ggplot() +
       y = y,
       group = station
     ),
-    fill = "orange",
-    colour = "orange",
+    fill = "#5B84B1",
+    colour = "#5B84B1",
     alpha = 0.25,
     linewidth = 1
   ) +
@@ -683,7 +683,7 @@ polygon_spatial <- ggplot() +
       x = x,
       y = y
     ),
-    colour = "orange",
+    colour = "#5B84B1",
     size = 2.3
   ) +
   geom_text(
@@ -713,8 +713,7 @@ polygon_spatial <- ggplot() +
   labs(
     title = "Heatwave characteristics by station",
     subtitle = paste(
-      "Values are expressed relative to the mean across all stations;",
-      "the dashed grey triangle represents the overall mean"
+      "Values are expressed relative to the mean across stations (1.0 = overall station mean); the dashed grey triangle indicates the overall mean."
     ),
     caption = paste(
       "1.0 = mean across all stations;",
@@ -938,16 +937,16 @@ polygon_temporal <- ggplot() +
       y,
       group = year
     ),
-    fill = "orange",
+    fill = "#5B84B1",
     alpha = 0.20,
-    colour = "orange",
-    linewidth = 1.2
+    colour = "#5B84B1",
+    linewidth = 0.9
   ) +
   
   geom_point(
     data = plot_data,
     aes(x, y),
-    colour = "orange",
+    colour = "#5B84B1",
     size = 2
   ) +
   
@@ -955,29 +954,32 @@ polygon_temporal <- ggplot() +
     data = labels,
     aes(x, y, label = metric),
     fontface = "bold",
-    size = 4.5
+    size = 2.5
   ) +
   
   coord_equal() +
   
   facet_wrap(
     ~year,
-    ncol = 5
+    ncol = 3
   ) +
   
   theme_void() +
   
   theme(
+    plot.margin = margin(
+      10, 20, 10, 20
+    ),
     strip.text = element_text(
       face = "bold",
-      size = 12
+      size = 10
     ),
     panel.spacing = unit(1.4, "lines")
   ) +
   
   labs(
     title = "Heatwave characteristics by year",
-    subtitle = "Values are expressed relative to the mean across all years; the dashed grey triangle represents the overall mean"
+    subtitle = "Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean"
   )
 
 
@@ -1232,7 +1234,3 @@ ggsave(
   height = 4
 )
 polygon_temporal
-
-
-
-
