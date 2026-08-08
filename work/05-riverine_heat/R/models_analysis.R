@@ -223,6 +223,29 @@ anova(lm_duration, lm_duration_int, test = "F")
 
 # single temporal trends
 
+station_models_intensity <- annual_summary %>%
+  group_by(station) %>%
+  group_modify(~ {
+    
+    model <- glm(
+      mean_intensity ~ year,
+      family = quasipoisson(link = "log"),
+      data = .x
+    )
+    
+    coef <- summary(model)$coefficients
+    
+    tibble(
+      slope = coef["year", "Estimate"],
+      percent_change_per_year =
+        (exp(coef["year", "Estimate"]) - 1) * 100,
+      p_value = coef["year", "Pr(>|t|)"]
+    )
+  }) %>%
+  ungroup()
+
+station_models_intensity
+
 # common temporal trend
 
 lm_intensity <- lm(
