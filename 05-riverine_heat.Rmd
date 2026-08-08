@@ -223,7 +223,7 @@ the data, to look for significant temporal and spatial trends.
 Figure 1 shows the distribution of the number of heatwave events per year for each station, with the stations being 
 ordered by their position along the river from downstream to upstream. We can see, that for each station the mean number 
 of heatwave events lies between 2.5 and 3. Both its mean and its variance seem to slighty increase in a downstream 
-direction. To investigatethis more thoroughly, a linear model between the mean frequency per station, and the river 
+direction. To investigate this more thoroughly, a linear model between the mean frequency per station, and the river 
 kilometer, a static variable, that indicates for each station its distance from the river mouth in kilometers, was used. 
 It indicated a decreasing, however insignificant trend of -0.001935 events / year with a p value of 0.197. As 
 Pettstadt station lies on an inflow river and not directly on Main, it was excluded from this model.
@@ -231,9 +231,11 @@ Pettstadt station lies on an inflow river and not directly on Main, it was exclu
 To examine the temporal trend of frequency, the heatwave events were groped by their station, and a quasi poisson model 
 was used, to look for correlation between the frequency and year. Fitting a model for each individual station led only 
 to 1 significant and 5 insignificant results. Furthermore a common temporal trend quasi poisson model of frequency and 
-year was used, to examine the general temporal frequency trend. The interaction model provided no evidence for 
-differences in temporal trends among stations, after comparing the it to a model without the station year interactions 
-using ANOVA. Therefore, the model with station as a fixed effect and a common temporal trend was used for the analysis. 
+year was used, to examine the general temporal frequency trend. An analysis-of-deviance F-test was used to assess 
+whether including a year x station interaction significantly improved the quasi-Poisson model compared with a model 
+containing only year and station main effects. The year × station interaction did not significantly improve model fit (analysis-of-deviance F-test: F(5, 78) = 0.737, p = 0.598), indicating no statistical evidence that temporal trends 
+differed among stations.Therefore, the model with station as a fixed effect and a common temporal trend was used for the 
+analysis. 
 This resulted into a significant positive trend over time (slope: 0.05350, p value : 0.002). This indicates an increase 
 of heatwave events by 5.5 % per year. The common quasi poisson is depicted in figure 2 where it is plotted into the 
 frequency distribution of each station individually. The offset represents the intercept of the station effect, as the 
@@ -265,8 +267,11 @@ p value: 0.616 ).
 
 For the temporal trend a similar approch was used. The yearly mean durations for each station were plotted, and for each 
 a linear modell was fitted. Four of the six stations showed a positive trend, with only one of them being significant, 
-while the other stations showed a insignificant negative trend. Fitting a linear modell for the common trend, an 
-increasing, however insignificant, temporal trend of duration was observed (slope: 0.08490 days / year, p value: 0.217).
+while the other stations showed a insignificant negative trend. To fit a linear modell for the common temporal duration
+trend, again the model with year x station interaction was tested against the model including only the main effects, 
+analogously to the frequency trend, this time using a analysis of variance F-Test. As no the interactions appeared again
+insignificant, the model with only the main effects was chosen. This resulted in a increasing, however insignificant, 
+temporal trend of duration was observed (slope: 0.08490 days / year, p value: 0.217).
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_duration_overview.png")
@@ -289,8 +294,9 @@ of 0.059.
 
 Looking at the yearly data, the plots again reflect the higher variance for upstream stations Schwürbitz, Schweinfurt 
 and Kemmern, however a clear temporal trend is not visible. Also neither the station specific linear models, nor the
-common temporal trend model show a significant trend. The result of the common modell was a slope 0.008265 °C per year 
-with a p value of 0.187, while the individual models showed no significant trend for any of the stations.
+common temporal trend model without year x station interactions show a significant trend. The result of the common 
+modell was a slope 0.008265 °C per year with a p value of 0.187, while the individual models showed no significant trend 
+for any of the stations.
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("work/05-riverine_heat/figures/mean_intensity_overview.png")

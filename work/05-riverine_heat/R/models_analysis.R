@@ -217,7 +217,7 @@ lm_duration_int <- lm(
 
 summary(lm_duration)
 
-anova(lm_duration, lm_duration_int, test = "F")
+anova(lm_duration, lm_duration_int)
 
 # 3. INTENSITY
 
@@ -262,7 +262,7 @@ lm_intensity_int <- lm(
 
 summary(lm_intensity_int)
 
-anova(lm_intensity, lm_intensity_int, test = "F")
+anova(lm_intensity, lm_intensity_int)
 
 # River kilometer Trends
 
