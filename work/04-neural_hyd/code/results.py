@@ -62,6 +62,14 @@ def main() -> None:
     run_step(python_exe, "eval_global_true_by_group.py", core_dir)
     run_step(python_exe, "gen_three_way_comparison.py", core_dir)
 
+    # Some core scripts write outputs to the climate-change repo path.
+    source_dirs = [core_dir]
+    try:
+        github_root = code_dir.parents[3]
+        source_dirs.append(github_root / "climate-change" / "NeuralHydrology" / "rq3_finetune")
+    except IndexError:
+        pass
+
     required = [
         "results_folder_groups_summary_with_global_true_ea.csv",
         "results_folder_groups_all_basins_ea.csv",
@@ -74,11 +82,17 @@ def main() -> None:
     ]
 
     for name in required:
-        src = core_dir / name
         dst = out_dir / name
-        if src.exists():
-            shutil.copy2(src, dst)
-            print(f"[results] copied: {name}")
+        found_src = None
+        for src_dir in source_dirs:
+            candidate = src_dir / name
+            if candidate.exists():
+                found_src = candidate
+                break
+
+        if found_src is not None:
+            shutil.copy2(found_src, dst)
+            print(f"[results] copied: {name} (from {found_src.parent})")
         else:
             print(f"[results] missing: {name}")
 

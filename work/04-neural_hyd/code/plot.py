@@ -193,7 +193,12 @@ def main() -> None:
     fig, ax = plt.subplots(figsize=(9.8, 4.2))
     local_vals = rq3_all["local_nse"].dropna().to_numpy(dtype=float)
     ft_vals = rq3_all["ft_nse"].dropna().to_numpy(dtype=float)
-    bp = ax.boxplot([local_vals, ft_vals], labels=["Local", "Fine-tune"], patch_artist=True, widths=0.55)
+    bp = ax.boxplot(
+        [local_vals, ft_vals],
+        tick_labels=["Local", "Fine-tune"],
+        patch_artist=True,
+        widths=0.55,
+    )
     bp["boxes"][0].set_facecolor(AMBER)
     bp["boxes"][1].set_facecolor(LMU_BLUE)
     jitter_x_local = np.random.default_rng(42).normal(1, 0.04, len(local_vals))
@@ -264,21 +269,39 @@ def main() -> None:
     ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.35), ncols=3)
     save_fig(fig, fig_dir, "13_group05_basin_comparison.png")
 
-    mask = rq3_all[["ft_nse", "global_nse"]].notna().all(axis=1)
-    ea_basin_total = int(mask.sum())
-    ea_basin_wins = int((rq3_all.loc[mask, "ft_nse"] > rq3_all.loc[mask, "global_nse"]).sum())
-    ea_basin_losses = ea_basin_total - ea_basin_wins
-    ea_win_rate = (ea_basin_wins / ea_basin_total) if ea_basin_total > 0 else 0.0
+    global_col = None
+    for candidate in ["global_nse", "NSE"]:
+        if candidate in rq3_all.columns:
+            global_col = candidate
+            break
+
     fig, ax = plt.subplots(figsize=(9.6, 4.1))
-    outcomes = ["FT > Global", "FT < Global"]
-    counts = [ea_basin_wins, ea_basin_losses]
-    bars = ax.bar(outcomes, counts, color=[LMU_BLUE, GREY50], width=0.6)
-    for bar, v in zip(bars, counts):
-        ax.text(bar.get_x() + bar.get_width() / 2, v + max(1, 0.02 * max(counts)), f"{v}", ha="center")
-    ax.set_ylabel("Number of basins")
-    ax.set_title(
-        f"EA-LSTM basin-level win rate: {ea_basin_wins}/{ea_basin_total} = {100 * ea_win_rate:.2f}%"
-    )
+    if global_col is not None:
+        mask = rq3_all[["ft_nse", global_col]].notna().all(axis=1)
+        ea_basin_total = int(mask.sum())
+        ea_basin_wins = int((rq3_all.loc[mask, "ft_nse"] > rq3_all.loc[mask, global_col]).sum())
+        ea_basin_losses = ea_basin_total - ea_basin_wins
+        ea_win_rate = (ea_basin_wins / ea_basin_total) if ea_basin_total > 0 else 0.0
+
+        outcomes = ["FT > Global", "FT < Global"]
+        counts = [ea_basin_wins, ea_basin_losses]
+        bars = ax.bar(outcomes, counts, color=[LMU_BLUE, GREY50], width=0.6)
+        for bar, v in zip(bars, counts):
+            ax.text(bar.get_x() + bar.get_width() / 2, v + max(1, 0.02 * max(counts)), f"{v}", ha="center")
+        ax.set_ylabel("Number of basins")
+        ax.set_title(
+            f"EA-LSTM basin-level win rate: {ea_basin_wins}/{ea_basin_total} = {100 * ea_win_rate:.2f}%"
+        )
+    else:
+        # Keep pipeline runnable even when basin-level global NSE is absent.
+        wins = int((rq3_group["ft_nse_mean"] > rq3_group["global_nse_mean"]).sum())
+        losses = int(len(rq3_group) - wins)
+        bars = ax.bar(["FT > Global", "FT < Global"], [wins, losses], color=[LMU_BLUE, GREY50], width=0.6)
+        for bar, v in zip(bars, [wins, losses]):
+            ax.text(bar.get_x() + bar.get_width() / 2, v + max(1, 0.02 * max(wins, losses)), f"{v}", ha="center")
+        ax.set_ylabel("Number of groups")
+        ax.set_title("EA-LSTM group-level win count (global_nse unavailable in basin table)")
+
     save_fig(fig, fig_dir, "14_ea_basin_winrate_vs_global.png")
 
     print(f"done: all figures are in {fig_dir}")
