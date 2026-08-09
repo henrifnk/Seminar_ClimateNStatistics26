@@ -306,7 +306,7 @@ knitr::include_graphics(
 
 The observed results of all three metrics are summarized for the temporal trends in figure \@ref(fig:polygon-temporal) 
 and for the differences between stations in figure \@ref(fig:polygon-spatial). From the literature a increasing trend 
-over time for all three metrics would be expected. This analysis only reflects a significant increasing trend for 
+over time for all three metrics would be expected [@chen2026] [@sadayappan2025]. This analysis only reflects a significant increasing trend for 
 frequency, while duration and intensity also show increasing, but insignificant trends. However, the recommended data 
 size of time series with a length of ideally at least 30 years were not met, as only a period of 15 years was 
 considered. Also there was no historical period used to calculate the heatwave threshold. This might explain the 
