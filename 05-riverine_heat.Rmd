@@ -32,7 +32,7 @@ heatwaves from temperature time series, and how their development, both spatiall
 
 ## Introduction
 
-### Research Topic
+### Overview
 
 In contrast to air, lake and ocean heatwaves, research on river heatwaves is still just emerging. However it is a topic 
 that is only projected to become more relevant over time, as increasing water temperatures in rivers are closely linked 
@@ -96,7 +96,7 @@ For the analysis a dataset of longitudinal temperature data from 14 gauges at Ma
 The data set includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000 
 and 2020.
 According to the literature, the analysis of riverine heatwaves requires time series of at least 10, ideally 30 years with 
-at least daily data and not more than 50 percent, ideally not more than 25 percent of missing data. Also for this 
+at least daily data and not more than 50 percent, ideally not more than 25 percent of missing data [@vanhamel2025] . Also for this 
 analysis it is necessary to have a common time period for all stations, to obtain comparable results between 
 stations. As many of the stations do not cover a common time period, and as some of the stations have a high amount of 
 missing data for some years, the analysis was limited to six of the stations to guarantee these standards. Excluding 
