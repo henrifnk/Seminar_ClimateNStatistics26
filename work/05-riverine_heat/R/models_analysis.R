@@ -45,7 +45,7 @@ stations <- list(
   # sachsenheim = sachsenheim
 )
 
-# all events function, creates start, end, duration, mean_intensity, max_intensity and severity for every heatwave
+# create start, end, duration, mean_intensity, max_intensity and severity for every heatwave
 
 all_events <- map_dfr(names(stations), function(station_name) {
   
@@ -71,7 +71,7 @@ all_events <- map_dfr(names(stations), function(station_name) {
 })
 all_events
 
-# annualy summary df: stores for each station, the heatwave events, heatwave days, mean duration, max duration,
+# annual summary df: stores for each station, the heatwave events, heatwave days, mean duration, max duration,
 # mean intensity, max intensity, mean severity and total severity per year
 
 annual_summary <- all_events %>%
@@ -108,6 +108,8 @@ annual_summary <- all_years %>%
     total_severity = replace_na(total_severity, 0)
   )
 
+# station levels to order stations
+
 station_levels <- c("kleinheubach",
                     "wuerzburg",
                     "schweinfurt",
@@ -122,6 +124,7 @@ annual_summary$station <- factor(
 )
 
 # ANALYSIS
+
 annual_summary
 
 # 1. FREQUENCY
@@ -263,6 +266,7 @@ lm_intensity_int <- lm(
 summary(lm_intensity_int)
 
 anova(lm_intensity, lm_intensity_int)
+
 
 # River kilometer Trends
 

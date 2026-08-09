@@ -50,6 +50,7 @@ stations <- list(
 
 head(stations)
 
+# create start, end, duration, mean_intensity, max_intensity and severity for every heatwave
 
 all_events <- map_dfr(names(stations), function(station_name) {
   
@@ -74,6 +75,9 @@ all_events <- map_dfr(names(stations), function(station_name) {
     )
 })
 
+# annual summary df: stores for each station, the heatwave events, heatwave days, mean duration, max duration,
+# mean intensity, max intensity, mean severity and total severity per year
+
 annual_summary <- all_events %>%
   group_by(station, year) %>%
   summarise(
@@ -88,11 +92,14 @@ annual_summary <- all_events %>%
     .groups = "drop"
   )
 
+# create framework for dataframe
 
 all_years <- expand.grid(
   station = names(stations),
   year = 2005:2019
 )
+
+# add to annual_summary
 
 annual_summary <- all_years %>%
   left_join(annual_summary, by = c("station", "year")) %>%
@@ -123,7 +130,8 @@ annual_summary %>%
   group_by(year) %>%
   summarise(n = sum(heatwave_events))
 
-  
+# create station levels to order station in plot
+ 
 station_levels <- c(
   "kleinheubach",
   "wuerzburg",
@@ -137,13 +145,8 @@ annual_summary$station <- factor(
   as.character(annual_summary$station),
   levels = station_levels
 )
-annual_summary
-
-str(annual_summary$station)
-str(station_levels)
 
 unique(as.character(annual_summary$station))
-station_levels
 
 setdiff(unique(as.character(annual_summary$station)), station_levels)
 
@@ -152,7 +155,6 @@ annual_summary$station <- factor(
   levels = station_levels
 )
 
-annual_summary$station
 # print(annual_summary, max = 10)
 
 
@@ -376,7 +378,7 @@ mean_intensity_overview <- ggplot(all_events,
 
 mean_intensity_overview 
 
-# radar chart
+# radar chart by station
 
 #1
 
@@ -479,8 +481,6 @@ radar_polygon <- radar_long %>%
     polygon_order
   )
 
-#7
-
 reference_polygon <- crossing(
   station = unique(radar_data$station),
   axis_information
@@ -501,8 +501,6 @@ reference_polygon <- crossing(
     station,
     polygon_order
   )
-
-#8
 
 grid_levels <- c(0.5, 1.5)
 
@@ -527,7 +525,7 @@ grid_polygons <- crossing(
     polygon_order
   )
 
-#9
+#7
 
 maximum_value <- max(
   1.5,
@@ -663,10 +661,7 @@ polygon_spatial <- ggplot() +
   ) +
   
   labs(
-    title = "Heatwave characteristics by station",
-    #subtitle = paste(
-    #  "Values are expressed relative to the mean across stations (1.0 = overall station mean); the dashed grey triangle indicates the overall mean."
-    #),
+    title = "Heatwave characteristics by station"
   ) +
   
   theme_void(base_size = 13) +
@@ -709,6 +704,7 @@ polygon_spatial <- ggplot() +
 # polygon plot per year
 
 #1
+
 radar_data_year <- annual_summary %>%
   group_by(year) %>%
   summarise(
@@ -748,7 +744,7 @@ if(maximum_value > 1.5){
   grid_levels <- c(grid_levels, maximum_value)
 }
 
-#3
+#3 
 
 plot_data <- radar_data_year %>%
   pivot_longer(
@@ -938,7 +934,6 @@ polygon_temporal <- ggplot() +
   
   labs(
     title = "Heatwave characteristics by year"
-    #subtitle = "Values are expressed relative to the mean across years (1.0 = overall temporal mean); the dashed grey triangle indicates the overall mean"
   )
 
 
@@ -949,8 +944,7 @@ polygon_temporal <- ggplot() +
 
 # faceted plot of all stations, including common quasi poisson model trend
 
-
-# Create one prediction for every observed station-year row
+# add model to data
 
 glm_frequency <- glm(
   heatwave_events ~ year + station,
@@ -975,6 +969,8 @@ plot_data <- plot_data %>%
       levels = station_levels
     )
   )
+
+# plot
 
 heatwave_events_plot <- ggplot(
   plot_data,
@@ -1013,6 +1009,8 @@ heatwave_events_plot
 
 # 2.1 mean duration
 
+# add model to data
+
 lm_duration <- lm(
   mean_duration ~ year + station,
   data = annual_summary
@@ -1035,6 +1033,9 @@ plot_data_dur <- plot_data_dur %>%
       levels = station_levels
     )
   )
+
+
+# plot
 
 duration_plot <- ggplot(
   plot_data_dur,
@@ -1074,6 +1075,7 @@ duration_plot
 
 # 3. 1 mean intensity
 
+# add model to data
 lm_intensity <- lm(
   mean_intensity ~ year + station,
   data = annual_summary
@@ -1096,6 +1098,7 @@ plot_data_int <- plot_data_int %>%
     )
   )
 
+# plot
 
 intensity_plot <- ggplot(
   plot_data_int,
