@@ -28,8 +28,7 @@ Riverine Heatwaves, which are prolonged periods of exceptionally high water temp
 hydrological phenomenon, that is expected to gain considerable importance throughout the next years, also due to their 
 link to climate change. The following paper will give an introduction to the precise definition of riverine heatwaves, 
 as well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect riverine 
-heatwaves from temperature time series, and how their development, both spatially and temporally, can be quantified and 
-assessed. This will be helpful, to gain a better understanding of riverine heatwaves. Applying these methods on a dataset from Main river system in Bavaria delivered a significant increase in frequency over time, but only insignificant increasing temporal trends in duration and intensity. Also assumed trend between river kilometer and the heatwave metrics could not be verified. However, the dataset only included a relatively short time period, therefore a larger data size might lead to more precise results.
+heatwaves from temperature time series, and how their development, both spatially and temporally, can be quantified. Applying these methods on a dataset from Main river system in Bavaria delivered a significant increase in frequency over time, while increasing temporal trends in duration and intensity were insignificant. Also linear trends between river kilometer and the heatwave metrics could not be verified. However, the dataset only included a relatively short time period, therefore a larger data size might lead to more precise results.
 
 ## Introduction
 
@@ -44,10 +43,9 @@ for their analysis. Also the drivers and impacts of riverine heatwaves need to b
 appearance, and how they can be mitigated. Lastly, it is important to be able to forecast and predict riverine 
 heatwaves, which requires the construction of reliable models. 
 This paper is going to give an overview on the topic of riverine heatwaves, by introducing their definition, drivers and
-impacts. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time
-series, and what metrics can be used to quantify them. Later these methods will be used to perform an exploratory
-analysis on a data set of water temperature data from Main river system, focusing on the evolution of riverine 
-heatwaves over time and the differences between stations.
+impacts. This will be helpful, to gain a better understanding of riverine heatwaves. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time series, and what metrics can be used to quantify them. Later 
+these methods will be used to perform an exploratory analysis on a data set of water temperature data from Main river 
+system, focusing on the evolution of riverine heatwaves over time and the differences between stations.
 
 ### Definition
 
