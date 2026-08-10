@@ -64,9 +64,15 @@ FIG_SLIDES = PROJECT_ROOT / "figures" / "raw" / "slides"
 # ---------------------------------------------------------------------------
 
 
-def _save(fig: plt.Figure, path: Path, dpi: int = 150) -> None:
+def _save(fig: plt.Figure, path: Path, dpi: int = 150, svg: bool = True) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=dpi, bbox_inches="tight")
+    # Every figure gets an SVG twin for the book by default. pcolormesh maps
+    # (one vector path per grid cell) can run 10x+ larger as SVG than PNG,
+    # especially multi-panel snapshot grids -- pass svg=False to opt a
+    # specific call out if its file size turns out to be a problem.
+    if svg:
+        fig.savefig(path.with_suffix(".svg"), bbox_inches="tight")
     plt.close(fig)
     print(f"  saved → {path.relative_to(PROJECT_ROOT)}")
 
@@ -119,6 +125,7 @@ def _plot_single_map(
         transform=data_crs,
         cmap=cmap,
         shading="auto",
+        rasterized=True,
     )
     _add_map_features(ax)
 
@@ -172,6 +179,7 @@ def _plot_map_window(
             vmin=vmin,
             vmax=vmax,
             shading="auto",
+            rasterized=True,
         )
         _add_map_features(ax)
         ax.set_extent(extent, crs=_CRS_PLATE)
@@ -222,13 +230,16 @@ def visualize_raw_nao_eof() -> None:
             transform=_CRS_PLATE,
             cmap="RdBu_r",
             shading="auto",
+            rasterized=True,
         )
         _add_map_features(ax)
         ax.set_title(f"month {i + 1}", fontsize=9)
 
     fig.colorbar(im, ax=fig.axes, fraction=0.02, pad=0.04, shrink=0.6, label="EOF loading")
     fig.suptitle("NAO EOF1 – monthly spatial patterns", fontsize=11)
-    _save(fig, FIG_RAW / "nao_eof1.png")
+    # svg=False: 12 panels x the full North Atlantic grid (281x480) -> ~290MB as
+    # SVG (one vector path per grid cell), categorically infeasible. PNG only.
+    _save(fig, FIG_RAW / "nao_eof1.png", svg=False)
     ds.close()
 
 
@@ -321,7 +332,9 @@ def visualize_raw_al_variables_slide(snapshot_time: str = _SLIDE_SNAPSHOT_TIME) 
         frame = da.sel(time=snapshot_time, method="nearest")
         rlon, rlat = da["rlon"].values, da["rlat"].values
 
-        im = ax.pcolormesh(rlon, rlat, frame.values, transform=_CRS_ROTATED, cmap=cmap, shading="auto")
+        im = ax.pcolormesh(
+            rlon, rlat, frame.values, transform=_CRS_ROTATED, cmap=cmap, shading="auto", rasterized=True
+        )
         _add_map_features(ax)
         ax.set_extent(_rotated_extent(rlat, rlon), crs=_CRS_PLATE)
         ax.set_title(_VAR_LABELS_SHORT.get(varname, varname), fontsize=16)
@@ -374,7 +387,7 @@ def visualize_raw_nao_eof_slide(months: tuple[int, ...] = (1, 4, 7, 10)) -> None
         frame = da.isel(time=m - 1)
         im = ax.pcolormesh(
             frame["longitude"].values, frame["latitude"].values, frame.values,
-            transform=_CRS_PLATE, cmap="RdBu_r", shading="auto",
+            transform=_CRS_PLATE, cmap="RdBu_r", shading="auto", rasterized=True,
         )
         _add_map_features(ax)
         ax.set_title(f"Month {m}", fontsize=16)
@@ -446,7 +459,9 @@ def visualize_processed_static() -> None:
     fig = plt.figure(figsize=(13, 5), layout="constrained")
 
     ax1 = fig.add_subplot(1, 2, 1, projection=_CRS_PLATE)
-    im1 = ax1.pcolormesh(rlon, rlat, ds["orogf"].values, transform=_CRS_ROTATED, cmap="terrain", shading="auto")
+    im1 = ax1.pcolormesh(
+        rlon, rlat, ds["orogf"].values, transform=_CRS_ROTATED, cmap="terrain", shading="auto", rasterized=True
+    )
     _add_map_features(ax1)
     ax1.set_extent(extent, crs=_CRS_PLATE)
     fig.colorbar(im1, ax=ax1, fraction=0.04, pad=0.04, shrink=0.8, label="m")
@@ -454,7 +469,8 @@ def visualize_processed_static() -> None:
 
     ax2 = fig.add_subplot(1, 2, 2, projection=_CRS_PLATE)
     im2 = ax2.pcolormesh(
-        rlon, rlat, ds["mask"].values, transform=_CRS_ROTATED, cmap="Greens", shading="auto", vmin=0, vmax=1
+        rlon, rlat, ds["mask"].values, transform=_CRS_ROTATED, cmap="Greens", shading="auto", vmin=0, vmax=1,
+        rasterized=True,
     )
     _add_map_features(ax2)
     ax2.set_extent(extent, crs=_CRS_PLATE)
@@ -606,6 +622,7 @@ def visualize_drought_exploratory(
                 cmap="YlOrRd",
                 norm=norm,
                 shading="auto",
+                rasterized=True,
             )
             _add_map_features(ax)
             ax.set_extent(extent, crs=_CRS_PLATE)
@@ -728,6 +745,7 @@ def visualize_drought_frequency_severe(
             cmap="YlOrRd",
             norm=norm,
             shading="auto",
+            rasterized=True,
         )
         _add_map_features(ax)
         ax.set_extent(extent, crs=_CRS_PLATE)

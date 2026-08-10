@@ -34,6 +34,7 @@ ax.set_ylabel(r"$\mathcal{L}_{MSE}$", fontsize=9)
 style(ax)
 fig.tight_layout()
 fig.savefig(FIG_DIR / "mse.pdf", bbox_inches="tight")
+fig.savefig(FIG_DIR / "mse.svg", bbox_inches="tight")
 
 # ---- Pinball tau=0.20 ----
 # u = y - yhat = -e ; rho = max(tau*u, (tau-1)*u)
@@ -52,8 +53,9 @@ ax.text(0.55, 0.3, r"slope $1-\tau$", fontsize=7, color=cPIN)
 style(ax)
 fig.tight_layout()
 fig.savefig(FIG_DIR / "pinball.pdf", bbox_inches="tight")
+fig.savefig(FIG_DIR / "pinball.svg", bbox_inches="tight")
 
-# ---- Hinge-weighted MSE: L(e; y) = (1 + lam*max(0,-y)) * e^2 ----
+# ---- Hinge-weighted MSE: L(e; y) = (1 + alpha*max(0,-y)) * e^2 ----
 # weight depends on the TARGET, not the error -> family of parabolas
 
 cHIN = (40 / 255, 110 / 255, 160 / 255)
@@ -62,13 +64,13 @@ cHIN = (40 / 255, 110 / 255, 160 / 255)
 y = np.linspace(-2.5, 1.5, 400)
 
 
-def weight(y, lam):
-    return 1 + lam * np.clip(-y, 0, None)
+def weight(y, alpha):
+    return 1 + alpha * np.clip(-y, 0, None)
 
 
 fig, ax = plt.subplots(figsize=(2.0, 2.0))
-ax.plot(y, weight(y, 1), color=cHIN, alpha=0.5, lw=2, label=r"$\lambda=1$")
-ax.plot(y, weight(y, 5), color=cHIN, lw=2, label=r"$\lambda=5$")
+ax.plot(y, weight(y, 1), color=cHIN, alpha=0.5, lw=2, label=r"$\alpha=1$")
+ax.plot(y, weight(y, 5), color=cHIN, lw=2, label=r"$\alpha=5$")
 ax.axhline(0, color="gray", lw=0.8)
 ax.axvline(0, color="gray", lw=0.8)
 ax.set_xlabel(r"true SPEI $y_i$", fontsize=9, loc="right")
@@ -80,6 +82,7 @@ ax.spines[["top", "right"]].set_visible(False)
 ax.tick_params(labelsize=8)
 fig.tight_layout()
 fig.savefig(FIG_DIR / "hinge_weight.pdf", bbox_inches="tight")
+fig.savefig(FIG_DIR / "hinge_weight.svg", bbox_inches="tight")
 
 # ---------- (b) loss vs error at three fixed weights ----------
 e = np.linspace(-1.55, 1.55, 300)
@@ -97,3 +100,4 @@ ax.spines[["top", "right"]].set_visible(False)
 ax.tick_params(labelsize=8)
 fig.tight_layout()
 fig.savefig(FIG_DIR / "hinge_loss.pdf", bbox_inches="tight")
+fig.savefig(FIG_DIR / "hinge_loss.svg", bbox_inches="tight")

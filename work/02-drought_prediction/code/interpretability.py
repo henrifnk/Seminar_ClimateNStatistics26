@@ -826,7 +826,9 @@ def plot_case_study(
     ]
     spei_im = err_im = None
     for ax, (data, title, cmap, vmin, vmax) in zip(map_axes, panels, strict=True):
-        im = ax.pcolormesh(rlon, rlat, data, transform=rotated, cmap=cmap, vmin=vmin, vmax=vmax, shading="auto")
+        im = ax.pcolormesh(
+            rlon, rlat, data, transform=rotated, cmap=cmap, vmin=vmin, vmax=vmax, shading="auto", rasterized=True
+        )
         ax.add_feature(cfeature.COASTLINE.with_scale("10m"), linewidth=0.5, edgecolor="black")
         ax.add_feature(cfeature.BORDERS.with_scale("10m"), linewidth=0.4, edgecolor="black", linestyle="--")
         ax.set_extent(_rotated_extent(rlat, rlon), crs=plate)

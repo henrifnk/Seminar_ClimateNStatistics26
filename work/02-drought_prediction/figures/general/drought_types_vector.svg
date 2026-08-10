@@ -1,0 +1,31 @@
+<svg viewBox="0 0 960 220" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Helvetica, Arial, sans-serif">
+  <title>Drought types as a propagating cascade</title>
+  <desc>Four stages: meteorological (precipitation deficit) leads to agricultural (soil-moisture deficit), then hydrological (low streamflow and groundwater), then socioeconomic (impacts on water use), propagating over time.</desc>
+  <defs>
+    <marker id="arw" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8a8a8a"/></marker>
+    <marker id="arwlt" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#bdbdbd"/></marker>
+  </defs>
+
+  <rect x="45" y="45" width="180" height="92" rx="10" fill="#FCE7C0" stroke="#E0B25E" stroke-width="1.5"/>
+  <text x="135" y="83" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a3a3a">Meteorological</text>
+  <text x="135" y="109" text-anchor="middle" font-size="12.5" fill="#5a5a5a">precipitation deficit</text>
+
+  <rect x="275" y="45" width="180" height="92" rx="10" fill="#F7CF90" stroke="#D89A44" stroke-width="1.5"/>
+  <text x="365" y="83" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a3a3a">Agricultural</text>
+  <text x="365" y="109" text-anchor="middle" font-size="12.5" fill="#5a5a5a">soil-moisture deficit</text>
+
+  <rect x="505" y="45" width="180" height="92" rx="10" fill="#F0AE74" stroke="#C9773A" stroke-width="1.5"/>
+  <text x="595" y="83" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a3a3a">Hydrological</text>
+  <text x="595" y="109" text-anchor="middle" font-size="12" fill="#4f4f4f">low streamflow &amp; groundwater</text>
+
+  <rect x="735" y="45" width="180" height="92" rx="10" fill="#E8946A" stroke="#B85E34" stroke-width="1.5"/>
+  <text x="825" y="83" text-anchor="middle" font-size="17" font-weight="bold" fill="#3a3a3a">Socioeconomic</text>
+  <text x="825" y="109" text-anchor="middle" font-size="12.5" fill="#4f4f4f">impacts on water use</text>
+
+  <line x1="227" y1="91" x2="271" y2="91" stroke="#8a8a8a" stroke-width="2" marker-end="url(#arw)"/>
+  <line x1="457" y1="91" x2="501" y2="91" stroke="#8a8a8a" stroke-width="2" marker-end="url(#arw)"/>
+  <line x1="687" y1="91" x2="731" y2="91" stroke="#8a8a8a" stroke-width="2" marker-end="url(#arw)"/>
+
+  <line x1="45" y1="178" x2="905" y2="178" stroke="#cccccc" stroke-width="1.5" marker-end="url(#arwlt)"/>
+  <text x="480" y="199" text-anchor="middle" font-size="12" fill="#9a9a9a">propagation through the water cycle over time</text>
+</svg>

@@ -993,18 +993,22 @@ try:
         fig_dark = _build(_THEME_DARK)
         buf = _io.BytesIO()
         fig_dark.savefig(buf, format="png", facecolor=fig_dark.get_facecolor(), dpi=150)
-        _plt.close(fig_dark)
         if save_path is not None:
             save_path.parent.mkdir(parents=True, exist_ok=True)
             save_path.write_bytes(buf.getvalue())
+            # Standalone vector twin for the book (the base64 PNG above stays PNG --
+            # it's inlined into the self-contained results_report.html on purpose).
+            fig_dark.savefig(save_path.with_suffix(".svg"), facecolor=fig_dark.get_facecolor())
+        _plt.close(fig_dark)
         if save_light_path is not None:
             fig_light = _build(_THEME_LIGHT)
             buf_light = _io.BytesIO()
             fig_light.savefig(buf_light, format="png",
                               facecolor=fig_light.get_facecolor(), dpi=150)
-            _plt.close(fig_light)
             save_light_path.parent.mkdir(parents=True, exist_ok=True)
             save_light_path.write_bytes(buf_light.getvalue())
+            fig_light.savefig(save_light_path.with_suffix(".svg"), facecolor=fig_light.get_facecolor())
+            _plt.close(fig_light)
         return "data:image/png;base64," + _b64.b64encode(buf.getvalue()).decode()
 
     W('<div class="grid2">')

@@ -15,6 +15,13 @@ _CRS_ROTATED = ccrs.RotatedPole(pole_longitude=-162.0, pole_latitude=39.25)
 _CRS_PLATE   = ccrs.PlateCarree()
 
 
+def _savefig_with_svg(fig, out: Path, dpi: int = 150) -> None:
+    """Save fig to `out` plus an SVG twin alongside it (same convention as
+    visualization.py's _save) -- every book/report figure gets a vector copy."""
+    fig.savefig(out, dpi=dpi, bbox_inches="tight")
+    fig.savefig(out.with_suffix(".svg"), bbox_inches="tight")
+
+
 def _rotated_extent(rlat: np.ndarray, rlon: np.ndarray, pad: float = 0.5) -> list[float]:
     xs = [rlon.min(), rlon.max(), rlon.min(), rlon.max()]
     ys = [rlat.min(), rlat.min(), rlat.max(), rlat.max()]
@@ -90,6 +97,7 @@ def _make_cartopy_heatmap(
         transform=_CRS_ROTATED,
         cmap=cmap, vmin=vmin, vmax=vmax,
         shading="auto",
+        rasterized=True,
     )
     ax.add_feature(cfeature.COASTLINE.with_scale("10m"), linewidth=0.6, edgecolor="black")
     ax.add_feature(cfeature.BORDERS.with_scale("10m"),   linewidth=0.5, edgecolor="black",
@@ -100,7 +108,7 @@ def _make_cartopy_heatmap(
     if title:
         ax.set_title(title, fontsize=10)
 
-    fig.savefig(out, dpi=150, bbox_inches="tight")
+    _savefig_with_svg(fig, out)
 
 
 def _make_seaborn_heatmap(
@@ -136,7 +144,7 @@ def _make_seaborn_heatmap(
     if title:
         ax.set_title(title, fontsize=10)
 
-    fig.savefig(out, dpi=150, bbox_inches="tight")
+    _savefig_with_svg(fig, out)
 
 
 def make_pred_vs_target_plot(
@@ -169,5 +177,5 @@ def make_pred_vs_target_plot(
 
     fig.tight_layout()
     out = Path(filename).expanduser().resolve()
-    fig.savefig(out)
+    _savefig_with_svg(fig, out)
     return str(out)
