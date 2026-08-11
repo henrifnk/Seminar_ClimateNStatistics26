@@ -39,10 +39,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 ## Droughts - A Working Definition
 
 Drought has no single, universally accepted definition, and which one applies depends on the part of the water cycle and the impacts under consideration [@zargarReviewDroughtIndices2011].
-Four types are commonly distinguished, better understood as sequential stages of one process than as independent categories (Figure \@ref(fig:drought-types), from @nandgudeDroughtPredictionComprehensive2023): a precipitation deficit produces a *meteorological* drought, which depletes soil moisture into an *agricultural* drought, lowers streamflow and groundwater into a *hydrological* drought, and finally reaches water-dependent goods as a *socioeconomic* drought.
+Four types are commonly distinguished, better understood as sequential stages of one process than as independent categories (Figure \@ref(fig:drought-types), adapted from @nandgudeDroughtPredictionComprehensive2023): a precipitation deficit produces a *meteorological* drought, which depletes soil moisture into an *agricultural* drought, lowers streamflow and groundwater into a *hydrological* drought, and finally reaches water-dependent goods as a *socioeconomic* drought.
 
-```{r drought-types, echo=FALSE, fig.cap="The four drought types as a propagating cascade. Figure reproduced from @nandgudeDroughtPredictionComprehensive2023.", out.width="80%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/general/drought_types.png")
+```{r drought-types, echo=FALSE, fig.cap="The four drought types as a propagating cascade, adapted from @nandgudeDroughtPredictionComprehensive2023.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/general/drought_types_vector.svg")
 ```
 
 This work targets meteorological drought, the first stage and earliest signal, driven by a precipitation deficit together with high evapotranspiration.
@@ -51,14 +51,9 @@ SPEI extends the precipitation-only Standardized Precipitation Index [@mckeeRela
 
 The SPEI is built on the monthly climatic water balance,
 
-\begin{center}
-$\mathbf{D = P - PET}\begin{cases} > 0 & \text{water surplus} \\ < 0 & \text{water deficit} \end{cases}$
-\end{center}
-\vspace{0.8em}
-\begin{tabular}{ll}
-    $\mathbf{P}$ & Precipitation \\[0.5em]
-    $\mathbf{PET}$ & Potential Evapotranspiration \\
-\end{tabular}
+$$D = P - PET, \qquad \begin{cases} D > 0 & \text{water surplus} \\ D < 0 & \text{water deficit} \end{cases}$$
+
+where $P$ is precipitation and $PET$ is potential evapotranspiration.
 
 For each grid cell the water balance is accumulated over the chosen timescale, fitted to a distribution, and transformed to a standard normal, so that the resulting SPEI is expressed in standard deviations from the local mean.
 It is computed as in @funk2026probabilisticdeeplearningdrought, with a three-parameter gamma fit calibrated over 1990 to 2019.
@@ -97,9 +92,11 @@ and, above all, studies how the loss and the conditioning on global and static f
 The study region is the Alpine domain at monthly resolution from 1971 to 2024 (648 months).
 The data is derived from the ERA5-Land reanalysis, regridded to this grid and provided in preprocessed form.
 SPEI was supplied already computed, following @funk2026probabilisticdeeplearningdrought.
-A fixed mask marks the valid Alpine cells.
+A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure \@ref(fig:al-topography).
 
-<!-- FIGURE: raw topography of the Alpine domain -->
+```{r al-topography, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain used in this work.", out.width="70%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/raw/topography.svg")
+```
 
 ### Variables
 
@@ -107,14 +104,20 @@ The inputs fall into three groups.
 
 *Dynamic spatial* variables vary in space and time: SPEI (the target, also supplied as history), precipitation, near-surface temperature, surface pressure, and the climatic water balance (precipitation minus potential evapotranspiration).
 Together these capture the local water supply and demand and the large-scale circulation that drive meteorological drought.
+Figure \@ref(fig:spei-snapshots) shows SPEI, the most directly drought-relevant of these, across a sequence of months.
 
 *Dynamic global* variables vary in time only: the North Atlantic Oscillation index [@nao_TODO], grouped Mediterranean sea-surface temperatures, and a cyclical month encoding.
-These capture large-scale drivers of European moisture and its seasonality, with the fourteen Mediterranean basins grouped into three regional means (western Mediterranean, eastern Mediterranean, Black Sea) [@millotCirculationMediterraneanSea2005; @lionelloMediterraneanClimateOverview2006].
+These capture large-scale drivers of European moisture and its seasonality, with the fourteen Mediterranean basins grouped into three regional means (western Mediterranean, eastern Mediterranean, Black Sea) [@millotCirculationMediterraneanSea2005; @lionelloMediterraneanClimateOverview2006], shown in Figure \@ref(fig:med-slt).
 
 *Static spatial* variables vary in space only: the topography, since Alpine elevation strongly shapes precipitation and temperature.
 
-<!-- FIGURE: SPEI for one or a few selected months -->
-<!-- FIGURE: grouped Mediterranean SST series and NAO index -->
+```{r spei-snapshots, echo=FALSE, fig.cap="Raw SPEI over the Alpine domain across a sequence of months, illustrating the spatial and temporal variability the model has to capture.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/raw/al/spei.svg")
+```
+
+```{r med-slt, echo=FALSE, fig.cap="Mediterranean SLT, 1971--2024, aggregated into the same three regional groups (western Mediterranean, eastern Mediterranean, Black Sea) used as global scalar model input.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/raw/slides/mediterranean_slt.svg")
+```
 
 ### Preprocessing
 
@@ -126,9 +129,11 @@ SPEI, supplied on its own 1990 to 2019 reference, is thereby brought onto the sa
 
 The data are split chronologically to prevent look-ahead leakage: training on 1971 to 2004, validation on 2005 to 2014, and testing on 2015 to 2024.
 Because the split is by time rather than at random, the periods differ in climate.
-The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is both out of sample and drier than the training period.
+The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is both out of sample and drier than the training period, as shown per cell in Figure \@ref(fig:drought-freq-severe).
 
-<!-- FIGURE: split-wise severe-drought frequency (Train / Val / Test) -->
+```{r drought-freq-severe, echo=FALSE, fig.cap="Per-cell severe-drought (SPEI $\\le -1.5$) frequency by split. The rightward shift from train to test is why the periods are treated as climatically different rather than identically distributed.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/processed/exploratory/drought_frequency_severe.svg")
+```
 
 ### Task
 
@@ -138,50 +143,163 @@ The forecast is direct rather than recursive: the target horizon is predicted in
 
 ## Model
 
-<!-- SKETCH
-- ConvLSTM (Marusov et al. 2024 variant): convolutions replace the matrix products in the gates, BatchNorm in each gate.
-- Bounded regression head: ScaledTanh, prediction = 10 * tanh(1x1 conv).
-- Core settings: embedding size 16, hidden size 32, Adam, batch 32, early stopping, single seed (42).
--->
+The forecasting model is a Convolutional LSTM (ConvLSTM), following the variant of @marusovLongtermDroughtPrediction2024a.
+It replaces the matrix products in the gates of a standard LSTM [@PDFLongShortTerm] with convolutions, so the input $x_t$, hidden state $h_t$, and cell state $c_t$ are three-dimensional feature maps rather than vectors, which preserves spatial structure and models spatial and temporal dependencies jointly.
+Figure \@ref(fig:convlstm-schematic) shows the resulting cell.
 
-## Research Questions and Experimental Design
+```{r convlstm-schematic, echo=FALSE, fig.cap="ConvLSTM cell: every gate is a 2D convolution over the concatenated input and hidden-state feature maps, so $x_t$, $h_t$, and $c_t$ stay spatial feature maps throughout.", out.width="75%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM.svg")
+```
 
-<!-- SKETCH
-- Formal statement of the three axes: RQ1 loss, RQ2 global encoder (naive vs FiLM), RQ3 static encoder (naive, single, seasonal).
-- The 4 x 2 x 3 = 24 configuration grid, naming convention static/global.
-- Baselines: persistence, climatology, linear trend.
-- Reproducibility: single seed, fixed chronological split.
-- (Decide: keep as its own section or fold in as the opening of Methods.)
--->
+Each gate applies a convolution followed by batch normalization, whose affine shift replaces the additive bias,
+
+$$
+\begin{aligned}
+f_t &= \sigma(\mathrm{BN}(W_f \ast x_t + U_f \ast h_{t-1})), & i_t &= \sigma(\mathrm{BN}(W_i \ast x_t + U_i \ast h_{t-1})), \\
+\tilde{c}_t &= \tanh(\mathrm{BN}(W_c \ast x_t + U_c \ast h_{t-1})), & o_t &= \sigma(\mathrm{BN}(W_o \ast x_t + U_o \ast h_{t-1})),
+\end{aligned}
+$$
+
+and the cell and hidden states are updated as
+
+$$c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t, \qquad h_t = o_t \odot \tanh(c_t),$$
+
+where $\ast$ denotes convolution, $\odot$ the elementwise product, and $\sigma$ the sigmoid.
+
+The final hidden state is mapped to the predicted SPEI field by a bounded regression head,
+
+$$\hat{y}_T = \lambda \tanh(W_{\text{out}} \ast h_T),$$
+
+where the scaled $\tanh$ keeps the output within $[-\lambda, \lambda]$, with $\lambda = 10$.
 
 ## Methods
 
-<!-- SKETCH
-- Loss families: MSE, hinge-weighted MSE (w = 1 and w = 5), Pinball (tau = 0.2).
-- Optional conditioning modules: FiLM on the global scalars, static encoders (naive, single, seasonal).
-- Training protocol: max epochs, early stopping on val rmse median, LR scheduler.
-- Evaluation metrics: pooled RMSE, drought TPR and F1 at SPEI <= -1.5, per-cell AUROC.
-- Baseline definitions and the residual / trend RMSE floor.
-- Checkpoint and run selection.
--->
+The experiments address the three questions from the introduction: how the loss function shapes the trade-off between point accuracy and drought detection (RQ1), how dynamic global features are best integrated into the ConvLSTM (RQ2), and how static spatial features are best integrated (RQ3).
+Each is treated as one axis of variation, defined below.
+
+### RQ1: Loss functions
+
+The loss determines how strongly errors on dry cells are weighted relative to the rest, and so how hard the model is pushed to predict droughts.
+Three families are compared, each averaged over valid cells, with $y$ the observed and $\hat{y}$ the predicted (standardized) SPEI.
+
+<div style="display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 1.5em;">
+<div style="min-width: 0;">
+
+*Mean squared error* is the symmetric baseline,
+
+$$\mathcal{L}_{\text{MSE}} = (\hat{y} - y)^2.$$
+
+</div>
+<div style="min-width: 0; width: 380px; text-align: right;">
+```{r mse-illustration, echo=FALSE, out.width="170px", fig.cap="MSE loss."}
+knitr::include_graphics("work/02-drought_prediction/reports/figures/mse.svg")
+```
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 1.5em;">
+<div style="min-width: 0;">
+
+*Hinge-weighted MSE* keeps the squared error but up-weights cells on the dry side of normal,
+
+$$\begin{aligned}
+\mathcal{L}_{\text{hwMSE}} &= w\,(\hat{y} - y)^2, \\
+w &= 1 + \alpha \max(0, -y), \quad \alpha \in \{1, 5\},
+\end{aligned}$$
+
+so a given error costs more the drier the observed cell.
+
+</div>
+<div style="min-width: 0; width: 380px; text-align: right;">
+```{r hinge-illustration, echo=FALSE, out.width=c("170px","170px"), fig.show="hold", fig.cap="Hinge weight $w(y)$ (left) and the resulting weighted MSE (right)."}
+knitr::include_graphics(c(
+  "work/02-drought_prediction/reports/figures/hinge_weight.svg",
+  "work/02-drought_prediction/reports/figures/hinge_loss.svg"
+))
+```
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 1.5em;">
+<div style="min-width: 0;">
+
+*Pinball (quantile) loss* at $\tau = 0.20$ is asymmetric,
+
+$$\mathcal{L}_{\text{pin}} = \begin{cases} \tau\,(y - \hat{y}) & \hat{y} \le y, \\ (1-\tau)\,(\hat{y} - y) & \hat{y} > y, \end{cases}$$
+
+penalizing over-prediction, that is predicting too wet and so missing a drought, by a factor $\tfrac{1-\tau}{\tau} = 4$ more than under-prediction, which biases the model toward the dry tail.
+
+</div>
+<div style="min-width: 0; width: 380px; text-align: right;">
+```{r pinball-illustration, echo=FALSE, out.width="170px", fig.cap="Pinball loss at $\\tau=0.20$."}
+knitr::include_graphics("work/02-drought_prediction/reports/figures/pinball.svg")
+```
+</div>
+</div>
+
+### RQ2: Dynamic global features
+Two ways of feeding the global features (NAO, Mediterranean SST, month) into the ConvLSTM are compared, contrasted in Figure \@ref(fig:naive-vs-film).
+The naive baseline (left) broadcasts each global scalar across the spatial grid and appends it as an extra input channel.
+
+```{r naive-vs-film, echo=FALSE, fig.cap="Naive injection (left) broadcasts each global scalar across the grid and appends it as an input channel. FiLM (right) instead uses the global features to produce a per-channel scale $\\gamma_{t,c}$ and shift $\\beta_{t,c}$ applied to the embedding.", out.width="90%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/architecture/Naive_vs_film.svg")
+```
+
+FiLM (feature-wise linear modulation) [@perezFiLMVisualReasoning2018] (right) instead conditions the network by applying a per-channel affine transform to the feature maps,
+
+$$\mathrm{FiLM}(F_c) = \gamma_c\, F_c + \beta_c, \qquad \gamma_c = f_c(x_t), \; \beta_c = h_c(x_t),$$
+
+where $F_c$ is the activation of channel $c$ and the scale $\gamma_c$ and shift $\beta_c$ are learned functions $f_c, h_c$ of the global features $x_t$.
+Rather than adding channels, FiLM lets the global state reshape the existing ones. Figure \@ref(fig:convlstm-film) shows where this conditioning enters the ConvLSTM cell introduced above.
+
+```{r convlstm-film, echo=FALSE, fig.cap="Where FiLM sits inside the ConvLSTM cell: it conditions the embedded input feature map before the gate convolutions.", out.width="75%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM_FiLM.svg")
+```
+
+### RQ3: Static spatial features
+Three ways of incorporating the static topography are compared, contrasted in Figure \@ref(fig:naive-vs-static-encoder).
+The naive baseline (left) appends the raw static field repeateadly at each time step, treating it the same as a dynamic spacial feature.
+
+```{r naive-vs-static-encoder, echo=FALSE, fig.cap="Naive injection (left) appends the raw static field as constant channels. The learned encoder (right) instead passes it through a small CNN -- one shared convolution for \\emph{single}, or four season-selected convolutions for \\emph{seasonal} -- before concatenating the result.", out.width="90%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/architecture/Naive_vs_single_seasonal.svg")
+```
+
+The other two learn a seperate static encoding through a small convolutional network,
+
+$$E(S) = \mathrm{ReLU}(W_2 \ast \mathrm{ReLU}(W_1 \ast S)),$$
+
+with static features $S$ and convolutional kernels $W_1, W_2$ (each with batch normalization), whose output is concatenated to the embedding $x_t^{\text{emb}}$ at every timestep.
+The *single* variant uses one shared encoder, giving $[\,x_t^{\text{emb}}, E(S)\,]$, while the *seasonal* variant uses four encoders, one per meteorological season, selected by the season $s(m_t)$ of the target month, giving $[\,x_t^{\text{emb}}, E_{s(m_t)}(S)\,]$. Figure \@ref(fig:convlstm-static) shows where the resulting encoder output enters the cell.
+
+```{r convlstm-static, echo=FALSE, fig.cap="Where the static encoder sits inside the ConvLSTM cell: its output is concatenated to the embedded input and hidden state before the gate convolutions.", out.width="75%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM_static.svg")
+```
+
+### Experimental setup
+
+The three axes are crossed into a full grid of $4 \times 2 \times 3 = 24$ configurations: four losses, by two global-feature strategies, by three static-feature strategies.
+All configurations share the chronological split above, a single random seed (42), and the same training protocol: the Adam optimizer with batch size 32, up to 50 epochs with early stopping on the validation RMSE, and the learning rate reduced on plateau.
+
+### Evaluation
+
+All metrics are computed on the test period (2015 to 2024), over the valid cells and test months.
+Point accuracy is measured by the RMSE of the predicted SPEI,
+
+$$\mathrm{RMSE} = \sqrt{\frac{1}{T G}\sum_{t=1}^{T}\sum_{g=1}^{G}\left(\hat{y}_{g,t} - y_{g,t}\right)^2},$$
+
+over $T$ test months and $G$ valid cells.
+Detection is evaluated at the severe-drought cutoff SPEI $\le -1.5$: predictions and observations are binarized at this threshold, and the true positive rate (recall) and F1 score summarize how well severe droughts are caught,
+
+$$\mathrm{TPR} = \frac{TP}{TP + FN}, \qquad \mathrm{F1} = \frac{2\,TP}{2\,TP + FP + FN}.$$
 
 ## Results
 
-<!-- SKETCH
-- Headline: a Pareto front, no single winner, the loss dominates the trade-off.
-- Per loss: MSE gives low RMSE but near-zero detection (regression to the mean), Pinball gives high TPR and is the only loss beating persistence on detection, hinge-weighted MSE sits in between.
-- FiLM and static-feature variants shift the RMSE / detection trade-off, mostly helping under Pinball.
-- All models sit near the trend RMSE floor at the 12-month lead.
-- Figures: frontier plots (TPR, F1), comparison table.
--->
-
-## Interpretability
-
-<!-- SKETCH
-- Feature importance (occlusion, no retraining, Pinball, all six architecture conditions): RMSE is essentially unmovable, detection is driven by Mediterranean SST in the naive-static models and by temperature in the encoder models, topography suppresses recall, SPEI history and NAO are weak.
-- Mediterranean SST as a domain-wide amplitude gate (~86% of the level variance), with the spatial pattern coming mostly from the local fields.
-- FiLM benefits the extremes: RMSE and bias stratified by observed-SPEI bin, naive/naive vs naive/film, the 2022 case study, and the zeroed-global counterfactual confirming genuine conditioning rather than a bias shift.
-- Method note: occlusion measures model reliance (Fisher and Rudin 2019), occlude rather than permute for correlated inputs (Hooker et al. 2021), extremes-focused evaluation (Watson 2022). NOTE: these three references are not yet in the .bib.
+<!-- SKETCH (mirror the RQ structure; baselines open the section)
+- Baselines (persistence, climatology, trend) as reference bars: trend wins RMSE but never detects drought (TPR = F1 = 0); persistence is the only baseline that detects.
+- RQ1 (loss): the Pareto trade-off, no single winner, loss dominates. MSE low RMSE / near-zero detection (regression to the mean); Pinball high TPR, only loss beating persistence on detection; hinge-weighted MSE in between. All models near the trend RMSE floor at the 12-month lead.
+- RQ2 (global / FiLM): naive vs FiLM effect, plus the reduced FiLM-extremes point -- aggregate RMSE stays flat but FiLM lowers error and under-prediction in the severe-drought bins, clearest under Pinball. Full stratified analysis, 2022 case study, and counterfactual live in the appendix. Short FiLM benefits the extremes part.
+- RQ3 (static): naive vs single vs seasonal encoders.
+- Figures: frontier plots (TPR, F1); baseline table.
 -->
 
 ## Conclusion
@@ -192,4 +310,92 @@ The forecast is direct rather than recursive: the target horizon is predicted in
 - Limitations: single seed, single region, single lead time, single index timescale.
 - Future work.
 -->
+
+## Appendix: Interpretability analyses
+
+<!-- TODO: citations still missing from the .bib -- Fisher and Rudin 2019 (model
+     reliance), Hooker et al. 2021 (occlude vs. permute for correlated inputs),
+     Watson 2022 (extremes-focused evaluation). Full numbers and narrative behind
+     the prose below: reports/interpretability_report.md. -->
+
+### Feature importance
+
+Occlusion ablation quantifies model reliance by zeroing one input at a time
+at evaluation time and re-scoring the frozen model, rather than permuting it,
+since the driver fields are spatially and temporally correlated.
+Figure \@ref(fig:feature-importance) reports the resulting $\Delta$RMSE and
+$\Delta$drought-F1 for all six architecture conditions under the Pinball
+loss. Point accuracy is essentially unmovable throughout
+($|\Delta\text{RMSE}| < 0.06$), while detection swings by up to $0.45$:
+Mediterranean SST is consistently the single most relied-upon feature, and
+its ablation collapses detection entirely whenever no learned static
+encoder is present, but only partially otherwise -- the same
+architecture-conditional pattern recurs in the FiLM counterfactual below.
+
+```{r feature-importance, echo=FALSE, fig.cap="Occlusion feature importance, Pinball loss, all six architecture conditions ($\\Delta$RMSE left, $\\Delta$drought-F1 right, per panel). Point accuracy is essentially unmovable ($|\\Delta\\text{RMSE}| < 0.06$ throughout) while detection swings by up to 0.45; Mediterranean SST is the top detection feature in every condition, and its ablation collapses detection entirely wherever no learned static encoder is present.", out.width="48%", fig.show="hold", fig.align="center"}
+knitr::include_graphics(c(
+  "work/02-drought_prediction/figures/interpretability/feature_importance/naive_naive.svg",
+  "work/02-drought_prediction/figures/interpretability/feature_importance/naive_film.svg",
+  "work/02-drought_prediction/figures/interpretability/feature_importance/single_naive.svg",
+  "work/02-drought_prediction/figures/interpretability/feature_importance/single_film.svg",
+  "work/02-drought_prediction/figures/interpretability/feature_importance/seasonal_naive.svg",
+  "work/02-drought_prediction/figures/interpretability/feature_importance/seasonal_film.svg"
+))
+```
+
+### Does FiLM benefit the extremes?
+
+Figure \@ref(fig:film-stratified) breaks RMSE and mean bias down by
+observed-SPEI bin for naive/naive against naive/film and seasonal/film,
+separately per loss. Pinball shows the cleanest extremes-only gain from
+FiLM: aggregate RMSE moves by only $+0.5\%$ while the driest bin
+($\text{SPEI} \le -2$) improves by $-0.10$. MSE tells a different story --
+its severe dry-tail under-prediction bias ($+0.9$ to $+1.4$) is barely
+moved by FiLM at all, consistent with MSE optimizing for the bulk of the
+distribution rather than the tail. Figure \@ref(fig:film-case-study) grounds
+this in a single worked example: the worst Alpine month of the 2022 test
+year, independently selected by all four losses as July 2022
+(domain-mean observed SPEI $-1.61$), shown alongside the global driver
+state -- NAO and Mediterranean SST -- that FiLM conditions on for that
+month.
+
+```{r film-stratified, echo=FALSE, fig.cap="RMSE and mean bias (pred $-$ obs) by observed-SPEI bin, naive/naive vs. naive/film vs. seasonal/film, per loss. Pinball shows the cleanest extremes-only gain from FiLM (aggregate RMSE +0.5\\%, $\\le\\!-2$ bin RMSE $-0.10$); MSE's severe dry-tail under-prediction bias ($+0.9$ to $+1.4$) is barely moved by FiLM.", out.width="48%", fig.show="hold", fig.align="center"}
+knitr::include_graphics(c(
+  "work/02-drought_prediction/figures/interpretability/film_extremes/mse_stratified.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/pinball_q0.20_stratified.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w1_hinge_stratified.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w5_hinge_stratified.svg"
+))
+```
+
+```{r film-case-study, echo=FALSE, fig.cap="Worked example: the worst Alpine month in the 2022 test year (all four losses independently select July 2022, domain-mean observed SPEI $-1.61$) -- observed SPEI, naive/naive and naive/film predictions and their error maps, and the global driver state (NAO, Mediterranean SST) FiLM conditioned on.", out.width="48%", fig.show="hold", fig.align="center"}
+knitr::include_graphics(c(
+  "work/02-drought_prediction/figures/interpretability/film_extremes/mse_2022_case_study.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/pinball_q0.20_2022_case_study.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w1_hinge_2022_case_study.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w5_hinge_2022_case_study.svg"
+))
+```
+
+A stratified breakdown shows FiLM's effect but not whether the model is
+actually using the global scalars it is conditioned on, versus using them
+for a marginal correction on top of some other, more informative pathway.
+Figure \@ref(fig:film-counterfactual) tests this directly with a
+counterfactual: zeroing the global scalars at evaluation time and measuring
+the relative change in extreme-bin ($\text{SPEI} \le -1.5$) RMSE against the
+true-scalar baseline. naive/film collapses by $62$--$118\%$ once the
+scalars are removed, confirming it genuinely depends on them for extreme
+prediction; seasonal/film, which has an alternative spatial pathway into the
+static encoder, degrades by only $11$--$34\%$ -- the same
+architecture-conditional reliance pattern already seen in the feature
+importance results above.
+
+```{r film-counterfactual, echo=FALSE, fig.cap="Genuineness counterfactual: relative change in extreme-bin (SPEI $\\le -1.5$) RMSE when the global scalars are zeroed vs. their true values, naive/film vs. seasonal/film, per loss. naive/film collapses by 62--118\\%; seasonal/film, which has an alternative spatial pathway, by only 11--34\\% -- the same architecture-conditional pattern found in the feature-importance results.", out.width="48%", fig.show="hold", fig.align="center"}
+knitr::include_graphics(c(
+  "work/02-drought_prediction/figures/interpretability/film_extremes/mse_counterfactual.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/pinball_q0.20_counterfactual.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w1_hinge_counterfactual.svg",
+  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w5_hinge_counterfactual.svg"
+))
+```
 
