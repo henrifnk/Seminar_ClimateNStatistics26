@@ -108,8 +108,23 @@ def _plot_single_map(
     cmap: str = "viridis",
     figsize: tuple[float, float] = (8, 6),
     title_fontsize: int = 10,
+    overlay_mask: xr.DataArray | None = None,
+    overlay_color: str = "red",
+    cbar_label: str = "",
 ) -> None:
-    """Plot one 2D spatial field in PlateCarree with country/coast overlay."""
+    """Plot one 2D spatial field in PlateCarree with country/coast overlay.
+
+    title="" skips the title entirely (for figures whose caption already
+    covers it -- pass cbar_label instead if the title was carrying units).
+
+    overlay_mask: optional boolean/0-1 field, on its own rlat/rlon (can be a
+    smaller/cropped grid than data2d, e.g. the model's valid-cell mask within
+    a larger raw domain) -- its boundary is drawn as a contour line on top,
+    since both share the same rotated-pole CRS regardless of extent. Padded
+    with a border of zeros before contouring so the outline still closes even
+    where valid cells reach the array's own edge (e.g. the Alpine mask's
+    northern edge) -- otherwise that side is left open.
+    """
     x_dim = data2d.dims[-1]
     y_dim = data2d.dims[-2]
     rlon = data2d[x_dim].values
@@ -129,9 +144,33 @@ def _plot_single_map(
     )
     _add_map_features(ax)
 
+    if overlay_mask is not None:
+        m_x_dim = overlay_mask.dims[-1]
+        m_y_dim = overlay_mask.dims[-2]
+        m_lon = overlay_mask[m_x_dim].values
+        m_lat = overlay_mask[m_y_dim].values
+        m_data = overlay_mask.values.astype(float)
+        dlon = m_lon[1] - m_lon[0]
+        dlat = m_lat[1] - m_lat[0]
+        m_lon_padded = np.concatenate([[m_lon[0] - dlon], m_lon, [m_lon[-1] + dlon]])
+        m_lat_padded = np.concatenate([[m_lat[0] - dlat], m_lat, [m_lat[-1] + dlat]])
+        m_data_padded = np.pad(m_data, 1, mode="constant", constant_values=0)
+        ax.contour(
+            m_lon_padded,
+            m_lat_padded,
+            m_data_padded,
+            levels=[0.5],
+            colors=overlay_color,
+            linewidths=1.5,
+            transform=data_crs,
+        )
+
     ax.set_extent(_rotated_extent(rlat, rlon), crs=_CRS_PLATE)
-    plt.colorbar(im, ax=ax, fraction=0.03, pad=0.04, shrink=0.8)
-    ax.set_title(title, fontsize=title_fontsize)
+    cbar = plt.colorbar(im, ax=ax, fraction=0.03, pad=0.04, shrink=0.8)
+    if cbar_label:
+        cbar.set_label(cbar_label)
+    if title:
+        ax.set_title(title, fontsize=title_fontsize)
     _save(fig, out_path)
 
 
@@ -190,7 +229,8 @@ def _plot_map_window(
     sm = mpl_cm.ScalarMappable(cmap=cmap, norm=mpl_colors.Normalize(vmin=vmin, vmax=vmax))
     cb = fig.colorbar(sm, ax=fig.axes, fraction=0.03, pad=0.04, shrink=0.9)
     cb.ax.tick_params(labelsize=12)
-    fig.suptitle(title, fontsize=14)
+    if title:
+        fig.suptitle(title, fontsize=14)
     _save(fig, out_path)
 
 
@@ -237,9 +277,10 @@ def visualize_raw_nao_eof() -> None:
 
     fig.colorbar(im, ax=fig.axes, fraction=0.02, pad=0.04, shrink=0.6, label="EOF loading")
     fig.suptitle("NAO EOF1 – monthly spatial patterns", fontsize=11)
-    # svg=False: 12 panels x the full North Atlantic grid (281x480) -> ~290MB as
-    # SVG (one vector path per grid cell), categorically infeasible. PNG only.
-    _save(fig, FIG_RAW / "nao_eof1.png", svg=False)
+    # Was svg=False (12 panels x the 281x480 North Atlantic grid -> ~290MB with
+    # vector-path-per-cell rendering). Now safe with rasterized=True on the mesh
+    # above -- SVG size follows render resolution, not cell count.
+    _save(fig, FIG_RAW / "nao_eof1.png")
     ds.close()
 
 
@@ -260,10 +301,13 @@ def visualize_raw_mediterranean_slt() -> None:
 def visualize_raw_topography() -> None:
     print("Topography (full EUR-11 domain) ...")
     ds = xr.open_dataset(DATA_RAW / "topography/topo_EUR-11_CCCma-CanESM2_OURANOS-CRCM5.nc")
+    ds_mask = xr.open_dataset(DATA_PROCESSED / "static_grid.nc")
     _plot_single_map(
-        ds["orogf"], "Orography – EUR-11 domain (m)", FIG_RAW / "topography.png", cmap="terrain", figsize=(9, 7)
+        ds["orogf"], "", FIG_RAW / "topography.png", cmap="terrain", figsize=(9, 7),
+        overlay_mask=ds_mask["mask"], overlay_color="red", cbar_label="Elevation (m)",
     )
     ds.close()
+    ds_mask.close()
 
 
 def visualize_raw_al_variables(start_idx: int = 0, n_panels: int = 12) -> None:
@@ -280,9 +324,8 @@ def visualize_raw_al_variables(start_idx: int = 0, n_panels: int = 12) -> None:
         da = ds[nc_var]
         if da.dims[0] != "time":
             da = da.transpose("time", ...)
-        label = _VAR_LABELS.get(varname, varname)
         _plot_map_window(
-            da, f"{label} — raw", FIG_RAW / "al" / f"{varname}.png", start_idx=start_idx, n_panels=n_panels, cmap=cmap
+            da, "", FIG_RAW / "al" / f"{varname}.png", start_idx=start_idx, n_panels=n_panels, cmap=cmap
         )
         ds.close()
 
@@ -404,11 +447,15 @@ def visualize_raw_mediterranean_slt_slide() -> None:
     med_sst_agg='grouped' mode — rather than raw per-basin series."""
     print("Mediterranean SLT – slide ...")
     ds = xr.open_dataset(DATA_RAW / "mediteranean/slt/slt_avg_mediteranean_reanalysis_1970_2025.nc")
-    fig, ax = plt.subplots(figsize=_SLIDE_FIGSIZE)
+    # Crop to the AL study period (1971-2024) -- the raw record runs 1970-2025,
+    # wider than the input data actually used by the model.
+    ds = ds.sel(time=slice("1971-01-01", "2024-12-31"))
+    # Not the full 16:9 _SLIDE_FIGSIZE: a single line plot of 3 cyclical series
+    # doesn't need that much vertical space, so use a shorter, wider aspect.
+    fig, ax = plt.subplots(figsize=(_SLIDE_FIGSIZE[0], 3.2))
     for group_name, basins in _MED_GROUPS.items():
         group_mean = np.mean([ds[b].values for b in basins], axis=0)
         ax.plot(ds["time"].values, group_mean, lw=1.2, label=group_name.replace("_", " ").title())
-    ax.set_title("Mediterranean SLT – grouped regional averages (1970–2025)", fontsize=20)
     ax.set_ylabel("SLT", fontsize=16)
     ax.tick_params(labelsize=13)
     ax.legend(fontsize=14, ncol=1, loc="upper left")
@@ -713,29 +760,29 @@ def visualize_drought_frequency_severe(
     rates = []
     for _, pm in period_items:
         n_years = pm.sum() / 12.0
+        y_min, y_max = int(years[pm].min()), int(years[pm].max())
         rate = (spei[pm] <= threshold).sum(axis=0).astype(float) / n_years
         rate[~mask] = np.nan
-        rates.append((rate, n_years))
+        rates.append((rate, y_min, y_max))
 
-    vmax = max(np.nanmax(r) for r, _ in rates)
+    vmax = max(np.nanmax(r) for r, _, _ in rates)
     norm = mpl_colors.Normalize(0, vmax)
 
     panel_w = 4.5
-    n_rows = len(period_items)
-    title_pad = 0.4  # inches reserved above each map for its 2-line title
+    n_cols = len(period_items)
+    title_pad = 0.5  # inches reserved above each map for its 2-line title
     fig, axes = plt.subplots(
-        n_rows,
         1,
-        figsize=(panel_w, (panel_w / aspect + title_pad) * n_rows),
+        n_cols,
+        figsize=(panel_w * n_cols, panel_w / aspect + title_pad),
         subplot_kw={"projection": _CRS_PLATE},
     )
     # Constrained layout doesn't account for the equal-aspect shrinkage GeoAxes
-    # apply to fit set_extent, so it leaves large gaps between stacked panels.
-    # Manual subplots_adjust with a figsize matched to the extent aspect keeps
-    # the rows tight instead.
-    fig.subplots_adjust(hspace=0.0001, left=0.02, right=0.85, top=0.97, bottom=0.02)
+    # apply to fit set_extent, so it leaves large gaps between panels. Manual
+    # subplots_adjust with a figsize matched to the extent aspect keeps them tight.
+    fig.subplots_adjust(wspace=0.05, left=0.02, right=0.9, top=0.85, bottom=0.02)
 
-    for ax, (label, _), (rate, n_years) in zip(axes, period_items, rates, strict=True):
+    for ax, (label, _), (rate, y_min, y_max) in zip(axes, period_items, rates, strict=True):
         mean_rate = float(np.nanmean(rate[mask]))
         ax.pcolormesh(
             rlon,
@@ -750,16 +797,16 @@ def visualize_drought_frequency_severe(
         _add_map_features(ax)
         ax.set_extent(extent, crs=_CRS_PLATE)
         ax.set_title(
-            f"{label}  ({n_years:.0f} years)\nmean {mean_rate:.2f} events/yr/cell",
+            f"{label}  ({y_min}–{y_max})\nmean {mean_rate:.2f} events/yr/cell",
             fontsize=11,
         )
 
     cbar = fig.colorbar(
         mpl_cm.ScalarMappable(norm=norm, cmap="YlOrRd"),
         ax=axes.tolist(),
-        fraction=0.05,
-        pad=0.03,
-        shrink=1.1,
+        fraction=0.025,
+        pad=0.02,
+        shrink=0.85,
         label="Events per year",
     )
     cbar.set_label("Events per year", fontsize=12)
