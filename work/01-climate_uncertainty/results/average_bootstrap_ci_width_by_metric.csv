@@ -1,0 +1,9 @@
+Metric,Mean 95% CI width
+exceedance_probability_2c,0.266
+exceedance_probability_3c,0.259
+internal_contribution,0.519
+internal_sd,0.124
+internal_snr,8.167
+model_contribution,0.519
+total_sd,0.629
+total_snr,5.006
