@@ -18,11 +18,38 @@ library(kableExtra)
 
 *Degree: Master*
 
-## Abstract
+```{r dp-table-css, echo=FALSE, results='asis'}
+if (knitr::is_html_output()) cat('
+<style>
+.book-body .page-inner table th,
+.book-body .page-inner table td { padding-left: 5px; padding-right: 5px; }
+.book-body .page-inner table td:first-child { white-space: nowrap; }
+.book-body .page-inner .loss-fig p { text-align: right; margin: 0; }
+</style>
+')
+```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```{r dp-colors, echo=FALSE}
+col_mse <- "#3C3C3C"; col_hin <- "#286EA0"; col_pin <- "#C6402A"
+dphead <- function(x, color) {
+  if (knitr::is_latex_output())
+    sprintf("\\textbf{\\textcolor[HTML]{%s}{%s}}", sub("^#", "", color), x)
+  else
+    sprintf("<strong style='color:%s'>%s</strong>", color, x)
+}
+```
 
 ## Introduction
+
+Drought has no single, universally accepted definition, and which one applies depends on the part of the water cycle and the impacts under consideration [@zargarReviewDroughtIndices2011].
+Four types are commonly distinguished, better understood as sequential stages of one process than as independent categories (Figure \@ref(fig:drought-types), adapted from @nandgudeDroughtPredictionComprehensive2023): in a simplified manner a precipitation deficit produces a *meteorological* drought, which depletes soil moisture into an *agricultural* drought, lowers streamflow and groundwater into a *hydrological* drought, and finally reaches water-dependent goods as a *socioeconomic* drought.
+
+```{r drought-types, echo=FALSE, fig.cap="The four drought types as a propagating cascade, adapted from @nandgudeDroughtPredictionComprehensive2023.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/02-drought_prediction/figures/general/drought_types_vector.svg")
+```
+
+This work targets *meteorological drought*, the first stage and earliest signal, driven by a precipitation deficit together with high evapotranspiration.
+It can be quantified with various indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) [@vicente-serranoMultiscalarDroughtIndex2010].
 
 <!-- SKETCH
 - Motivation: why long-lead drought forecasting matters (agriculture, water management, planning).
@@ -35,28 +62,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 - Optional one to two sentence preview of the main finding (loss dominates a Pareto trade-off, no single winner).
 - Contribution and where the work slots in.
 -->
-
-## Droughts - A Working Definition
-
-Drought has no single, universally accepted definition, and which one applies depends on the part of the water cycle and the impacts under consideration [@zargarReviewDroughtIndices2011].
-Four types are commonly distinguished, better understood as sequential stages of one process than as independent categories (Figure \@ref(fig:drought-types), adapted from @nandgudeDroughtPredictionComprehensive2023): a precipitation deficit produces a *meteorological* drought, which depletes soil moisture into an *agricultural* drought, lowers streamflow and groundwater into a *hydrological* drought, and finally reaches water-dependent goods as a *socioeconomic* drought.
-
-```{r drought-types, echo=FALSE, fig.cap="The four drought types as a propagating cascade, adapted from @nandgudeDroughtPredictionComprehensive2023.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/general/drought_types_vector.svg")
-```
-
-This work targets meteorological drought, the first stage and earliest signal, driven by a precipitation deficit together with high evapotranspiration.
-It is quantified with standardized indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) [@vicente-serranoMultiscalarDroughtIndex2010]. 
-SPEI extends the precipitation-only Standardized Precipitation Index [@mckeeRelationshipDroughtFrequency1993] by using the water balance, so that temperature enters through evapotranspiration, which can account more for rising temperatures under climate change.
-
-The SPEI is built on the monthly climatic water balance,
-
-$$D = P - PET, \qquad \begin{cases} D > 0 & \text{water surplus} \\ D < 0 & \text{water deficit} \end{cases}$$
-
-where $P$ is precipitation and $PET$ is potential evapotranspiration.
-
-For each grid cell the water balance is accumulated over the chosen timescale, fitted to a distribution, and transformed to a standard normal, so that the resulting SPEI is expressed in standard deviations from the local mean.
-It is computed as in @funk2026probabilisticdeeplearningdrought, with a three-parameter gamma fit calibrated over 1990 to 2019.
 
 ## Related Work
 
@@ -80,7 +85,7 @@ They mostly forecast at a short lead, typically one month ahead [@wangDroughtPre
 the exception being a twelve-month horizon reached by treating drought as a binary classification over global regions [@marusovLongtermDroughtPrediction2024a]. 
 Their evaluation usually falls on one side of a divide, either a continuous index scored by average error such as RMSE [@wangDroughtPredictionInsights2023; @chenSTATLSTMMultivariateSpatiotemporal2025]
 or discrete drought categories scored by typical classification evaluation metrics such as the F1-score [@yuMultivariateSpatiotemporalModeling2023], rather than a continuous field judged for both accuracy and severe-event detection. 
-And in these studies the loss function and the handling of input features are left at a single approach rather than compared across different approaches.
+Aditionally, in these studies the loss function and the handling of input features are left at a single approach rather than compared across different approaches.
 
 This work predicts the continuous SPEI as a spatial field at a twelve-month lead over the Alps, evaluates it for both point accuracy and severe-drought detection,
 and, above all, studies how the loss and the conditioning on global and static features shape the trade-off between the two.
@@ -91,12 +96,27 @@ and, above all, studies how the loss and the conditioning on global and static f
 
 The study region is the Alpine domain at monthly resolution from 1971 to 2024 (648 months).
 The data is derived from the ERA5-Land reanalysis, regridded to this grid and provided in preprocessed form.
-SPEI was supplied already computed, following @funk2026probabilisticdeeplearningdrought.
 A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure \@ref(fig:al-topography).
 
 ```{r al-topography, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain used in this work.", out.width="70%", fig.align="center"}
 knitr::include_graphics("work/02-drought_prediction/figures/raw/topography.svg")
 ```
+
+### Drought definition: SPEI
+
+SPEI extends the precipitation-only Standardized Precipitation Index (SPI) [@mckeeRelationshipDroughtFrequency1993] by using the water balance, so that temperature enters through evapotranspiration, which can better account for rising temperatures under climate change.
+
+The SPEI is built on the water balance,
+
+$$D = P - PET, \qquad \begin{cases} D > 0 & \text{water surplus} \\ D < 0 & \text{water deficit} \end{cases}$$
+
+where $P$ is precipitation and $PET$ is potential evapotranspiration.
+
+SPEI is defined at a chosen timescale $k$: the monthly water balance is summed over a rolling window of the preceding $k$ months, and the accumulated series is fitted to a distribution and standardized.
+Common choices are 1, 3, 6, 12, and 24 months.
+Short timescales respond to rapid, month-to-month deficits and longer ones to slower, accumulated dryness, so the timescale sets which kind of drought the index reflects.
+This work uses SPEI-1, so each value standardizes the water balance of one month expressed in standard deviations from the local mean.
+The index is computed as in @funk2026probabilisticdeeplearningdrought, with a three-parameter gamma fit calibrated over 1990 to 2019.
 
 ### Variables
 
@@ -106,7 +126,7 @@ The inputs fall into three groups.
 Together these capture the local water supply and demand and the large-scale circulation that drive meteorological drought.
 Figure \@ref(fig:spei-snapshots) shows SPEI, the most directly drought-relevant of these, across a sequence of months.
 
-*Dynamic global* variables vary in time only: the North Atlantic Oscillation index [@nao_TODO], grouped Mediterranean sea-surface temperatures, and a cyclical month encoding.
+*Dynamic global* variables vary in time only: the North Atlantic Oscillation index [@hurrellNao1995], grouped Mediterranean sea-surface temperatures, and a cyclical month encoding.
 These capture large-scale drivers of European moisture and its seasonality, with the fourteen Mediterranean basins grouped into three regional means (western Mediterranean, eastern Mediterranean, Black Sea) [@millotCirculationMediterraneanSea2005; @lionelloMediterraneanClimateOverview2006], shown in Figure \@ref(fig:med-slt).
 
 *Static spatial* variables vary in space only: the topography, since Alpine elevation strongly shapes precipitation and temperature.
@@ -135,19 +155,17 @@ The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.0
 knitr::include_graphics("work/02-drought_prediction/figures/processed/exploratory/drought_frequency_severe.svg")
 ```
 
-### Task
+### Task & Model
 
-The forecasting task is a continuous, per-cell regression of SPEI.
-Given thirty-six months of history, the model predicts a single SPEI map at a twelve-month lead, the field for the month one year after the input window.
+The forecasting task is a continuous, per-cell regression of SPEI-1.
+Given thirty-six months of history, the model predicts a single SPEI-1 map at a twelve-month lead, the field for the month one year after the input window.
 The forecast is direct rather than recursive: the target horizon is predicted in one step instead of iterating month by month, which avoids the error accumulation of recursive forecasting.
 
-## Model
-
 The forecasting model is a Convolutional LSTM (ConvLSTM), following the variant of @marusovLongtermDroughtPrediction2024a.
-It replaces the matrix products in the gates of a standard LSTM [@PDFLongShortTerm] with convolutions, so the input $x_t$, hidden state $h_t$, and cell state $c_t$ are three-dimensional feature maps rather than vectors, which preserves spatial structure and models spatial and temporal dependencies jointly.
+It replaces the matrix products in the gates of a standard LSTM [@hochreiterLongShorttermMemory1997] with convolutions, so the input $x_t$, hidden state $h_t$, and cell state $c_t$ are three-dimensional feature maps rather than vectors, which preserves spatial structure and models spatial and temporal dependencies jointly.
 Figure \@ref(fig:convlstm-schematic) shows the resulting cell.
 
-```{r convlstm-schematic, echo=FALSE, fig.cap="ConvLSTM cell: every gate is a 2D convolution over the concatenated input and hidden-state feature maps, so $x_t$, $h_t$, and $c_t$ stay spatial feature maps throughout.", out.width="75%", fig.align="center"}
+```{r convlstm-schematic, echo=FALSE, fig.cap="ConvLSTM cell by @marusovLongtermDroughtPrediction2024a. Every gate is a 2D convolution over the concatenated input and hidden-state feature maps, so $x_t$, $h_t$, and $c_t$ stay spatial feature maps throughout.", out.width="75%", fig.align="center"}
 knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM.svg")
 ```
 
@@ -182,25 +200,25 @@ Each is treated as one axis of variation, defined below.
 The loss determines how strongly errors on dry cells are weighted relative to the rest, and so how hard the model is pushed to predict droughts.
 Three families are compared, each averaged over valid cells, with $y$ the observed and $\hat{y}$ the predicted (standardized) SPEI.
 
-<div style="display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 1.5em;">
+<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #3C3C3C; padding-left: 1em;">
 <div style="min-width: 0;">
 
-*Mean squared error* is the symmetric baseline,
+`r dphead("Mean squared error", col_mse)` is the symmetric baseline,
 
 $$\mathcal{L}_{\text{MSE}} = (\hat{y} - y)^2.$$
 
 </div>
-<div style="min-width: 0; width: 380px; text-align: right;">
-```{r mse-illustration, echo=FALSE, out.width="170px", fig.cap="MSE loss."}
+<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
+```{r mse-illustration, echo=FALSE, out.width="170px"}
 knitr::include_graphics("work/02-drought_prediction/reports/figures/mse.svg")
 ```
 </div>
 </div>
 
-<div style="display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 1.5em;">
+<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #286EA0; padding-left: 1em;">
 <div style="min-width: 0;">
 
-*Hinge-weighted MSE* keeps the squared error but up-weights cells on the dry side of normal,
+`r dphead("Hinge-weighted MSE", col_hin)` keeps the squared error but up-weights cells on the dry side of normal,
 
 $$\begin{aligned}
 \mathcal{L}_{\text{hwMSE}} &= w\,(\hat{y} - y)^2, \\
@@ -210,8 +228,8 @@ w &= 1 + \alpha \max(0, -y), \quad \alpha \in \{1, 5\},
 so a given error costs more the drier the observed cell.
 
 </div>
-<div style="min-width: 0; width: 380px; text-align: right;">
-```{r hinge-illustration, echo=FALSE, out.width=c("170px","170px"), fig.show="hold", fig.cap="Hinge weight $w(y)$ (left) and the resulting weighted MSE (right)."}
+<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
+```{r hinge-illustration, echo=FALSE, out.width=c("170px","170px"), fig.show="hold"}
 knitr::include_graphics(c(
   "work/02-drought_prediction/reports/figures/hinge_weight.svg",
   "work/02-drought_prediction/reports/figures/hinge_loss.svg"
@@ -220,18 +238,18 @@ knitr::include_graphics(c(
 </div>
 </div>
 
-<div style="display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 1.5em;">
+<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #C6402A; padding-left: 1em;">
 <div style="min-width: 0;">
 
-*Pinball (quantile) loss* at $\tau = 0.20$ is asymmetric,
+`r dphead("Pinball (quantile) loss", col_pin)` at $\tau = 0.20$ is asymmetric,
 
 $$\mathcal{L}_{\text{pin}} = \begin{cases} \tau\,(y - \hat{y}) & \hat{y} \le y, \\ (1-\tau)\,(\hat{y} - y) & \hat{y} > y, \end{cases}$$
 
 penalizing over-prediction, that is predicting too wet and so missing a drought, by a factor $\tfrac{1-\tau}{\tau} = 4$ more than under-prediction, which biases the model toward the dry tail.
 
 </div>
-<div style="min-width: 0; width: 380px; text-align: right;">
-```{r pinball-illustration, echo=FALSE, out.width="170px", fig.cap="Pinball loss at $\\tau=0.20$."}
+<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
+```{r pinball-illustration, echo=FALSE, out.width="170px"}
 knitr::include_graphics("work/02-drought_prediction/reports/figures/pinball.svg")
 ```
 </div>
@@ -282,120 +300,229 @@ All configurations share the chronological split above, a single random seed (42
 
 ### Evaluation
 
-All metrics are computed on the test period (2015 to 2024), over the valid cells and test months.
+All metrics are computed on the test period (2015--2024), over the valid cells and test months.
 Point accuracy is measured by the RMSE of the predicted SPEI,
 
 $$\mathrm{RMSE} = \sqrt{\frac{1}{T G}\sum_{t=1}^{T}\sum_{g=1}^{G}\left(\hat{y}_{g,t} - y_{g,t}\right)^2},$$
 
 over $T$ test months and $G$ valid cells.
-Detection is evaluated at the severe-drought cutoff SPEI $\le -1.5$: predictions and observations are binarized at this threshold, and the true positive rate (recall) and F1 score summarize how well severe droughts are caught,
+
+Detection is evaluated at the severe-drought cutoff $c = -1.5$.
+With $d_{g,t} = \mathbb{1}\{y_{g,t} \le c\}$ and $\hat{d}_{g,t} = \mathbb{1}\{\hat{y}_{g,t} \le c\}$ the observed and predicted severe-drought indicators at cell $g$ and month $t$, the confusion counts are pooled over all valid cells and test months,
+
+$$TP = \sum_{t=1}^{T}\sum_{g=1}^{G} d_{g,t}\,\hat{d}_{g,t}, \quad FP = \sum_{t,g} (1 - d_{g,t})\,\hat{d}_{g,t}, \quad FN = \sum_{t,g} d_{g,t}\,(1 - \hat{d}_{g,t}),$$
+
+so that detection is scored from a single confusion matrix over the whole space-time test set rather than a per-cell or per-month average.
+The true positive rate (recall) and F1 then follow as
 
 $$\mathrm{TPR} = \frac{TP}{TP + FN}, \qquad \mathrm{F1} = \frac{2\,TP}{2\,TP + FP + FN}.$$
 
 ## Results
 
-<!-- SKETCH (mirror the RQ structure; baselines open the section)
-- Baselines (persistence, climatology, trend) as reference bars: trend wins RMSE but never detects drought (TPR = F1 = 0); persistence is the only baseline that detects.
-- RQ1 (loss): the Pareto trade-off, no single winner, loss dominates. MSE low RMSE / near-zero detection (regression to the mean); Pinball high TPR, only loss beating persistence on detection; hinge-weighted MSE in between. All models near the trend RMSE floor at the 12-month lead.
-- RQ2 (global / FiLM): naive vs FiLM effect, plus the reduced FiLM-extremes point -- aggregate RMSE stays flat but FiLM lowers error and under-prediction in the severe-drought bins, clearest under Pinball. Full stratified analysis, 2022 case study, and counterfactual live in the appendix. Short FiLM benefits the extremes part.
-- RQ3 (static): naive vs single vs seasonal encoders.
-- Figures: frontier plots (TPR, F1); baseline table.
+### Baselines
+
+Three reference forecasts are evaluated on the test period, 2015 to 2024: persistence (the last observed SPEI carried forward twelve months), climatology (the training-period cell mean), and a per-cell linear trend extrapolated to the test years [@wilksStatistical2011; @jolliffeStephenson2003].
+They divide the two objectives (Table \@ref(tab:baselines)).
+The trend gives the lowest baseline RMSE (1.065), just ahead of climatology (1.077), but neither ever predicts a severe drought, so both score zero on detection.
+Persistence is the only baseline that detects drought (F1 0.290, TPR 0.281), at a far higher RMSE (1.349).
+The trend therefore sets the bar to beat on RMSE, and persistence the bar to beat on detection.
+
+```{r baselines, echo=FALSE}
+b <- data.frame(
+  Baseline = c("Persistence", "Climatology", "Trend"),
+  Forecast = c("last SPEI carried forward 12 months",
+               "per-cell training-period mean",
+               "per-cell linear-trend extrapolation"),
+  RMSE = c("1.349", "1.077", cell_spec("1.065", bold = TRUE)),
+  F1   = c(cell_spec("0.290", bold = TRUE), "0.000", "0.000"),
+  TPR  = c(cell_spec("0.281", bold = TRUE), "0.000", "0.000"),
+  check.names = FALSE)
+kbl(b, escape = FALSE, booktabs = TRUE, align = "llccc",
+    caption = "Baseline forecasts on the test set (2015--2024).") |>
+  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = 13)
+```
+
+### RQ1: Loss functions
+
+Holding both feature groups at naive injection, the naive/naive configuration, the loss alone produces a clear trade-off between accuracy and detection (Table \@ref(tab:loss-results)).
+MSE and the $w=1$ hinge loss attain the lowest RMSE (0.965 and 0.962), both beating the trend floor, but MSE's detection collapses to F1 0.115, far below persistence: minimizing squared error pulls predictions toward the mean and away from the dry tail.
+Raising the hinge weight to $w=5$ buys detection (F1 0.297) at the cost of RMSE (1.028).
+Pinball pushes furthest and is the only loss to beat persistence on both F1 (0.384) and TPR (0.327), but it carries the highest RMSE (1.155), above the trend floor.
+Accuracy and detection thus move in opposite directions as the loss shifts from MSE to Pinball.
+
+```{r loss-results, echo=FALSE}
+lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
+loss <- cell_spec(c("MSE", "$\\mathrm{hwMSE}_{w=1}$",
+                    "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
+                  color = lc, bold = TRUE)
+gap <- cell_spec(c("+0.100", "+0.103", "+0.037", "-0.090"),
+                 color = c("#005028", "#005028", "#005028", "#781414"))
+d <- data.frame(
+  Loss = c(loss, "Persistence"),
+  F1   = c("0.115", "0.277", "0.297", cell_spec("0.384", bold = TRUE), "0.290"),
+  TPR  = c("0.064", "0.192", "0.208", cell_spec("0.327", bold = TRUE), "0.281"),
+  RMSE = c("0.965", cell_spec("0.962", bold = TRUE), "1.028", "1.155", "1.349"),
+  Gap  = c(gap, "---"),
+  check.names = FALSE)
+kbl(d, escape = FALSE, booktabs = TRUE, align = "lcccc",
+    col.names = c("Loss", "F1", "TPR", "RMSE", "Trend RMSE $-$ model RMSE"),
+    caption = "Loss functions at naive/naive, on the test set.") |>
+  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = 13)
+```
+
+### RQ2: Global features
+
+RQ2 varies only the global-feature pathway, comparing naive/naive with naive/FiLM while the static features stay at naive injection (Table \@ref(tab:film-results); values are naive/FiLM minus naive/naive).
+The effect is loss-dependent.
+Under MSE and the hinge losses FiLM reduces detection, sharply for the lighter losses (F1 falls 0.107 under MSE and 0.183 under the $w=1$ hinge), while RMSE hardly moves.
+Only under Pinball does FiLM improve detection, raising F1 by 0.064 and TPR by 0.131.
+FiLM therefore shifts the accuracy-detection balance without setting it.
+
+```{r film-results, echo=FALSE}
+lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
+grn <- "#005028"; red <- "#781414"
+loss <- cell_spec(c("MSE", "$\\mathrm{hwMSE}_{w=1}$",
+                    "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
+                  color = lc, bold = TRUE)
+d <- data.frame(
+  Loss = loss,
+  f1n = c("0.115","0.277","0.297","0.384"),
+  f1v = c("0.008","0.094","0.261","0.448"),
+  f1d = cell_spec(c("-0.107","-0.183","-0.035","+0.064"), color = c(red,red,red,grn)),
+  tpn = c("0.064","0.192","0.208","0.327"),
+  tpv = c("0.004","0.051","0.167","0.459"),
+  tpd = cell_spec(c("-0.060","-0.142","-0.041","+0.131"), color = c(red,red,red,grn)),
+  rmn = c("0.965","0.962","1.028","1.155"),
+  rmv = c("0.943","0.948","1.055","1.160"),
+  rmd = cell_spec(c("-0.022","-0.014","+0.027","+0.005"), color = c(grn,grn,red,red)),
+  check.names = FALSE)
+kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 9)),
+    col.names = c("Loss","Naive","FiLM","$\\Delta$","Naive","FiLM","$\\Delta$","Naive","FiLM","$\\Delta$"),
+    caption = "naive/FiLM minus naive/naive (global-feature pathway).") |>
+  add_header_above(c(" " = 1, "F1" = 3, "TPR" = 3, "RMSE" = 3)) |>
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 13)
+```
+
+The pooled numbers in Table \@ref(tab:film-results) hide where FiLM acts.
+Stratifying the test cell-months by observed SPEI shows that its benefit is confined to the two drought categories the $-1.5$ detection threshold covers, severe ($-2 <$ SPEI $\le -1.5$) and extreme (SPEI $\le -2$) (Table \@ref(tab:film-stratified-main)).
+FiLM lowers RMSE in both categories, and the gain grows with drought severity and as the loss pushes harder toward the tail, reaching $-0.10$ in the extreme category under Pinball.
+The near-normal cells, which make up the vast majority of the domain and dominate the pooled RMSE, are left essentially unchanged, so these gains barely register in the aggregate (only $+0.5\%$ under Pinball).
+Under MSE, whose objective ignores the tail, the reduction is negligible, $0.01$ or less in both categories.
+
+```{r film-stratified-main, echo=FALSE}
+lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
+grn <- "#005028"; neu <- "#777777"
+loss <- cell_spec(c("MSE", "$\\mathrm{hwMSE}_{w=1}$",
+                    "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
+                  color = lc, bold = TRUE)
+d <- data.frame(
+  Loss = loss,
+  sn = c("1.162", "0.915", "0.660", "0.519"),
+  sf = c("1.162", "0.890", "0.621", "0.475"),
+  sd = cell_spec(c("+0.000", "-0.025", "-0.039", "-0.044"), color = c(neu, grn, grn, grn)),
+  en = c("1.520", "1.253", "1.008", "0.832"),
+  ef = c("1.509", "1.181", "0.946", "0.735"),
+  ed = cell_spec(c("-0.010", "-0.072", "-0.062", "-0.097"), color = grn),
+  check.names = FALSE)
+kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 6)),
+    col.names = c("Loss", "Naive", "FiLM", "$\\Delta$", "Naive", "FiLM", "$\\Delta$"),
+    caption = "RMSE by drought category, naive/naive vs naive/FiLM. Severe: $-2 <$ SPEI $\\le -1.5$ (18,572 cell-months); extreme: SPEI $\\le -2$ (5,221).") |>
+  add_header_above(c(" " = 1, "Severe" = 3, "Extreme" = 3)) |>
+  kable_styling(latex_options = "hold_position", full_width = FALSE)
+```
+
+### RQ3: Static features
+
+RQ3 varies only the static encoder, comparing naive/naive with single/naive and seasonal/naive while the global features stay naive (Tables \@ref(tab:single-results) and \@ref(tab:seasonal-results)).
+Both encoders show the same loss-dependence and act mainly on detection, leaving RMSE broadly stable.
+The single encoder improves detection only under Pinball, where it lifts TPR by 0.214 and lowers RMSE slightly, but reduces detection under the hinge losses.
+The seasonal encoder also helps most under Pinball (TPR up 0.220) and, unlike the single encoder, under MSE too, yet it degrades sharply under the $w=5$ hinge (F1 down 0.220).
+Neither encoder consistently beats the other.
+
+```{r single-results, echo=FALSE}
+lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
+grn <- "#005028"; red <- "#781414"
+loss <- cell_spec(c("MSE", "$\\mathrm{hwMSE}_{w=1}$",
+                    "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
+                  color = lc, bold = TRUE)
+d <- data.frame(
+  Loss = loss,
+  f1n = c("0.115","0.277","0.297","0.384"),
+  f1v = c("0.096","0.110","0.254","0.438"),
+  f1d = cell_spec(c("-0.018","-0.167","-0.042","+0.054"), color = c(red,red,red,grn)),
+  tpn = c("0.064","0.192","0.208","0.327"),
+  tpv = c("0.054","0.061","0.180","0.541"),
+  tpd = cell_spec(c("-0.010","-0.131","-0.027","+0.214"), color = c(red,red,red,grn)),
+  rmn = c("0.965","0.962","1.028","1.155"),
+  rmv = c("0.964","0.965","1.044","1.144"),
+  rmd = cell_spec(c("-0.001","+0.004","+0.016","-0.011"), color = c(grn,red,red,grn)),
+  check.names = FALSE)
+kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 9)),
+    col.names = c("Loss","Naive","Single","$\\Delta$","Naive","Single","$\\Delta$","Naive","Single","$\\Delta$"),
+    caption = "single/naive minus naive/naive (static encoder).") |>
+  add_header_above(c(" " = 1, "F1" = 3, "TPR" = 3, "RMSE" = 3)) |>
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 13)
+```
+
+```{r seasonal-results, echo=FALSE}
+lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
+grn <- "#005028"; red <- "#781414"
+loss <- cell_spec(c("MSE", "$\\mathrm{hwMSE}_{w=1}$",
+                    "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
+                  color = lc, bold = TRUE)
+d <- data.frame(
+  Loss = loss,
+  f1n = c("0.115","0.277","0.297","0.384"),
+  f1v = c("0.165","0.251","0.077","0.427"),
+  f1d = cell_spec(c("+0.051","-0.026","-0.220","+0.043"), color = c(grn,red,red,grn)),
+  tpn = c("0.064","0.192","0.208","0.327"),
+  tpv = c("0.099","0.176","0.041","0.547"),
+  tpd = cell_spec(c("+0.035","-0.016","-0.166","+0.220"), color = c(grn,red,red,grn)),
+  rmn = c("0.965","0.962","1.028","1.155"),
+  rmv = c("0.971","0.964","1.056","1.142"),
+  rmd = cell_spec(c("+0.006","+0.003","+0.028","-0.013"), color = c(red,red,red,grn)),
+  check.names = FALSE)
+kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 9)),
+    col.names = c("Loss","Naive","Seasonal","$\\Delta$","Naive","Seasonal","$\\Delta$","Naive","Seasonal","$\\Delta$"),
+    caption = "seasonal/naive minus naive/naive (static encoder).") |>
+  add_header_above(c(" " = 1, "F1" = 3, "TPR" = 3, "RMSE" = 3)) |>
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 13)
+```
+
+### Overall
+
+Across the full grid no single configuration dominates: the 24 models trace a Pareto front between RMSE and detection, shown together with the persistence and climatology baselines (Figure \@ref(fig:frontier)).
+
+The loss sets the region of the front, with MSE at low RMSE and near-zero detection, Pinball at high detection and high RMSE, and the hinge-weighted losses in between, while the global and static variants move models along the front rather than redefining it.
+The loss function is thus the dominant control over whether the model favors accuracy or detection.
+
+```{r frontier, echo=FALSE, fig.cap="RMSE against drought detection, as TPR (left) and F1 (right), for all 24 configurations and the persistence and climatology baselines. The vertical line marks the linear-trend RMSE; points to its left beat the trend on RMSE.", out.width="48%", fig.show="hold", fig.align="center"}
+knitr::include_graphics(c(
+  "work/02-drought_prediction/figures/frontier_tpr_light.svg",
+  "work/02-drought_prediction/figures/frontier_f1_light.svg"
+))
+```
+
+## Discussion
+
+<!-- SKETCH
+- Summary of results against the three questions: loss dominates the accuracy/detection trade-off (RQ1); FiLM vs naive for global features, including the extremes (RQ2); learned single vs seasonal static encoders (RQ3).
+- Interpretation: a Pareto trade-off, no single winner; all models sit near the trend RMSE floor at the 12-month lead.
+- Open caveat: whether Pinball's detection gain is genuine skill or a negative prediction bias crossing the threshold.
+- Key limitations: single seed, single region (Alps), single lead time (12 months), single index timescale (SPEI-1); the supplied SPEI calibration window (1990-2019) overlaps the test period; the detection threshold and RMSE are expressed in training-standardized units.
 -->
 
 ## Conclusion
 
-<!-- SKETCH
-- Summary of the findings against the three research questions.
-- The open caveat: whether Pinball's detection gain is genuine skill or a negative prediction bias crossing the threshold.
-- Limitations: single seed, single region, single lead time, single index timescale.
-- Future work.
+<!-- SKETCH (very short: concise summary + outlook)
+- Recap: at a 12-month lead over the Alps, the loss function governs the trade-off between point accuracy and severe-drought detection, and the feature conditioning shifts it at the margin.
+- Outlook: multiple seeds or ensembles, more regions and lead times, resolving the skill-vs-bias question, richer conditioning.
 -->
 
-## Appendix: Interpretability analyses
+## Appendix
 
 <!-- TODO: citations still missing from the .bib -- Fisher and Rudin 2019 (model
      reliance), Hooker et al. 2021 (occlude vs. permute for correlated inputs),
      Watson 2022 (extremes-focused evaluation). Full numbers and narrative behind
      the prose below: reports/interpretability_report.md. -->
-
-### Feature importance
-
-Occlusion ablation quantifies model reliance by zeroing one input at a time
-at evaluation time and re-scoring the frozen model, rather than permuting it,
-since the driver fields are spatially and temporally correlated.
-Figure \@ref(fig:feature-importance) reports the resulting $\Delta$RMSE and
-$\Delta$drought-F1 for all six architecture conditions under the Pinball
-loss. Point accuracy is essentially unmovable throughout
-($|\Delta\text{RMSE}| < 0.06$), while detection swings by up to $0.45$:
-Mediterranean SST is consistently the single most relied-upon feature, and
-its ablation collapses detection entirely whenever no learned static
-encoder is present, but only partially otherwise -- the same
-architecture-conditional pattern recurs in the FiLM counterfactual below.
-
-```{r feature-importance, echo=FALSE, fig.cap="Occlusion feature importance, Pinball loss, all six architecture conditions ($\\Delta$RMSE left, $\\Delta$drought-F1 right, per panel). Point accuracy is essentially unmovable ($|\\Delta\\text{RMSE}| < 0.06$ throughout) while detection swings by up to 0.45; Mediterranean SST is the top detection feature in every condition, and its ablation collapses detection entirely wherever no learned static encoder is present.", out.width="48%", fig.show="hold", fig.align="center"}
-knitr::include_graphics(c(
-  "work/02-drought_prediction/figures/interpretability/feature_importance/naive_naive.svg",
-  "work/02-drought_prediction/figures/interpretability/feature_importance/naive_film.svg",
-  "work/02-drought_prediction/figures/interpretability/feature_importance/single_naive.svg",
-  "work/02-drought_prediction/figures/interpretability/feature_importance/single_film.svg",
-  "work/02-drought_prediction/figures/interpretability/feature_importance/seasonal_naive.svg",
-  "work/02-drought_prediction/figures/interpretability/feature_importance/seasonal_film.svg"
-))
-```
-
-### Does FiLM benefit the extremes?
-
-Figure \@ref(fig:film-stratified) breaks RMSE and mean bias down by
-observed-SPEI bin for naive/naive against naive/film and seasonal/film,
-separately per loss. Pinball shows the cleanest extremes-only gain from
-FiLM: aggregate RMSE moves by only $+0.5\%$ while the driest bin
-($\text{SPEI} \le -2$) improves by $-0.10$. MSE tells a different story --
-its severe dry-tail under-prediction bias ($+0.9$ to $+1.4$) is barely
-moved by FiLM at all, consistent with MSE optimizing for the bulk of the
-distribution rather than the tail. Figure \@ref(fig:film-case-study) grounds
-this in a single worked example: the worst Alpine month of the 2022 test
-year, independently selected by all four losses as July 2022
-(domain-mean observed SPEI $-1.61$), shown alongside the global driver
-state -- NAO and Mediterranean SST -- that FiLM conditions on for that
-month.
-
-```{r film-stratified, echo=FALSE, fig.cap="RMSE and mean bias (pred $-$ obs) by observed-SPEI bin, naive/naive vs. naive/film vs. seasonal/film, per loss. Pinball shows the cleanest extremes-only gain from FiLM (aggregate RMSE +0.5\\%, $\\le\\!-2$ bin RMSE $-0.10$); MSE's severe dry-tail under-prediction bias ($+0.9$ to $+1.4$) is barely moved by FiLM.", out.width="48%", fig.show="hold", fig.align="center"}
-knitr::include_graphics(c(
-  "work/02-drought_prediction/figures/interpretability/film_extremes/mse_stratified.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/pinball_q0.20_stratified.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w1_hinge_stratified.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w5_hinge_stratified.svg"
-))
-```
-
-```{r film-case-study, echo=FALSE, fig.cap="Worked example: the worst Alpine month in the 2022 test year (all four losses independently select July 2022, domain-mean observed SPEI $-1.61$) -- observed SPEI, naive/naive and naive/film predictions and their error maps, and the global driver state (NAO, Mediterranean SST) FiLM conditioned on.", out.width="48%", fig.show="hold", fig.align="center"}
-knitr::include_graphics(c(
-  "work/02-drought_prediction/figures/interpretability/film_extremes/mse_2022_case_study.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/pinball_q0.20_2022_case_study.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w1_hinge_2022_case_study.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w5_hinge_2022_case_study.svg"
-))
-```
-
-A stratified breakdown shows FiLM's effect but not whether the model is
-actually using the global scalars it is conditioned on, versus using them
-for a marginal correction on top of some other, more informative pathway.
-Figure \@ref(fig:film-counterfactual) tests this directly with a
-counterfactual: zeroing the global scalars at evaluation time and measuring
-the relative change in extreme-bin ($\text{SPEI} \le -1.5$) RMSE against the
-true-scalar baseline. naive/film collapses by $62$--$118\%$ once the
-scalars are removed, confirming it genuinely depends on them for extreme
-prediction; seasonal/film, which has an alternative spatial pathway into the
-static encoder, degrades by only $11$--$34\%$ -- the same
-architecture-conditional reliance pattern already seen in the feature
-importance results above.
-
-```{r film-counterfactual, echo=FALSE, fig.cap="Genuineness counterfactual: relative change in extreme-bin (SPEI $\\le -1.5$) RMSE when the global scalars are zeroed vs. their true values, naive/film vs. seasonal/film, per loss. naive/film collapses by 62--118\\%; seasonal/film, which has an alternative spatial pathway, by only 11--34\\% -- the same architecture-conditional pattern found in the feature-importance results.", out.width="48%", fig.show="hold", fig.align="center"}
-knitr::include_graphics(c(
-  "work/02-drought_prediction/figures/interpretability/film_extremes/mse_counterfactual.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/pinball_q0.20_counterfactual.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w1_hinge_counterfactual.svg",
-  "work/02-drought_prediction/figures/interpretability/film_extremes/wmse_w5_hinge_counterfactual.svg"
-))
-```
 
