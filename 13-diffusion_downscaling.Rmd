@@ -95,12 +95,13 @@ Both variables were initially available on a 3-hour basis and were subsequently 
 
 ### Dataset information {#dataset-information}
 The dataset consists of reanalysis and climate projection data and was provided by the [Alpine DROught Prediction (A-DROP)](https://www.alpine-space.eu/project/a-drop/) project covering the Alpine domain.
-**Reanalysis data** is a gridded reconstruction of past weather states and is provided in this work on a resolution of 500 m.
-These 500 m fields were coarsened to 3.4 km due to compute constraints. Therefore, 3.4 km is the target resolution of the downscaling task throughout this work.
+**Reanalysis data** is a gridded reconstruction of past weather states and is provided in this work on a resolution of 500 m (1749 × 2198 pixels over the Alpine domain), downscaled from the native CERRA reanalysis.
+These 500 m fields were coarsened to 3.4 km due to compute constraints, corresponding to a 256 × 320 grid. Therefore, 3.4 km is the target resolution of the downscaling task throughout this work.
 
 The **projection data** encompasses a simulated trajectory on how Alpine climate might develop over the current century.
-The data was bias-corrected against the reanalysis data utilizing the MBCn-algorithm [@cannon2018] and is only available at a resolution of 12 km, considerably coarser than the reanalysis data.
-Projection data from the PRESENT period covers the same years as the reanalysis data, including the years the model was trained on, but contains simulated climate states. 
+The data was bias-corrected against the reanalysis data utilizing the MBCn-algorithm [@cannon2018] and is only available at a resolution of 12 km (77 × 91 pixels), considerably coarser than the reanalysis data.
+The reanalysis grid does not cover its full rectangular pixel array, so the projection data is clipped to the smaller reanalysis-covered area throughout the analysis.
+Projection data from the PRESENT period covers the same years as the reanalysis data, including the years the model was trained on, but contains simulated climate states.
 
 The distributional shift between the reanalysis data and the four projection periods is visualized in Figure \@ref(fig:distribution-shift).
 A more detailed breakdown of the shift can be found in [Appendix B](#appendix-b).
@@ -446,3 +447,8 @@ kbl(
   pack_rows("Training", 5, 10, background = "#efefef") |>
   pack_rows("Sampler", 11, 15, background = "#efefef")
 ```
+
+### Usage of AI tools
+I hereby declare that this seminar work was written by myself. All sources that were used directly or indirectly are acknowledged in the references.
+Generative AI tools were utilized as an aid for researching relevant literature, for improving spelling and grammar, and for adapting the code used for the analyses and models.
+Their outputs have been critically reviewed and verified by me. I take full responsibility for the content of this seminar work.
