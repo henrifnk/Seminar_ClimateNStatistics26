@@ -564,6 +564,88 @@ def plot_feature_importance(tag: str, rows: list[dict], fig_path: Path) -> None:
     plt.close(fig)
 
 
+# Condition palette: static encoder sets the hue (naive gray, single blue,
+# seasonal green), global encoder the shade (naive light, FiLM dark).
+CONDITION_COLORS = {
+    "naive/naive": "#9a9a9a", "naive/film": "#4d4d4d",
+    "single/naive": "#7fb0d8", "single/film": "#2e6da4",
+    "seasonal/naive": "#8ecf8e", "seasonal/film": "#3f7a3f",
+}
+CONDITION_ORDER = list(CONDITION_COLORS)
+
+FEATURE_LABELS = {
+    "med_sst": "Med SST", "tas": "Temperature", "month": "Month",
+    "static": "Topography", "spei": "SPEI", "wb": "Water balance",
+    "pr": "Precipitation", "nao": "NAO", "ps": "Pressure", "global": "Global",
+}
+
+
+def plot_feature_importance_across_conditions(all_rows: list[dict], fig_path: Path) -> None:
+    """Two horizontal grouped-bar panels (dRMSE left, ddrought-TPR right)
+    comparing every architecture condition per occluded feature. Features share
+    the y-axis, each in its own shaded band, so the condition bars for one
+    feature read as a single block rather than blending into the neighbours.
+    """
+    import matplotlib.pyplot as plt
+
+    def cond(r: dict) -> str:
+        return f"{r['static_encoder']}/{r['global_encoder']}"
+
+    conds = [c for c in CONDITION_ORDER if any(cond(r) == c for r in all_rows)]
+    feats = sorted(
+        {r["feature"] for r in all_rows},
+        key=lambda f: -np.mean([abs(r["delta_drought_tpr"]) for r in all_rows if r["feature"] == f]),
+    )
+
+    def value(feature: str, condition: str, key: str) -> float:
+        for r in all_rows:
+            if r["feature"] == feature and cond(r) == condition:
+                return r[key]
+        return 0.0
+
+    y = np.arange(len(feats))[::-1]
+    span = 0.72
+    h = span / len(conds)
+
+    fig, (ax_rmse, ax_tpr) = plt.subplots(
+        1, 2, figsize=(9.0, max(3.2, 0.62 * len(feats))), sharey=True
+    )
+    for ax in (ax_rmse, ax_tpr):
+        for yi in y:
+            if int(yi) % 2 == 0:
+                ax.axhspan(yi - 0.5, yi + 0.5, color="#f2f1ea", zorder=0)
+
+    for j, c in enumerate(conds):
+        off = (j - (len(conds) - 1) / 2) * h
+        ax_rmse.barh(y + off, [value(f, c, "delta_rmse") for f in feats],
+                     height=h, color=CONDITION_COLORS[c], label=c, zorder=3)
+        ax_tpr.barh(y + off, [value(f, c, "delta_drought_tpr") for f in feats],
+                    height=h, color=CONDITION_COLORS[c], zorder=3)
+
+    ax_rmse.set_yticks(y)
+    ax_rmse.set_yticklabels([FEATURE_LABELS.get(f, f) for f in feats], fontsize=10)
+    ax_rmse.set_ylim(y.min() - 0.5, y.max() + 0.5)
+    ax_rmse.set_xlabel(r"$\Delta$RMSE  (ablated $-$ full)", fontsize=9)
+    ax_rmse.set_title("Point accuracy", fontsize=10)
+    ax_tpr.set_xlabel(r"$\Delta$TPR  (ablated $-$ full)", fontsize=9)
+    ax_tpr.set_title("Drought detection (SPEI$\\leq$-1.5)", fontsize=10)
+
+    for ax in (ax_rmse, ax_tpr):
+        ax.axvline(0, color="#888", lw=0.9, zorder=2)
+        ax.grid(axis="x", color="#e1e0d9", lw=0.6, zorder=1)
+        ax.set_axisbelow(True)
+        ax.spines[["top", "right", "left"]].set_visible(False)
+        ax.tick_params(labelsize=8, length=0)
+
+    fig.legend(*ax_rmse.get_legend_handles_labels(), title="static / global",
+               fontsize=8, title_fontsize=8, ncol=len(conds), frameon=False,
+               loc="lower center", bbox_to_anchor=(0.5, -0.01))
+    fig.tight_layout(rect=[0, 0.05, 1, 1])
+    fig_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(fig_path, bbox_inches="tight")
+    plt.close(fig)
+
+
 def _write_csv(path: Path, rows: list[dict]) -> None:
     if not rows:
         return
@@ -632,6 +714,10 @@ def run_feature_importance(
     _write_csv(csv_path, all_rows)
     print(f"\n{len(all_rows)} rows -> {csv_path}")
     print(f"{len(ckpts)} figures -> {fig_dir}/")
+
+    across_path = fig_dir.parent / "feature_importance_across_conditions.svg"
+    plot_feature_importance_across_conditions(all_rows, across_path)
+    print(f"across-condition figure -> {across_path}")
     return all_rows
 
 

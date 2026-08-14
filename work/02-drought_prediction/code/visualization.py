@@ -442,10 +442,10 @@ def visualize_raw_nao_eof_slide(months: tuple[int, ...] = (1, 4, 7, 10)) -> None
 
 
 def visualize_raw_mediterranean_slt_slide() -> None:
-    """Mediterranean SLT time series, aggregated into the same 3 regional groups
+    """Mediterranean SST time series, aggregated into the same 3 regional groups
     (Western Med / Eastern Med / Black Sea) used as global scalars in dataset.py's
     med_sst_agg='grouped' mode — rather than raw per-basin series."""
-    print("Mediterranean SLT – slide ...")
+    print("Mediterranean SST – slide ...")
     ds = xr.open_dataset(DATA_RAW / "mediteranean/slt/slt_avg_mediteranean_reanalysis_1970_2025.nc")
     # Crop to the AL study period (1971-2024) -- the raw record runs 1970-2025,
     # wider than the input data actually used by the model.
@@ -456,7 +456,7 @@ def visualize_raw_mediterranean_slt_slide() -> None:
     for group_name, basins in _MED_GROUPS.items():
         group_mean = np.mean([ds[b].values for b in basins], axis=0)
         ax.plot(ds["time"].values, group_mean, lw=1.2, label=group_name.replace("_", " ").title())
-    ax.set_ylabel("SLT", fontsize=16)
+    ax.set_ylabel("SST", fontsize=16)
     ax.tick_params(labelsize=13)
     ax.legend(fontsize=14, ncol=1, loc="upper left")
     fig.tight_layout()
