@@ -12,7 +12,7 @@ library(kableExtra)
 
 # Interpretable Riverine Heatwaves {#irh}
 
-*Author: *
+*Author: Alejandro Zielke Esteban*
 
 *Supervisor: Henri Funk*
 
@@ -23,3 +23,436 @@ library(kableExtra)
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ## Introduction
+
+
+## Data
+### Origin
+
+The data used in this study originate from the [BayWat-AI](https://henrifnk.github.io/henrifnk/projects.html) project and are provided by the Bavarian Landesamt für Umwelt (LfU) and the Gewässerkundlicher Dienst Bayern (GKD).
+
+<!-- 
+TODO: Map of the stations
+Caption: Map of the 14 measurement stations along the river Main and its tributaries Regnitz Fränkische Saale, Itz and Wern
+-->
+
+The dataset comprises river and environmental data from 14 measurement stations located along the river Main and its tributaries. The following variables are available:
+
+<!-- 
+TODO: Divide Text in three columns
+-->
+
+**Static variables (station-specific)**
+
+- Elevation (m a.s.l.)
+- Slope (°)
+- Forest cover (\%)
+- Impervious surface (\%) within a radius of:
+    - 500 m
+    - 1,000 m
+    - 2,000 m
+    - 3,000 m
+- Distance (km) to:
+    - River mouth
+    - River source
+- Total river length (km)
+
+**Dynamic variables**
+
+- Water temperature (°C)
+- Air temperature (°C)
+- Precipitation (mm)
+- Wind speed (m/s)
+- Relative humidity [0-1]
+- Solar radiation (Wh/$\text{m}^2$)
+- Discharge ($\text{m}^3$/s)
+
+The static variables describe different environmental characteristics of the area surrounding each measurement station and remain constant over time. In contrast, the dynamic variables vary over time and are measured at the respective stations.
+
+In the original dataset, the dynamic variables were recorded at three-hour intervals. For the analysis, these measurements were aggregated to a daily resolution. Daily means were calculated for water temperature, air temperature, wind speed, relative humidity and discharge, while daily sums were calculated for precipitation and solar radiation.
+
+### Preprocessing
+
+<!-- TODO: Add figure and section reference-->
+
+Figure ... illustrates the temporal coverage of the different measurement stations. The vertical dotted lines indicate the beginning of the validation and test periods, respectively (see section ... for a detailed description of the train, validation and test periods). As a result of the temporal split, the station Main (Mainleus) is only represented in the test set.
+
+For a given variable and station, a daily value was calculated only if all eight three-hourly observations for that day were available. Otherwise, the daily value was set to missing (NA).
+
+<!-- TODO: Add figure reference-->
+
+Figure ... shows the resulting missing-data patterns of the dynamic variables.
+
+<!-- TODO: Figure: Missing Patterns of dynamic variables on a daily basis for each station.
+A daily value is missing if at least one of the eight three-hourly observations for the respective variable and station is missing.
+-->
+
+
+<!-- TODO: verify exact dates-->
+
+Large periods of missing discharge data can be observed between 2017 and 2021 at the stations Main (Würzburg), Main (Steinbach), Main (Schweinfurt) and Main (Kleinheubach). At Main (Krotzenburg), discharge data are missing throughout the entire observation period.
+
+<!-- Alternatively, move this decision to a later section describing the train, validation and test split -->
+
+Therefore, Main (Krotzenburg) was excluded from the analysis entirely. The four stations with substantial gaps in discharge data were excluded form the test set.
+
+### Description
+
+Figure ... shows the pairwise correlations between all variables.
+
+<!-- TODO: Figure: Heatmap of pairwise correlations between all variables. For dynamic variables, it shows the correlations of the daily synchronized values of all available days. -->
+
+<!-- possibly add to caption: Thus, for example, the correlation between water temperature and a dynamic variable reflects the realtionship between their values on the same day.-->
+
+We observe that water temperature shows a strong positive correlation with air temperature (0.91) and solar radiation (0.72) and a moderate negative correlation with relative humidity (-0.48). Furthermore, solar radiation itself is positively correlated with air temperature (0.71) and strongly negatively correlated with relative humidity (-0.80).
+
+<!-- TODO: Add figure:
+Either density plot or time series plot of dynamic variables
+Perhaps also a plot for static variables?
+-->
+
+Figure ... shows the distribution of the dynamic variables, both across all stations (blue) and separately for each station (grey). The distributions of discharge and precipitation are strongly right-skewed.
+
+
+## Modelling
+### Model Explanation
+**Long-Short-Term-Memory (LSTM) Model** 
+
+A Long-Short-Term Memory (LSTM) network is a type of recurrent neural network (RNN) designed for sequential data, such as time series. LSTMs were introduced to mitigate the vanishing-gradient problem of conventional RNNs by incorporating a separate cell state and gated information flow. This allows information to be retained or discarded over longer time intervals, enabling the model to capture temporal dependencies in sequential data.
+
+<!-- TODO: Add Figure LSTM - Sequential processing
+Sequential processing of the input data by an LSTM. Each cell represents one time step and receives the current input as well as the hidden and cell states from the previous time step.
+-->
+
+The data are processed sequentially, one time step after another. In this study, one time step corresponds to one day. Figure ... illustrates this sequential processing. At each time step, an LSTM cell receives the dynamic feature values of the corresponding day together with the hidden and cell states from the preceding time step. These states represent the model's memory and are updated at each time step based on the current input and the information retained from previous time steps. The cell state can be interpreted as long-term memory that allows information to be retained over longer periods, while the hidden state represents the information that is passed on to the next time step and can be interpreted as a more immediate representation of the sequence history.
+
+<!-- TODO: Add Figure LSTM Cell Structure
+Structure of an LSTM cell. The current input and previous hidden state are combined and passed through the forget, input and output gates and the input node to update the cell and hidden states.
+-->
+
+Figure ... illustrates the computations performed within an LSTM cell. At time step $t$, the cell receives an input matrix
+$$
+\mathbf{X}^{(t)} \in \mathbb{R}^{n \times d}
+$$
+where $n$ denotes the batch size and $d$ the number of dynamic features. A batch is a collection of $n$ observations that are processed simultaneously and independently, so the model produces one output per observation in the batch. In addition to the current input, the cell receives the hidden and cell states from the previous time step:
+
+$$
+\mathbf{H}^{(t-1)}, \mathbf{C}^{(t-1)} \in \mathbb{R}^{n \times h}
+$$
+where $h$ denotes the hidden size.
+
+The hidden state of the previous time step is concatenated with the current input:
+
+$$
+\mathbf{Z}^{(t)} = 
+\begin{pmatrix}
+\mathbf{X}^{(t)} & \mathbf{H}^{(t-1)}
+\end{pmatrix} \in \mathbb{R}^{n \times (d + h)}
+$$
+
+This way, the current input is processed jointly with information from previous time steps encoded in the hidden state. The resulting matrix is passed through four transformations: the forget gate, input gate, input node and output gate. Together, the gates determine which information is discarded from and added to the cell and hidden state.
+
+For each gate, the concatenated input $\mathbf{Z}^{(t)}$ is transformed using a weight matrix $\mathbf{W} \in \mathbb{R}^{(d + h) \times h}$, after which a bias vector $\mathbf{b} \in \mathbb{R}^h$ is added. The bias is broadcast row-wise across the $n$ observations in the batch. The result is then passed through an element-wise activation function, either the sigmoid function ($\sigma$) or the hyperbolic tangent function ($\tanh$).
+
+The four gate transformations are given by:
+
+$$
+\begin{alignat*}{3}
+\text{Forget Gate:} \qquad & \mathbf{F}^{(t)} & \enspace = \enspace &
+  \sigma \left(\mathbf{Z}^{(t)} \mathbf{W}_f + \mathbf{b}_f\right) \in (0, 1)^{n \times h} \\
+\text{Input Gate:} \qquad & \mathbf{I}^{(t)}& \enspace = \enspace &
+  \sigma \left(\mathbf{Z}^{(t)} \mathbf{W}_i + \mathbf{b}_i\right) \in (0, 1)^{n \times h} \\
+\text{Input Node:} \qquad & \tilde{\mathbf{C}}^{(t)} & \enspace = \enspace &
+  \tanh \left(\mathbf{Z}^{(t)} \mathbf{W}_c + \mathbf{b}_c\right) \in (-1, 1)^{n \times h} \\
+\text{Output Gate:} \qquad & \mathbf{O}^{(t)} & \enspace = \enspace & 
+  \sigma \left(\mathbf{Z}^{(t)} \mathbf{W}_o + \mathbf{b}_o\right) \in (0, 1)^{n \times h}
+\end{alignat*}
+$$
+
+The cell and hidden state are then updated in sequence, according to
+
+$$
+\begin{align*}
+  \mathbf{C}^{(t)} &= \mathbf{C}^{(t-1)} \odot \mathbf{F}^{(t)} + \mathbf{I}^{(t)} \odot \tilde{\mathbf{C}}^{(t)} \\
+  \\
+  \mathbf{H}^{(t)} &= \tanh\left(\mathbf{C}^{(t)}\right) \odot \mathbf{O}^{(t)}
+\end{align*}
+$$
+where $\odot$ denotes element-wise multiplication.
+
+The forget gate determines how much of the information stored in the previous cell state is retained given the current input, scaling the cell state element-wise by factors close to 0 or 1. The input gate determines how much new information is incorporated, while the input node provides the candidate information that may be added to the cell state. Finally, the output gate, together with the updated cell state, determines the new hidden state.
+
+The updated cell and hidden states are then passed to the next time step. The hidden state can additionally be passed to subsequent network layers, such as an output layer, which transforms it into the model's prediction at step $t$.
+
+The weight matrices and bias vectors of the four gates are learned during training and shared across all time steps and all observations within a batch, i.e. they are independent of $t$ and $n$.
+
+### Implementation
+
+**Prediction Setting**
+
+The prediction setting is illustrated in Figure .... The target is the water temperature of the current day, i.e. at lag 0. It is predicted from the static variables and the observations of the remaining dynamic variables over a historical window of 365 days, ranging from lag 364 to lag 0.
+
+<!-- TODO: Add Figure Prediction Setting
+Prediction Setting. The water temperature at lag 0 is predicted using the static variables and a 365-day history of the remaining dynamic variables, ranging from lag 364 to lag 0.
+-->
+
+**Model Configuration**
+
+The model was implemented in Python using the Neural Hydrology library (<!-- TODO: Add additional information or link/ reference -->). The main model configuration is summarized in Table \@ref(tab:lstm-config). 
+
+Table: (#tab:lstm-config) Configuration of the LSTM model
+
+| Parameter         | Value                   |
+| ----------------- | ----------------------- |
+| LSTM layers       | 1                       |
+| Hidden size       | $h = 64$                |
+| Sequence length   | 365 days                |
+| Output activation | Linear                  |
+| Training period   | 10/11/2000 - 30/11/2016 |
+| Validation period | 01/12/2016 - 30/11/2018 |
+| Test period       | 01/12/2018 - 30/11/2020 |
+
+**Input and Output Structure**
+
+The input data are provided to the model as a three-dimensional tensor with dimensions
+$$
+\left[n_{\mathrm{samples}}, n_{\mathrm{features}}, n_{\mathrm{lags}}\right]
+$$
+where the dimensions correspond to observations, variables and time lags, respectively, as illustrated in Figure .... The entry at position $(i, x, l)$ contains the value of feature $x$ for the $i$-th observation at lag $l$.
+
+<!-- TODO: Add Figure LSTM Input and Output Structure
+Input and output structure of the LSTM. The dynamic features are arranged in a three-dimensional tensor with dimensions corresponding to samples, variables and lags. The static features are replicated across all time steps and concatenated with the dynamic features. The model produces a prediction for each time step, resulting in a (n_samples, 1, n_lags) tensor, of which only the prediction at lag 0 is used as the target prediction.
+-->
+
+To incorporate the static features, we use a replication approach, where the matrix containing the static features for the $n_{\mathrm{samples}}$ observations is copied across all 365 time steps. The resulting tensor is then concatenated with the tensor of dynamic features, such that the static features are provided as additional inputs at every time step.
+
+At each time step, the model thus processes a matrix containing both the dynamic and static features for all observations in the batch. This matrix corresponds to the input $\mathbf{X}^{(t)}$ described in the previous section.
+
+The model produces a water temperature prediction for each observation at every time step of the input sequence. Since the prediction task concerns the water temperature at lag 0, only the prediction corresponding to the final time step, i.e. lag 0, is used as the model output.
+
+### Evaluation
+
+The model was evaluated using the Nash-Sutcliffe Efficiency (NSE), defined as 
+
+$$
+\mathrm{NSE} = 1 - \frac{\sum_{t = 1}^T\left(y_t - \hat y_t\right)^2}{\sum_{t=1}^T \left(y_t - \bar{y}\right)^2}
+$$
+where $y_t$ denotes the observed water temperature at time step $t$ of the test set, $\hat{y}_t$ the corresponding model prediction, $\bar{y}$ the mean of the observed water temperatures over the test period and $T$ is the number of time steps in the test period.
+
+The NSE compares the model predictions against a baseline that always predicts the mean of the observed values. An NSE of 1 indicates a perfect fit, an NSE of 0 indicates performance equal to this baseline and an NSE below 0 indicates performance worse than the baseline.
+
+In addition to the overall model performance, we specifically evaluate the model at the station Main (Mainleus). Since this station is included in neither the training nor the validation set, this provides an assessment of the model's ability to generalize to an unobserved station, i.e. a form of spatial generalization.
+
+
+## Interpretability
+
+Our goal was not only to achieve good predictive performance, but also to gain insights into how the model captures the complex relationships between the input features and water temperature. In particular, we aimed to identify which features contribute most to the predictions and how their values, temporal history and interactions affect the predicted water temperature. To this end, we applied several interpretability approaches. 
+
+First, we used **Permutation Feature Importance** to assess the overall importance of the different input features for predictive performance. Based on these results, we focused our subsequent analyses on the two most important features, examining their relationship with the target from four complementary perspectives:
+
+1. **Overall dependence over the whole last year:** 
+We used a variation of Partial Dependence Plots (PDPs) to investigate how changes in a feature over the entire 365-day input window affect the predicted water temperature. For interval-scaled features, we added a constant offset $a$ to all daily values, whereas for ratio-scaled features, we multiplied all daily values by a constant factor $a$. All other feature values were kept unchanged. This addresses the question: "How would today's predicted water temperature change, on average, if the feature had been consistently $a$ unit/ times higher over the entire historical window?"
+2. **Dependence on the most recent observation:** 
+To account for potential dependencies between correlated features, we used Accumulated Local Effects (ALE) plots to investigate how the feature value at the most recent time step (lag 0) affects today's predicted water temperature.
+3. **Lag Importance:** 
+To investigate how a feature's historical values contribute to today's prediction, we calculated its ALE curves separately for each lag. The standard deviation of each curve served as a measure of that lag's importance, providing insights into how strongly different points in the 365-day history influence today's predicted water temperature.
+4. **Interaction between the two most important features:**
+Finally, we investigated the joint effect of the two most important features using a two dimensional Partial Dependence Plot, which additionally provides insights into whether and how the effect of one feature depends on the value of the other.
+
+In the following, the model's prediction function is denoted by
+
+$$
+\hat{f}: \underbrace{\mathbb{R}^{365} \times \cdots \times \mathbb{R}^{365}}_{d \text{ dynamic features}} \times \underbrace{\mathbb{R} \times \cdots \times \mathbb{R}}_{s \text{ static features}} \longrightarrow \mathbb{R}, 
+\quad 
+\left(\boldsymbol x_1, \dots, \boldsymbol x_d, s_1, \dots, s_s\right) \mapsto f\left(\boldsymbol x_1, \dots, \boldsymbol x_d, s_1, \dots, s_s\right)
+$$
+
+where
+
+$$
+\boldsymbol{x}_j = \left(x_j^{(0)}, \dots, x_j^{(364)}\right) \in \mathbb{R}^{365}
+$$
+denotes the 365-day history of dynamic feature $j$ and
+$$
+s_j \in \mathbb{R}
+$$
+denotes static feature $j$.
+
+For a given observation $i$, the model's prediction is given by
+$$
+\hat{y}^{(i)} = \hat{f}\left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right)
+$$
+where $\boldsymbol x_j^{(i, \cdot)} = \left(x_j^{(i, 0)}, \dots, x_j^{(i, 364)}\right) \in \mathbb{R}^{365}$ denotes the 365 day history of dynamic feature $j$ for observation $i$, and $s_j^{(i)} \in \mathbb{R}$ denotes static feature $j$ for observation $i$.
+
+All interpretability methods were performed on the test set.
+
+### Permutation Feature Importance
+
+The underlying idea of Permutation Feature Importance is to randomly permute the values of a feature while keeping all other features unchanged. This disrupts the relationship between the permuted feature and the target while preserving the feature's marginal distribution. The resulting deterioration in predictive performance, i.e. the NSE decrease, indicates how strongly the model relies on that feature. A larger decrease reflects a higher importance of the feature for the model's predictions.
+
+The permutation procedure differs between static and dynamic features, as illustrated in Figure .... For both types of features, we first calculate the NSE on the original test set:
+
+$$
+\mathrm{NSE}_{\text{test}} = 1 - \frac{\sum_{i = 1}^n \left(y^{(i)} - \hat{y}^{(i)}\right)^2}{\sum_{i = 1}^n \left(y^{(i)} - \bar{y}\right)^2} 
+$$
+
+For each static feature $S_j$, the following procedure is applied:
+
+1. Permute randomly the observations $s_j^{(1)}, \dots, s_j^{(n)}$ obtaining 
+$$ 
+\boldsymbol s_j^{\text{perm}} = \left(s_j^{\text{perm},\, (1)}, \dots, s_j^{\text{perm},\, (n)}\right)
+$$
+2. Compute the predictions with $S_j$ permuted:
+$$
+\boldsymbol{\hat{y}}_{s_j \text{ perm}} = \left(\hat y_{s_j \text{ perm}}^{(1)}, \dots, \hat y_{s_j \text{ perm}}^{(n)}\right)
+$$
+with
+$$
+\hat y_{s_j \text{perm}}^{(i)} = \hat{f}\left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_j^{\text{perm, (i)}}, \dots, s_s^{(i)}\right)
+$$
+3. Calculate the resulting NSE decrease with respect to the test NSE
+$$
+\mathrm{Importance}_{s_j} = \mathrm{NSE}_{\text{test}} - \mathrm{NSE}(\boldsymbol y, \boldsymbol{\hat{y}}_{s_j \text{ perm}})
+$$
+
+For each dynamic feature $X_j$, the permutation is performed within each observation rather than across observations. This preserves the feature's distribution across observations while disrupting the temporal structure within each individual input sequence:
+
+1. Within each observation $i$, randomly permute the time series $x_j^{(i, 0)}, \dots, x_j^{(i, 364)}$, resulting in $\boldsymbol{x}_j^{\mathrm{perm}, \, (i, \cdot)}$
+2. Compute the prediction with $X_j$ permuted:
+$$
+\boldsymbol{\hat y}_{x_j \text{ perm}} = \left(\hat y_{x_j \text{ perm}}^{(1)}, \dots, \hat y_{x_j \text{ perm}}^{(n)}\right)
+$$
+with
+$$
+\hat y_{x_j \text{ perm}}^{(i)} = \hat{f}\left(\boldsymbol x_1^{(i, \cdot)}, \dots, x_j^{\text{perm}, \, (i, \cdot)}, \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right)
+$$
+3. Calculate the resulting NSE decrease with respect to the test NSE:
+$$
+\mathrm{Importance}_{x_j} = \mathrm{NSE_{\mathrm{test}}} - \mathrm{NSE}(\boldsymbol y, \boldsymbol{\hat y}_{x_j \text{ perm}})
+$$
+
+<!-- TODO: Add Figure Tensor Feature Permutation: Manipulation of the static feature matrix and dynamic feature tensor for the calculation of Permutation Feature Importance. For static features, the corresponding feature values are permuted across all observations. For dynamic features, the time series of the corresponding feature is permuted within each observation.
+-->
+
+### Partial Dependence Plots (for dynamic features)
+
+Here, we address the question: 
+"How would the predicted water temperature change, on average, if feature $X_j$ had been $a$ units (or times) higher over the entire last year?"
+
+To this end, we manipulate the entire time series of the feature at once (leaving all other features untouched), distinguishing between interval-scaled and ratio-scaled features, as shown in figure ...:
+
+- interval-scaled features: add a constant offset $a$ to all observed values of the feature
+- ratio-scaled features: multiply all observed values by a constant factor $a$, preserving the natural zero point
+
+<!-- Add Figure Tensor PDP:
+Manipulation of the dynamic feature tensor for the computation of the Partial Dependence Plot. For interval-scaled features, a constant offset a is added to the corresponding feature; for ratio-scaled features, the corresponding feature is multiplied by a constant factor a.
+-->
+
+In both cases, we compare the resulting prediction to the prediction obtained with the original, unmanipulated feature values. This results in a variation of an Individual Conditional Expectation (ICE) curve for each observation, expressing how the predicted deviation from the original prediction changes as a function of $a$.
+
+\begin{align*}
+  \mathrm{ICE}_j^{(i)}(a) = 
+  &\begin{cases}
+    \hat f \left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_j^{(i, \cdot)} + \boldsymbol a,\dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right) & X_j \enspace \text{interval-scaled} \\[4pt]
+    \hat f \left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_j^{(i, \cdot)} \,\,\cdot \, a,\dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right) & X_j \enspace \text{ratio-scaled}
+  \end{cases} \\[4pt]
+  &- \hat f \left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_j^{(i, \cdot)}, \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right)
+\end{align*}
+
+Averaging these differences over all $n$ observations in the test set then yields the PDP.
+
+$$
+\mathrm{PDP}_j(a) = \frac{1}{n} \sum_{i=1}^n \mathrm{ICE}_j^{(i)}(a)
+$$
+
+**Limitation**: For correlated features, manipulating one feature while leaving all others unchanged can create unrealistic, out of distribution feature combinations, which may distort the interpretation of the resulting PDP curve.
+
+### Accumulated Local Effects
+
+ALE plots address this issue by only slightly perturbing each observation's value of the feature of interest within a local neighborhood, rather than replacing it with an arbitrary fixed value as in PDPs. This keeps the manipulated values close to those actually observed, avoiding unrealistic feature combinations even for correlated features. The feature range is divided into bins, and for each bin the average effect of moving from its lower to its upper bound is computed. Accumulating these local effects across bins then yields the ALE curve.
+
+We compute the ALE for a given feature $X_j$ at a specific lag $l$, evaluated at a point $a$ in the feature's range.
+
+**Notation:** Let the range of $X_j$ at lag $l$ be divided into $m$ bins $N_{j, l}(1), \dots, N_{j, l}(m)$ with bin bounds $z_{j, l}(0) < z_{j, l}(1) < \dots < z_{j, l}(m)$ and let
+
+- $n_{j, l}(k)$ denote the number of observations of $X_j$ at lag $l$ falling into bin $k$
+- $k_{j, l}$ denote the index of the bin containing the value $a$
+- $\boldsymbol x_j^{(i, \cdot)}[l \to z]$ denote the time series $\boldsymbol x_j^{(i, \cdot)}$ of feature $j$ for observation $i$, with the value at lag $l$ replaced by $z$ (all other lags unchanged).
+
+**Procedure:**
+
+1. For each bin $k = 1, \dots, m$ and each observation $i$ with $x_j^{(i, l)} \in N_{j, l}(k)$, compute the change in prediction when the lag-$l$  value is moved from the lower to the upper bin bound:
+
+\begin{align*}
+  \text{LocalDiff}_{j}^{(i, l)} = 
+  \hat{f}\left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_j^{(i, \cdot)}[l \to z_{j, l}(k)], \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right) \\
+  - \hat{f}\left(\boldsymbol x_1^{(i)}, \dots, \boldsymbol x_j^{(i, \cdot)}[l \to z_{j, l}(k - 1)], \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)}, \dots, s_s^{(i)}\right)
+\end{align*}
+
+2. Average these differences over all observations in bin $k$ to obtain the local effect of bin $k$:
+$$
+\text{LocalEffect}_{j, k}^{(l)} = \frac{1}{n_{j, l}(k)} \sum_{i : x_j^{(i, l)} \in N_{j, l}(k)} \text{LocalDiff}_j^{(i, l)}
+$$
+3. Accumulate the local effects of all bins up to $a$:
+$$
+\mathrm{ALE}_j^{(l), \text{ uncent.}}(a) = \sum_{k=1}^{k_{j, l}(a)} \text{LocalEffect}_{j, k}^{(l)}
+$$
+4. Center the curve so that its average over the test data is zero:
+$$
+\mathrm{ALE}_j^{(l)}(a) = \mathrm{ALE}_j^{(l), \text{ uncent.}}(a) - \frac{1}{n} \sum_{i=1}^n \mathrm{ALE}_j^{(l), \text{ uncent.}} \left(x_j^{(i, l)}\right)
+$$
+
+### Lag Importance using ALE
+
+ALE Curves can also be used to quantify feature importance. Intuitively, the more ALE curve varies, the greater the feature's influence on the prediction: Strong variation means that small changes in the feature value already lead to noticeable changes in the prediction, whereas a flat (constant) ALE curve indicates that local changes in the feature have little to no effect.
+
+We use the standard deviation of the ALE curve as a measure of feature importance, applied separately to each lag of a given feature. Specifically:
+
+1. Compute the ALE curve separately for every lag $l = 0, \dots, 364$ of the feature.
+2. Use the standard deviation of each lag's ALE curve as a measure of that lag's importance for the prediction:
+$$
+\mathrm{Importance}_{x_j}(l) = \mathrm{sd}\left(\mathrm{ALE}_j^{(l)}\right) = \sqrt{\frac{1}{n} \sum_{k=1}^m n_{j, l}(k) \left(\mathrm{ALE}_j^{(l)}\left(z_{j, l}(k)\right)\right)^2}
+$$
+
+Note that this method only captures how important a single lag alone is for today's prediction, not the joint effect of a whole historical interval. A given day might have little effect on its own, yet contribute meaningfully to the prediction only in combination with neighboring days.
+
+### 2D Partial Dependence Plot
+Finally, we examine the joint effect of the two most important features, $X_j$ and $X_k$, on the target using a two-dimensional Partial Dependence Plot (PDP). This works analogously to the one-dimensional case, but both features are manipulated simultaneously (each according to its own scale type (interval or ratio)), while all other feature are left unchanged. As before, the resulting differences are averaged over all $n$ observations in the test set:
+
+$$
+\mathrm{PDP}_{j, k}(a, b) = \frac{1}{n}\sum_{i=1}^n \left[\hat f \left(\dots, \boldsymbol x_j^{(i, \cdot)} \oplus a, \dots, \boldsymbol x_k^{(i, \cdot)} \oplus b,\dots \right) - \hat f \left(\boldsymbol x_1^{(i, \cdot)}, \dots, \boldsymbol x_d^{(i, \cdot)}, s_1^{(i)},\dots, s_s^{(i)} \right)\right]
+$$
+where $\oplus$ denotes addition (for interval-scaled features) or multiplication for ratio-scaled features), applied depending on the scale type of $X_j$ and $X_k$ respectively, and $a, b$ are the corresponding manipulation values for $X_j$ and $X_k$.
+
+The resulting surface additionally reveals wether and how the effect of one feature depends on the value of the other.
+
+**Limitation**: As with the one-dimensional PDP, this approach can produce unrealistic, out-of-distribution feature combinations if $X_j$ and $X_k$ are strongly correlated with each other or with other features.
+
+
+## Results
+### Permutation Feature Importance
+
+Figure ... shows the feature importance of static (left) and dynamic (right) features. The most important features are Air Temperature and Solar Radiation. Their importance values are more than ten times higher than the highest importance value among the static features.
+
+### Partial Dependence Plots (PDP)
+
+Figure ... shows the Partial Dependence Plots for Air Temperature and Solar Radiation. Each gray line represents the ICE curve of an individual observation, that is, how that observation's prediction would change under the corresponding offset or factor, while the red line shows the averaged PDP curve.
+
+The PDP for Air Temperature shows a nearly linear trend for offsets with small absolute value, flattening for offsets with large absolute value. This is consistent with our expectations: at sufficient high or low air temperatures, we would expect the effect on water temperature to be damped relative to the near-linear response observed for smaller offsets.
+
+For Solar Radiation, we likewise observe a nearly linear relationship with water temperature, again slightly damped for large factors. The ICE curves show that the slope varies considerably across individual observations. On average, if solar radiation had been ... higher over the entire last year, with all other features unchanged, water temperature would increase by approximately 1°C.
+
+Nevertheless, the interpretation of PDPs at large offsets should be treated with caution: as shown in Section ..., Air Temperature and Solar Radiation are correlated with each other and with relative humidity and large offsets may extrapolate feature values beyond the range observed in the training data.
+
+### ALE Curves for the Most Recent Day (Lag 0)
+
+We computed ALE curves once across all observations (black) and separately for observations falling within each season. The points represent the bin bounds, connected by lines that trace the estimated local effect across the feature range. The rug plot below each curve shows the feature's distribution within each season.
+
+We observe a pattern similar to the PDPs: overall and consistently across seasons, the relationship follows a roughly linear trend, slightly damped at high air temperatures. For Solar Radiation, the relationship remains approximately linear throughout the observed range.
+
+### Lag Importance (ALE)
+
+For both variables, lag importance decreases rapidly as lag increases. For Air Temperature, importance falls below 0.01 after lag ..., for Solar Radiation after lag .... Note that the y-axes of the two plots are scaled differently. Relative to its importance ar Lag 0, solar radiation's importance decreases more slowly with increasing lag, but its absolute importance remains lower than that of Air Temperature across all lags.
+
+### 2D Partial Dependence Plot
+
+We again observe a joint, approximately linear relationship between Air Temperature, Solar Radiation and Water Temperature.
