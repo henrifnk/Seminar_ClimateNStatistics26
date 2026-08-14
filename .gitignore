@@ -14,3 +14,5 @@ book.tex
 packages.bib
 .DS_Store
 work/.DS_Store
+work/13-diffusion_downscaling/data
+work/13-diffusion_downscaling/code/src/plot_diffusion_process
