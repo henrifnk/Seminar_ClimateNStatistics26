@@ -12,7 +12,7 @@ library(kableExtra)
 
 # Interpretable Riverine Heatwaves {#irh}
 
-*Author: Alejandro Zielke Esteban*
+*Author: Alexander Zielke Esteban*
 
 *Supervisor: Henri Funk*
 
@@ -20,9 +20,16 @@ library(kableExtra)
 
 ## Abstract
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+This study examines how riverine water temperatures can be modelled using a Long-Short-Term Memory (LSTM) model together with a set of environmental features and how the resulting model can be interpreted using several machine learning interpretability methods presented in @molnar2025 and adapted to our setting. The model was implemented in Python using the Neural Hydrology library. Results indicate that air temperature and solar radiation are the most important features for water temperature prediction, both showing an approximately linear relationship with water temperature.
+
 
 ## Introduction
+
+Riverine heatwaves are an increasingly concerning problem, with impacts on both ecological and socioeconomic systems: They cause elevated thermal stress for aquatic animals, reduce the thermal cooling efficiency of power plants and degrade drinking water quality [@vanHamel2025]. To understand which environmental factors drive riverine water temperatures, we model the water temperature of the Main River using an LSTM and several environmental features. Specifically, we address the following research questions:
+
+1. How does an LSTM model perform in this context?
+2. What are the most influential features?
+3. In what ways do these features affect water temperature?
 
 
 ## Data
@@ -117,7 +124,7 @@ Figure ... shows the distribution of the dynamic variables, both across all stat
 ### Model Explanation
 **Long-Short-Term-Memory (LSTM) Model** 
 
-A Long-Short-Term Memory (LSTM) network is a type of recurrent neural network (RNN) designed for sequential data, such as time series. LSTMs were introduced to mitigate the vanishing-gradient problem of conventional RNNs by incorporating a separate cell state and gated information flow. This allows information to be retained or discarded over longer time intervals, enabling the model to capture temporal dependencies in sequential data.
+A Long-Short-Term Memory (LSTM) network is a type of recurrent neural network (RNN) designed for sequential data, such as time series [@zhang2023dive]. LSTMs were introduced to mitigate the vanishing-gradient problem of conventional RNNs by incorporating a separate cell state and gated information flow. This allows information to be retained or discarded over longer time intervals, enabling the model to capture temporal dependencies in sequential data.
 
 <!-- TODO: Add Figure LSTM - Sequential processing
 Sequential processing of the input data by an LSTM. Each cell represents one time step and receives the current input as well as the hidden and cell states from the previous time step.
@@ -429,6 +436,9 @@ The resulting surface additionally reveals wether and how the effect of one feat
 
 
 ## Results
+### Model Evaluation
+The model achieved an overall NSE of 0.9814 on the test set, indicating strong predictive performance.
+
 ### Permutation Feature Importance
 
 Figure ... shows the feature importance of static (left) and dynamic (right) features. The most important features are Air Temperature and Solar Radiation. Their importance values are more than ten times higher than the highest importance value among the static features.
@@ -451,8 +461,18 @@ We observe a pattern similar to the PDPs: overall and consistently across season
 
 ### Lag Importance (ALE)
 
-For both variables, lag importance decreases rapidly as lag increases. For Air Temperature, importance falls below 0.01 after lag ..., for Solar Radiation after lag .... Note that the y-axes of the two plots are scaled differently. Relative to its importance ar Lag 0, solar radiation's importance decreases more slowly with increasing lag, but its absolute importance remains lower than that of Air Temperature across all lags.
+For both variables, lag importance decreases rapidly as lag increases. For Air Temperature, the importance falls below 0.01 after lag ..., for Solar Radiation after lag .... Note that the y-axes of the two plots are scaled differently. Relative to its importance ar Lag 0, solar radiation's importance decreases more slowly with increasing lag, but its absolute importance remains lower than that of Air Temperature across all lags.
 
 ### 2D Partial Dependence Plot
 
 We again observe a joint, approximately linear relationship between Air Temperature, Solar Radiation and Water Temperature.
+
+
+## Conclusion
+
+The LSTM model performed well, achieving an NSE of 0.9814 on the test set. According to Permutation Feature Importance, Air Temperature and Solar Radiation emerged as the moost important features, both showing a positive, approximately linear relationship with water temperature.
+
+## Outlook
+
+Future work could incorporate station coordinates as an additional input, allowing the model to be used for regionalization by varying these coordinates to predict water temperature at ungauged locations. Another interesting approach would be to include the dynamic feature values of stations located further upstream along the river network as additional dynamic features for the station of interest, in order to model and explore the spatial dependence structure of water temperature along the river network.
+
