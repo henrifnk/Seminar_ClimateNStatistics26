@@ -5,6 +5,7 @@ output:
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 library(bookdown)
 library(svglite)
 library(kableExtra)
@@ -37,17 +38,15 @@ Riverine heatwaves are an increasingly concerning problem, with impacts on both 
 
 The data used in this study originate from the [BayWat-AI](https://henrifnk.github.io/henrifnk/projects.html) project and are provided by the Bavarian Landesamt für Umwelt (LfU) and the Gewässerkundlicher Dienst Bayern (GKD).
 
-<!-- 
-TODO: Map of the stations
-Caption: Map of the 14 measurement stations along the river Main and its tributaries Regnitz Fränkische Saale, Itz and Wern
--->
+```{r fig-stations-map, fig.cap="Map of the 14 measurement stations along the river Main and its tributaries Regnitz, Fränkische Saale, Itz and Wern. Map created with Felt and River Data from Natural Earth Data."}
+knitr::include_graphics("work/06-interpretable_heat/figures/images/stations_map.png")
+```
 
 The dataset comprises river and environmental data from 14 measurement stations located along the river Main and its tributaries. The following variables are available:
 
-<!-- 
-TODO: Divide Text in three columns
--->
+:::: {.columns style="display: flex;"}
 
+::: {.column width="48%"}
 **Static variables (station-specific)**
 
 - Elevation (m a.s.l.)
@@ -62,7 +61,12 @@ TODO: Divide Text in three columns
     - River mouth
     - River source
 - Total river length (km)
+:::
 
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
 **Dynamic variables**
 
 - Water temperature (°C)
@@ -72,6 +76,9 @@ TODO: Divide Text in three columns
 - Relative humidity [0-1]
 - Solar radiation (Wh/$\text{m}^2$)
 - Discharge ($\text{m}^3$/s)
+:::
+
+::::
 
 The static variables describe different environmental characteristics of the area surrounding each measurement station and remain constant over time. In contrast, the dynamic variables vary over time and are measured at the respective stations.
 
@@ -79,46 +86,48 @@ In the original dataset, the dynamic variables were recorded at three-hour inter
 
 ### Preprocessing
 
-<!-- TODO: Add figure and section reference-->
+```{r fig-stations-periods, fig.cap="Temporal coverage of each measurement station.", out.width="100%"}
+knitr::include_graphics("work/06-interpretable_heat/figures/stations_periods.svg")
+```
 
-Figure ... illustrates the temporal coverage of the different measurement stations. The vertical dotted lines indicate the beginning of the validation and test periods, respectively (see section ... for a detailed description of the train, validation and test periods). As a result of the temporal split, the station Main (Mainleus) is only represented in the test set.
+Figure \@ref(fig:fig-stations-periods) illustrates the temporal coverage of the different measurement stations. The vertical dotted lines indicate the beginning of the validation and test periods, respectively (see Section \@ref(sec-model-impl) for a detailed description of the train, validation and test periods).
 
 For a given variable and station, a daily value was calculated only if all eight three-hourly observations for that day were available. Otherwise, the daily value was set to missing (NA).
 
-<!-- TODO: Add figure reference-->
+Figure \@ref(fig:fig-stations-missing-patterns) shows the resulting missing-data patterns of the dynamic variables.
 
-Figure ... shows the resulting missing-data patterns of the dynamic variables.
-
-<!-- TODO: Figure: Missing Patterns of dynamic variables on a daily basis for each station.
-A daily value is missing if at least one of the eight three-hourly observations for the respective variable and station is missing.
--->
+```{r fig-stations-missing-patterns, fig.cap=" Missing Patterns of dynamic variables on a daily basis for each station. A daily value is missing if at least one of the eight three-hourly observations for the respective variable and station is missing.", fig.show='hold'}
+knitr::include_graphics(
+  c("work/06-interpretable_heat/figures/stations_missings_wt.svg",
+    "work/06-interpretable_heat/figures/stations_missings_Ta_C_P_mm_wind_ms_rad_whm2_relhum.svg",
+    "work/06-interpretable_heat/figures/stations_missings_Q.svg")
+)
+```
 
 
 <!-- TODO: verify exact dates-->
 
 Large periods of missing discharge data can be observed between 2017 and 2021 at the stations Main (Würzburg), Main (Steinbach), Main (Schweinfurt) and Main (Kleinheubach). At Main (Krotzenburg), discharge data are missing throughout the entire observation period.
 
-<!-- Alternatively, move this decision to a later section describing the train, validation and test split -->
+Therefore, Main (Krotzenburg) was excluded from the analysis entirely. The four stations with substantial gaps in discharge data were excluded from the test set.
 
-Therefore, Main (Krotzenburg) was excluded from the analysis entirely. The four stations with substantial gaps in discharge data were excluded form the test set.
+### Correlations {#sec-corr}
 
-### Description
+```{r fig-corr-vars-heatmap, fig.cap="Heatmap of pairwise correlations between all variables. For dynamic variables, it shows the correlations of the daily synchronized values of all available days."}
+knitr::include_graphics("work/06-interpretable_heat/figures/corr_vars_heatmap.svg")
+```
 
-Figure ... shows the pairwise correlations between all variables.
 
-<!-- TODO: Figure: Heatmap of pairwise correlations between all variables. For dynamic variables, it shows the correlations of the daily synchronized values of all available days. -->
-
-<!-- possibly add to caption: Thus, for example, the correlation between water temperature and a dynamic variable reflects the realtionship between their values on the same day.-->
-
-We observe that water temperature shows a strong positive correlation with air temperature (0.91) and solar radiation (0.72) and a moderate negative correlation with relative humidity (-0.48). Furthermore, solar radiation itself is positively correlated with air temperature (0.71) and strongly negatively correlated with relative humidity (-0.80).
+In Figure \@ref(fig:fig-corr-vars-heatmap), we observe that water temperature shows a strong positive correlation with air temperature (0.91) and solar radiation (0.72) and a moderate negative correlation with relative humidity (-0.48). Furthermore, solar radiation itself is positively correlated with air temperature (0.71) and strongly negatively correlated with relative humidity (-0.80).
 
 <!-- TODO: Add figure:
 Either density plot or time series plot of dynamic variables
 Perhaps also a plot for static variables?
 -->
 
+<!--
 Figure ... shows the distribution of the dynamic variables, both across all stations (blue) and separately for each station (grey). The distributions of discharge and precipitation are strongly right-skewed.
-
+-->
 
 ## Modelling
 ### Model Explanation
@@ -126,22 +135,22 @@ Figure ... shows the distribution of the dynamic variables, both across all stat
 
 A Long-Short-Term Memory (LSTM) network is a recurrent neural network (RNN) architecture designed for sequential data, such as time series [@zhang2023dive]. LSTMs mitigate the vanishing-gradient problem of conventional RNNs by incorporating a separate cell state with gated information flow. This allows information to be retained or discarded over longer time intervals, enabling the model to capture temporal dependencies.
 
-<!-- TODO: Add Figure LSTM - Sequential processing
-Sequential processing of the input data by an LSTM. Each cell represents one time step and receives the current input as well as the hidden and cell states from the previous time step.
--->
+```{r fig-lstm-seq-proc, fig.cap="Sequential processing of the input data by an LSTM. Each cell represents one time step and receives the current input as well as the hidden and cell states from the previous time step."}
+knitr::include_graphics("work/06-interpretable_heat/figures/images/lstm_sequential_processing.svg")
+```
 
-The data are processed sequentially, one time step after another, as illustrated in Figure ... (in this study, one time step corresponds to one day). At each step, an LSTM cell receives the current input together with the hidden and cell state from the previous time step:
+The data are processed sequentially, one time step after another, as illustrated in Figure \@ref(fig:fig-lstm-seq-proc) (in this study, one time step corresponds to one day). At each step, an LSTM cell receives the current input together with the hidden and cell state from the previous time step:
 
 - $\mathbf{X}^{(t)} \in \mathbb{R}^{n \times d}$: Input batch containing $n$ observations of the $d$ features at day $t$. These observations are processed simultaneously and independently, each yielding one model output.
 - $\mathbf{H}^{(t-1)}, \mathbf{C}^{(t-1)} \in \mathbb{R}^{n \times h}$: Hidden and cell state from the previous time step, respectively (hidden size $h$)
 
 The cell state acts as long-term memory, retaining information over longer periods, while the hidden state can be interpreted as a more immediate representation of the sequence history.
 
-<!-- TODO: Add Figure LSTM Cell Structure
-Structure of an LSTM cell. The current input and previous hidden state are combined and passed through the forget, input and output gates and the input node to update the cell and hidden states.
--->
+```{r fig-lstm-cell-structure, fig.cap="Structure of an LSTM cell. The current input and previous hidden state are combined and passed through the forget, input and output gates and the input node to update the cell and hidden states."}
+knitr::include_graphics("work/06-interpretable_heat/figures/images/lstm_cell_structure.svg")
+```
 
-Figure ... illustrates the computations within an LSTM cell.
+Figure \@ref(fig:fig-lstm-cell-structure) illustrates the computations within an LSTM cell.
 
 The hidden state of the previous time step is concatenated with the current input:
 
@@ -186,19 +195,15 @@ The updated cell and hidden states are then passed to the next time step. The hi
 
 All weight matrices and bias vectors are learned during training and shared across time steps and observations within a batch, i.e. they are independent of $t$ and $n$.
 
-### Implementation
+### Implementation {#sec-model-impl}
 
 **Prediction Setting**
 
-The prediction setting is illustrated in Figure .... The target is the water temperature of the current day, i.e. at lag 0. It is predicted from the static variables and the observations of the remaining dynamic variables over a historical window of 365 days, ranging from lag 364 to lag 0.
-
-<!-- TODO: Add Figure Prediction Setting
-Prediction Setting. The water temperature at lag 0 is predicted using the static variables and a 365-day history of the remaining dynamic variables, ranging from lag 364 to lag 0.
--->
+The target is the water temperature of the current day, i.e. at lag 0. It is predicted from the static variables and the observations of the remaining dynamic variables over a historical window of 365 days, ranging from lag 364 to lag 0.
 
 **Model Configuration**
 
-The model was implemented in Python using the Neural Hydrology library (<!-- TODO: Add additional information or link/ reference -->). The main model configuration is summarized in Table \@ref(tab:lstm-config). 
+The model was implemented in Python using the Neural Hydrology library.<!-- TODO: Add additional information or link/ reference --> The main model configuration is summarized in Table \@ref(tab:lstm-config). 
 
 Table: (#tab:lstm-config) Configuration of the LSTM model
 
@@ -218,11 +223,11 @@ The input data are provided to the model as a three-dimensional tensor with dime
 $$
 \left[n_{\mathrm{samples}}, n_{\mathrm{features}}, n_{\mathrm{lags}}\right]
 $$
-where the dimensions correspond to observations, variables and time lags, respectively, as illustrated in Figure .... The entry at position $(i, x, l)$ contains the value of feature $x$ for the $i$-th observation at lag $l$.
+where the dimensions correspond to observations, variables and time lags, respectively, as illustrated in Figure \@ref(fig:fig-lstm-input-output-structure). The entry at position $(i, x, l)$ contains the value of feature $x$ for the $i$-th observation at lag $l$.
 
-<!-- TODO: Add Figure LSTM Input and Output Structure
-Input and output structure of the LSTM. The dynamic features are arranged in a three-dimensional tensor with dimensions corresponding to samples, variables and lags. The static features are replicated across all time steps and concatenated with the dynamic features. The model produces a prediction for each time step, resulting in a (n_samples, 1, n_lags) tensor, of which only the prediction at lag 0 is used as the target prediction.
--->
+```{r fig-lstm-input-output-structure, fig.cap="Input and output structure of the LSTM model. The dynamic features are arranged in a three-dimensional tensor with dimensions corresponding to samples, variables and lags. The static features are replicated across all time steps and concatenated with the dynamic features. The model produces a prediction for each time step, resulting in a $(n_{samples}, 1, n_{lags})$ tensor, of which only the prediction at lag 0 is used as the target prediction."}
+knitr::include_graphics("work/06-interpretable_heat/figures/images/lstm_input_output_structure.svg")
+```
 
 To incorporate the static features, we use a replication approach, where the matrix containing the static features for the $n_{\mathrm{samples}}$ observations is copied across all 365 time steps. The resulting tensor is then concatenated with the tensor of dynamic features, such that the static features are provided as additional inputs at every time step.
 
@@ -235,14 +240,11 @@ The model produces a water temperature prediction for each observation at every 
 The model was evaluated using the Nash-Sutcliffe Efficiency (NSE), defined as 
 
 $$
-\mathrm{NSE} = 1 - \frac{\sum_{t = 1}^T\left(y_t - \hat y_t\right)^2}{\sum_{t=1}^T \left(y_t - \bar{y}\right)^2}
+\mathrm{NSE}(\boldsymbol y, \hat{\boldsymbol y}) = 1 - \frac{\sum_{i = 1}^n\left(y^{(i)} - \hat y^{(i)}\right)^2}{\sum_{i=1}^n \left(y^{(i)} - \bar{y}\right)^2}
 $$
-where $y_t$ denotes the observed water temperature at time step $t$ of the test set, $\hat{y}_t$ the corresponding model prediction, $\bar{y}$ the mean of the observed water temperatures over the test period and $T$ is the number of time steps in the test period.
+where $y^{(i)}$ denotes the observed water temperature of the $i$-th observation in the test set, $\hat{y}^{(i)}$ the corresponding model prediction, $\bar{y}$ the mean of the observed water temperatures in the test set and $n$ the number of observations in the test set.
 
 The NSE compares the model predictions against a baseline that always predicts the mean of the observed values. An NSE of 1 indicates a perfect fit, an NSE of 0 indicates performance equal to this baseline and an NSE below 0 indicates performance worse than the baseline.
-
-In addition to the overall model performance, we specifically evaluate the model at the station Main (Mainleus). Since this station is included in neither the training nor the validation set, this provides an assessment of the model's ability to generalize to an unobserved station, i.e. a form of spatial generalization.
-
 
 ## Interpretability
 
@@ -251,7 +253,7 @@ Beyond predictive performance, we aimed to understand how the model captures the
 First, we used **Permutation Feature Importance** to assess the overall importance of the input features. Based on these results, we examined the two most important features from four complementary perspectives:
 
 1. **Overall dependence over the whole last year:** 
-Via a variation of Partial Dependence Plots (PDPs), investigating how manipulating a feature's entire 365-day history by adding a constant offset $a$ or multiplying each day with a constant factor $a$ affects the predicted water temperature. all else kept unchanged.
+Via a variation of Partial Dependence Plots (PDPs), investigating how manipulating a feature's entire 365-day history by adding a constant offset $a$ or multiplying each day with a constant factor $a$ affects the predicted water temperature.
 2. **Dependence on the most recent observation:** 
 Using Accumulated Local Effects (ALE) plots, which are robust to correlated features, we examine how a feature's value at lag 0 affects today's prediction.
 3. **Lag Importances of a feature:** 
@@ -283,7 +285,13 @@ $$
 \mathrm{NSE}_{\text{test}} = 1 - \frac{\sum_{i = 1}^n \left(y^{(i)} - \hat{y}^{(i)}\right)^2}{\sum_{i = 1}^n \left(y^{(i)} - \bar{y}\right)^2} 
 $$
 
-The permutation itself differs between the two feature types, as illustrated in Figure .... For a static feature $S_j$, the observation $s_j^{(1)}, \dots, s_j^{(n)}$ are permuted randomly across observations. For a dynamic feature $X_j$, the time series $x_j^{(i, 0)}, \dots, x_j^{(i, 364)}$ is permuted within each observation $i$. In both cases, the following three streps are then applied:
+The permutation itself differs between the two feature types, as illustrated in Figure \@ref(fig:fig-tensor-feature-perm). For a static feature $S_j$, the observation $s_j^{(1)}, \dots, s_j^{(n)}$ are permuted randomly across observations. For a dynamic feature $X_j$, the time series $x_j^{(i, 0)}, \dots, x_j^{(i, 364)}$ is permuted within each observation $i$. 
+
+```{r fig-tensor-feature-perm, fig.cap="Manipulation of the static feature matrix and dynamic feature tensor for the calculation of Permutation Feature Importance. For static features, the corresponding feature values are permuted across all observations. For dynamic features, the time series of the corresponding feature is permuted within each observation."}
+knitr::include_graphics("work/06-interpretable_heat/figures/images/tensor_feature_permutation.svg")
+```
+
+In both cases, the following three steps are then applied:
 
 1. Randomly permute the feature, obtaining $\boldsymbol s_j^{\text{perm}} = \left(s_j^{\text{perm},\, (1)}, \dots, s_j^{\text{perm},\, (n)}\right)$ (static) or $\boldsymbol{x}_j^{\mathrm{perm}, \, (i, \cdot)}$ for each $i$ (dynamic).
 2. Compute the predictions with the feature permuted:
@@ -304,22 +312,19 @@ $$
 \boldsymbol{\hat{y}}_{s_j \text{ perm}} = \left(\hat y_{s_j \text{ perm}}^{(1)}, \dots, \hat y_{s_j \text{ perm}}^{(n)}\right), \boldsymbol{\hat y}_{x_j \text{ perm}} = \left(\hat y_{x_j \text{ perm}}^{(1)}, \dots, \hat y_{x_j \text{ perm}}^{(n)}\right)
 $$
 
-<!-- TODO: Add Figure Tensor Feature Permutation: Manipulation of the static feature matrix and dynamic feature tensor for the calculation of Permutation Feature Importance. For static features, the corresponding feature values are permuted across all observations. For dynamic features, the time series of the corresponding feature is permuted within each observation.
--->
-
 ### Partial Dependence Plots (for dynamic features)
 
 Here, we address the question: 
 "How would the predicted water temperature change, on average, if feature $X_j$ had been $a$ units (or times) higher over the entire last year?"
 
-To this end, we manipulate the entire time series of the feature at once (leaving all other features untouched), distinguishing between interval-scaled and ratio-scaled features, as shown in figure ...:
+To this end, we manipulate the entire time series of the feature at once (leaving all other features untouched), distinguishing between interval-scaled and ratio-scaled features, as shown in figure \@ref(fig:fig-tensor-pdp):
 
 - interval-scaled features: add a constant offset $a$ to all observed values of the feature
 - ratio-scaled features: multiply all observed values by a constant factor $a$, preserving the natural zero point
 
-<!-- Add Figure Tensor PDP:
-Manipulation of the dynamic feature tensor for the computation of the Partial Dependence Plot. For interval-scaled features, a constant offset a is added to the corresponding feature; for ratio-scaled features, the corresponding feature is multiplied by a constant factor a.
--->
+```{r fig-tensor-pdp, fig.cap="Manipulation of the dynamic feature tensor for the computation of the Partial Dependence Plot. For interval-scaled features, a constant offset a is added to the corresponding feature (left tensor); for ratio-scaled features, the corresponding feature is multiplied by a constant factor a (right tensor)."}
+knitr::include_graphics("work/06-interpretable_heat/figures/images/tensor_pdp.svg")
+```
 
 In both cases, we compare the resulting prediction to the prediction obtained with the original, unmanipulated feature values. This results in a variation of an Individual Conditional Expectation (ICE) curve for each observation, expressing how the predicted deviation from the original prediction changes as a function of $a$.
 
@@ -377,9 +382,9 @@ $$
 
 ### Lag Importance using ALE
 
-ALE Curves can also be used to quantify feature importance. Intuitively, the more ALE curve varies, the greater the feature's influence on the prediction: Strong variation means that small changes in the feature value already lead to noticeable changes in the prediction, whereas a flat (constant) ALE curve indicates that local changes in the feature have little to no effect.
+ALE Curves can also be used to quantify feature importance. Intuitively, the more an ALE curve varies, the greater the feature's influence on the prediction: Strong variation means that small changes in the feature value already lead to noticeable changes in the prediction, whereas a flat (constant) ALE curve indicates that local changes in the feature have little to no effect.
 
-We use the standard deviation of the ALE curve as a measure of feature importance, applied separately to each lag of a given feature. Specifically:
+We use the standard deviation of the ALE curve as a measure of importance, applied separately to each lag of a given feature. Specifically:
 
 1. Compute the ALE curve separately for every lag $l = 0, \dots, 364$ of the feature.
 2. Use the standard deviation of each lag's ALE curve as a measure of that lag's importance for the prediction:
@@ -408,36 +413,64 @@ The model achieved an overall NSE of 0.9814 on the test set, indicating strong p
 
 ### Permutation Feature Importance
 
-Figure ... shows the feature importance of static (left) and dynamic (right) features. The most important features are Air Temperature and Solar Radiation. Their importance values are more than ten times higher than the highest importance value among the static features.
+```{r fig-feat-imp, fig.cap="Permutation Feature Importance of static (orange) and dynamic (blue) features.", fig.show='hold'}
+knitr::include_graphics(c(
+  "work/06-interpretable_heat/figures/int_perm_importance_static.svg",
+  "work/06-interpretable_heat/figures/int_perm_importance_dynamic.svg"
+))
+```
+
+As shown in Figure \@ref(fig:fig-feat-imp), the most important features according to Permutation Feature Importance are Air Temperature and Solar Radiation. Their importance values are more than ten times higher than the highest importance value among the static features.
 
 ### Partial Dependence Plots (PDP)
 
-Figure ... shows the Partial Dependence Plots for Air Temperature and Solar Radiation. Each gray line represents the ICE curve of an individual observation, that is, how that observation's prediction would change under the corresponding offset or factor, while the red line shows the averaged PDP curve.
+```{r fig-pdp, fig.cap="Partial Dependence Plots for Air Temperature and Solar Radiation. Each gray line represents the ICE curve of an individual observation, that is, how that observation's prediction would change under the corresponding offset or factor, while the red line shows the averaged PDP curve.", fig.show='hold'}
+knitr::include_graphics(c(
+  "work/06-interpretable_heat/figures/int_pdp_Ta_C.svg",
+  "work/06-interpretable_heat/figures/int_pdp_rad_whm2.svg"
+))
+```
 
-The PDP for Air Temperature shows a nearly linear trend for offsets with small absolute value, flattening for offsets with large absolute value. This is consistent with our expectations: at sufficient high or low air temperatures, we would expect the effect on water temperature to be damped relative to the near-linear response observed for smaller offsets.
+The PDP for Air Temperature (\@ref(fig:fig-pdp)) shows a nearly linear trend for offsets with small absolute value, flattening for offsets with large absolute value. This is consistent with our expectations: at sufficient high or low air temperatures, we would expect the effect on water temperature to be damped relative to the (nearly) linear response observed for smaller offsets.
 
-For Solar Radiation, we likewise observe a nearly linear relationship with water temperature, again slightly damped for large factors. The ICE curves show that the slope varies considerably across individual observations. On average, if solar radiation had been ... higher over the entire last year, with all other features unchanged, water temperature would increase by approximately 1°C.
+For Solar Radiation, we likewise observe a nearly linear relationship with water temperature, again slightly damped for large factors. The ICE curves show that the slope varies considerably across individual observations. On average, if solar radiation had been 50 percent higher over the entire last year, with all other features unchanged, water temperature would increase by approximately 1°C.
 
-Nevertheless, the interpretation of PDPs at large offsets should be treated with caution: as shown in Section ..., Air Temperature and Solar Radiation are correlated with each other and with relative humidity and large offsets may extrapolate feature values beyond the range observed in the training data.
+Nevertheless, the interpretation of PDPs at large offsets should be treated with caution: As shown in Section \@ref(sec-corr), Air Temperature and Solar Radiation are correlated with each other and with relative humidity. Further, large offsets may extrapolate feature values beyond the range observed in the training data.
 
 ### ALE Curves for the Most Recent Day (Lag 0)
 
-We computed ALE curves once across all observations (black) and separately for observations falling within each season. The points represent the bin bounds, connected by lines that trace the estimated local effect across the feature range. The rug plot below each curve shows the feature's distribution within each season.
+```{r fig-ale, fig.cap="ALE curves once across all observations (black) and separately for observations falling within each season. The points represent the bin bounds, connected by lines that trace the estimated local effect across the feature range. The rug plot below each curve shows the feature's distribution within each season.", fig.show='hold'}
+knitr::include_graphics(c(
+  "work/06-interpretable_heat/figures/int_ale_Ta_C.svg",
+  "work/06-interpretable_heat/figures/int_ale_rad_whm2.svg"
+))
+```
 
-We observe a pattern similar to the PDPs: overall and consistently across seasons, the relationship follows a roughly linear trend, slightly damped at high air temperatures. For Solar Radiation, the relationship remains approximately linear throughout the observed range.
+Regarding the ALE curves, we observe a similar pattern to the PDPs: overall and consistently across seasons, the relationship follows a roughly linear trend, slightly damped at high air temperatures. For Solar Radiation, the relationship remains approximately linear throughout the whole observed range.
 
 ### Lag Importance (ALE)
 
-For both variables, lag importance decreases rapidly as lag increases. For Air Temperature, the importance falls below 0.01 after lag ..., for Solar Radiation after lag .... Note that the y-axes of the two plots are scaled differently. Relative to its importance ar Lag 0, solar radiation's importance decreases more slowly with increasing lag, but its absolute importance remains lower than that of Air Temperature across all lags.
+```{r fig-lag-importance, fig.cap="Lag Importance for different Lags of Air Temperature and Solar Radiation. Note that the y-axes of the two plots are scaled differently.", fig.show='hold'}
+knitr::include_graphics(c(
+  "work/06-interpretable_heat/figures/int_lag_importance_Ta_C.svg",
+  "work/06-interpretable_heat/figures/int_lag_importance_rad_whm2.svg"
+))
+```
+
+For both variables, lag importance decreases rapidly as lag increases. Relative to its importance at Lag 0, solar radiation's importance decreases more slowly with increasing lag, but its absolute importance remains lower or similar to that of Air Temperature across all lags.
 
 ### 2D Partial Dependence Plot
 
-We again observe a joint, approximately linear relationship between Air Temperature, Solar Radiation and Water Temperature.
+```{r fig-pdp-2d, fig.cap="Two-dimensional Partial Dependence Plot of Air Temperature and Solar Radiation"}
+knitr::include_graphics("work/06-interpretable_heat/figures/int_pdp2d_Ta_C_rad_whm2.svg")
+```
+
+We observe a joint, approximately monotonic relationship between Air Temperature, Solar Radiation and Water Temperature.
 
 
 ## Conclusion
 
-The LSTM model performed well, achieving an NSE of 0.9814 on the test set. According to Permutation Feature Importance, Air Temperature and Solar Radiation emerged as the moost important features, both showing a positive, approximately linear relationship with water temperature.
+The LSTM model performed well, achieving an NSE of 0.9814 on the test set. According to Permutation Feature Importance, Air Temperature and Solar Radiation emerged as the most important features, both showing a positive, approximately linear relationship with water temperature.
 
 ## Outlook
 

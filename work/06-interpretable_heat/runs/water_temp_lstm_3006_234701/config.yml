@@ -1,0 +1,99 @@
+additional_feature_files: None
+batch_size: 256
+cache_validation_data: true
+checkpoint_path: None
+clip_gradient_norm: 1
+clip_targets_to_zero:
+commit_hash: 0b7dc02
+data_dir: data\processed
+dataset: generic
+device: cpu
+dynamic_inputs:
+- Ta_C
+- P_mm
+- wind_ms
+- rad_whm2
+- relhum
+- Q
+epochs: 30
+evolving_attributes:
+experiment_name: water_temp_lstm
+head: regression
+hidden_size: 64
+img_log_dir: C:\Users\AZE\Documents\1 Projects\Climate Change 
+  Seminar\water_temp_lstm\runs\water_temp_lstm_3006_234701\img_log
+initial_forget_bias: 3
+learning_rate:
+  0: 0.001
+  10: 0.0005
+  20: 0.0001
+log_interval: 5
+log_n_figures: 2
+log_tensorboard: true
+loss: MSE
+metrics:
+- NSE
+- KGE
+- Alpha-NSE
+- Beta-NSE
+model: cudalstm
+num_workers: 0
+number_of_basins: 12
+ode_method: euler
+ode_num_unfolds: 4
+ode_random_freq_lower_bound: 6D
+optimizer: Adam
+output_activation: linear
+output_dropout: 0.4
+package_version: 1.13.0
+per_basin_test_periods_file: None
+per_basin_train_periods_file: None
+per_basin_validation_periods_file: None
+predict_last_n: 1
+regularization:
+run_dir: C:\Users\AZE\Documents\1 Projects\Climate Change 
+  Seminar\water_temp_lstm\runs\water_temp_lstm_3006_234701
+save_train_data: true
+save_validation_results: true
+save_weights_every: 1
+seed: 225
+seq_length: 365
+shared_mtslstm: false
+static_attributes:
+- DEM
+- Slope
+- Fraction_Forest
+- Imperv_500m
+- Imperv_1000m
+- Imperv_2000m
+- Imperv_3000m
+- Flusskilometer
+- Gesamtlaenge_Fluss
+- upstream_km
+target_noise_std: 0.005
+target_variables:
+- wt
+test_basin_file: data\processed\basins_test.txt
+test_end_date: 30/11/2020
+test_start_date: 01/12/2018
+train_basin_file: data\processed\basins_train.txt
+train_data_file: None
+train_dir: C:\Users\AZE\Documents\1 Projects\Climate Change 
+  Seminar\water_temp_lstm\runs\water_temp_lstm_3006_234701\train_data
+train_end_date: 30/11/2016
+train_start_date: 10/11/2000
+transfer_mtslstm_states:
+  h: identity
+  c: identity
+transformer_dim_feedforward: 32
+transformer_dropout: 0
+transformer_nheads: 4
+transformer_nlayers: 4
+transformer_positional_dropout: 0.0
+transformer_positional_encoding_type: sum
+use_basin_id_encoding: false
+validate_every: 1
+validate_n_random_basins: 4
+validation_basin_file: data\processed\basins_val.txt
+validation_end_date: 30/11/2018
+validation_start_date: 01/12/2016
