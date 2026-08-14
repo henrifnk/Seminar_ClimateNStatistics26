@@ -69,7 +69,7 @@ Climate projections are commonly affected by three broad sources of uncertainty:
 The relationship between statistical and climate-specific uncertainty can therefore be summarized as follows:
 
 | Climate uncertainty source | Statistical interpretation | Role in this study            |
-|:---------------------------|:---------------------------|:------------------------------|
+|:----------------------|:----------------------|:-------------------------|
 | Internal variability       | Aleatoric-like             | Within-model member variation |
 | Model uncertainty          | Epistemic-like             | Spread among model responses  |
 | Scenario uncertainty       | Conditional pathway        | Held fixed in the analysis    |
@@ -781,7 +781,7 @@ The results are presented from projected warming magnitude to the structure and 
 
 Regional JJA warming increases across all three future periods and study regions (Figure \@ref(fig:regional-jja-warming)). The equal-model-weighted multi-model mean is positive throughout and rises steadily from the near term to the late century.
 
-```{r regional-jja-warming, echo=FALSE, fig.cap="Regional JJA warming across the three future periods. Gray lines show model-specific forced responses, while the highlighted line shows the equal-model-weighted multi-model mean.", out.width="100%", fig.align="center"}
+```{r regional-jja-warming, echo=FALSE, fig.cap="Regional JJA warming across the three future periods. Gray lines show model-specific forced responses, while the highlighted line shows the equal-model-weighted multi-model mean.", out.width="120%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig02_regional_jja_warming_timeseries.svg")
 ```
 
@@ -789,7 +789,7 @@ The regional ranking is consistent across the three periods: WCE shows the large
 
 The multi-model mean does not show how strongly the individual model responses differ. Figure \@ref(fig:model-forced-response) therefore compares the model-specific forced responses directly. All five models project increasing warming, but their responses separate more clearly with projection lead time.
 
-```{r model-forced-response, echo=FALSE, fig.cap="Model-specific forced regional JJA warming responses across the three study regions and future periods.", out.width="100%", fig.align="center"}
+```{r model-forced-response, echo=FALSE, fig.cap="Model-specific forced regional JJA warming responses across the three study regions and future periods.", out.width="120%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig03_model_forced_response.svg")
 ```
 
@@ -801,25 +801,25 @@ The uncertainty components show different temporal patterns. Internal variabilit
 
 Internal standard deviation varies more across regions than across future periods. MED consistently shows the lowest internal variability, while NEU and WCE show somewhat larger within-model spread (Figure \@ref(fig:internal-variability)). Despite these regional differences, there is little evidence of a strong temporal increase in internal variability.
 
-```{r internal-variability, echo=FALSE, fig.cap="Internal variability in 20-year mean regional JJA warming across regions and future periods.", out.width="70%", fig.align="center"}
+```{r internal-variability, echo=FALSE, fig.cap="Internal variability in 20-year mean regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig04_internal_variability.svg")
 ```
 
 Model uncertainty shows a much clearer temporal increase (Figure \@ref(fig:model-uncertainty)). The spread among model-specific forced responses becomes wider from the near term to the late century in all regions, with the strongest increase in NEU. Regional contrasts in model uncertainty therefore become more pronounced toward the end of the century.
 
-```{r model-uncertainty, echo=FALSE, fig.cap="Model uncertainty in regional JJA warming across regions and future periods.", out.width="70%", fig.align="center"}
+```{r model-uncertainty, echo=FALSE, fig.cap="Model uncertainty in regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig05_model_uncertainty.svg")
 ```
 
 The contribution rates confirm that model uncertainty is the larger variance component throughout the analysis (Figure \@ref(fig:uncertainty-decomposition)). Its contribution increases with projection lead time, while the relative contribution of internal variability declines. By the late century, model uncertainty accounts for more than 90% of total variance in all three regions. This change is mainly driven by the growth of model variance rather than by a strong decline in the absolute magnitude of internal variability.
 
-```{r uncertainty-decomposition, echo=FALSE, fig.cap="Relative contributions of internal variability and model uncertainty to total fixed-scenario projection variance.", out.width="70%", fig.align="center"}
+```{r uncertainty-decomposition, echo=FALSE, fig.cap="Relative contributions of internal variability and model uncertainty to total fixed-scenario projection variance.", out.width="80%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig06_uncertainty_decomposition.svg")
 ```
 
 Total uncertainty increases across the century in all regions and follows the temporal pattern of model uncertainty closely (Figure \@ref(fig:total-uncertainty)). NEU has the highest total uncertainty across the three periods and also shows the strongest late-century spread. Overall, the results indicate that internal variability remains comparatively stable, whereas growing differences among model responses increasingly determine the width of the fixed-scenario projection uncertainty.
 
-```{r total-uncertainty, echo=FALSE, fig.cap="Total fixed-scenario projection uncertainty, expressed as standard deviation, across regions and future periods.", out.width="60%", fig.align="center"}
+```{r total-uncertainty, echo=FALSE, fig.cap="Total fixed-scenario projection uncertainty, expressed as standard deviation, across regions and future periods.", out.width="50%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig07_total_uncertainty_heatmap.svg")
 ```
 
@@ -843,7 +843,7 @@ The weighted medians remain broadly close to the corresponding multi-model mean 
 
 The signal-to-noise ratios show that the projected warming signal is larger than the selected uncertainty scale in all regions and future periods. Total SNR is greater than one for every region-period combination, indicating that mean regional warming exceeds total fixed-scenario uncertainty as measured by the total standard deviation (Figure \@ref(fig:total-snr)).
 
-```{r total-snr, echo=FALSE, fig.cap="Total signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="70%", fig.align="center"}
+```{r total-snr, echo=FALSE, fig.cap="Total signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig09_total_snr.svg")
 ```
 
@@ -851,7 +851,7 @@ Clear regional differences remain after both internal and model uncertainty are 
 
 Internal SNR is much higher than total SNR in all regions, particularly in the later periods (Figure \@ref(fig:internal-snr)). This indicates that the warming signal is large relative to member-to-member variability in 20-year mean warming.
 
-```{r internal-snr, echo=FALSE, fig.cap="Internal signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="70%", fig.align="center"}
+```{r internal-snr, echo=FALSE, fig.cap="Internal signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig10_internal_snr.svg")
 ```
 
@@ -865,9 +865,15 @@ Threshold exceedance probabilities increase strongly as the regional warming dis
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig11_threshold_exceedance_probability.svg")
 ```
 
-By 2081--2100, both thresholds are exceeded by all ensemble members in MED and WCE. NEU also shows a high probability of exceeding $2^\circ\mathrm{C}$, but its $3^\circ\mathrm{C}$ exceedance probability remains much lower, at approximately 60.6%. The wider NEU warming distribution therefore leaves a substantial share of projected outcomes below the higher threshold even in the late-century period.
+The mid-century distributions help explain these regional differences (Figure \@ref(fig:mid-century-threshold-distributions)). In NEU, much of the model-member distribution remains below the $2^\circ\mathrm{C}$ threshold, whereas larger shares of the WCE and MED distributions lie above it. The $3^\circ\mathrm{C}$ threshold remains in the upper part of all three distributions. Mid-century therefore provides a clear example of how the position of a threshold relative to both the center and spread of a distribution affects exceedance probability.
 
-These results show that threshold exceedance cannot be inferred from mean warming alone. The position of a threshold relative to both the center and the spread of the warming distribution determines the resulting probability. The regional differences are especially visible during the mid-century transition, when the thresholds cut through different parts of the three warming distributions. The probabilities refer to 20-year mean regional JJA warming relative to 1995--2014 and should therefore be interpreted as conditional, ensemble-based risk-style diagnostics rather than probabilities for individual summers.
+```{r mid-century-threshold-distributions, echo=FALSE, fig.cap="Mid-century model-member distributions of regional 20-year mean JJA warming relative to the 2°C and 3°C thresholds.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig15b_mid_century_warming_distribution_thresholds.svg")
+```
+
+By 2081--2100, both thresholds are exceeded by all ensemble members in MED and WCE. NEU also shows a high probability of exceeding $2^\circ\mathrm{C}$, but its $3^\circ\mathrm{C}$ exceedance probability remains lower, at approximately 60.6%. Its wider warming distribution therefore leaves a substantial share of projected outcomes below the higher threshold even in the late-century period.
+
+Together, the probability estimates and mid-century distributions show that threshold exceedance cannot be inferred from mean warming alone. The resulting probability depends on where the threshold lies within the projected distribution as well as on the distributional spread. These probabilities refer to 20-year mean regional JJA warming relative to 1995--2014 and should therefore be interpreted as conditional, ensemble-based risk-style diagnostics rather than probabilities for individual summers.
 
 ### Robustness of the Main Findings
 
@@ -949,7 +955,9 @@ The robustness analyses support these qualitative findings and indicate that une
 
 ## Appendices
 
-The appendices provide complete numerical results and supplementary diagnostics that support the main text. All result tables are read directly from the analysis outputs in `work/01-climate_uncertainty/results/`, so the appendix remains linked to the final workflow outputs.
+The appendices provide complete numerical summaries and supplementary diagnostics that support the main text. To reduce repetition, the model/member-count table and the complete model-specific forced-response table are omitted because the same information is already presented in the Data and Results sections. The uncertainty-magnitude table is retained in a reduced form so that the complete internal and model uncertainty estimates remain available without repeating total uncertainty already reported in the master summary.
+
+All numerical tables are read directly from the analysis outputs in `work/01-climate_uncertainty/results/`.
 
 ```{r appendix-results-setup, include=FALSE}
 results_dir <- "work/01-climate_uncertainty/results"
@@ -961,63 +969,71 @@ read_result_csv <- function(filename) {
     stringsAsFactors = FALSE
   )
 }
+
+appendix_table <- function(data, digits = 3, font_size = 10) {
+  tab <- knitr::kable(
+    data,
+    digits = digits,
+    booktabs = TRUE,
+    caption = NULL
+  )
+
+  if (knitr::is_latex_output()) {
+    kableExtra::kable_styling(
+      tab,
+      font_size = font_size,
+      position = "center",
+      latex_options = c("hold_position", "scale_down")
+    )
+  } else {
+    kableExtra::kable_styling(
+      tab,
+      font_size = font_size,
+      position = "center",
+      full_width = TRUE
+    )
+  }
+}
 ```
 
 ### Appendix A. Complete Result Tables
 
-#### A.1 Regional and Temporal Master Summary
-
-Table \@ref(tab:appendix-master-summary) provides the main region-by-period results in one place, including mean warming, total uncertainty, variance contributions, total signal-to-noise ratio, and threshold exceedance probabilities.
+**Table A.1. Regional and Temporal Master Summary**
 
 ```{r appendix-master-summary, echo=FALSE}
-master_summary <- read_result_csv("regional_temporal_master_summary.csv")
+master_summary <- read_result_csv(
+  "regional_temporal_master_summary.csv"
+)
 
-knitr::kable(
+appendix_table(
   master_summary,
-  digits = 3,
-  caption = "Regional and temporal summary of mean warming, total uncertainty, variance contributions, total signal-to-noise ratio, and threshold exceedance probabilities."
+  digits = 3
 )
 ```
 
-#### A.2 Model-Specific Forced Responses
-
-Table \@ref(tab:appendix-forced-response) reports the complete model-specific forced responses for all five models, three regions, and three future periods, together with the corresponding equal-model-weighted multi-model mean.
-
-```{r appendix-forced-response, echo=FALSE}
-forced_response <- read_result_csv("model_specific_forced_responses.csv")
-
-knitr::kable(
-  forced_response,
-  digits = 3,
-  caption = "Model-specific ensemble-mean regional JJA warming and the corresponding equal-model-weighted multi-model mean across all regions and future periods."
-)
-```
-
-#### A.3 Internal, Model, and Total Uncertainty Magnitudes
-
-Table \@ref(tab:appendix-uncertainty-magnitudes) provides the complete variance and standard-deviation estimates used in the uncertainty decomposition.
+**Table A.2. Internal and model uncertainty magnitudes across regions and future periods.**
 
 ```{r appendix-uncertainty-magnitudes, echo=FALSE}
-uncertainty_magnitudes <- read_result_csv("internal_and_model_uncertainty_magnitudes.csv")
+uncertainty_magnitudes <- read_result_csv(
+  "internal_and_model_uncertainty_magnitudes.csv"
+)
 
-knitr::kable(
+appendix_table(
   uncertainty_magnitudes,
-  digits = 3,
-  caption = "Internal, model, and total fixed-scenario projection uncertainty across all regions and future periods."
+  digits = 3
 )
 ```
 
-#### A.4 Equal-Model-Weighted Prediction Ranges
-
-Table \@ref(tab:appendix-prediction-ranges) reports the complete equal-model-weighted prediction quantiles and central 90% range widths.
+**Table A.3. Equal-model-weighted prediction quantiles and central 90% prediction-range widths across regions and future periods.**
 
 ```{r appendix-prediction-ranges, echo=FALSE}
-prediction_ranges <- read_result_csv("prediction_ranges.csv")
+prediction_ranges <- read_result_csv(
+  "prediction_ranges.csv"
+)
 
-knitr::kable(
+appendix_table(
   prediction_ranges,
-  digits = 3,
-  caption = "Equal-model-weighted mean warming, 5th, 50th, and 95th percentiles, and central 90% prediction-range widths across regions and future periods."
+  digits = 3
 )
 ```
 
@@ -1025,64 +1041,42 @@ knitr::kable(
 
 The following figures provide alternative regional-temporal views of the main uncertainty and projection diagnostics. They complement the figures used in the main Results section without introducing additional statistical quantities.
 
-```{r appendix-internal-sd, echo=FALSE, fig.cap="Regional and temporal comparison of internal standard deviation in 20-year mean JJA warming.", out.width="100%", fig.align="center"}
+```{r appendix-internal-sd, echo=FALSE, fig.cap="Regional and temporal comparison of internal standard deviation in 20-year mean JJA warming.", out.width="70%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig12_regional_temporal_internal_sd.svg")
 ```
 
-```{r appendix-total-sd, echo=FALSE, fig.cap="Regional and temporal comparison of total fixed-scenario projection standard deviation.", out.width="100%", fig.align="center"}
+```{r appendix-total-sd, echo=FALSE, fig.cap="Regional and temporal comparison of total fixed-scenario projection standard deviation.", out.width="70%", fig.align="center"}
 knitr::include_graphics("work/01-climate_uncertainty/figures/fig13_regional_temporal_total_sd.svg")
 ```
 
-```{r appendix-internal-contribution, echo=FALSE, fig.cap="Regional and temporal comparison of the internal-variability contribution to total fixed-scenario projection variance.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig14_regional_temporal_internal_contribution.svg")
-```
-
-```{r appendix-snr-threshold, echo=FALSE, fig.cap="Comparison of total signal-to-noise ratios and threshold exceedance probabilities across regions and future periods.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig15b_mid_century_warming_distribution_thresholds.svg")
+```{r appendix-snr-threshold, echo=FALSE, fig.cap="Relationship between Total SNR and Threshold Exceedance Probability.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig15a_threshold_centered_snr_exceedance_probability.svg")
 ```
 
 ### Appendix C. Robustness Diagnostics
 
-#### C.1 Average Bootstrap Confidence-Interval Widths
-
-Table \@ref(tab:appendix-bootstrap-widths) summarizes the average width of the 95% hierarchical-bootstrap interval for each reported metric. It provides a compact comparison of the relative resampling stability of the different statistical targets.
+**Table C.1. Average width of the 95% hierarchical-bootstrap percentile interval by metric.**
 
 ```{r appendix-bootstrap-widths, echo=FALSE}
-bootstrap_widths <- read_result_csv("average_bootstrap_ci_width_by_metric.csv")
+bootstrap_widths <- read_result_csv(
+  "average_bootstrap_ci_width_by_metric.csv"
+)
 
-knitr::kable(
+appendix_table(
   bootstrap_widths,
-  digits = 3,
-  caption = "Average width of the 95% hierarchical-bootstrap percentile interval by metric."
+  digits = 3
 )
 ```
 
-#### C.2 Full-Member and Balanced-Member Comparison
-
-Table \@ref(tab:appendix-balanced-comparison) reports the full-member and balanced 20-member-per-model estimates for total standard deviation and total signal-to-noise ratio. These values provide the numerical basis for the balanced-member sensitivity comparison shown in the main Results section.
+**Table C.2. Comparison of full-member and balanced 20-member-per-model estimates for total standard deviation and total signal-to-noise ratio.**
 
 ```{r appendix-balanced-comparison, echo=FALSE}
-balanced_comparison <- read_result_csv("full_vs_balanced_comparison_for_total_sd_and_total_snr.csv")
+balanced_comparison <- read_result_csv(
+  "full_vs_balanced_comparison_for_total_sd_and_total_snr.csv"
+)
 
-knitr::kable(
+appendix_table(
   balanced_comparison,
-  digits = 3,
-  caption = "Comparison of full-member and balanced 20-member-per-model estimates for total standard deviation and total signal-to-noise ratio."
+  digits = 3
 )
 ```
-
-The bootstrap and balanced-member figures already used in the main Results section are not repeated here.
-
-### Appendix D. Model and Member Details
-
-Table \@ref(tab:appendix-member-counts) records the number of ensemble members retained from each model in the final analysis. It is included here as a reproducibility check for the model-member structure used by the workflow.
-
-```{r appendix-member-counts, echo=FALSE}
-member_counts <- read_result_csv("model_member_counts_used_by_this_run.csv")
-
-knitr::kable(
-  member_counts,
-  caption = "Climate models and ensemble-member counts used in the final analysis."
-)
-```
-

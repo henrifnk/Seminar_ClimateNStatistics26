@@ -1,4 +1,4 @@
-region,period,Mean warming (C),Total SD (C),Internal contribution,Model contribution,Total SNR,P(DeltaT > 2C),P(DeltaT > 3C)
+﻿region,period,Mean warming (°C),Total SD (°C),Internal contribution,Model contribution,Total SNR,P(ΔT > 2°C),P(ΔT > 3°C)
 MED,2021-2040,1.289,0.422,0.158,0.842,3.054,0.008,0.0
 MED,2041-2060,2.409,0.602,0.105,0.895,4.0,0.691,0.216
 MED,2081-2100,4.943,1.053,0.034,0.966,4.694,1.0,1.0

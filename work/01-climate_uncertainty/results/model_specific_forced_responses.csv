@@ -1,4 +1,4 @@
-model,region,period,Model forced response (C),Multi-model mean (C)
+﻿model,region,period,Model forced response (°C),Multi-model mean (°C)
 ACCESS-ESM1-5,MED,2021-2040,1.401,1.289
 CanESM5,MED,2021-2040,1.723,1.289
 CESM2(CMIP6),MED,2021-2040,0.955,1.289

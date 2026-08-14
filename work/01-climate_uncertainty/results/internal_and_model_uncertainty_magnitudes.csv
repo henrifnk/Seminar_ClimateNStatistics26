@@ -1,4 +1,4 @@
-region,period,Internal variance (C^2),Internal SD (C),Model variance (C^2),Model SD (C),Total variance (C^2),Total SD (C)
+﻿region,period,Internal variance (°C²),Internal SD (°C),Model variance (°C²),Model SD (°C),Total variance (°C²),Total SD (°C)
 MED,2021-2040,0.028,0.168,0.15,0.387,0.178,0.422
 MED,2041-2060,0.038,0.195,0.325,0.57,0.363,0.602
 MED,2081-2100,0.037,0.193,1.071,1.035,1.109,1.053
