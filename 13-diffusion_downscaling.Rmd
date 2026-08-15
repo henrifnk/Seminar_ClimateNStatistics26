@@ -157,7 +157,7 @@ The data-source shift is partially addressed by the projection data being bias-c
 Whether the diffusion model is also able to handle the temporal shift induced by climate change is assessed in Section \@ref(signal-preservation).
 
 The model was trained for a fixed budget of 20 epochs, by which point the validation loss had largely flattened.
-Further information on the model parameters and the compute time can be found in [Appendix E](#appendix-e).
+Further information on the compute time can be found in [Appendix E](#appendix-e).
 The reanalysis test set consists of every 7th day in the years 2019–2020, totaling 105 days. For every date an ensemble of 12 members was generated. 
 In the projection dataset every 12th day was selected and the ensemble comprised 4 members. Both design choices were made to keep compute time reasonable.
 
@@ -390,62 +390,12 @@ containing more ensemble members might give more reliable numbers.
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/6_spread_persistence.svg")
 ```
 
-### Appendix E - Compute time and model parameters {#appendix-e}
+### Appendix E - Compute time {#appendix-e}
 
 #### Compute time
 The training of the model for 20 epochs took 28 hours on a single GPU.
 The inference on the test set for the calibration period took about 2 hours.
 The inference on the selected days for the projection period took 16 hours.
-
-#### Model parameters
-The most relevant model parameters are listed below. Deviations from the @watt2024 implementation
-result from reducing compute overhead. Further optimization of those parameters is an interesting direction for further work.
-
-```{r hyperparameters, echo=FALSE}
-hp <- data.frame(
-  parameter = c(
-    # Architecture
-    "parameters", "model_channels", "in_channels", "out_channels",
-    # Training
-    "optimizer", "learning_rate", "batch_size", "num_epochs", "loss", "splits",
-    # Sampler
-    "solver", "num_steps", "sigma_min / sigma_max", "S_churn", "ensemble size"
-  ),
-  value = c(
-    "24.4 M", "64", "6", "2",
-    "AdamW", "1e-4", "32", "20", "EDM", "16 / 2 / 2 yr",
-    "Heun (2nd order)", "40", "0.002 / 80", "40", "12 / 4"
-  ),
-  comment = c(
-    "all trainable", "widths 64/128/192/256 over 4 levels",
-    "2 noisy residual fields, 2 coarse fields, 2 static fields", "estimated residual fields (tas, pr)",
-    "weight decay 0.01", "ReduceLROnPlateau, factor 0.5, patience 3",
-    "effective; batch 4 with gradient accumulation 8", "fixed budget",
-    "P_mean -1.2, P_std 1.2", "2001-2016 / 2017-2018 / 2019-2020",
-    "Karras noise schedule, rho 7", "denoising steps", "noise range",
-    "stochastic noise re-injection", "reanalysis test / projection"
-  )
-)
-
-kbl(
-  hp,
-  booktabs  = TRUE,
-  linesep   = "",
-  align     = c("l", "l", "l"),
-  col.names = c("Parameter", "Value", "Comment"),
-  caption   = "Model, training and sampler configuration. Derived quantities are given in the comment column rather than as separate entries."
-) |>
-  kable_styling(latex_options = "hold_position",
-                bootstrap_options = "condensed",
-                font_size = 9) |>
-  row_spec(0, bold = TRUE, background = "#3f3f3f", color = "white") |>
-  column_spec(1, monospace = TRUE, width = "3.6cm") |>
-  column_spec(2, monospace = TRUE, width = "2.8cm") |>
-  column_spec(3, width = "6.2cm") |>
-  pack_rows("Architecture", 1, 4, background = "#efefef") |>
-  pack_rows("Training", 5, 10, background = "#efefef") |>
-  pack_rows("Sampler", 11, 15, background = "#efefef")
-```
 
 ## Usage of AI tools
 I hereby declare that this seminar work was written by myself. All sources that were used directly or indirectly are acknowledged in the references.
