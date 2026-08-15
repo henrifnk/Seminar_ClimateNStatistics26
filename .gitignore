@@ -14,3 +14,8 @@ book.tex
 packages.bib
 .DS_Store
 work/.DS_Store
+work/13-diffusion_downscaling/data
+work/13-diffusion_downscaling/wandb
+work/13-diffusion_downscaling/cache
+__pycache__/
+*.pyc
