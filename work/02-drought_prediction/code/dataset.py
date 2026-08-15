@@ -267,11 +267,12 @@ class MonthAwareSubset(Subset):
 
 
 class ScalarSubset(Subset):
-    """Wraps a DroughtDataset Subset to also return the last-timestep global scalar.
+    """Wraps a DroughtDataset Subset to also return the per-step global scalars
+    over the input window.
 
-    Used by the FiLM generator so each batch element carries the most recent
-    global climate index (NAO, Med SST, …) as the conditioning signal.
-    Returns (x, y, scalars) where scalars has shape (n_global,).
+    Used by the FiLM generator so each batch element carries the global climate
+    indices (NAO, Med SST, …) for every input month as the conditioning signal.
+    Returns (x, y, scalars) where scalars has shape (history_length, n_global).
     """
 
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:

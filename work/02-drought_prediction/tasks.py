@@ -134,6 +134,17 @@ def feature_importance(c: Context):
 
 
 @task
+def feature_importance_replot(c: Context):
+    """Regenerate Phase 1 figures from the existing CSV, no eval re-run.
+
+    Use after a plotting-only fix once `feature_importance` has already
+    written reports/interpretability/feature_importance_pinball.csv -- skips
+    the six checkpoints x per-feature occlusion passes entirely.
+    """
+    _run(c, "uv run python code/interpretability.py feature-importance-replot")
+
+
+@task
 def film_extremes(c: Context):
     """Phase 2 interpretability: does FiLM benefit the extremes?
 

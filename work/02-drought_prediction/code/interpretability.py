@@ -566,12 +566,15 @@ def plot_feature_importance(tag: str, rows: list[dict], fig_path: Path) -> None:
 
 # Condition palette: static encoder sets the hue (naive gray, single blue,
 # seasonal green), global encoder the shade (naive light, FiLM dark).
-CONDITION_COLORS = {
+# Named distinctly from Phase 2's CONDITION_COLORS below (3 conditions) --
+# they used to share the name, and since both are module-level, the later
+# definition silently shadowed this one for any function called after import.
+PHASE1_CONDITION_COLORS = {
     "naive/naive": "#9a9a9a", "naive/film": "#4d4d4d",
     "single/naive": "#7fb0d8", "single/film": "#2e6da4",
     "seasonal/naive": "#8ecf8e", "seasonal/film": "#3f7a3f",
 }
-CONDITION_ORDER = list(CONDITION_COLORS)
+CONDITION_ORDER = list(PHASE1_CONDITION_COLORS)
 
 FEATURE_LABELS = {
     "med_sst": "Med SST", "tas": "Temperature", "month": "Month",
@@ -618,9 +621,9 @@ def plot_feature_importance_across_conditions(all_rows: list[dict], fig_path: Pa
     for j, c in enumerate(conds):
         off = (j - (len(conds) - 1) / 2) * h
         ax_rmse.barh(y + off, [value(f, c, "delta_rmse") for f in feats],
-                     height=h, color=CONDITION_COLORS[c], label=c, zorder=3)
+                     height=h, color=PHASE1_CONDITION_COLORS[c], label=c, zorder=3)
         ax_tpr.barh(y + off, [value(f, c, "delta_drought_tpr") for f in feats],
-                    height=h, color=CONDITION_COLORS[c], zorder=3)
+                    height=h, color=PHASE1_CONDITION_COLORS[c], zorder=3)
 
     ax_rmse.set_yticks(y)
     ax_rmse.set_yticklabels([FEATURE_LABELS.get(f, f) for f in feats], fontsize=10)
@@ -719,6 +722,44 @@ def run_feature_importance(
     plot_feature_importance_across_conditions(all_rows, across_path)
     print(f"across-condition figure -> {across_path}")
     return all_rows
+
+
+_FEATURE_IMPORTANCE_NUMERIC_FIELDS = [
+    "baseline_rmse_pooled", "baseline_drought_f1_pooled", "baseline_drought_tpr_pooled",
+    "ablated_rmse_pooled", "ablated_drought_f1_pooled", "ablated_drought_tpr_pooled",
+    "delta_rmse", "delta_drought_f1", "delta_drought_tpr",
+]
+
+
+def replot_feature_importance(csv_path: Path | None = None, fig_dir: Path | None = None) -> None:
+    """Regenerate the Phase 1 figures from the already-written CSV, without
+    re-running occlusion eval against the checkpoints. Use this after a
+    plotting-only fix once run_feature_importance() has already produced the
+    CSV -- the expensive part (six checkpoints x per-feature occlusion passes)
+    doesn't need to happen again.
+    """
+    csv_path = csv_path or (project_root() / "reports" / "interpretability" / "feature_importance_pinball.csv")
+    fig_dir = fig_dir or (project_root() / "figures" / "interpretability" / "feature_importance")
+
+    with open(csv_path, newline="") as f:
+        all_rows = list(csv_mod.DictReader(f))
+    for row in all_rows:
+        for field in _FEATURE_IMPORTANCE_NUMERIC_FIELDS:
+            row[field] = float(row[field])
+
+    fig_dir.mkdir(parents=True, exist_ok=True)
+    by_tag: dict[str, list[dict]] = {}
+    for row in all_rows:
+        tag = f"{row['static_encoder']}_{row['global_encoder']}"
+        by_tag.setdefault(tag, []).append(row)
+
+    for tag, rows_for_plot in by_tag.items():
+        plot_feature_importance(tag, rows_for_plot, fig_dir / f"{tag}.svg")
+        print(f"    figure -> {fig_dir / f'{tag}.svg'}")
+
+    across_path = fig_dir.parent / "feature_importance_across_conditions.svg"
+    plot_feature_importance_across_conditions(all_rows, across_path)
+    print(f"across-condition figure -> {across_path}")
 
 
 # ── Phase 2: does FiLM benefit the extremes? (all four losses) ─────────────
@@ -1084,10 +1125,15 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["feature-importance", "film-extremes"])
+    parser.add_argument(
+        "command",
+        choices=["feature-importance", "feature-importance-replot", "film-extremes"],
+    )
     args = parser.parse_args()
 
     if args.command == "feature-importance":
         run_feature_importance()
+    elif args.command == "feature-importance-replot":
+        replot_feature_importance()
     elif args.command == "film-extremes":
         run_film_extremes()

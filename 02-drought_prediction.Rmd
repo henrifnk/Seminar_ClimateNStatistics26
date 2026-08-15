@@ -552,7 +552,8 @@ Inputs are occluded rather than permuted because the driver fields are correlate
 
 The left panel of Figure \@ref(fig:feat-importance) shows that point accuracy is unmovable, as every bar sits near zero and no input shifts the pooled RMSE by more than 0.06 in any configuration.
 Detection (right panel) rests on a few inputs.
-The Mediterranean SST is the strongest, and its removal drops TPR most where no static encoder is present (the grey bars), while once a single or seasonal encoder is added, temperature takes over instead.
+The Mediterranean SST is the strongest driver where no static encoder is present (the grey bars).
+Adding a single or seasonal encoder raises the importance of near-surface temperature and lowers the SST's, though the two become comparable rather than temperature fully taking over.
 FiLM changes this less than the static encoder does, though without an encoder it slightly deepens reliance on the global drivers it conditions on, lengthening the Mediterranean SST and month bars (the darker shade in each pair).
 Topography is the one input whose removal raises TPR, and the remaining fields barely move it.
 
