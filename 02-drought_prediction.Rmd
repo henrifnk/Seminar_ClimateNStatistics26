@@ -504,7 +504,7 @@ Together, these factors could also explain why the feature-injection choices, wh
 Because Pinball shifts predictions toward the dry tail, part of its detection edge could come from that shift, though it also wins on F1, which penalises false alarms, so it is not merely predicting more droughts blindly.
 Nevertheless, its detection gains are best read together with the RMSE they cost.
 The limited impact of the injection strategies may also be a reflection of the usefulness of the features themselves, since the achievable gains are bounded by how informative the injected features are.
-Further analysis of interpretability and feature importance is given in the appendix.
+Further analysis of feature importance is given in the appendix.
 
 These conclusions should be seen in light of several limitations.
 Each configuration was trained once, so the reported differences carry no estimate of run-to-run variance, and the smaller gaps should be read cautiously.
@@ -517,7 +517,35 @@ This work compared loss functions and feature-injection strategies for a ConvLST
 The main finding is that the loss is the dominant lever, fixing where the model sits on a trade-off between point accuracy and severe-drought detection, while the global and static feature injection strategies only change model performance marginally.
 Future work should investigate whether these findings hold across multiple seeds or ensembles, more regions, shorter and more predictable forecasting horizons, and richer or differently chosen conditioning features.
 
-## Appendix: Feature importance
+## Appendix: AI Declaration {-}
+
+I hereby declare that this seminar thesis is my own work and that I have used no sources or aids other than those acknowledged.
+
+During the preparation of this manuscript, generative AI tools were used in a supportive and transparent manner, in accordance with the guidelines of the Institute of Statistics at LMU Munich.
+Specifically, Claude was used to assist with language formulation, stylistic refinement, and clarity of presentation across the whole manuscript.
+All suggested formulations were critically reviewed and, where adopted, revised by me.
+
+In addition, Claude and Claude Code were used selectively for programming support, including as a coding aid, for debugging assistance, and for minor refactoring suggestions.
+All code was fully understood, tested, and validated by me, and I retain full responsibility for its correctness and functionality.
+
+All scientific content, methodological decisions, analyses, and interpretations were developed by me, and I take full responsibility for the integrity and correctness of the work.
+
+## Appendix: SPEI drought classification {-}
+
+SPEI values map onto standard drought categories (Table \@ref(tab:spei-grades)).
+The severe and extreme categories, at the $-1.5$ threshold and below, are the ones this work targets.
+
+| Grade | Category | SPEI range |
+|:-----:|:---------|:-----------|
+| 1 | No drought | $-0.5 < \text{SPEI}$ |
+| 2 | Light drought | $-1.0 < \text{SPEI} \le -0.5$ |
+| 3 | Moderate drought | $-1.5 < \text{SPEI} \le -1.0$ |
+| 4 | Severe drought | $-2.0 < \text{SPEI} \le -1.5$ |
+| 5 | Extreme drought | $\text{SPEI} \le -2.0$ |
+
+Table: (\#tab:spei-grades) SPEI drought classification [@vicente-serranoMultiscalarDroughtIndex2010; @chenSTATLSTMMultivariateSpatiotemporal2025].
+
+## Appendix: Feature importance {-}
 
 Each input was occluded in turn (set to its training mean) and the frozen Pinball model re-scored on the test set [@zeilerVisualizingUnderstandingConvolutional2013].
 Inputs are occluded rather than permuted because the driver fields are correlated [@hookerUnrestrictedPermutationForces2021].
@@ -531,4 +559,23 @@ Topography is the one input whose removal raises TPR, and the remaining fields b
 ```{r feat-importance, echo=FALSE, fig.cap="Occlusion feature importance for the Pinball models across all six architecture conditions. Change in pooled RMSE (left) and drought TPR (right) when each input is set to its training mean on the test set, configurations labelled static / global.", out.width="95%", fig.align="center"}
 knitr::include_graphics("work/02-drought_prediction/figures/interpretability/feature_importance_across_conditions.svg")
 ```
+
+## Appendix: Implementation details {-}
+
+The two feature groups can either be appended to the input or routed through a learned pathway, which changes how many channels the ConvLSTM input $x$ carries (Table \@ref(tab:input-channels)).
+
+| Static / global | $x$ channels | Injected |
+|:--|:--:|:--|
+| naive / naive | 13 | +2 static, +6 global |
+| single / naive | 11 | +6 global |
+| seasonal / naive | 11 | +6 global |
+| naive / FiLM | 7 | +2 static |
+| single / FiLM | 5 | — |
+| seasonal / FiLM | 5 | — |
+
+Table: (\#tab:input-channels) Input channels per configuration, from a dynamic base of five gridded variables. Naive injection appends features as channels, while the learned encoders (static CNN, FiLM) route them into a dedicated pathway.
+
+Beyond the protocol given in the main text, the initial embedding uses 16 channels and the ConvLSTM hidden state 32.
+Early stopping monitors the validation RMSE median with patience 5 and a minimum delta of 0.003, and the learning rate follows ReduceLROnPlateau with patience 3.
+The static encoder maps the two static channels to 16.
 
