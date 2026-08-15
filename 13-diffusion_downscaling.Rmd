@@ -151,8 +151,8 @@ Training pairs are constructed by coarsening the high-resolution field from the 
 original fine-scale field given the coarse input. The model is trained on the years 2001–2016 and validated on 2017–2018.
 Following training, the model is applied to the climate projection data.
 
-The key stationarity assumption underlying this model paradigm is that the learned statistical mapping between the coarse and high-resolution reanalysis fields transfers
-to the climate projection data. The distribution shift decomposes into a data-source (reanalysis to projection data) and a temporal (climate change signal) component.
+This model paradigm assumes that the mapping learned between the coarse and high-resolution reanalysis fields transfers
+to the projection data. The distribution shift decomposes into a data-source (reanalysis to projection data) and a temporal (climate change signal) component.
 The data-source shift is partially addressed by the projection data being bias-corrected against the reanalysis data.
 Whether the diffusion model is also able to handle the temporal shift induced by climate change is assessed in Section \@ref(signal-preservation).
 
@@ -206,14 +206,14 @@ kbl(
   booktabs  = TRUE,
   linesep   = "",
   align     = c("l", "l", "c", "c"),
-  col.names = c("Metric", "Model", "Temperature (°C)", "Precipitation (mm/day)"),
+  col.names = c("Metric", "Model", "Temperature (°C)", "Precipitation (kg/m²)"),
   caption = "Comparison of ensemble CRPS to the interpolation baseline MAE for temperature and precipitation."
 ) |>
   kable_styling(latex_options = "hold_position",
                 bootstrap_options = "condensed") |>
   row_spec(0, bold = TRUE, background = "#3f3f3f", color = "white")
 ```
-```{r error-prone-areas, echo=FALSE, fig.cap="Mean absolute error of the ensemble mean over the Alpine domain, in °C and mm/day.", out.width="100%", fig.align="center"}
+```{r error-prone-areas, echo=FALSE, fig.cap="Mean absolute error of the ensemble mean over the Alpine domain, in °C and kg/m².", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/4_mae_spatial.svg")
 ```
 
@@ -237,6 +237,7 @@ produced by the diffusion model, to assess how the diffusion model affects the c
 Figure \@ref(fig:proj-period-means) compares the average temperature and precipitation mass between the interpolated climate field and the downscaled climate field.
 The downscaled fields are consistently about 0.02 % cooler and carry between 0.83 % and 0.88 % more precipitation mass than the interpolation reference,
 a difference that is approximately constant across all periods. The effect of the downscaling step therefore does not vary systematically across periods.
+The surplus may follow from the fine-scale variance inflation reported in Section \@ref(calibration-assessment).
 
 ```{r proj-period-means, echo=FALSE, fig.cap="Effect of the downscaling step per global warming level, in percent relative to the interpolated field.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/3_period_means.svg")
@@ -254,7 +255,6 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/2_delt
 
 Figures \@ref(fig:max-temp-day) and \@ref(fig:max-precip-day) present the day with the highest domain-mean temperature and the day with the highest precipitation mass
 in the projection data. The corresponding numbers on how the statistics of the field are affected by the models are given in Table \@ref(tab:max-day-stats).
-The native 12 km field is mapped onto the fine grid by a nearest-neighbor lookup. Thus, all three fields share one grid.
 On the hottest day the domain mean decreases only slightly from the interpolated to the downscaled field, while the maximum
 pixel temperature in the field increases (+1.28 °C).
 A more interesting pattern emerges for the day with the highest precipitation mass. While the domain mean is preserved,
@@ -329,9 +329,6 @@ For both variables the ensemble is underdispersed.
 
 With regard to the climate change signal, the offset relative to the interpolation baseline is constant across all periods and the spatial difference between the two change signals shows no coherent structure.
 Both are consistent with the change signal being transferred to the fine grid without systematic distortion, though the absence of high-resolution ground truth for the projection period means the fine-scale signal itself cannot be validated.
-
-The interpolation-residual setup produces realistic fine-scaled temperature fields over the Alpine domain, though the ensemble remains underdispersed. For precipitation further improvements are necessary.
-Whether it captures the coarse-to-fine relationship of a future climate remains open until fine-scale projection data is available.
 
 Several directions follow from this work. Multiple options exist to improve the model's capability in downscaling precipitation. One is to transform the variable before training, for example with a log or square-root mapping, which reduces its skew [@addison2026; @aich2026].
 Giving the model additional context, for example a surface pressure climate field, might also help improve its precipitation downscaling capabilities.
