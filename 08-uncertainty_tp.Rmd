@@ -12,14 +12,14 @@ library(kableExtra)
 
 # Uncertainty of tipping points in climate research {#utp}
 
-*Author: *
+*Author: Jihao Li*
 
 *Supervisor: Helmut Küchenhoff*
 
-*Degree: Bachelor/Master*
+*Degree: Master*
 
 ## Abstract
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Climate tipping points may be preceded by early-warning signals (EWS) associated with critical slowing down, particularly increasing variance and lag-1 autocorrelation. However, similar statistical patterns can also arise from non-tipping mechanisms, making their interpretation uncertain. This study investigates the reliability of these indicators using a simulation benchmark that compares an approaching fold bifurcation with stable, seasonal, increasing-noise, and sparse-sampling scenarios. Rolling variance and lag-1 autocorrelation are evaluated using trend statistics and receiver operating characteristic (ROC) analysis. In the simulations, lag-1 autocorrelation provides the strongest discrimination, with an area under the ROC curve (AUC) of 0.840, while increasing noise demonstrates how warning-like signals can occur without an approaching tipping point. A Bayesian interpretation further shows how the meaning of an observed EWS depends on the assumed prior tipping risk. Finally, the framework is illustrated using a North Atlantic sea-surface-temperature proxy related to the Atlantic Meridional Overturning Circulation. The empirical application shows no clear and consistent early-warning signal. Overall, EWS provide useful probabilistic evidence of declining stability, but should not be interpreted as standalone proof of an approaching climate tipping point.
 
 ## Introduction
