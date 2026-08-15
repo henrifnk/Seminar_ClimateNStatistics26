@@ -6,8 +6,8 @@ ensemble spread, and where the model's downscaling correction (mean prediction â
 coarse baseline) systematically lands spatially.
 
 Usage:
-    uv run python src/evaluation/CalibrationPeriodAssessment.py
-    uv run python src/evaluation/CalibrationPeriodAssessment.py --checkpoint ./model/20.pt --stride 7 --n-clim 4 --cache-dir ./cache
+    uv run python code/evaluation/CalibrationPeriodAssessment.py
+    uv run python code/evaluation/CalibrationPeriodAssessment.py --checkpoint ./model/20.pt --stride 7 --n-clim 4 --cache-dir ./cache
 """
 import argparse
 import os

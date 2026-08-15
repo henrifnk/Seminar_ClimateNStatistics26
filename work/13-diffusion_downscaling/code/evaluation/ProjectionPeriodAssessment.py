@@ -12,8 +12,8 @@ Parts 2 & 3 are drawn by ProjectionPlots.py, which writes every figure under
 plots/projection/.
 
 Usage:
-    uv run python src/evaluation/ProjectionPeriodAssessment.py --checkpoint ./model/20.pt
-    uv run python src/evaluation/ProjectionPeriodAssessment.py --checkpoint ./model/20.pt --n-clim 4 --stride 10 --cache-dir ./cache
+    uv run python code/evaluation/ProjectionPeriodAssessment.py --checkpoint ./model/20.pt
+    uv run python code/evaluation/ProjectionPeriodAssessment.py --checkpoint ./model/20.pt --n-clim 4 --stride 10 --cache-dir ./cache
 """
 import argparse
 import os

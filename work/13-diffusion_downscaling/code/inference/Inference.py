@@ -15,8 +15,8 @@ find_mbcn_file), the data paths and the normalization stats that the ensemble, e
 and diagnostic scripts import.
 
 Usage:
-    uv run python src/inference/Inference.py cerra 2019-01-05 [--borders]
-    uv run python src/inference/Inference.py mbcn  2091-07-15 [--borders]
+    uv run python code/inference/Inference.py cerra 2019-01-05 [--borders]
+    uv run python code/inference/Inference.py mbcn  2091-07-15 [--borders]
 """
 import argparse
 import os
@@ -64,7 +64,7 @@ if os.path.exists(_NORM_FILE):
 else:
     raise FileNotFoundError(
         f"Normalization stats not found at {_NORM_FILE}. "
-        "Run: uv run python src/training/ComputeNormStats.py")
+        "Run: uv run python code/training/ComputeNormStats.py")
 # ──────────────────────────────────────────────────────────────────────────────
 
 

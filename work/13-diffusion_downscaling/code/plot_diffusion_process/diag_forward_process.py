@@ -10,7 +10,7 @@ Output folder:  plots/diagnostics/forward_process_<date>/
   tas and pr are written as separate bare PNGs per sigma level, not as one paired frame.
 
 Usage:
-    uv run python src/plot_diffusion_process/diag_forward_process.py [YYYY-MM-DD]  (default: 2019-01-05)
+    uv run python code/plot_diffusion_process/diag_forward_process.py [YYYY-MM-DD]  (default: 2019-01-05)
 """
 import sys
 from datetime import datetime

@@ -43,8 +43,8 @@ Output folder: plots/diagnostics/denoiser_estimate_<date>_seed<seed>/
    input -> estimate -> outcome picture of that one denoising step, in a single image.
 
 Usage:
-    uv run python src/plot_diffusion_process/diag_denoiser_estimate.py cerra [YYYY-MM-DD] --checkpoint ./model/20.pt --seed 42
-    uv run python src/plot_diffusion_process/diag_denoiser_estimate.py mbcn  [YYYY-MM-DD] --seed 42
+    uv run python code/plot_diffusion_process/diag_denoiser_estimate.py cerra [YYYY-MM-DD] --checkpoint ./model/20.pt --seed 42
+    uv run python code/plot_diffusion_process/diag_denoiser_estimate.py mbcn  [YYYY-MM-DD] --seed 42
 """
 import argparse
 import sys

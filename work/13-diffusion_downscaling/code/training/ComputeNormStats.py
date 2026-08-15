@@ -6,7 +6,7 @@ standalone entry point for when you only need the stats (e.g. to run inference a
 existing checkpoint). Keep the dataset arguments in sync with TrainDiffusion.main().
 
 Usage:
-    uv run python src/training/ComputeNormStats.py
+    uv run python code/training/ComputeNormStats.py
 """
 import sys
 from pathlib import Path

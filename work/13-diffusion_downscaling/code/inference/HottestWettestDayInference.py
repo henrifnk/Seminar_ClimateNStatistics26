@@ -6,9 +6,9 @@ maps of the variable that made each day extreme (tas for the highest mean
 temperature day, pr for the highest precipitation mass day).
 
 Usage:
-    uv run python src/inference/HottestWettestDayInference.py
-    uv run python src/inference/HottestWettestDayInference.py --checkpoint ./model/20.pt --n 4
-    uv run python src/inference/HottestWettestDayInference.py --start-year 2001 --end-year 2020
+    uv run python code/inference/HottestWettestDayInference.py
+    uv run python code/inference/HottestWettestDayInference.py --checkpoint ./model/20.pt --n 4
+    uv run python code/inference/HottestWettestDayInference.py --start-year 2001 --end-year 2020
 
 By default the search is restricted to the projection period (2001-2080, matching the
 GWL_PERIODS windows in ProjectionPlots.py); pass --start-year/--end-year to override.

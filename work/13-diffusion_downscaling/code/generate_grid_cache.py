@@ -6,7 +6,7 @@ absent, so run this once where the reanalysis lives and copy cache/grid.npz acro
 diag_common and ProjectionPeriodAssessment fall back to it automatically.
 
 Usage:
-    uv run python src/generate_grid_cache.py [--cache-dir ./cache]
+    uv run python code/generate_grid_cache.py [--cache-dir ./cache]
 """
 import argparse
 import os
