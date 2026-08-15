@@ -147,7 +147,7 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/training/model_st
 
 ### Training and inference setup {#training-inference-setup}
 The training procedure follows established approaches for diffusion-based downscaling [@watt2024; @addison2026]. 
-Training pairs are constructed by coarsening the high-resolution field from the reanalysis data to the resolution of the projection data. The diffusion model's objective is now to recover the
+Training pairs are constructed by coarsening the high-resolution field from the reanalysis data to the resolution of the projection data. The diffusion model's objective is then to recover the
 original fine-scale field given the coarse input. The model is trained on the years 2001–2016 and validated on 2017–2018.
 Following training, the model is applied to the climate projection data.
 
@@ -190,7 +190,7 @@ The spatial location of the error between the ensemble mean and the ground truth
 [Appendix C](#appendix-c) gives further information on where the model applies the largest correction to the interpolated field.
 Figure \@ref(fig:power-spectrum) assesses how well the generated fields capture the spatial variability of the ground truth beyond the evaluation metrics.
 The generated fields for both variables carry more variance on fine scales than the interpolated field. For temperature the field carries approximately the same variance on fine scales as the ground truth.
-For precipitation the variance at the finest scales exceeds the ground truth, so the model does not merely restore the fine-scale structure that the smoothed interpolation field lacks,
+For precipitation the variance at the finest scales exceeds that of the ground truth, so the model does not merely restore the fine-scale structure that the smoothed interpolation field lacks,
 but overshoots it. The generated precipitation fields are therefore variance-inflated at fine scales, which is the central shortcoming of the architecture for this variable.
 
 ```{r crps-skill, echo=FALSE}
@@ -221,7 +221,8 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/4_mae
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/1_power_spectrum.svg")
 ```
 
-Figure \@ref(fig:spread-skill) addresses the calibration of the ensemble by grouping the pixel-day pairs into 30 equal-count bins by ensemble spread and calculating the RMSE of the ensemble mean within each bin. The points lie below the diagonal throughout, indicating an underdispersed ensemble, with a spread–skill ratio of 0.71 for temperature and 0.52 for precipitation.
+Figure \@ref(fig:spread-skill) addresses the calibration of the ensemble by grouping the pixels into 30 equal-count bins by ensemble spread and calculating the RMSE of the ensemble mean within each bin.
+The points lie below the diagonal throughout, indicating an underdispersed ensemble, with a spread–skill ratio of 0.71 for temperature and 0.52 for precipitation.
 
 ```{r spread-skill, echo=FALSE, fig.cap="Spread–skill relationship of the diffusion ensemble. A calibrated ensemble follows the one-to-one line.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/2_spread_skill.svg")
@@ -229,8 +230,8 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/2_spr
 
 ### Signal preservation {#signal-preservation}
 For climate projection data there is no high-resolution field available against which a downscaled climate field can be validated.
-Therefore, the projection assessment is limited to a consistency check between the interpolation climate field and the downscaled high-resolution climate fields,
-produced by the diffusion model, to assess how the diffusion model affects the characteristics of the climate field.
+Therefore, the projection assessment is limited to a consistency check between the interpolated climate field and the downscaled high-resolution climate field
+produced by the diffusion model, indicating how the downscaling step affects the characteristics of the climate field.
 
 Figure \@ref(fig:proj-period-means) compares the average temperature and precipitation mass between the interpolated climate field and the downscaled climate field.
 The downscaled fields are consistently about 0.02 % cooler and carry between 0.83 % and 0.88 % more precipitation mass than the interpolation reference,
@@ -256,8 +257,8 @@ in the projection data. The corresponding numbers on how the statistics of the f
 On the hottest day the domain mean decreases only slightly from the interpolated to the downscaled field, while the maximum
 pixel temperature in the field increases (+1.28 °C).
 A more interesting pattern emerges for the day with the highest precipitation mass. While the domain mean is preserved,
-the maximum pixel value increases substantially relative to the interpolated field by +28.70 mm/day. The interpolation had removed part of that peak
-beforehand (-7.08 mm/day). Thus, a part of the increase only restores the peak that the smoothing had removed. The downscaled maximum is still 11.7 % above the native 12 km maximum.
+the maximum pixel value increases substantially relative to the interpolated field by +28.69 mm/day. The interpolation had removed part of that peak
+beforehand (-7.08 mm/day). Thus, part of the increase only restores the peak that the smoothing had removed. The downscaled maximum is still 11.7 % above the native 12 km maximum.
 This may be due to the inflated fine-scale variance reported in Section \@ref(calibration-assessment), which is also evident in the granular speckle that neither the coarse nor the interpolated field shows.
 
 ```{r max-temp-day, echo=FALSE, fig.cap="Day with the highest domain-mean temperature. Left to right: native 12 km grid, interpolation, downscaled ensemble mean.", out.width="100%", fig.align="center"}
@@ -276,7 +277,7 @@ max_day <- data.frame(
   interp     = c("31.90", "39.79", "30.22", "177.82"),
   downscaled = c("31.83", "41.07", "30.25", "206.51"),
   d_regrid   = c("0.00", "+0.02", "0.00", "-7.08"),
-  d_model    = c("-0.07", "+1.28", "+0.03", "+28.70")
+  d_model    = c("-0.07", "+1.28", "+0.03", "+28.69")
 )
 
 kbl(
@@ -314,7 +315,7 @@ The model learned from the reanalysis training pairs how fine-scale structure fo
 @addison2026 have projection data at both resolutions and can therefore compare their downscaled change signal against a fine-scale reference.
 They report a bias in the magnitude of the projected change, which a consistency check of this kind would not reveal.
 
-The work has its limitations. Due to the constrained resources, the model was trained for a fixed budget without hyperparameter optimization.
+The work has its limitations. Due to constrained resources, the model was trained for a fixed budget without hyperparameter optimization.
 The orography field was only available at 5.5 km, which may explain the error concentration along the Alpine ridge reported in Section \@ref(calibration-assessment).
 The evaluation sample also limits the precision of the reported metrics. This matters most for the
 spread–skill relationship, where the spread is estimated from 12 ensemble members per date.
@@ -363,7 +364,7 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/diagnostics/denoi
 The ridgeline visualization of Figure \@ref(fig:distribution-shift) is supplemented by the percentile plot in Figure \@ref(fig:quantile-delta), which shows how far each percentile of the
 domain-wide distribution moves relative to the PRESENT period.
 For temperature the whole distribution is shifted upwards, with the upper percentiles moving the most.
-For precipitation only the tail of the distribution is affected. Up to roughly the 80th percentile the values stay unchanged, beyond the 90th percentile they increase to about
+For precipitation only the tail of the distribution is affected. Up to roughly the 80th percentile the values stay unchanged. From the 90th percentile they increase to about
 +1.4 mm/day at GWL2 and about +6 mm/day at GWL3 and GWL4. Therefore, the shift the model has to extrapolate to is concentrated in the extreme tail of the precipitation distribution.
 
 ```{r quantile-delta, echo=FALSE, fig.cap="Distribution shift relative to PRESENT, by percentile and global warming level. The dashed line marks no change.", out.width="100%", fig.align="center"}
