@@ -177,7 +177,7 @@ For the deterministic interpolation baseline the CRPS reduces to the absolute er
 Related works assess the amount of spatial variability in a field using the radially averaged power spectral density (RAPSD), which quantifies the amount of variability a field contains at each spatial scale [@addison2026; @tomasi2025].
 However, the RAPSD captures only the amount of the variability, not whether it is placed at the correct locations.
 
-Following @mardani2025, calibration is assessed using the spread–skill relationship. In a calibrated ensemble, the spread of the ensemble members matches the error of the ensemble mean on average. A spread–skill ratio below one indicates an underdispersed ensemble,
+Following @mardani2025 and @addison2026, calibration is assessed using the spread–skill relationship, with the ensemble spread corrected for the finite ensemble size. In a calibrated ensemble, the spread of the ensemble members matches the error of the ensemble mean on average. A spread–skill ratio below one indicates an underdispersed ensemble,
 whose members vary less than their actual error would justify.
 
 ## Results
@@ -221,9 +221,7 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/4_mae
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/1_power_spectrum.svg")
 ```
 
-Figure \@ref(fig:spread-skill) addresses the calibration of the ensemble by grouping the pixel-day pairs into 30 equal-count bins by ensemble spread and calculating the RMSE of the ensemble mean within each bin. 
-The spread is corrected for the finite ensemble size following [@mardani2025; @addison2026].
-The points lie below the diagonal throughout, indicating an underdispersed ensemble, with a spread–skill ratio of 0.71 for temperature and 0.52 for precipitation.
+Figure \@ref(fig:spread-skill) addresses the calibration of the ensemble by grouping the pixel-day pairs into 30 equal-count bins by ensemble spread and calculating the RMSE of the ensemble mean within each bin. The points lie below the diagonal throughout, indicating an underdispersed ensemble, with a spread–skill ratio of 0.71 for temperature and 0.52 for precipitation.
 
 ```{r spread-skill, echo=FALSE, fig.cap="Spread–skill relationship of the diffusion ensemble. A calibrated ensemble follows the one-to-one line.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/2_spread_skill.svg")
@@ -312,13 +310,15 @@ In contrast, they also report for their intermittent channel (radar reflectivity
 
 The projection results are consistent with @aich2026, who find the change signal preserved under a high-emission scenario. This work shows that the downscaling step does not distort the signal it is given,
 either in the domain mean or spatially. The large-scale signal is, however, already present in the interpolated field to which the generated residual is added, so its preservation is partly by construction.
-The model learned from the reanalysis training pairs how fine-scale structure follows from a coarse field. Under warming the same coarse field may imply different fine-scale structure,
-and no high-resolution reference exists to check this. @addison2026, who have projection data at both resolutions, report errors in the magnitude of the projected change that a consistency check of this kind would not reveal.
+The model learned from the reanalysis training pairs how fine-scale structure follows from a coarse field. Under warming the same coarse field may imply different fine-scale structure. 
+@addison2026 have projection data at both resolutions and can therefore compare their downscaled change signal against a fine-scale reference.
+They report a bias in the magnitude of the projected change, which a consistency check of this kind would not reveal.
 
 The work has its limitations. Due to the constrained resources, the model was trained for a fixed budget without hyperparameter optimization.
 The orography field was only available at 5.5 km, which may explain the error concentration along the Alpine ridge reported in Section \@ref(calibration-assessment).
 The evaluation sample also limits the precision of the reported metrics. This matters most for the
 spread–skill relationship, where the spread is estimated from 12 ensemble members per date.
+Most fundamentally, no high-resolution ground truth exists for the projection period, so the fine-scale climate change signal itself cannot be validated.
 
 ## Conclusion
 
@@ -328,15 +328,14 @@ The likely reasons are the variable's right-skewed distribution and the fact tha
 For both variables the ensemble is underdispersed.
 
 With regard to the climate change signal, the offset relative to the interpolation baseline is constant across all periods and the spatial difference between the two change signals shows no coherent structure.
-Both are consistent with the change signal being transferred to the fine grid without systematic distortion, though the absence of high-resolution ground truth for the projection period means the fine-scale signal itself cannot be validated.
+Both are consistent with the change signal being transferred to the fine grid without systematic distortion.
 
 Several directions follow from this work. Multiple options exist to improve the model's capability in downscaling precipitation. One is to transform the variable before training, for example with a log or square-root mapping, which reduces its skew [@addison2026; @aich2026].
-Giving the model additional context, for example a surface pressure climate field, might also help improve its precipitation downscaling capabilities.
+@lopezgomez2025 gave the model additional context, e.g. a surface pressure climate field, for downscaling precipitation.
 Another is to change the architecture to the regression-residual approach, so that a conditional regression first brings the coarse field to the target resolution and the diffusion model only has to handle the stochastic component [@mardani2025; @tomasi2025] or to have the model generate the full climate field [@addison2026; @aich2026].
 Both might also address the underdispersion, most directly full-field generation, where no interpolated baseline anchors the ensemble's variance.
 Checkpoint selection could also be introduced, based on validation loss as well as accuracy of the generated ensemble on the validation set [@addison2026].
-Finally, a feature importance analysis on the contextual information could show how much the orography, the date and the coarse input field each contribute,
-and whether other contextual information might be worth adding [@lopezgomez2025].
+Finally, a feature importance analysis on the contextual information could show how much the orography, the date and the coarse input field each contribute [@lopezgomez2025].
 
 ### Note on the dataset
 The reanalysis and climate projection datasets were provided by Max Kagerbauer from the Alpine DROught Prediction (A-DROP) project.
@@ -392,7 +391,6 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/6_spre
 
 ### Appendix E - Compute time {#appendix-e}
 
-#### Compute time
 The training of the model for 20 epochs took 28 hours on a single GPU.
 The inference on the test set for the calibration period took about 2 hours.
 The inference on the selected days for the projection period took 16 hours.
