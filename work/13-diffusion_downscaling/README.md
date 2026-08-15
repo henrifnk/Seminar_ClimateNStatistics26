@@ -118,7 +118,7 @@ Sample grids → `plots/training/`; losses logged to W&B (`climate-diffusion-dow
 **3 — RQ1: calibration on held-out reanalysis**
 
 ```bash
-uv run python src/evaluation/CalibrationPeriodAssessment.py --checkpoint ./model/20.pt --stride 7 --n-clim 4 --cache-dir ./cache
+uv run python src/evaluation/CalibrationPeriodAssessment.py --checkpoint ./model/20.pt --stride 7 --n-clim 12 --cache-dir ./cache
 ```
 
 Ensemble CRPS vs. bilinear baseline, rank histograms, spread–skill, power spectra, a map
@@ -128,7 +128,7 @@ of where the model's correction diverges from the baseline, distribution compari
 **4 — RQ2: behaviour across warming levels**
 
 ```bash
-uv run python src/evaluation/ProjectionPeriodAssessment.py --checkpoint ./model/20.pt --stride 15 --cache-dir ./cache
+uv run python src/evaluation/ProjectionPeriodAssessment.py --checkpoint ./model/20.pt --stride 12 --n-clim 4 --cache-dir ./cache
 ```
 
 Example-date comparison; Δ maps per GWL period vs. PRESENT; period means as percent

@@ -37,7 +37,7 @@ recovering the original resolution [@merizzi2024; @watt2024]. A smaller number o
 
 This work adopts the interpolation-residual approach, because it only requires a single model and restricts the learning task to the fine-scale correction.
 It addresses both research areas, calibration assessment of the generated fields and projection-signal preservation.
-For **calibration assessment**, it evaluates whether the @watt2024 architecture generates accurate and calibrated ensembles over the complex topography of the Alps downscaling reanalysis fields from 12 km to a target resolution of 3.4 km.
+For **calibration assessment**, it evaluates whether the @watt2024 architecture generates accurate and calibrated ensembles over the complex topography of the Alps, downscaling reanalysis fields from 12 km to a target resolution of 3.4 km.
 Then for **signal preservation**, the trained model is assessed on how well it preserves the climate change signal when applied to future climate projections.
 
 ## Diffusion models for image generation {#ddm-theory}
@@ -96,10 +96,10 @@ Both variables were initially available on a 3-hour basis and were subsequently 
 
 ### Dataset information {#dataset-information}
 The dataset consists of reanalysis and climate projection data and was provided by the [Alpine DROught Prediction (A-DROP)](https://www.alpine-space.eu/project/a-drop/) project covering the Alpine domain.
-**Reanalysis data** is a gridded reconstruction of past weather states and is provided in this work on a resolution of 500 m (1749 × 2198 pixels over the Alpine domain), downscaled from the native CERRA reanalysis.
+**Reanalysis data** is a gridded reconstruction of past weather states and is provided in this work at a resolution of 500 m (1749 × 2198 pixels over the Alpine domain), downscaled from the native CERRA reanalysis.
 These 500 m fields were coarsened to 3.4 km due to compute constraints, corresponding to a 256 × 320 grid. Therefore, 3.4 km is the target resolution of the downscaling task throughout this work.
 
-**Projection data** encompasses a simulated trajectory on how Alpine climate might develop over the current century. This work assigned the years to specific Global Warming Levels (GWL) as outlined in Table \@ref(tab:gwl-periods).
+**Projection data** encompasses a simulated trajectory of how Alpine climate might develop over the current century. This work assigns the years to specific Global Warming Levels (GWL) as outlined in Table \@ref(tab:gwl-periods).
 Projection data from the PRESENT period covers the same years as the reanalysis data, including the years the model was trained on, but contains simulated climate states.
 The data was bias-corrected against the reanalysis data utilizing the MBCn-algorithm [@cannon2018] and is only available at a resolution of 12 km (77 × 91 pixels), considerably coarser than the reanalysis data.
 The reanalysis grid does not cover its full rectangular pixel array, so the projection data is clipped to the smaller reanalysis-covered area throughout the analysis.
@@ -136,7 +136,7 @@ target resolution of 3.4 km.
 
 ### Modeling setup {#modeling-setup}
 The diffusion model technique is applied to the climate downscaling context following @watt2024.
-The pipeline is outlined in Figure \@ref(fig:downscaling-workflow). In a first step, the original coarse 12 km climate field is bilinearly interpolated to a smoothed version on the target resolution.
+The pipeline is outlined in Figure \@ref(fig:downscaling-workflow). In a first step, the original coarse 12 km climate field is bilinearly interpolated to a smoothed version at the target resolution.
 The target of the image generation task ($\boldsymbol{x}_0$ of Section \@ref(ddm-theory)) is the residual climate field between the ground truth and the interpolated field.
 The contextual information $\boldsymbol{y}$ is composed of the interpolated climate field, the static fields and the date.
 After its generation, the residual field is added on top of the interpolated field to retrieve the downscaled field.
@@ -158,8 +158,8 @@ Whether the diffusion model is also able to handle the temporal shift induced by
 
 The model was trained for a fixed budget of 20 epochs, by which point the validation loss had largely flattened.
 Further information on the model parameters and the compute time can be found in [Appendix E](#appendix-e).
-The reanalysis test consists of every 7th day in the years 2019–2020, totalling 105 days. For every date an ensemble of 12 members was generated. 
-In the projection dataset every 12th day was selected and the ensemble encompassed 4 members. Both design choices were made to keep compute time reasonable.
+The reanalysis test set consists of every 7th day in the years 2019–2020, totaling 105 days. For every date an ensemble of 12 members was generated. 
+In the projection dataset every 12th day was selected and the ensemble comprised 4 members. Both design choices were made to keep compute time reasonable.
 
 ### Evaluation metrics {#evaluation-metrics}
 The accuracy of a generated ensemble with regard to an observation can be measured using the continuous ranked probability score (CRPS), rewarding both accuracy of the individual members and appropriate spread between them [@gneiting2007].
@@ -171,7 +171,7 @@ $$
 
 where $X$ and $X'$ are independent random variables distributed according to $F$.
 The first term penalizes the distance of the forecast from the observation and the second rewards spread [@gneiting2007].
-An unbiased estimator of the CRPS was applied to account for the bias introduced by the finite ensemble, following practice from other works [@mardani2025].
+An unbiased estimator of the CRPS was applied to account for the bias introduced by the finite ensemble, following practice from other works [@mardani2025; @addison2026].
 For the deterministic interpolation baseline the CRPS reduces to the absolute error, so ensemble CRPS and baseline MAE are directly comparable.
 
 Related works assess the amount of spatial variability in a field using the radially averaged power spectral density (RAPSD), which quantifies the amount of variability a field contains at each spatial scale [@addison2026; @tomasi2025].
@@ -187,6 +187,7 @@ Table \@ref(tab:crps-skill) shows the MAE for the baseline interpolation model a
 averaged over all grid cells and selected days of the held-out test set. The diffusion model fields are closer to the ground truth than the
 smoothed baseline fields by a wide margin, especially for temperature.
 The spatial location of the error between the ensemble mean and the ground truth is visualized in Figure \@ref(fig:error-prone-areas), which indicates that the errors are concentrated along the Alpine ridge.
+[Appendix C](#appendix-c) gives further information on where the model applies the largest correction to the interpolated field.
 Figure \@ref(fig:power-spectrum) assesses how well the generated fields capture the spatial variability of the ground truth beyond the evaluation metrics.
 The generated fields for both variables carry more variance on fine scales than the interpolated field. For temperature the field carries approximately the same variance on fine scales as the ground truth.
 For precipitation the variance at the finest scales exceeds the ground truth, so the model does not merely restore the fine-scale structure that the smoothed interpolation field lacks,
@@ -216,11 +217,12 @@ kbl(
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/4_mae_spatial.svg")
 ```
 
-```{r power-spectrum, echo=FALSE, fig.cap="Radially averaged power spectral density for temperature and precipitation: interpolated field, diffusion model and ground truth.", out.width="100%", fig.align="center"}
+```{r power-spectrum, echo=FALSE, fig.cap="Radially averaged power spectral density for temperature and precipitation", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/calibration/1_power_spectrum.svg")
 ```
 
-Figure \@ref(fig:spread-skill) addresses the calibration of the ensemble by grouping the pixel-day pairs into 30 equal-count bins by ensemble spread and within each bin calculates the RMSE of the ensemble mean. The spread is corrected for the finite ensemble size [@mardani2025].
+Figure \@ref(fig:spread-skill) addresses the calibration of the ensemble by grouping the pixel-day pairs into 30 equal-count bins by ensemble spread and calculating the RMSE of the ensemble mean within each bin. 
+The spread is corrected for the finite ensemble size following [@mardani2025; @addison2026].
 The points lie below the diagonal throughout, indicating an underdispersed ensemble, with a spread–skill ratio of 0.71 for temperature and 0.52 for precipitation.
 
 ```{r spread-skill, echo=FALSE, fig.cap="Spread–skill relationship of the diffusion ensemble. A calibrated ensemble follows the one-to-one line.", out.width="100%", fig.align="center"}
@@ -234,9 +236,9 @@ produced by the diffusion model, to assess how the diffusion model affects the c
 
 Figure \@ref(fig:proj-period-means) compares the average temperature and precipitation mass between the interpolated climate field and the downscaled climate field.
 The downscaled fields are consistently about 0.02 % cooler and carry between 0.83 % and 0.88 % more precipitation mass than the interpolation reference,
-a difference that is approximately constant across all periods. This points to the downscaling step being unaffected by the distributional shift.
+a difference that is approximately constant across all periods. The effect of the downscaling step therefore does not vary systematically across periods.
 
-```{r proj-period-means, echo=FALSE, fig.cap="Effect of the downscaling step per global warming level, in percent relative to the interpolated field. Left: mean temperature, right: total precipitation mass.", out.width="100%", fig.align="center"}
+```{r proj-period-means, echo=FALSE, fig.cap="Effect of the downscaling step per global warming level, in percent relative to the interpolated field.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/3_period_means.svg")
 ```
 
@@ -254,11 +256,11 @@ Figures \@ref(fig:max-temp-day) and \@ref(fig:max-precip-day) present the day wi
 in the projection data. The corresponding numbers on how the statistics of the field are affected by the models are given in Table \@ref(tab:max-day-stats).
 The native 12 km field is mapped onto the fine grid by a nearest-neighbor lookup. Thus, all three fields share one grid.
 On the hottest day the domain mean decreases only slightly from the interpolated to the downscaled field, while the maximum
-pixel temperature in the field increases (+1.29 °C).
+pixel temperature in the field increases (+1.28 °C).
 A more interesting pattern emerges for the day with the highest precipitation mass. While the domain mean is preserved,
 the maximum pixel value increases substantially relative to the interpolated field by +28.70 mm/day. Bilinear interpolation had removed part of that peak
-beforehand (-7.09 mm/day). Thus, a part of the increase only restores the peak that the smoothing had removed. The downscaled maximum is still 11.7 % above the native 12 km maximum.
-This may be due to the inflated fine-scale variance reported in Section \@ref(calibration-assessment) which is also evident due to the granular speckle that neither the coarse nor the interpolated field shows.
+beforehand (-7.08 mm/day). Thus, a part of the increase only restores the peak that the smoothing had removed. The downscaled maximum is still 11.7 % above the native 12 km maximum.
+This may be due to the inflated fine-scale variance reported in Section \@ref(calibration-assessment), which is also evident in the granular speckle that neither the coarse nor the interpolated field shows.
 
 ```{r max-temp-day, echo=FALSE, fig.cap="Day with the highest domain-mean temperature. Left to right: native 12 km grid, bilinear interpolation, downscaled ensemble mean.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/7_highest_mean_temperature_day_2080-08-13.svg")
@@ -270,13 +272,13 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/7_high
 
 ```{r max-day-stats, echo=FALSE}
 max_day <- data.frame(
-  stat       = c("Hottest: domain mean", "Hottest: max pixel",
-                 "Wettest: domain mean", "Wettest: max pixel"),
+  stat       = c("Temp: domain mean", "Temp: max pixel",
+                 "Prec: domain mean", "Prec: max pixel"),
   native     = c("31.90", "39.77", "30.22", "184.90"),
   interp     = c("31.90", "39.79", "30.22", "177.82"),
   downscaled = c("31.83", "41.07", "30.25", "206.51"),
-  d_regrid   = c("0.00", "+0.02", "0.00", "-7.09"),
-  d_model    = c("-0.07", "+1.29", "+0.04", "+28.70")
+  d_regrid   = c("0.00", "+0.02", "0.00", "-7.08"),
+  d_model    = c("-0.07", "+1.28", "+0.03", "+28.70")
 )
 
 kbl(
@@ -298,7 +300,7 @@ kbl(
   column_spec(1, extra_css = "white-space: nowrap;")
 ```
 
-A short analysis on whether the spread of the generated ensembles is affected by the distributional shift can be found in [Appendix D](#appendix-d).
+A short analysis of whether the spread of the generated ensembles is affected by the distributional shift can be found in [Appendix D](#appendix-d).
 
 ## Discussion {#discussion}
 
@@ -328,12 +330,12 @@ For both variables the ensemble is underdispersed.
 With regard to the climate change signal, the offset relative to the interpolation baseline is constant across all periods and the spatial difference between the two change signals shows no coherent structure.
 Both are consistent with the change signal being transferred to the fine grid without systematic distortion, though the absence of high-resolution ground truth for the projection period means the fine-scale signal itself cannot be validated.
 
-The interpolation-residual setup is therefore usable for temperature over the Alpine domain; for precipitation further improvements are necessary.
+The interpolation-residual setup produces realistic fine-scaled temperature fields over the Alpine domain, though the ensemble remains underdispersed. For precipitation further improvements are necessary.
 Whether it captures the coarse-to-fine relationship of a future climate remains open until fine-scale projection data is available.
 
 Several directions follow from this work. Multiple options exist to improve the model's capability in downscaling precipitation. One is to transform the variable before training, for example with a log or square-root mapping, which reduces its skew [@addison2026; @aich2026].
 Giving the model additional context, for example a surface pressure climate field, might also help improve its precipitation downscaling capabilities.
-Another is to change the architecture to the regression-residual approach, so that a conditional regression first brings the coarse field to the target resolution and the diffusion model only has to handle the stochastic component [@mardani2025; @tomasi2025] or to generate the full climate field by the model [@addison2026; @aich2026].
+Another is to change the architecture to the regression-residual approach, so that a conditional regression first brings the coarse field to the target resolution and the diffusion model only has to handle the stochastic component [@mardani2025; @tomasi2025] or to have the model generate the full climate field [@addison2026; @aich2026].
 Both might also address the underdispersion, most directly full-field generation, where no interpolated baseline anchors the ensemble's variance.
 Checkpoint selection could also be introduced, based on validation loss as well as accuracy of the generated ensemble on the validation set [@addison2026].
 Finally, a feature importance analysis on the contextual information could show how much the orography, the date and the coarse input field each contribute,
@@ -341,7 +343,7 @@ and whether other contextual information might be worth adding [@lopezgomez2025]
 
 ### Note on the dataset
 The reanalysis and climate projection datasets were provided by Max Kagerbauer from the Alpine DROught Prediction (A-DROP) project.
-Further information on the A-DROP project can be found under the following link: https://www.alpine-space.eu/project/a-drop/
+Further information on the A-DROP project can be found at the following link: https://www.alpine-space.eu/project/a-drop/
 
 ## Appendix
 
@@ -360,7 +362,7 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/diagnostics/denoi
 knitr::include_graphics("work/13-diffusion_downscaling/figures/diagnostics/denoiser_estimate_2016-06-23_seed42/filmstrip_pr_residual.svg")
 ```
 
-### Appendix B - Distributional shift of the climate variable across global warming levels {#appendix-b}
+### Appendix B - Distributional shift of the climate variables across global warming levels {#appendix-b}
 
 The ridgeline visualization of Figure \@ref(fig:distribution-shift) is supplemented by the percentile plot in Figure \@ref(fig:quantile-delta), which shows how far each percentile of the
 domain-wide distribution moves relative to the PRESENT period.
@@ -394,7 +396,7 @@ knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/6_spre
 ### Appendix E - Compute time and model parameters {#appendix-e}
 
 #### Compute time
-The training of the model for 20 epochs encompassed 28 hours on a single GPU.
+The training of the model for 20 epochs took 28 hours on a single GPU.
 The inference on the test set for the calibration period took about 2 hours.
 The inference on the selected days for the projection period took 16 hours.
 
@@ -448,7 +450,7 @@ kbl(
   pack_rows("Sampler", 11, 15, background = "#efefef")
 ```
 
-### Usage of AI tools
+## Usage of AI tools
 I hereby declare that this seminar work was written by myself. All sources that were used directly or indirectly are acknowledged in the references.
 Generative AI tools were utilized as an aid for researching relevant literature, for improving spelling and grammar, and for adapting the code used for the analyses and models.
 Their outputs have been critically reviewed and verified by me. I take full responsibility for the content of this seminar work.
