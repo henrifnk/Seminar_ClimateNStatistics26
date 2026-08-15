@@ -30,3 +30,37 @@ A widely studied approach for detecting an approaching critical transition is ba
 The interpretation of EWS is nevertheless challenging. An increasing indicator is not uniquely associated with an approaching tipping point. Changes in noise intensity, seasonality, sampling frequency, external forcing, or other non-stationary processes may produce similar statistical patterns. Consequently, an observed EWS should not automatically be interpreted as evidence that a system is approaching a critical transition. This creates an important statistical problem: how reliably can commonly used EWS discriminate between genuine loss of stability and alternative non-tipping mechanisms?
 
 This chapter investigates this question using a controlled simulation benchmark combined with a probabilistic interpretation of EWS. Two commonly used indicators, rolling variance and rolling AC1, are evaluated across five scenarios representing an approaching fold bifurcation, a stable control, seasonal variation, increasing noise without tipping, and sparse observations of an approaching tipping point. Their discriminatory performance is assessed using Kendall's rank correlation and receiver operating characteristic (ROC) analysis. The resulting sensitivity and false-positive rates are then incorporated into a Bayesian framework to illustrate how an observed warning signal updates the probability of tipping under different prior assumptions. Finally, the approach is illustrated using a North Atlantic sea-surface-temperature (SST) proxy related to the AMOC. The aim is not to diagnose an imminent AMOC collapse, but to demonstrate how early-warning indicators can be interpreted cautiously when both the signal and the underlying tipping risk are uncertain.
+
+## Early-Warning Signals and Critical Slowing Down
+
+Many early-warning signals of critical transitions are motivated by the concept of **critical slowing down**. Consider a dynamical system whose state $x$ evolves under a slowly changing control parameter. A simple representation of an approaching fold bifurcation is the stochastic differential equation
+
+$$
+dx_t = (a_t - x_t^2)\,dt + \sigma\,dW_t,
+$$
+
+where $a_t$ is a slowly varying control parameter, $\sigma$ represents the intensity of stochastic perturbations, and $W_t$ denotes a Wiener process. As the system approaches the critical threshold, the stable equilibrium moves closer to the unstable equilibrium and eventually disappears at the bifurcation point. Before this transition occurs, the local stability of the system decreases and perturbations take increasingly longer to decay. This phenomenon is known as critical slowing down [@scheffer2009].
+
+The statistical consequences can be understood by considering the dynamics locally around a stable equilibrium. After linearisation, deviations $y_t$ from equilibrium can approximately be represented as
+
+$$
+dy_t = -\lambda y_t\,dt + \sigma\,dW_t,
+$$
+
+where $\lambda>0$ describes the local recovery rate. When the system approaches a fold bifurcation, $\lambda$ decreases towards zero. The lag-1 autocorrelation of discretely observed states can then be approximated by
+
+$$
+\rho_1 \approx \exp(-\lambda \Delta t).
+$$
+
+Consequently, as $\lambda \rightarrow 0$, $\rho_1$ approaches one: consecutive observations become increasingly similar because the system recovers more slowly from perturbations. Under the same local approximation, the stationary variance is
+
+$$
+\mathrm{Var}(Y) \approx \frac{\sigma^2}{2\lambda}.
+$$
+
+A declining recovery rate therefore also tends to increase variance. Rising **lag-1 autocorrelation (AC1)** and **variance** are consequently two of the most widely used statistical indicators of critical slowing down [@scheffer2009; @dakos2012].
+
+In practice, these indicators are commonly estimated over rolling windows rather than from the entire time series. To quantify whether an indicator systematically increases over time, this study uses **Kendall's rank correlation coefficient $\tau$** between the indicator and time. A positive value of $\tau$ indicates an increasing tendency, while values near zero indicate little evidence of a monotonic trend. This provides a simple non-parametric summary of the development of each early-warning indicator.
+
+However, increases in variance or AC1 are not unique signatures of an approaching bifurcation. Changes in noise intensity, seasonal structure, sampling frequency, and other forms of non-stationarity may generate similar statistical patterns. Early-warning signals should therefore be interpreted as evidence of changing system stability rather than deterministic proof of an approaching tipping point. This ambiguity motivates the simulation benchmark in the following section, where the behaviour of variance and AC1 is compared across both tipping and non-tipping scenarios.
