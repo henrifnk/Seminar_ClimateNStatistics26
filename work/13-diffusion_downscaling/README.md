@@ -39,9 +39,6 @@ truth exists in the projection period — RQ2 is assessed as *signal stability* 
 
 ## Repository layout
 
-Independent scripts, not an installable package. Each adds `src/` to `sys.path` itself,
-so run any of them directly — `python src/.../Foo.py`, no install or `-m` needed.
-
 ```
 src/
 ├── DatasetAL.py                 # UpscaleDataset: pairing, normalization, residual target
@@ -122,7 +119,7 @@ uv run python src/evaluation/CalibrationPeriodAssessment.py --checkpoint ./model
 ```
 
 Ensemble CRPS vs. bilinear baseline, rank histograms, spread–skill, power spectra, a map
-of where the model's correction diverges from the baseline, distribution comparisons.
+of where the model's correction diverges from the baseline.
 → `plots/calibration/`.
 
 **4 — RQ2: behaviour across warming levels**

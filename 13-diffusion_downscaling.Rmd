@@ -331,7 +331,7 @@ With regard to the climate change signal, the offset relative to the interpolati
 Both are consistent with the change signal being transferred to the fine grid without systematic distortion.
 
 Several directions follow from this work. Multiple options exist to improve the model's capability in downscaling precipitation. One is to transform the variable before training, for example with a log or square-root mapping, which reduces its skew [@addison2026; @aich2026].
-@lopezgomez2025 gave the model additional context, e.g. a surface pressure climate field, for downscaling precipitation.
+@lopezgomez2025 gave the model additional context, e.g. information on surface pressure, for downscaling precipitation.
 Another is to change the architecture to the regression-residual approach, so that a conditional regression first brings the coarse field to the target resolution and the diffusion model only has to handle the stochastic component [@mardani2025; @tomasi2025] or to have the model generate the full climate field [@addison2026; @aich2026].
 Both might also address the underdispersion, most directly full-field generation, where no interpolated baseline anchors the ensemble's variance.
 Checkpoint selection could also be introduced, based on validation loss as well as accuracy of the generated ensemble on the validation set [@addison2026].
@@ -366,7 +366,7 @@ For temperature the whole distribution is shifted upwards, with the upper percen
 For precipitation only the tail of the distribution is affected. Up to roughly the 80th percentile the values stay unchanged, beyond the 90th percentile they increase to about
 +1.4 mm/day at GWL2 and about +6 mm/day at GWL3 and GWL4. Therefore, the shift the model has to extrapolate to is concentrated in the extreme tail of the precipitation distribution.
 
-```{r quantile-delta, echo=FALSE, fig.cap="Distribution shift relative to PRESENT, by percentile and global warming level. Left: temperature, right: precipitation; the dashed line marks no change.", out.width="100%", fig.align="center"}
+```{r quantile-delta, echo=FALSE, fig.cap="Distribution shift relative to PRESENT, by percentile and global warming level. The dashed line marks no change.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/5_quantile_delta.svg")
 ```
 
@@ -385,7 +385,7 @@ Figure \@ref(fig:spread-persistence) shows the distribution of the daily ensembl
 The distributions overlap almost completely and are not ordered by warming level, so a systematic difference in the spread between the periods is not visible, although a more extensive study
 containing more ensemble members might give more reliable numbers.
 
-```{r spread-persistence, echo=FALSE, fig.cap="Daily ensemble spread of the projection ensembles, per global warming level. Left: temperature, right: precipitation. Each row is the histogram over the evaluated days of one period.", out.width="100%", fig.align="center"}
+```{r spread-persistence, echo=FALSE, fig.cap="Daily ensemble spread of the projection ensembles, per global warming level. Each row is the histogram over the evaluated days of one period.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/6_spread_persistence.svg")
 ```
 
@@ -397,5 +397,5 @@ The inference on the selected days for the projection period took 16 hours.
 
 ## Usage of AI tools
 I hereby declare that this seminar work was written by myself. All sources that were used directly or indirectly are acknowledged in the references.
-Generative AI tools were utilized as an aid for researching relevant literature, for improving spelling and grammar, and for adapting the code used for the analyses and models.
+Generative AI tools were utilized as an aid for researching and understanding relevant literature and concepts, for improving spelling and grammar, and for adapting the code used for the analyses and models.
 Their outputs have been critically reviewed and verified by me. I take full responsibility for the content of this seminar work.
