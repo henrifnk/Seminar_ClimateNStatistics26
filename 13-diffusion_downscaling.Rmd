@@ -136,12 +136,12 @@ target resolution of 3.4 km.
 
 ### Modeling setup {#modeling-setup}
 The diffusion model technique is applied to the climate downscaling context following @watt2024.
-The pipeline is outlined in Figure \@ref(fig:downscaling-workflow). In a first step, the original coarse 12 km climate field is bilinearly interpolated to a smoothed version at the target resolution.
+The pipeline is outlined in Figure \@ref(fig:downscaling-workflow). In a first step, the original coarse 12 km climate field is linearly interpolated to a smoothed version at the target resolution.
 The target of the image generation task ($\boldsymbol{x}_0$ of Section \@ref(ddm-theory)) is the residual climate field between the ground truth and the interpolated field.
 The contextual information $\boldsymbol{y}$ is composed of the interpolated climate field, the static fields and the date.
 After its generation, the residual field is added on top of the interpolated field to retrieve the downscaled field.
 
-```{r downscaling-workflow, echo=FALSE, fig.cap="Residual downscaling workflow. The coarse field is bilinearly interpolated, the diffusion model generates the residual, and their sum yields the downscaled field.", out.width="100%", fig.align="center"}
+```{r downscaling-workflow, echo=FALSE, fig.cap="Residual downscaling workflow. The coarse field is linearly interpolated, the diffusion model generates the residual, and their sum yields the downscaled field.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/training/model_structure.svg")
 ```
 
@@ -196,7 +196,7 @@ but overshoots it. The generated precipitation fields are therefore variance-inf
 ```{r crps-skill, echo=FALSE}
 res <- data.frame(
   Metric        = c("MAE", "CRPS"),
-  Model         = c("Bilinear interpolation", "Diffusion"),
+  Model         = c("Interpolation model", "Diffusion model"),
   Temperature   = c("0.650", "0.078"),
   Precipitation = c("0.280", "0.089")
 )
@@ -256,11 +256,11 @@ in the projection data. The corresponding numbers on how the statistics of the f
 On the hottest day the domain mean decreases only slightly from the interpolated to the downscaled field, while the maximum
 pixel temperature in the field increases (+1.28 °C).
 A more interesting pattern emerges for the day with the highest precipitation mass. While the domain mean is preserved,
-the maximum pixel value increases substantially relative to the interpolated field by +28.70 mm/day. Bilinear interpolation had removed part of that peak
+the maximum pixel value increases substantially relative to the interpolated field by +28.70 mm/day. The interpolation had removed part of that peak
 beforehand (-7.08 mm/day). Thus, a part of the increase only restores the peak that the smoothing had removed. The downscaled maximum is still 11.7 % above the native 12 km maximum.
 This may be due to the inflated fine-scale variance reported in Section \@ref(calibration-assessment), which is also evident in the granular speckle that neither the coarse nor the interpolated field shows.
 
-```{r max-temp-day, echo=FALSE, fig.cap="Day with the highest domain-mean temperature. Left to right: native 12 km grid, bilinear interpolation, downscaled ensemble mean.", out.width="100%", fig.align="center"}
+```{r max-temp-day, echo=FALSE, fig.cap="Day with the highest domain-mean temperature. Left to right: native 12 km grid, interpolation, downscaled ensemble mean.", out.width="100%", fig.align="center"}
 knitr::include_graphics("work/13-diffusion_downscaling/figures/projection/7_highest_mean_temperature_day_2080-08-13.svg")
 ```
 
@@ -286,7 +286,7 @@ kbl(
   align     = c("l", "r", "r", "r", "r", "r"),
   col.names = c("", "Native (12 km)", "Interpolated", "Downscaled", "Interpolation", "Model"),
   escape    = FALSE,
-  caption   = "Field statistics for the hottest day (2080-08-13, temperature in °C) and the wettest day (2056-09-10, precipitation in mm/day). Interpolation is the bilinear interpolation effect (interpolated minus native), Model the diffusion residual (downscaled minus interpolated)."
+  caption   = "Field statistics for the hottest day (2080-08-13, temperature in °C) and the wettest day (2056-09-10, precipitation in mm/day). Interpolation is the effect of the linear interpolation (interpolated minus native), Model the diffusion residual (downscaled minus interpolated)."
 ) |>
   add_header_above(c(" " = 1, "Field value" = 3, "Effect" = 2),
                    bold = TRUE, background = "#3f3f3f", color = "white") |>
