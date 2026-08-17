@@ -4,7 +4,7 @@ output:
   html_document: default
 ---
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r tp-setup, message=FALSE, warning=FALSE, include=FALSE}
 library(bookdown)
 library(svglite)
 library(kableExtra)
@@ -80,8 +80,8 @@ volume, forest cover, overturning strength, and so on). Using GMST
 nonetheless allows thresholds for physically very different systems to be
 compared on a common scale.
 
-```{r tipping-schematic, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Schematic of a climate tipping transition, following the tipping-point definition of Lenton et al. (2008)."}
-knitr::include_graphics("work/09-tp-overview/figures/tipping_point_schematic.png")
+```{r tp-schematic, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Schematic of a climate tipping transition, following the tipping-point definition of Lenton et al. (2008)."}
+knitr::include_graphics("work/09-tp-overview/figures/tp_tipping_point_schematic.svg")
 ```
 
 ## Overview of the 16 Tipping Elements {#tp-elements}
@@ -97,9 +97,9 @@ expected impacts.
 **Global core** elements are those whose tipping would have severe effects
 well beyond the region of origin, for example through multi-metre sea-level
 rise or large-scale disruption of atmospheric circulation (Table
-\@ref(tab:tipping-elements-global)).
+\@ref(tab:tp-elements-global)).
 
-```{r tipping-elements-global, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tp-elements-global, echo=FALSE, message=FALSE, warning=FALSE}
 global_core <- data.frame(
   Element = c("Greenland Ice Sheet", "West Antarctic Ice Sheet",
               "Labrador-Irminger Seas / SPG Convection",
@@ -125,13 +125,13 @@ kbl(
 ```
 
 **Regional-impact** elements mainly affect the region in which they are
-located (Table \@ref(tab:tipping-elements-regional)). Boreal permafrost
+located (Table \@ref(tab:tp-elements-regional)). Boreal permafrost
 appears in both tables because @armstrongmckay2022 distinguishes two modes:
 gradual collapse with large carbon release (global core) and abrupt thaw
 with more localised impacts (regional). The temperature ranges therefore
 refer to different processes, not to a duplicated entry.
 
-```{r tipping-elements-regional, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tp-elements-regional, echo=FALSE, message=FALSE, warning=FALSE}
 regional_impact <- data.frame(
   Element = c("Low-latitude Coral Reefs", "Boreal Permafrost",
               "Barents Sea Ice", "Mountain Glaciers",
@@ -166,8 +166,8 @@ warming levels still treated as policy targets.
 
 ### Threshold estimation
 
-The ranges in Tables \@ref(tab:tipping-elements-global) and
-\@ref(tab:tipping-elements-regional) are not taken from a single study.
+The ranges in Tables \@ref(tab:tp-elements-global) and
+\@ref(tab:tp-elements-regional) are not taken from a single study.
 They are compiled from three types of evidence:
 
 1. **System-specific models**, which estimate when a given system loses
@@ -285,7 +285,9 @@ signal in the melt series itself.
 The analysis is reproduced in R from the melt record released with the
 paper (`github.com/niklasboers/GrIS-EWS`, file
 `CWG_NU_melt_jja_temp.txt`), covering the CWG stack melt series from 1650
-to 2013. Code is in `work/09-tp-overview/R/ews_reproduction.R`.
+to 2013. The original data are not stored in this repository; the
+reproduction script reads them from the authors' public GitHub page.
+Code is in `work/09-tp-overview/R/tp_ews_reproduction.R`.
 
 As in the original study, the series is restricted to 1855--2013; earlier
 years were excluded there as noisier and less reliable. The steps are as
@@ -332,11 +334,11 @@ follows.
 
 ### Results
 
-```{r ews-plot, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Reproduced variance and AC1 trends for the Central-Western Greenland melt record, following the method of Boers and Rypdal (2021)."}
-knitr::include_graphics("work/09-tp-overview/figures/ews_reproduction_plot.png")
+```{r tp-ews-plot, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Reproduced variance and AC1 trends for the Central-Western Greenland melt record, following the method of Boers and Rypdal (2021)."}
+knitr::include_graphics("work/09-tp-overview/figures/tp_ews_reproduction_plot.svg")
 ```
 
-Figure \@ref(fig:ews-plot) shows both indicators over the analysis period.
+Figure \@ref(fig:tp-ews-plot) shows both indicators over the analysis period.
 OLS fits of the windowed series on year give a variance slope of
 $1.26\times10^{-3}$ yr$^{-1}$ and an AC1 slope of
 $6.09\times10^{-3}$ yr$^{-1}$ (90 window end years, from 1924 to 2013).
