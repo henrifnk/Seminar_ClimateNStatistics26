@@ -80,7 +80,7 @@ volume, forest cover, overturning strength, and so on). Using GMST
 nonetheless allows thresholds for physically very different systems to be
 compared on a common scale.
 
-```{r tipping-schematic, echo=FALSE, fig.cap="Schematic of a climate tipping transition, following the tipping-point definition of Lenton et al. (2008)."}
+```{r tipping-schematic, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Schematic of a climate tipping transition, following the tipping-point definition of Lenton et al. (2008)."}
 knitr::include_graphics("work/09-tp-overview/figures/tipping_point_schematic.png")
 ```
 
@@ -118,9 +118,10 @@ global_core <- data.frame(
 kbl(
   global_core,
   booktabs = TRUE,
+  escape = TRUE,
   caption = "Global core tipping elements and their estimated temperature thresholds above pre-industrial levels. Source: Armstrong McKay et al. (2022), Table 1."
 ) %>%
-  kable_styling(latex_options = c("hold_position", "striped"), full_width = FALSE)
+  kable_styling(latex_options = c("hold_position", "scale_down"), full_width = FALSE)
 ```
 
 **Regional-impact** elements mainly affect the region in which they are
@@ -134,7 +135,7 @@ refer to different processes, not to a duplicated entry.
 regional_impact <- data.frame(
   Element = c("Low-latitude Coral Reefs", "Boreal Permafrost",
               "Barents Sea Ice", "Mountain Glaciers",
-              "Sahel & West African Monsoon", "Boreal Forest (south)",
+              "Sahel and West African Monsoon", "Boreal Forest (south)",
               "Boreal Forest (north)"),
   Dynamics = c("Die-off", "Abrupt thaw", "Abrupt loss", "Loss",
                "Greening", "Dieback", "Expansion"),
@@ -147,9 +148,10 @@ regional_impact <- data.frame(
 kbl(
   regional_impact,
   booktabs = TRUE,
+  escape = TRUE,
   caption = "Regional-impact tipping elements and their estimated temperature thresholds above pre-industrial levels. Source: Armstrong McKay et al. (2022), Table 1."
 ) %>%
-  kable_styling(latex_options = c("hold_position", "striped"), full_width = FALSE)
+  kable_styling(latex_options = c("hold_position", "scale_down"), full_width = FALSE)
 ```
 
 The 2015 Paris Agreement aims to keep global warming well below 2°C above
@@ -298,10 +300,10 @@ follows.
 2. **Gaussian detrending.** A slow trend $\tilde x_t$ is estimated by a
    Gaussian-weighted moving average of the neighbouring values of $x_t$,
    with bandwidth $\sigma = 30$ years:
-   \[
+   $$
    \tilde x_t = \sum_{k} w_k x_{t+k}, \qquad
    w_k \propto \exp\!\left(-\frac{k^2}{2\sigma^2}\right),
-   \]
+   $$
    after normalising the weights to sum to one. Near the ends of the
    record the series is reflected so that the smoother is well defined.
    The residual $r_t = x_t - \tilde x_t$ is the detrended series used
@@ -330,7 +332,7 @@ follows.
 
 ### Results
 
-```{r ews-plot, echo=FALSE, fig.cap="Reproduced variance and AC1 trends for the Central-Western Greenland melt record, following the method of Boers & Rypdal (2021)."}
+```{r ews-plot, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Reproduced variance and AC1 trends for the Central-Western Greenland melt record, following the method of Boers and Rypdal (2021)."}
 knitr::include_graphics("work/09-tp-overview/figures/ews_reproduction_plot.png")
 ```
 
