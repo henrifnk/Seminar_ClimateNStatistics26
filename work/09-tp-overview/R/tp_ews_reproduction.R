@@ -1,5 +1,5 @@
-# Reproduction of the statistical EWS analysis in Boers & Rypdal (2021), PNAS.
-# Data source: github.com/niklasboers/GrIS-EWS (public repository by the authors)
+# Reproduction of the statistical EWS analysis in Boers and Rypdal (2021), PNAS.
+# Data are read from github.com/niklasboers/GrIS-EWS and are not stored here.
 #
 # Four analysis steps (see also 09-tp-overview.Rmd, Data and Methods):
 #   1. Log-transform the melt series
@@ -12,8 +12,11 @@ library(tidyr)
 library(dplyr)
 
 ## ---- load data ---------------------------------------------------------
+# Original data are not stored in this repository. Read them from the
+# authors' public GitHub release (Boers and Rypdal, 2021).
 # columns: year, JJA summer temp, CWG stack melt, NU melt
-raw <- read.table("work/09-tp-overview/data/CWG_NU_melt_jja_temp.txt", header = FALSE)
+data_url <- "https://raw.githubusercontent.com/niklasboers/GrIS-EWS/main/CWG_NU_melt_jja_temp.txt"
+raw <- read.table(data_url, header = FALSE)
 colnames(raw) <- c("year", "jja_temp", "cwg_melt", "nu_melt")
 raw <- raw[order(raw$year), ]  # sort chronologically
 
@@ -46,12 +49,12 @@ gaussian_smooth <- function(x, sigma) {
   as.numeric(smoothed[(radius + 1):(radius + n)])
 }
 
-# sigma = 30 years: representative value from Boers & Rypdal (2021)
+# sigma = 30 years: representative value from Boers and Rypdal (2021)
 df$trend     <- gaussian_smooth(df$melt_log, sigma = 30)
 df$detrended <- df$melt_log - df$trend   # residual series r_t
 
 ## ---- 3. trailing-window variance and AC1 --------------------------------
-# Step 3: trailing (one-sided) window of width w, as in Boers & Rypdal
+# Step 3: trailing (one-sided) window of width w, as in Boers and Rypdal
 # (2021) Fig. 1 D/E. For each end year t, use residuals in
 # {t-w+1, ..., t} to compute sample variance and lag-1 autocorrelation.
 # First valid end year: 1855+w-1 (= 1924 for w = 70); last: 2013.
@@ -94,6 +97,8 @@ cat("AC1 trend:      slope =", round(coef(fit_ac1)[2], 5),
     " p =", format.pval(summary(fit_ac1)$coefficients[2, 4]), "\n")
 
 ## ---- plot ------------------------------------------------------------------
+# Figure used in 09-tp-overview.Rmd. Data come from the authors' GitHub
+# (see data_url above), not from a file stored in this repository.
 plot_df <- df[valid, c("year", "variance", "ac1")] %>%
   pivot_longer(cols = c(variance, ac1), names_to = "indicator", values_to = "value")
 
@@ -107,8 +112,12 @@ p <- ggplot(plot_df, aes(x = year, y = value)) +
   labs(
     title = "EWS Indicators for the CWG Ice Sheet",
     x = "Year", y = NULL,
-    caption = "Data: Boers & Rypdal (2021), github.com/niklasboers/GrIS-EWS"
+    caption = "Data read from github.com/niklasboers/GrIS-EWS (Boers and Rypdal, 2021)"
   ) +
   theme_minimal(base_size = 12)
 
-ggsave("work/09-tp-overview/figures/ews_reproduction_plot.png", p, width = 7, height = 7, dpi = 300)
+# SVG for HTML; PDF for LaTeX (same basename, as required for bookdown)
+ggsave("work/09-tp-overview/figures/tp_ews_reproduction_plot.svg", p,
+       width = 7, height = 7, device = svglite::svglite)
+ggsave("work/09-tp-overview/figures/tp_ews_reproduction_plot.pdf", p,
+       width = 7, height = 7)

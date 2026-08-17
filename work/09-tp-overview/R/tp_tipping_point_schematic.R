@@ -3,6 +3,7 @@
 # Not a reproduction of any figure in the paper.
 
 library(ggplot2)
+library(svglite)
 
 ## ---- define the landscape curve ------------------------------------------
 curve_fun <- function(x, a = 2.2, b = 0.45) x^4 / 4 - a * x^2 / 2 - b * x
@@ -33,28 +34,28 @@ p <- ggplot(curve_df, aes(x = x, y = F)) +
            color = "firebrick", size = 4) +
   
   # extrapolated continuation (dotted reference line)
-  geom_segment(aes(x = rho_crit, xend = 2.0, y = gap_top, yend = gap_top),
-               linetype = "dotted", color = "grey40") +
+  annotate("segment", x = rho_crit, xend = 2.0, y = gap_top, yend = gap_top,
+           linetype = "dotted", color = "grey40") +
   
   # actual gap (F-hat): qualitative change after threshold
-  geom_segment(aes(x = rho_delta, xend = rho_delta, y = gap_top, yend = gap_bottom),
-               arrow = arrow(ends = "both", length = unit(0.1, "inches")),
-               color = "firebrick", linewidth = 0.7) +
+  annotate("segment", x = rho_delta, xend = rho_delta, y = gap_top, yend = gap_bottom,
+           arrow = arrow(ends = "both", length = unit(0.1, "inches")),
+           color = "firebrick", linewidth = 0.7) +
   annotate("text", x = rho_delta + 0.15, y = (gap_top + gap_bottom) / 2,
            label = expression(hat(F)*": qualitative change"),
            color = "firebrick", size = 3.5, hjust = 0) +
   
   # delta_rho: perturbation beyond threshold
-  geom_segment(aes(x = rho_crit, xend = rho_delta * 0.55, y = -2.35, yend = -2.35),
-               arrow = arrow(length = unit(0.08, "inches")), color = "grey30") +
+  annotate("segment", x = rho_crit, xend = rho_delta * 0.55, y = -2.35, yend = -2.35,
+           arrow = arrow(length = unit(0.08, "inches")), color = "grey30") +
   annotate("text", x = (rho_crit + rho_delta * 0.55) / 2, y = -2.6,
            label = expression(delta*rho), size = 4) +
   
   # external forcing direction
-  geom_segment(aes(x = -2.0, xend = -0.5, y = 2.0, yend = 2.0),
-               arrow = arrow(length = unit(0.1, "inches")), color = "grey30") +
+  annotate("segment", x = -2.0, xend = -0.5, y = 2.0, yend = 2.0,
+           arrow = arrow(length = unit(0.1, "inches")), color = "grey30") +
   annotate("text", x = -2.0, y = 2.3,
-           label = "Increasing \u03c1 (external forcing)",
+           label = expression("Increasing " * rho * " (external forcing)"),
            color = "grey30", size = 3.5, hjust = 0) +
   
   # State A / State B labels
@@ -82,5 +83,8 @@ p <- ggplot(curve_df, aes(x = x, y = F)) +
         axis.text = element_blank())
 
 ## ---- save --------------------------------------------------------------------
-ggsave("work/09-tp-overview/figures/tipping_point_schematic.png", p,
-       width = 8, height = 6, dpi = 300)
+# SVG for HTML; PDF for LaTeX (same basename, as required for bookdown)
+ggsave("work/09-tp-overview/figures/tp_tipping_point_schematic.svg", p,
+       width = 8, height = 6, device = svglite)
+ggsave("work/09-tp-overview/figures/tp_tipping_point_schematic.pdf", p,
+       width = 8, height = 6)
