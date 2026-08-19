@@ -1,0 +1,332 @@
+gauge_id,gauge_name,country,gauge_lon,gauge_lat,elev_mean,region,cross_region,dominant_share
+2004,Murten,CH,7.12,46.93,644.6,Plateau,no,0.964
+2007,Le_Pont,CH,6.32,46.67,1228.27,Jura,yes,0.796
+2009,Porte_du_Scex,CH,6.89,46.35,2124.19,Alps West,no,0.893
+2011,Sion,CH,7.36,46.22,2286.71,Alps West,no,0.991
+2014,Schmerikon,CH,8.94,47.22,1331.63,Alps North,no,0.94
+2016,Brugg,CH,8.19,47.48,1002.4,Plateau,yes,0.452
+2017,Zug,CH,8.51,47.17,692.5,Plateau,yes,0.675
+2018,Mellingen,CH,8.27,47.42,1257.46,Alps North,yes,0.747
+2019,Brienzwiler,CH,8.09,46.75,2127.2,Alps North,no,1.0
+2020,Bellinzona,CH,9.01,46.19,1679.21,Alps South,no,0.98
+2021,Ponte_Tresa,CH,8.86,45.97,804.52,Alps South,yes,0.601
+2022,Locarno,CH,8.8,46.16,1297.04,Alps South,yes,0.504
+2023,Ringgenberg,CH,7.9,46.7,1940.45,Alps North,no,1.0
+2024,Branson,CH,7.09,46.13,2230.63,Alps West,no,0.992
+2025,Brunnen,CH,8.6,46.99,1876.9,Alps North,no,0.809
+2026,Chillon,CH,6.93,46.41,1658.49,Alps West,yes,0.585
+2027,St-Prex,CH,6.46,46.48,1658.49,Alps West,yes,0.585
+2028,Genêve-Sécheron,CH,6.15,46.22,1658.49,Alps West,yes,0.585
+2029,Brügg-Aegerten,CH,7.28,47.12,1144.17,Alps North,yes,0.469
+2030,Thun,CH,7.61,46.76,1738.89,Alps North,no,0.994
+2031,Unterägeri,CH,8.59,47.14,934.49,Alps North,no,1.0
+2032,Romanshorn,CH,9.38,47.56,1308.93,Alps East,yes,0.41
+2033,Ilanz,CH,9.21,46.78,2026.59,Alps East,no,0.982
+2034,Payerne-Caserne_d'aviation,CH,6.94,46.84,723.4,Plateau,no,0.938
+2041,Oberriet-Blatten,CH,9.57,47.31,1791.68,Alps East,yes,0.728
+2043,Berlingen,CH,9.02,47.68,1268.96,Alps East,yes,0.389
+2044,Andelfingen,CH,8.68,47.6,773.37,Plateau,yes,0.542
+2053,Martigny-Pont_de_Rossettan,CH,7.06,46.1,2247.82,Alps West,no,1.0
+2056,Seedorf,CH,8.62,46.88,2005.65,Alps North,yes,0.769
+2063,Murgenthal,CH,7.83,47.27,1068.38,Alps North,yes,0.443
+2066,St._Moritz,CH,9.85,46.5,2370.33,Alps East,no,1.0
+2067,Martina,CH,10.47,46.89,2341.9,Alps East,no,0.871
+2068,Riazzino,CH,8.91,46.16,1643.22,Alps South,no,0.981
+2070,Emmenmatt,CH,7.75,46.95,1071.37,Alps North,no,1.0
+2072,Sils_Baselgia,CH,9.75,46.43,2330.09,Alps East,no,1.0
+2073,Silvaplana,CH,9.8,46.46,2393.72,Alps East,no,1.0
+2074,Brissago,CH,8.71,46.12,1297.04,Alps South,yes,0.504
+2078,Le_Prese,CH,10.08,46.3,2162.34,Alps South,no,0.996
+2079,Le_Prese,CH,10.08,46.3,1435.7,Alps South,no,1.0
+2081,Pfäffikon,CH,8.78,47.36,663.99,Plateau,no,1.0
+2082,Greifensee,CH,8.67,47.36,556.35,Plateau,no,1.0
+2084,Ingenbohl,CH,8.6,47.0,1363.49,Alps North,no,1.0
+2085,Hagneck,CH,7.18,47.06,1367.24,Alps North,yes,0.752
+2086,Loderio,CH,8.97,46.38,1812.18,Alps South,no,1.0
+2087,Andermatt,CH,8.59,46.64,2276.53,Alps East,no,0.91
+2088,Sarnen,CH,8.24,46.89,1283.98,Alps North,no,1.0
+2091,Rheinfelden-Messstation,CH,7.8,47.56,1071.33,Plateau,yes,0.287
+2093,Spiez-Kraftwerk_BKW,CH,7.66,46.7,1742.46,Alps North,no,0.997
+2097,Meisterschwanden,CH,8.22,47.3,579.57,Plateau,no,1.0
+2099,Zürich-Unterhard,CH,8.53,47.39,1193.35,Alps North,yes,0.8
+2101,Melide-Ferrera,CH,8.95,45.97,906.4,Alps South,yes,0.378
+2102,Sarnen,CH,8.25,46.9,1281.43,Alps North,no,1.0
+2104,Weesen-Biäsche,CH,9.09,47.13,1579.67,Alps North,no,1.0
+2105,St._Moritzbad,CH,9.83,46.48,2394.01,Alps East,no,1.0
+2106,Münchenstein-Hofmatt,CH,7.62,47.52,733.04,Jura,no,0.961
+2109,Gsteig,CH,7.87,46.66,2039.2,Alps North,no,1.0
+2110,Mühlau-Hünenberg,CH,8.4,47.22,1368.64,Alps North,no,0.843
+2112,Appenzell,CH,9.41,47.33,1253.32,Alps North,no,1.0
+2113,Felsenau-K.W._Klingnau,CH,8.23,47.59,1061.68,Alps North,yes,0.496
+2116,Koblenz,CH,8.23,47.61,1105.82,Alps East,yes,0.281
+2117,Le_Châble-Villette,CH,7.21,46.08,2601.43,Alps West,no,1.0
+2118,Murg,CH,9.21,47.11,1580.36,Alps North,no,1.0
+2119,Fribourg,CH,7.17,46.8,1249.85,Alps North,yes,0.78
+2122,Moutier-La_Charrue,CH,7.38,47.28,927.35,Jura,no,1.0
+2125,Frauenthal,CH,8.42,47.22,680.7,Plateau,yes,0.69
+2126,Wängi,CH,8.95,47.5,653.6,Plateau,no,0.951
+2130,Laufenburg,CH,8.05,47.56,1078.15,Alps North,yes,0.289
+2132,Neftenbach,CH,8.65,47.52,658.48,Plateau,no,0.837
+2135,Bern-Schönau,CH,7.45,46.93,1590.98,Alps North,no,0.899
+2137,Gelfingen,CH,8.27,47.21,585.38,Plateau,no,1.0
+2139,St._Margrethen,CH,9.66,47.45,717.8,Plateau,yes,0.771
+2141,Tiefencastel,CH,9.57,46.66,2126.13,Alps East,no,1.0
+2143,Rekingen,CH,8.33,47.57,1135.56,Alps East,yes,0.304
+2150,Felsenbach,CH,9.61,46.97,1797.79,Alps East,no,1.0
+2151,Oberwil,CH,7.44,46.66,1638.07,Alps North,no,1.0
+2152,Luzern-Geissmattbrücke,CH,8.3,47.05,1499.73,Alps North,no,0.904
+2154,Grandson,CH,6.64,46.81,774.47,Plateau,yes,0.559
+2155,Wiler-Limpachmündung,CH,7.55,47.16,870.53,Alps North,yes,0.632
+2157,Gerlafingen,CH,7.56,47.16,481.37,Plateau,no,1.0
+2159,Belp-Mülimatt,CH,7.5,46.89,851.29,Plateau,yes,0.544
+2160,Broc-Château_d'en_bas,CH,7.09,46.6,1500.59,Alps North,no,1.0
+2161,Blatten_bei_Naters,CH,8.01,46.39,2929.36,Alps West,no,1.0
+2167,Ponte_Tresa-Rocchetta,CH,8.85,45.97,804.3,Alps South,yes,0.601
+2168,Sempach,CH,8.19,47.13,586.38,Plateau,no,1.0
+2170,Genève-Bout_du_Monde,CH,6.16,46.18,1373.77,Alps North,no,0.0
+2174,Chancy-Aux_Ripes,CH,5.97,46.15,1569.92,Alps West,yes,0.454
+2176,Zürich-Sihlhölzli,CH,8.53,47.37,1046.83,Alps North,yes,0.731
+2179,Thörishaus-Sensematt,CH,7.35,46.89,1075.48,Alps North,yes,0.589
+2181,Halden,CH,9.21,47.51,913.5,Alps North,yes,0.714
+2185,Chur,CH,9.51,46.86,1864.17,Alps East,no,1.0
+2187,Salez,CH,9.51,47.24,1009.2,Alps North,no,1.0
+2199,Basel,CH,7.6,47.58,714.92,Plateau,no,0.0
+2200,Zweilütschinen,CH,7.9,46.63,2147.98,Alps North,no,1.0
+2202,Liestal,CH,7.73,47.49,591.39,Jura,no,1.0
+2203,Aigle,CH,6.97,46.32,1564.23,Alps North,no,1.0
+2205,Untersiggenthal-Stilli,CH,8.23,47.52,1066.12,Alps North,yes,0.5
+2206,Melera_(Valle_Morobbia),CH,9.08,46.17,1433.19,Alps South,no,1.0
+2207,Luzern,CH,8.32,47.05,1504.16,Alps North,no,0.903
+2208,Ligerz-klein_Twann,CH,7.15,47.09,1145.23,Alps North,yes,0.47
+2209,Zürich_(Zürichhorn),CH,8.55,47.35,1223.37,Alps North,no,0.816
+2210,Ocourt,CH,7.08,47.35,960.04,Jura,yes,0.306
+2215,Laupen,CH,7.23,46.91,1140.78,Alps North,yes,0.644
+2217,Chancy-Vers_Vaux,CH,5.96,46.13,1560.3,Alps West,yes,0.449
+2219,Oberried_/_Lenk,CH,7.47,46.43,2331.06,Alps North,no,1.0
+2232,Adelboden,CH,7.55,46.49,1857.5,Alps North,no,1.0
+2239,Punt_dal_Gall,CH,10.19,46.63,2389.85,Alps East,no,0.0
+2243,Baden-Limmatpromenade,CH,8.31,47.48,1131.03,Alps North,yes,0.726
+2244,Klusmatten,CH,8.02,46.22,2265.22,Alps South,no,1.0
+2247,Sortie_du_lac_des_Brenets,CH,6.71,47.08,985.29,Jura,no,0.0
+2251,Plaffeien-Schwyberg,CH,7.28,46.69,1459.82,Alps North,no,1.0
+2252,Plaffeien-Schwyberg,CH,7.29,46.69,1448.92,Alps North,no,1.0
+2256,Pontresina,CH,9.9,46.49,2700.58,Alps East,no,1.0
+2262,Pontresina,CH,9.91,46.49,2608.75,Alps East,no,1.0
+2263,La_Punt-Chamues-ch,CH,9.94,46.57,2544.42,Alps East,no,1.0
+2265,Tarasp,CH,10.28,46.79,2383.15,Alps East,no,0.843
+2268,Gletsch,CH,8.36,46.56,2701.55,Alps West,no,1.0
+2269,Blatten,CH,7.82,46.42,2615.39,Alps West,no,1.0
+2270,Combe_des_Sarrasins,CH,6.88,47.2,985.12,Jura,no,0.0
+2276,Isenthal,CH,8.56,46.91,1811.45,Alps North,no,1.0
+2282,Wasen-Kurzeneialp,CH,7.84,47.02,1075.41,Alps North,no,1.0
+2283,Wasen-Riedbad,CH,7.89,47.02,1145.42,Alps North,no,1.0
+2288,Neuhausen-Flurlingerbrücke,CH,8.63,47.68,1244.54,Alps East,yes,0.376
+2289,Basel-Rheinhalle,CH,7.62,47.56,1055.6,Plateau,yes,0.28
+2290,St-Sulpice,CH,6.56,46.91,1117.45,Jura,no,0.941
+2299,Erstfeld-Bodenberg,CH,8.6,46.81,2186.07,Alps North,no,1.0
+2300,Euthal-Rüti,CH,8.81,47.08,1351.59,Alps North,no,1.0
+2303,Jonschwil-Mühlau,CH,9.08,47.41,1026.39,Alps North,no,0.954
+2304,Zernez-Punt_la_Drossa,CH,10.19,46.66,2331.52,Alps East,no,1.0
+2305,Herisau-Zellersmühle,CH,9.26,47.4,836.56,Alps North,no,1.0
+2307,Sonceboz,CH,7.17,47.2,1043.59,Jura,no,1.0
+2308,Goldach-Bleiche,CH,9.47,47.49,839.38,Plateau,no,1.0
+2309,Horn-Farbmühle,CH,9.47,47.49,430.51,Plateau,no,1.0
+2312,Salmsach-Hungerbühl,CH,9.36,47.55,476.2,Plateau,no,1.0
+2319,Zernez,CH,10.12,46.69,2361.63,Alps East,no,1.0
+2321,Pregassona,CH,8.96,46.02,988.56,Alps South,no,1.0
+2327,Davos-Kriegsmatte,CH,9.88,46.78,2371.21,Alps East,no,1.0
+2342,Brig,CH,7.99,46.32,2014.37,Alps West,no,1.0
+2343,Huttwil-Häberenbad,CH,7.83,47.12,765.18,Plateau,no,1.0
+2346,Brig,CH,7.98,46.32,2335.22,Alps West,no,1.0
+2347,Roveredo-Bacino_di_compenso,CH,9.17,46.2,1702.84,Alps South,no,1.0
+2349,Chiasso-Ponte_di_Polenta,CH,9.01,45.85,934.28,Alps South,yes,0.677
+2351,Visp,CH,7.88,46.28,2641.94,Alps West,no,1.0
+2352,Linthal-Ausgleichsbecken_KLL,CH,8.99,46.92,2068.35,Alps North,no,1.0
+2355,Davos-Frauenkirch,CH,9.79,46.76,2222.28,Alps East,no,1.0
+2356,Cavergno-Pontit,CH,8.54,46.37,1985.58,Alps South,no,1.0
+2364,Piotta,CH,8.67,46.52,2064.81,Alps South,no,1.0
+2366,La_Rösa,CH,10.07,46.4,2285.03,Alps South,no,1.0
+2368,Locarno-Solduno,CH,8.77,46.17,1533.58,Alps South,no,0.811
+2369,Yvonand-La_Mauguettaz,CH,6.72,46.78,682.62,Plateau,no,1.0
+2370,Le_Noirmont-La_Goule,CH,6.93,47.23,985.07,Jura,no,0.0
+2371,Le_Chenit-Frontière,CH,6.15,46.55,1235.66,Jura,yes,0.464
+2372,Mollis-Linthbrücke,CH,9.07,47.1,1736.39,Alps North,no,1.0
+2374,Mogelsberg-Aachsäge,CH,9.12,47.36,962.01,Alps North,no,1.0
+2378,Orbe-Le_Chalet,CH,6.52,46.73,1146.92,Jura,yes,0.744
+2386,Frauenfeld,CH,8.89,47.57,595.73,Plateau,no,0.982
+2387,Fürstenau,CH,9.45,46.72,2123.88,Alps East,no,0.967
+2392,Rheinau,CH,8.6,47.64,1243.19,Alps East,yes,0.376
+2403,Cinuos-Chel,CH,10.02,46.64,2453.26,Alps East,no,1.0
+2409,Eggiwil-Heidbüel,CH,7.8,46.87,1281.56,Alps North,no,1.0
+2410,Ruggell,CH,9.52,47.24,859.93,Alps North,no,0.0
+2412,Vuippens-Château,CH,7.08,46.66,871.82,Alps North,no,1.0
+2414,Mosnang-Rietholz,CH,9.01,47.38,801.95,Alps North,no,1.0
+2415,Rheinsfelden,CH,8.48,47.57,505.86,Plateau,no,1.0
+2416,Hitzkirch-Richensee,CH,8.25,47.22,585.2,Plateau,no,1.0
+2417,Oberkirch,CH,8.12,47.16,586.13,Plateau,no,1.0
+2418,Tiefencastel,CH,9.58,46.66,2191.07,Alps East,no,1.0
+2419,Reckingen,CH,8.24,46.47,2299.99,Alps West,no,1.0
+2420,Lumino-Sassello,CH,9.06,46.22,1667.39,Alps South,no,0.935
+2426,Mels,CH,9.42,47.05,1796.35,Alps North,no,1.0
+2430,Somvitg-Encardens,CH,8.99,46.65,2445.26,Alps East,no,1.0
+2432,Ecublens-Les_Bois,CH,6.55,46.54,695.58,Plateau,yes,0.567
+2433,Allaman-Le_Coulet,CH,6.41,46.47,962.04,Jura,yes,0.75
+2434,Olten-Hammermühle,CH,7.89,47.35,714.71,Jura,yes,0.794
+2436,Alpnach-Chilch-Erli,CH,8.28,46.94,1349.57,Alps North,no,1.0
+2437,Ecublens-Eschiens,CH,6.81,46.6,725.28,Plateau,no,1.0
+2446,Gampelen-Zihlbrücke,CH,7.03,47.02,772.48,Plateau,yes,0.562
+2447,Sugiez,CH,7.11,46.96,644.39,Plateau,no,0.964
+2450,Zofingen,CH,7.94,47.28,661.97,Plateau,no,0.86
+2457,Ringgenberg-Goldswil,CH,7.88,46.69,1940.25,Alps North,no,1.0
+2458,Valangin,CH,6.9,47.01,986.22,Jura,no,1.0
+2461,Magliaso-Ponte,CH,8.88,45.98,928.3,Alps South,no,1.0
+2462,S-chanf,CH,10.0,46.62,2459.88,Alps East,no,1.0
+2463,Bioggio-Campagna,CH,8.91,46.01,526.12,Alps South,no,1.0
+2467,Gümmenen,CH,7.24,46.94,1134.97,Alps North,yes,0.637
+2468,St._Gallen-Bruggen_/_Au,CH,9.33,47.41,1044.52,Alps North,no,1.0
+2469,Hondrich,CH,7.67,46.67,1845.96,Alps North,no,1.0
+2471,Murgenthal-Walliswil,CH,7.83,47.25,659.15,Plateau,no,1.0
+2473,Diepoldsau-Rietbrücke,CH,9.64,47.38,1770.67,Alps East,yes,0.71
+2474,Buseno,CH,9.12,46.28,1930.4,Alps South,no,1.0
+2475,Bignasco-Ponte_nuovo,CH,8.61,46.34,1879.22,Alps South,no,1.0
+2477,Zug-Letzi,CH,8.5,47.18,821.76,Plateau,yes,0.52
+2478,Soyhières-Bois_du_Treuil,CH,7.4,47.39,810.4,Jura,no,1.0
+2480,Boudry,CH,6.84,46.95,1083.97,Jura,no,0.93
+2481,Buochs-Flugplatz,CH,8.41,46.97,1604.12,Alps North,no,1.0
+2484,Lauerz-Chlostermatt,CH,8.6,47.03,883.66,Alps North,no,1.0
+2485,Boncourt-Frontière,CH,7.01,47.5,568.91,Jura,no,0.833
+2486,Vevey-Copet,CH,6.85,46.47,1105.31,Alps North,no,1.0
+2487,Werthenstein-Chappelboden,CH,8.07,47.03,1170.7,Alps North,no,1.0
+2488,Latterbach,CH,7.58,46.66,1591.61,Alps North,no,1.0
+2490,Dardagny-Les_Granges,CH,6.0,46.22,768.66,Plateau,no,0.0
+2491,Bürglen-Galgenwäldli,CH,8.65,46.87,1719.88,Alps North,no,1.0
+2493,Gland-Route_Suisse,CH,6.27,46.41,1036.5,Jura,no,0.886
+2494,Pollegio-Campagna,CH,8.95,46.36,1795.34,Alps South,no,1.0
+2497,Nebikon,CH,7.97,47.19,754.88,Plateau,yes,0.687
+2498,Castrisch,CH,9.21,46.77,2013.47,Alps East,no,1.0
+2500,Ittigen,CH,7.48,46.97,676.63,Plateau,no,1.0
+2602,Domat/Ems,CH,9.46,46.84,2009.8,Alps East,no,0.98
+2603,Langnau,CH,7.8,46.94,1046.54,Alps North,no,1.0
+2604,Biberbrugg,CH,8.72,47.15,1008.24,Alps North,no,1.0
+2605,Lavertezzo-Campiöi,CH,8.84,46.25,1662.47,Alps South,no,1.0
+2606,Genève-Halle_de_l'ìle,CH,6.14,46.2,1658.22,Alps West,yes,0.585
+2607,Oberwald,CH,8.36,46.53,2371.99,Alps West,no,1.0
+2608,Neuenkirch,CH,8.21,47.11,612.34,Plateau,no,1.0
+2609,Einsiedeln,CH,8.74,47.15,1161.19,Alps North,no,1.0
+2610,Vicques,CH,7.43,47.35,796.13,Jura,no,1.0
+2612,Lavertezzo,CH,8.84,46.26,1710.5,Alps South,no,1.0
+2613,Weil-Palmrainbrücke_(_D_),CH,7.59,47.6,1049.18,Plateau,yes,0.277
+2615,Basel-Klingenthalfähre,CH,7.59,47.56,1053.91,Plateau,yes,0.28
+2617,Müstair,CH,10.45,46.63,2188.92,Alps East,no,0.999
+2620,Soglio,CH,9.53,46.33,2170.63,Alps South,no,1.0
+2623,Oberwald,CH,8.35,46.53,2458.29,Alps West,no,1.0
+2629,Agno,CH,8.91,46.0,921.84,Alps South,no,1.0
+2630,Sion,CH,7.37,46.23,1577.92,Alps West,no,1.0
+2631,Hinterrhein,CH,9.18,46.52,2418.04,Alps East,no,1.0
+2634,Emmen,CH,8.28,47.07,1057.82,Alps North,no,0.851
+2635,Einsiedeln-Gross,CH,8.77,47.11,1285.8,Alps North,no,1.0
+2640,Delémont,CH,7.35,47.36,785.27,Jura,no,1.0
+2642,Neuchâtel-Nid-du-Crô,CH,6.95,47.0,774.47,Plateau,yes,0.559
+2644,Celerina,CH,9.86,46.51,2356.68,Alps East,no,1.0
+3001,Bangs,A,9.53,47.27,1879.92,Alps East,no,0.961
+3002,Meiningen_(Guefel),A,9.58,47.31,510.88,Alps North,no,0.0
+3003,Gisingen,A,9.58,47.26,1611.02,Alps East,no,0.0
+3004,Brederis,A,9.59,47.28,550.02,Alps North,no,0.0
+3005,Amerluegen,A,9.61,47.21,1556.51,Alps North,no,0.0
+3006,Lustenau_(Hoechster_Bruecke),A,9.66,47.45,1770.23,Alps East,yes,0.71
+3007,Lauterach,A,9.68,47.46,761.15,Plateau,no,0.0
+3008,Hohenems,A,9.68,47.37,947.71,Plateau,no,0.0
+3009,Beschling,A,9.68,47.2,1669.0,Alps East,no,0.0
+3010,Lustenau_(Hofsteig),A,9.7,47.43,585.55,Plateau,no,0.0
+3011,Hoher_Steg,A,9.7,47.45,897.88,Plateau,no,0.0
+3012,Unterhochsteg_(Summenpegel),A,9.74,47.54,632.81,Plateau,no,0.0
+3013,Laterns,A,9.73,47.26,1470.07,Plateau,no,0.0
+3014,Lochau,A,9.74,47.53,775.91,Plateau,no,0.0
+3015,Schwarzach,A,9.76,47.45,850.6,Plateau,no,0.0
+3016,Enz,A,9.76,47.4,1151.87,Plateau,no,0.0
+3017,Kennelbach,A,9.78,47.48,1122.72,Plateau,no,0.0
+3018,Buers_(Bruecke_L82),A,9.8,47.15,1781.73,Alps East,no,0.0
+3019,Loruens-Aeule,A,9.85,47.13,1843.62,Alps East,no,0.0
+3020,Thal_(Martinsbrücke),A,9.87,47.53,765.75,Plateau,no,0.0
+3021,Mellau,A,9.88,47.35,1467.73,Plateau,no,0.0
+3022,Garsella,A,9.88,47.23,1606.34,Alps East,no,0.0
+3023,Reuthe,A,9.89,47.37,1117.46,Plateau,no,0.0
+3024,Krumbach-Zwing,A,9.92,47.5,1095.86,Plateau,no,0.0
+3025,Schruns_(Vonbunweg),A,9.91,47.08,1774.32,Alps East,no,0.0
+3026,Hittisau_(VKW),A,9.96,47.46,1237.39,Plateau,no,0.0
+3027,Au,A,9.97,47.33,1550.54,Plateau,no,0.0
+3028,Kaelberweide,A,10.02,47.47,1298.45,Plateau,no,0.0
+3029,Schoenenbach_(Hengstig),A,10.04,47.39,1480.43,Plateau,no,0.0
+3030,Hopfreben,A,10.05,47.29,1714.6,Alps East,no,0.0
+3031,Kloesterle_(OEBB),A,10.06,47.13,1886.6,Alps East,no,0.0
+3032,Schalklhof,A,10.49,46.94,2276.95,Alps East,yes,0.759
+3033,Kajetansbruecke,A,10.51,46.95,2319.85,Alps East,no,0.831
+4001,Tegernau,DE,7.79,47.72,804.97,Black Forest,no,0.0
+4002,Zell,DE,7.85,47.7,904.25,Black Forest,no,0.0
+4003,Hoelzlebruck,DE,8.19,47.93,993.8,Black Forest,no,0.0
+4004,Oberlauchringen,DE,8.33,47.62,788.5,Black Forest,no,0.0
+4005,Illmuehle,DE,8.34,47.75,866.47,Black Forest,no,0.0
+4006,Ewattingen,DE,8.45,47.85,908.41,Black Forest,no,0.0
+4007,Hausen,DE,8.82,47.78,622.11,Black Forest,no,0.0
+4008,Rielasingen,DE,8.84,47.74,578.98,Black Forest,no,0.0
+4009,Wahlwies,DE,8.97,47.82,596.6,Black Forest,no,0.0
+4010,Konstanz,DE,9.17,47.67,1308.93,Black Forest,no,0.41
+4011,Uhldingen,DE,9.24,47.73,572.69,Black Forest,no,0.0
+4012,Neufrach,DE,9.31,47.75,625.06,Black Forest,no,0.0
+4013,Fuchstobel,DE,9.46,47.76,633.9,Black Forest,no,0.0
+4014,Friedrichshafen,DE,9.5,47.66,568.39,Black Forest,no,0.0
+4015,Gerbertshaus,DE,9.53,47.67,581.34,Black Forest,no,0.0
+4016,Giessen,DE,9.6,47.63,712.81,Black Forest,no,0.0
+4017,Rainpadent,DE,9.64,47.83,652.66,Black Forest,no,0.0
+4018,Durlesbach,DE,9.68,47.9,597.95,Black Forest,no,0.0
+4019,Aeschach,DE,9.7,47.56,494.86,Black Forest,no,0.0
+4020,Rengers,DE,9.82,47.7,791.3,Black Forest,no,0.0
+4021,Epplings,DE,9.86,47.68,761.48,Black Forest,no,0.0
+4022,Lochhammer,DE,9.9,47.68,672.12,Black Forest,no,0.0
+4023,Zwirkenberg,DE,9.97,47.65,821.6,Black Forest,no,0.0
+4024,Oberstaufen,DE,10.02,47.54,1156.16,Black Forest,no,0.0
+4025,Beutelsau,DE,10.05,47.72,885.44,Black Forest,no,0.0
+4026,Seltmans,DE,10.08,47.65,928.2,Black Forest,no,0.0
+5001,Saint-Genis-Pouilly,FR,6.01,46.24,894.67,Plateau,no,0.0
+5002,Échenevex_[Naz-Dessous],FR,6.03,46.3,1130.92,Plateau,no,0.0
+5003,Saint-Julien-en-Genevois_[Thairy],FR,6.07,46.14,698.01,Plateau,no,0.0
+5004,Rousses,FR,6.11,46.52,1219.41,Jura,yes,0.403
+5005,Bonnevaux,FR,6.19,46.81,986.17,Jura,no,0.0
+5006,Mouthe,FR,6.21,46.7,1188.28,Jura,no,0.0
+5007,Remoray-Boujeons,FR,6.25,46.76,1020.2,Jura,no,0.0
+5008,Vétraz-Monthoux,FR,6.27,46.17,888.45,Plateau,no,0.0
+5009,Labergement-Sainte-Marie,FR,6.28,46.77,1116.83,Jura,no,0.0
+5010,Longevilles-Mont-d'Or,FR,6.32,46.76,1075.2,Jura,no,0.0
+5011,Vuillecin,FR,6.33,46.94,890.84,Jura,no,0.0
+5012,Oye-et-Pallet,FR,6.33,46.85,1068.65,Jura,no,0.0
+5013,Doubs,FR,6.35,46.93,1055.74,Jura,no,0.0
+5014,la_Cluse-et-Mijoux_[Pontarlier_amont],FR,6.36,46.88,1061.38,Jura,no,0.0
+5015,Sciez,FR,6.38,46.33,647.27,Plateau,no,0.0
+5016,Jougne_[La_Ferrière_2],FR,6.38,46.73,1140.4,Jura,no,0.0
+5017,Saint-Jean-de-Sixt,FR,6.42,45.93,1552.91,Alps North,no,0.0
+5018,Margencel,FR,6.42,46.34,707.02,Plateau,no,0.0
+5019,Bonneville_[Thuet],FR,6.46,46.06,1412.64,Plateau,no,0.0
+5020,Saint-Jeoire_[Pont_du_Risse],FR,6.48,46.14,1095.24,Plateau,no,0.0
+5021,Ville-du-Pont,FR,6.48,47.0,993.01,Jura,no,0.0
+5022,Marignier_[Plan_Séraphin],FR,6.5,46.12,1413.33,Alps North,no,0.0
+5023,Reyvroz_[Bioge],FR,6.59,46.33,1362.48,Alps North,no,0.0
+5024,Grand'Combe-Châteleu_[Châteleu],FR,6.58,47.03,984.99,Jura,no,0.0
+5025,Magland_[Chez_Party],FR,6.62,46.03,1877.34,Alps West,no,0.0
+5026,la_Baume_[Pt_de_Couvaloup],FR,6.62,46.27,1435.05,Alps North,no,0.0
+5027,Sallanches,FR,6.64,45.94,1997.91,Alps West,no,0.0
+5028,Saint-Paul-en-Chablais,FR,6.64,46.35,1322.71,Alps North,no,0.0
+5029,Vacheresse,FR,6.67,46.33,1459.2,Alps North,no,0.0
+5030,Fournet-Blancheroche_[La_Rasse],FR,6.84,47.15,983.99,Jura,no,0.0
+5031,Chamonix-Mont-Blanc_[Pont_des_Favrands],FR,6.86,45.92,2457.47,Alps West,no,0.0
+5032,Goumois,FR,6.95,47.27,985.28,Jura,yes,0.251
+6001,Macugnaga,I,7.95,45.97,2649.36,Alps West,no,0.0
+6002,San_Carlo,I,8.13,45.99,2058.98,Alps West,no,0.0
+6003,Villadossola,I,8.26,46.07,1744.32,Alps South,no,0.0
+6004,Ponte_Caddo,I,8.27,46.12,1603.78,Alps South,no,0.0
+6005,Domodossola,I,8.31,46.11,1819.78,Alps West,no,0.0
+6006,Pontemaglio,I,8.32,46.18,1938.9,Alps West,no,0.0
+6007,Candoglia,I,8.42,45.97,1672.11,Alps South,no,0.0
+6008,Gravellona,I,8.43,45.93,878.6,Alps West,no,0.0
+6009,Santino,I,8.53,45.96,1248.36,Alps South,no,0.0
+6010,Verbania,I,8.58,45.94,912.2,Alps South,no,0.0
+6011,Miorina,I,8.65,45.7,1292.72,Alps South,yes,0.502
