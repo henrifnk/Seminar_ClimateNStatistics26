@@ -38,7 +38,7 @@ is one of the oldest and most consequential tasks in hydrology. Accurate forecas
 critical for flood early-warning systems, reservoir operation, drought monitoring, and
 hydropower planning. Under climate change, this task becomes harder because forcing
 regimes are increasingly non-stationary: precipitation intensity distributions,
-temperature seasonality, and snowmelt timing all shift over time [@ipcc2021].
+temperature seasonality, and snowmelt timing all shift over time [@nh-ipcc2021].
 
 This chapter reviews the emergence of deep learning as the leading paradigm for
 data-driven streamflow modelling, introduces the **NeuralHydrology** Python library,
@@ -89,7 +89,7 @@ However, they suffer from three fundamental limitations:
 2. **Spatial heterogeneity**  -  parameter sets calibrated for one catchment cannot be
    directly transferred to ungauged basins.
 3. **Non-stationarity**  -  parameters calibrated under historical climate conditions may
-   not hold under future climate forcing [@milly2008].
+  not hold under future climate forcing [@nh-milly2008].
 
 ### Process-Based Formulation and Structural Error
 
@@ -123,9 +123,9 @@ prescribe low-dimensional process forms a priori.
 
 ### The Deep Learning Breakthrough
 
-The pivotal step came in 2018 when @kratzert2018 demonstrated that a standard
+The pivotal step came in 2018 when @nh-kratzert2018 demonstrated that a standard
 Long Short-Term Memory (LSTM) network, trained on the
-**CAMELS-US** dataset [@addor2017] of 241 catchments, outperformed all
+**CAMELS-US** dataset [@nh-addor2017] of 241 catchments, outperformed all
 individually calibrated conceptual models - without any catchment-specific calibration.
 The LSTM's ability to learn temporal dependencies, coupled with its capacity to exploit
 information from hundreds of basins simultaneously, created a step change in the field.
@@ -136,7 +136,7 @@ information from hundreds of basins simultaneously, created a step change in the
 
 ### The LSTM Architecture {#nh-lstm-arch}
 
-The LSTM [@hochreiter1997] maintains a **cell state** $\mathbf{c}_t$ as an internal
+The LSTM [@nh-hochreiter1997] maintains a **cell state** $\mathbf{c}_t$ as an internal
 memory and uses three gating mechanisms to regulate information flow:
 
 $$\mathbf{i}_t = \sigma(\mathbf{W}_i [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i)$$
@@ -180,7 +180,7 @@ daily rainfall-runoff tasks.
 
 ### From Single-Basin to Multi-Basin: EA-LSTM {#nh-ea-lstm}
 
-@kratzert2019 extended the single-basin LSTM to **simultaneous multi-basin training**
+@nh-kratzert2019 extended the single-basin LSTM to **simultaneous multi-basin training**
 using the Entity-Aware LSTM (EA-LSTM). The key modification is that the **input gate**
 is conditioned on *static* catchment attributes $\mathbf{x}_s$ (soil type, terrain
 slope, land cover, climate indices) rather than the dynamic sequence:
@@ -241,7 +241,7 @@ separate timing, variability, and bias effects.
 
 ## NeuralHydrology: A Python Library for Deep Learning in Hydrology {#nh-lib}
 
-**NeuralHydrology** [@kratzert2022joss] is an open-source Python library developed at
+**NeuralHydrology** [@nh-kratzert2022joss] is an open-source Python library developed at
 the Institute for Machine Learning, Johannes Kepler University Linz, built on top of
 PyTorch. Its design philosophy emphasises *modularity*: new datasets, model
 architectures, loss functions, and training strategies can be added without modifying
@@ -267,13 +267,13 @@ freedom during iterative experimentation.
 | Model | Architecture | Key Idea |
 |-------|-------------|----------|
 | **CudaLSTM** | Standard LSTM | Baseline; uses CUDA-optimised PyTorch implementation |
-| **EA-LSTM** | Entity-Aware LSTM | Static features condition input gate [@kratzert2019] |
-| **MC-LSTM** | Mass-Conserving LSTM | Precipitation mass budget enforced [@hoedt2021] |
-| **MTS-LSTM** | Multi-Timescale LSTM | Joint training at daily and hourly resolution [@gauch2021] |
+| **EA-LSTM** | Entity-Aware LSTM | Static features condition input gate [@nh-kratzert2019] |
+| **MC-LSTM** | Mass-Conserving LSTM | Precipitation mass budget enforced [@nh-hoedt2021] |
+| **MTS-LSTM** | Multi-Timescale LSTM | Joint training at daily and hourly resolution [@nh-gauch2021] |
 | **ODE-LSTM** | ODE-based LSTM | Continuous-time dynamics for irregular sampling |
 | **Transformer** | Self-attention | Captures global temporal dependencies |
-| **Mamba** | State-space model | Linear-time sequence modelling [@gu2023] |
-| **xLSTM** | Extended LSTM | Exponential gating [@beck2024] |
+| **Mamba** | State-space model | Linear-time sequence modelling [@nh-gu2023] |
+| **xLSTM** | Extended LSTM | Exponential gating [@nh-beck2024] |
 | **HybridModel** | LSTM + conceptual | Neural parameterisation of process models |
 
 A minimal training configuration looks as follows:
@@ -322,7 +322,7 @@ these reduce procedural variance when comparing architectures or transfer settin
 Under climate change, hydrological systems are subject to **non-stationarity**: the
 statistical relationship between climate forcing and streamflow may shift due to
 changing land cover, permafrost thaw, or altered precipitation seasonality
-[@milly2008]. A model trained on historical data may fail under future conditions if it
+[@nh-milly2008]. A model trained on historical data may fail under future conditions if it
 has over-fitted to the historical distribution.
 
 Transfer learning offers a principled solution: pre-train a model on a large, diverse
@@ -347,7 +347,7 @@ This yields a practical bias-variance trade-off:
 ### Pre-Train on Large-Sample Data {#nh-pretrain}
 
 The first step is training on the full CAMELS dataset (531 basins across the
-continental United States, or multi-country datasets like Caravan [@kratzert2023caravan]
+continental United States, or multi-country datasets like Caravan [@nh-kratzert2023caravan]
 with >6000 basins). This exposes the model to a wide range of climates, soils, and
 land covers, building a general-purpose hydrological encoder.
 
@@ -374,7 +374,7 @@ can overwrite globally useful runoff representations. Layer-wise schedules and r
 fine-tuning rates are therefore not just engineering heuristics, but stability controls
 for representation retention.
 
-@frame2022 showed that LSTMs pre-trained on multi-basin data and fine-tuned on a single
+@nh-frame2022 showed that LSTMs pre-trained on multi-basin data and fine-tuned on a single
 target basin significantly outperform models trained from scratch on the target basin
 alone, even when the target basin lies in a climate zone absent from pre-training data.
 
@@ -386,7 +386,7 @@ historical forcing before feeding into the pre-trained neural model. The key cha
 is that the model may extrapolate poorly to precipitation intensities or temperature
 regimes outside its training distribution.
 
-@hoedt2021 argue that **physically consistent architectures** (such as MC-LSTM) are
+@nh-hoedt2021 argue that **physically consistent architectures** (such as MC-LSTM) are
 inherently more robust to distributional shift, because the mass conservation
 constraint prevents unphysical predictions even under novel forcing conditions.
 
@@ -475,11 +475,25 @@ strategy effects rather than differences in data split or metric definition.
 ```{r nh-transfer-setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
 
+if (knitr::is_latex_output()) {
+  knitr::opts_chunk$set(out.width = "\\linewidth")
+}
+
 library(ggplot2)
 library(knitr)
 
-if (!requireNamespace("maps", quietly = TRUE)) {
-  install.packages("maps", repos = "https://cloud.r-project.org")
+# Standalone mode control:
+# - default: auto-detect from missing result CSVs
+# - force no-data mode: set env NH_NO_DATA_MODE=true before render
+nh_force_no_data <- tolower(Sys.getenv("NH_NO_DATA_MODE", "false")) %in% c("1", "true", "yes")
+
+camels_topo_candidates <- c(
+  "work/04-neural_hyd/data/camels_topo.txt",
+  "C:/GitHub/climate-change/NeuralHydrology/data/CAMELS_US/camels_attributes_v2.0/camels_topo.txt"
+)
+camels_topo_path <- camels_topo_candidates[file.exists(camels_topo_candidates)][1]
+if (is.na(camels_topo_path) || length(camels_topo_path) == 0) {
+  camels_topo_path <- NA_character_
 }
 
 theme_nh <- function(base_size = 12) {
@@ -497,17 +511,89 @@ grey50 <- "#888888"
 green_ok <- "#388E3C"
 amber <- "#F57F17"
 
-transfer_benchmark <- read.csv("work/04-neural_hyd/results/results_folder_groups_summary_with_global_true_ea.csv", stringsAsFactors = FALSE)
-transfer_all_basins <- read.csv("work/04-neural_hyd/results/results_folder_groups_all_basins_ea.csv", stringsAsFactors = FALSE)
+nh_safe_read_csv <- function(path, fallback) {
+  if (file.exists(path)) {
+    read.csv(path, stringsAsFactors = FALSE)
+  } else {
+    fallback
+  }
+}
 
-transfer_group_cuda <- read.csv("work/04-neural_hyd/results/results_folder_groups_summary_with_global_true.csv", stringsAsFactors = FALSE)
-transfer_all_cuda <- read.csv("work/04-neural_hyd/results/results_folder_groups_all_basins.csv", stringsAsFactors = FALSE)
+nh_groups <- sprintf("%02d", 1:18)
+nh_empty_group_summary <- data.frame(
+  group = nh_groups,
+  n_basins = rep(NA_integer_, length(nh_groups)),
+  local_nse_mean = rep(NA_real_, length(nh_groups)),
+  global_nse_mean = rep(NA_real_, length(nh_groups)),
+  ft_nse_mean = rep(NA_real_, length(nh_groups)),
+  local_kge_mean = rep(NA_real_, length(nh_groups)),
+  global_kge_mean = rep(NA_real_, length(nh_groups)),
+  ft_kge_mean = rep(NA_real_, length(nh_groups)),
+  delta_ft_vs_local_nse = rep(NA_real_, length(nh_groups)),
+  delta_ft_vs_global_nse = rep(NA_real_, length(nh_groups)),
+  stringsAsFactors = FALSE
+)
 
-g05_local_ft <- read.csv("work/04-neural_hyd/results/results_folder_05_local_vs_finetune_ea.csv", stringsAsFactors = FALSE)
-g05_global <- read.csv("work/04-neural_hyd/results/results_folder_05_global_eval_true_ea.csv", stringsAsFactors = FALSE)
+nh_empty_all_basins <- data.frame(
+  group = character(0),
+  basin = character(0),
+  local_nse = numeric(0),
+  ft_nse = numeric(0),
+  stringsAsFactors = FALSE
+)
 
-g01_local_ft_cuda <- read.csv("work/04-neural_hyd/results/results_folder_01_local_vs_finetune.csv", stringsAsFactors = FALSE)
-g01_global_cuda <- read.csv("work/04-neural_hyd/results/results_folder_01_global_eval_true.csv", stringsAsFactors = FALSE)
+nh_empty_local_ft <- data.frame(
+  basin = character(0),
+  local_nse = numeric(0),
+  ft_nse = numeric(0),
+  stringsAsFactors = FALSE
+)
+
+nh_empty_global_eval <- data.frame(
+  basin = character(0),
+  NSE = numeric(0),
+  KGE = numeric(0),
+  stringsAsFactors = FALSE
+)
+
+nh_results_csv <- "work/04-neural_hyd/results/results_folder_groups_summary_with_global_true_ea.csv"
+nh_has_results_data <- (!nh_force_no_data) && file.exists(nh_results_csv)
+
+transfer_benchmark <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_groups_summary_with_global_true_ea.csv",
+  nh_empty_group_summary
+)
+transfer_all_basins <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_groups_all_basins_ea.csv",
+  nh_empty_all_basins
+)
+
+transfer_group_cuda <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_groups_summary_with_global_true.csv",
+  nh_empty_group_summary
+)
+transfer_all_cuda <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_groups_all_basins.csv",
+  nh_empty_all_basins
+)
+
+g05_local_ft <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_05_local_vs_finetune_ea.csv",
+  nh_empty_local_ft
+)
+g05_global <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_05_global_eval_true_ea.csv",
+  nh_empty_global_eval
+)
+
+g01_local_ft_cuda <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_01_local_vs_finetune.csv",
+  nh_empty_local_ft
+)
+g01_global_cuda <- nh_safe_read_csv(
+  "work/04-neural_hyd/results/results_folder_01_global_eval_true.csv",
+  nh_empty_global_eval
+)
 
 transfer_benchmark$group <- sprintf("%02d", as.integer(transfer_benchmark$group))
 transfer_all_basins$group <- sprintf("%02d", as.integer(transfer_all_basins$group))
@@ -522,7 +608,16 @@ g01_local_ft_cuda$basin <- sprintf("%08d", as.integer(g01_local_ft_cuda$basin))
 g01_global_cuda$basin <- sprintf("%08d", as.integer(g01_global_cuda$basin))
 g01_merged_cuda <- merge(g01_local_ft_cuda, g01_global_cuda[, c("basin", "NSE", "KGE")], by = "basin", all.x = TRUE)
 
-wmean <- function(x, w) sum(x * w) / sum(w)
+wmean <- function(x, w) {
+  if (length(x) == 0 || length(w) == 0) {
+    return(NA_real_)
+  }
+  ok <- is.finite(x) & is.finite(w)
+  if (!any(ok) || sum(w[ok]) == 0) {
+    return(NA_real_)
+  }
+  sum(x[ok] * w[ok]) / sum(w[ok])
+}
 
 overall_local_nse <- wmean(transfer_benchmark$local_nse_mean, transfer_benchmark$n_basins)
 overall_global_nse <- wmean(transfer_benchmark$global_nse_mean, transfer_benchmark$n_basins)
@@ -546,11 +641,18 @@ transfer_benchmark$delta_ft_local_kge <- transfer_benchmark$ft_kge_mean - transf
 transfer_benchmark$delta_ft_global_kge <- transfer_benchmark$ft_kge_mean - transfer_benchmark$global_kge_mean
 
 g05_summary <- transfer_benchmark[transfer_benchmark$group == "05", ]
-g05_local_mean <- g05_summary$local_nse_mean[1]
-g05_global_mean <- g05_summary$global_nse_mean[1]
-g05_ft_mean <- g05_summary$ft_nse_mean[1]
-g05_ft_local_delta <- g05_summary$delta_ft_vs_local_nse[1]
-g05_ft_global_delta <- g05_summary$delta_ft_vs_global_nse[1]
+nh_value_or_na <- function(x) {
+  if (length(x) == 0) {
+    return(NA_real_)
+  }
+  as.numeric(x[1])
+}
+
+g05_local_mean <- nh_value_or_na(g05_summary$local_nse_mean)
+g05_global_mean <- nh_value_or_na(g05_summary$global_nse_mean)
+g05_ft_mean <- nh_value_or_na(g05_summary$ft_nse_mean)
+g05_ft_local_delta <- nh_value_or_na(g05_summary$delta_ft_vs_local_nse)
+g05_ft_global_delta <- nh_value_or_na(g05_summary$delta_ft_vs_global_nse)
 
 # Reporting scope for this chapter (aligned with text): 531 basins.
 reported_basin_count <- 531L
@@ -560,7 +662,9 @@ reported_basin_count <- 531L
 
 Table \@ref(tab:nh-transfer-overall-table) reports basin-weighted overall metrics.
 
-```{r nh-transfer-overall-table, echo=FALSE}
+`r if (!nh_has_results_data) "**Build note:** result CSV files were not found under work/04-neural_hyd/results/. This chapter is rendered in no-data mode so the book can compile without local experiment outputs." else ""`
+
+```{r nh-transfer-overall-table, echo=FALSE, results='asis'}
 overall <- data.frame(
   Scope = "Basin-weighted over 18 groups",
   Basins = reported_basin_count,
@@ -574,11 +678,47 @@ overall <- data.frame(
   KGE_FineTune = round(overall_ft_kge, 3)
 )
 
-knitr::kable(
-  overall,
-  caption = "Basin-weighted overall performance for the EA-LSTM transfer-learning benchmark.",
-  col.names = c("Scope", "Basins", "NSE Local", "NSE Global", "NSE Fine-tune", "Delta NSE FT-Local", "Delta NSE FT-Global", "KGE Local", "KGE Global", "KGE Fine-tune")
-)
+if (knitr::is_latex_output()) {
+  overall_latex <- data.frame(
+    Metric = c(
+      "Scope",
+      "Basins",
+      "NSE Local",
+      "NSE Global",
+      "NSE Fine-tune",
+      "Delta NSE FT-Local",
+      "Delta NSE FT-Global",
+      "KGE Local",
+      "KGE Global",
+      "KGE Fine-tune"
+    ),
+    Value = c(
+      as.character(overall$Scope),
+      as.character(overall$Basins),
+      sprintf("%.3f", overall$NSE_Local),
+      sprintf("%.3f", overall$NSE_Global),
+      sprintf("%.3f", overall$NSE_FineTune),
+      sprintf("%.3f", overall$Delta_NSE_FT_Local),
+      sprintf("%.3f", overall$Delta_NSE_FT_Global),
+      sprintf("%.3f", overall$KGE_Local),
+      sprintf("%.3f", overall$KGE_Global),
+      sprintf("%.3f", overall$KGE_FineTune)
+    ),
+    stringsAsFactors = FALSE
+  )
+  knitr::kable(
+    overall_latex,
+    format = "latex",
+    booktabs = TRUE,
+    caption = "Basin-weighted overall performance for the EA-LSTM transfer-learning benchmark."
+  )
+} else {
+  knitr::kable(
+    overall,
+    caption = "Basin-weighted overall performance for the EA-LSTM transfer-learning benchmark.",
+    col.names = c("Scope", "Basins", "NSE Local", "NSE Global", "NSE Fine-tune", "Delta NSE FT-Local", "Delta NSE FT-Global", "KGE Local", "KGE Global", "KGE Fine-tune")
+  )
+}
 ```
 
 At aggregate scale, Fine-tune ranks first for both NSE and KGE. In practical terms,
@@ -727,23 +867,21 @@ coverage. The following figures therefore document where basins are located and 
 unevenly groups are represented.
 
 ```{r nh-transfer-map-by-group-book, fig.height=4.8, fig.width=10.8}
-topo <- read.csv(
-  "work/04-neural_hyd/data/camels_topo.txt",
-  sep = ";",
-  stringsAsFactors = FALSE
-)
-
 basin_group <- unique(transfer_all_basins[, c("basin", "group")])
 basin_group$basin <- sprintf("%08d", as.integer(basin_group$basin))
-topo$gauge_id <- sprintf("%08d", as.integer(topo$gauge_id))
 
-map_df <- merge(
-  topo[, c("gauge_id", "gauge_lat", "gauge_lon")],
-  basin_group,
-  by.x = "gauge_id",
-  by.y = "basin"
-)
-map_df$group <- factor(sprintf("%02d", as.integer(map_df$group)))
+map_df <- data.frame()
+if (!is.na(camels_topo_path)) {
+  topo <- read.csv(camels_topo_path, sep = ";", stringsAsFactors = FALSE)
+  topo$gauge_id <- sprintf("%08d", as.integer(topo$gauge_id))
+  map_df <- merge(
+    topo[, c("gauge_id", "gauge_lat", "gauge_lon")],
+    basin_group,
+    by.x = "gauge_id",
+    by.y = "basin"
+  )
+  map_df$group <- factor(sprintf("%02d", as.integer(map_df$group)))
+}
 
 has_maps <- requireNamespace("maps", quietly = TRUE)
 if (has_maps) {
@@ -763,24 +901,38 @@ if (has_maps) {
     )
 }
 
-p +
-  geom_point(
-    data = map_df,
-    aes(x = gauge_lon, y = gauge_lat, color = group),
-    size = 1.7,
-    alpha = 0.9
-  ) +
-  scale_color_viridis_d(name = "Group", option = "turbo", end = 0.95) +
-  coord_quickmap(xlim = c(-125, -66), ylim = c(24, 50), expand = FALSE) +
-  labs(x = NULL, y = NULL, subtitle = "CAMELS-US basins colored by 18 groups") +
-  theme_nh() +
-  theme(
-    panel.grid = element_blank(),
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    legend.position = "bottom"
-  ) +
-  guides(color = guide_legend(nrow = 2, byrow = TRUE, override.aes = list(size = 3)))
+if (nrow(map_df) > 0) {
+  p +
+    geom_point(
+      data = map_df,
+      aes(x = gauge_lon, y = gauge_lat, color = group),
+      size = 1.7,
+      alpha = 0.9
+    ) +
+    scale_color_viridis_d(name = "Group", option = "turbo", end = 0.95) +
+    coord_quickmap(xlim = c(-125, -66), ylim = c(24, 50), expand = FALSE) +
+    labs(x = NULL, y = NULL, subtitle = "CAMELS-US basins colored by 18 groups") +
+    theme_nh() +
+    theme(
+      panel.grid = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      legend.position = "bottom"
+    ) +
+    guides(color = guide_legend(nrow = 2, byrow = TRUE, override.aes = list(size = 3)))
+} else {
+  p +
+    coord_quickmap(xlim = c(-125, -66), ylim = c(24, 50), expand = FALSE) +
+    annotate("text", x = -95, y = 37, label = "camels_topo.txt not found; map omitted in this render", color = grey50, size = 4) +
+    labs(x = NULL, y = NULL, subtitle = "CAMELS-US basins map unavailable") +
+    theme_nh() +
+    theme(
+      panel.grid = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      legend.position = "none"
+    )
+}
 ```
 
 This map shows that groups are geographically dispersed rather than confined to a single
