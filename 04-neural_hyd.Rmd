@@ -1,4 +1,4 @@
-﻿# Neural Hydrology {#neural-hydrology}
+﻿# Neural Hydrology {#nh-neural-hydrology}
 
 *Author: Yuxin Qiu*  
 *Supervisor: Henri Funk*  
@@ -68,7 +68,7 @@ and non-stationary. Hence, the chapter emphasizes three scientific questions:
 
 ---
 
-## Background: From Process-Based to Data-Driven Models {#background}
+## Background: From Process-Based to Data-Driven Models {#nh-background}
 
 ### Traditional Process-Based Models
 
@@ -132,9 +132,9 @@ information from hundreds of basins simultaneously, created a step change in the
 
 ---
 
-## LSTM-Based Methods for Streamflow Modelling {#lstm-methods}
+## LSTM-Based Methods for Streamflow Modelling {#nh-lstm-methods}
 
-### The LSTM Architecture {#lstm-arch}
+### The LSTM Architecture {#nh-lstm-arch}
 
 The LSTM [@hochreiter1997] maintains a **cell state** $\mathbf{c}_t$ as an internal
 memory and uses three gating mechanisms to regulate information flow:
@@ -178,7 +178,7 @@ vector whose components are not physically named but can encode multi-timescale 
 This latent-state interpretation is one reason LSTMs outperform short-memory models in
 daily rainfall-runoff tasks.
 
-### From Single-Basin to Multi-Basin: EA-LSTM {#ea-lstm}
+### From Single-Basin to Multi-Basin: EA-LSTM {#nh-ea-lstm}
 
 @kratzert2019 extended the single-basin LSTM to **simultaneous multi-basin training**
 using the Entity-Aware LSTM (EA-LSTM). The key modification is that the **input gate**
@@ -239,7 +239,7 @@ separate timing, variability, and bias effects.
 
 ---
 
-## NeuralHydrology: A Python Library for Deep Learning in Hydrology {#lib}
+## NeuralHydrology: A Python Library for Deep Learning in Hydrology {#nh-lib}
 
 **NeuralHydrology** [@kratzert2022joss] is an open-source Python library developed at
 the Institute for Machine Learning, Johannes Kepler University Linz, built on top of
@@ -251,7 +251,7 @@ the core framework.
 
 - **Configuration-file driven**  -  experiments are fully specified in `.yml` files,
   enabling reproducibility without touching source code.
-- **Model zoo**  -  a diverse set of pre-implemented architectures (see Section \@ref(modelzoo)).
+- **Model zoo**  -  a diverse set of pre-implemented architectures (see Section \@ref(nh-modelzoo)).
 - **Dataset zoo**  -  native support for CAMELS-US, CAMELS-GB, CAMELS-DE, CAMELS-AUS,
   CAMELS-CL, LamaH, Caravan, and a generic interface for custom datasets.
 - **Evaluation**  -  built-in NSE, KGE, MSE, RMSE and signature-based metrics.
@@ -262,7 +262,7 @@ scientifically important: it creates explicit, versionable experiment declaratio
 This improves methodological traceability and reduces hidden researcher degrees of
 freedom during iterative experimentation.
 
-### Model Zoo {#modelzoo}
+### Model Zoo {#nh-modelzoo}
 
 | Model | Architecture | Key Idea |
 |-------|-------------|----------|
@@ -315,7 +315,7 @@ these reduce procedural variance when comparing architectures or transfer settin
 
 ---
 
-## Transfer Learning in a Changing Climate {#transfer}
+## Transfer Learning in a Changing Climate {#nh-transfer}
 
 ### Motivation
 
@@ -344,14 +344,14 @@ This yields a practical bias-variance trade-off:
 2. global zero-shot: low variance, possibly higher target bias;
 3. global + fine-tune: compromise with lower variance and reduced target bias.
 
-### Pre-Train on Large-Sample Data {#pretrain}
+### Pre-Train on Large-Sample Data {#nh-pretrain}
 
 The first step is training on the full CAMELS dataset (531 basins across the
 continental United States, or multi-country datasets like Caravan [@kratzert2023caravan]
 with >6000 basins). This exposes the model to a wide range of climates, soils, and
 land covers, building a general-purpose hydrological encoder.
 
-### Fine-Tuning Strategies {#finetune}
+### Fine-Tuning Strategies {#nh-finetune}
 
 NeuralHydrology supports fine-tuning via the configuration:
 
@@ -378,7 +378,7 @@ for representation retention.
 target basin significantly outperform models trained from scratch on the target basin
 alone, even when the target basin lies in a climate zone absent from pre-training data.
 
-### Climate Change Scenarios {#climate-scenarios}
+### Climate Change Scenarios {#nh-climate-scenarios}
 
 For future projections, one strategy is **delta-change forcing**: apply projected
 changes from a GCM (e.g., CMIP6 precipitation and temperature anomalies) on top of
@@ -402,7 +402,7 @@ under such shifts by preventing implausible state transitions.
 
 ---
 
-## Empirical Study: Regional Transfer Learning Under Data Scarcity {#case-study}
+## Empirical Study: Regional Transfer Learning Under Data Scarcity {#nh-case-study}
 
 ### Study Design and Data
 
@@ -472,7 +472,7 @@ All three arms are evaluated on the same temporal test period and reported with 
 NSE/KGE metrics. Therefore, between-arm differences can be interpreted as training
 strategy effects rather than differences in data split or metric definition.
 
-```{r transfer-setup, include=FALSE}
+```{r nh-transfer-setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
 
 library(ggplot2)
@@ -558,9 +558,9 @@ reported_basin_count <- 531L
 
 ### Aggregate Performance
 
-Table \@ref(tab:transfer-overall-table) reports basin-weighted overall metrics.
+Table \@ref(tab:nh-transfer-overall-table) reports basin-weighted overall metrics.
 
-```{r transfer-overall-table, echo=FALSE}
+```{r nh-transfer-overall-table, echo=FALSE}
 overall <- data.frame(
   Scope = "Basin-weighted over 18 groups",
   Basins = reported_basin_count,
@@ -596,7 +596,7 @@ The next two figures move from overall averages to group-level contrasts. The fi
 shows absolute performance per group and model arm; the second shows paired deltas,
 which are easier to interpret as treatment effects of adaptation.
 
-```{r transfer-by-group-nse, fig.height=4.8, fig.width=10.0}
+```{r nh-transfer-by-group-nse, fig.height=4.8, fig.width=10.0}
 transfer_long <- rbind(
   data.frame(group = transfer_benchmark$group, model = "Local", nse = transfer_benchmark$local_nse_mean),
   data.frame(group = transfer_benchmark$group, model = "Global", nse = transfer_benchmark$global_nse_mean),
@@ -618,7 +618,7 @@ In this plot, the key visual test is rank stability within each group. If fine-t
 is consistently useful, the fine-tune bar should dominate local and usually global bars
 for most groups. This is exactly what is observed in the present run.
 
-```{r transfer-delta-bars, fig.height=4.2, fig.width=10.0}
+```{r nh-transfer-delta-bars, fig.height=4.2, fig.width=10.0}
 gain_long <- rbind(
   data.frame(group = transfer_benchmark$group, delta_type = "FT - Local", delta = transfer_benchmark$delta_ft_local_nse),
   data.frame(group = transfer_benchmark$group, delta_type = "FT - Global", delta = transfer_benchmark$delta_ft_global_nse)
@@ -648,7 +648,7 @@ Group means can hide within-group variance. The next figures therefore analyze b
 level distributions to test whether improvements are broad-based at the individual basin
 scale.
 
-```{r transfer-basin-box-ecdf, fig.height=4.2, fig.width=10.0}
+```{r nh-transfer-basin-box-ecdf, fig.height=4.2, fig.width=10.0}
 basin_df <- data.frame(
   model = factor(c(rep("Local", nrow(transfer_all_basins)), rep("Fine-tune", nrow(transfer_all_basins))), levels = c("Local", "Fine-tune")),
   nse = c(transfer_all_basins$local_nse, transfer_all_basins$ft_nse)
@@ -667,7 +667,7 @@ The boxplot compares medians, interquartile ranges, and tails between Local and
 Fine-tune. A simultaneous upward shift in median and upper quartiles supports a genuine
 distributional improvement rather than a change driven by few extreme basins.
 
-```{r transfer-basin-ecdf, fig.height=4.0, fig.width=10.0}
+```{r nh-transfer-basin-ecdf, fig.height=4.0, fig.width=10.0}
 ecdf_df <- data.frame(
   nse = c(transfer_all_basins$local_nse, transfer_all_basins$ft_nse),
   model = factor(c(rep("Local", nrow(transfer_all_basins)), rep("Fine-tune", nrow(transfer_all_basins))), levels = c("Local", "Fine-tune"))
@@ -726,7 +726,7 @@ Before interpreting transfer gains as generalizable, one must verify spatial and
 coverage. The following figures therefore document where basins are located and how
 unevenly groups are represented.
 
-```{r transfer-map-by-group-book, fig.height=4.8, fig.width=10.8}
+```{r nh-transfer-map-by-group-book, fig.height=4.8, fig.width=10.8}
 topo <- read.csv(
   "work/04-neural_hyd/data/camels_topo.txt",
   sep = ";",
@@ -790,7 +790,7 @@ under substantial regional heterogeneity.
 The basin map confirms broad spatial representation and substantial hydro-climatic
 heterogeneity, which is a prerequisite for meaningful transfer-learning evaluation.
 
-```{r transfer-coverage-bars-book, fig.height=3.8, fig.width=9.8}
+```{r nh-transfer-coverage-bars-book, fig.height=3.8, fig.width=9.8}
 cov_df <- transfer_benchmark[order(transfer_benchmark$n_basins, decreasing = TRUE), c("group", "n_basins")]
 
 ggplot(cov_df, aes(x = group, y = n_basins)) +
@@ -805,7 +805,7 @@ Coverage imbalance is important for interpretation. Groups with fewer basins gen
 have higher estimation variance, and thus are expected to benefit more from pretraining.
 This expectation is later cross-checked against observed gain patterns.
 
-```{r transfer-group-size-dist-book, fig.height=2.8, fig.width=6.6}
+```{r nh-transfer-group-size-dist-book, fig.height=2.8, fig.width=6.6}
 ggplot(transfer_benchmark, aes(x = n_basins)) +
   geom_histogram(binwidth = 15, fill = lmu_light, color = "white", boundary = 0) +
   geom_vline(xintercept = median(transfer_benchmark$n_basins), linetype = "dashed", color = grey50, linewidth = 0.8) +
@@ -818,7 +818,7 @@ aggregation in all headline statistics.
 
 ### Additional Diagnostic Plots
 
-```{r transfer-overall-nse-bars-book, fig.height=3.3, fig.width=8.2}
+```{r nh-transfer-overall-nse-bars-book, fig.height=3.3, fig.width=8.2}
 overall_nse_df <- data.frame(
   model = factor(c("Local", "Global", "Fine-tune"), levels = c("Local", "Global", "Fine-tune")),
   nse = c(overall_local_nse, overall_global_nse, overall_ft_nse)
@@ -834,10 +834,10 @@ ggplot(overall_nse_df, aes(x = model, y = nse, fill = model)) +
   theme(legend.position = "none")
 ```
 
-This bar chart restates Table \@ref(tab:transfer-overall-table) in visual form and makes
+This bar chart restates Table \@ref(tab:nh-transfer-overall-table) in visual form and makes
 the between-strategy NSE gaps easier to compare.
 
-```{r transfer-overall-kge-bars-book, fig.height=3.3, fig.width=8.2}
+```{r nh-transfer-overall-kge-bars-book, fig.height=3.3, fig.width=8.2}
 overall_kge_df <- data.frame(
   model = factor(c("Local", "Global", "Fine-tune"), levels = c("Local", "Global", "Fine-tune")),
   kge = c(overall_local_kge, overall_global_kge, overall_ft_kge)
@@ -856,7 +856,7 @@ ggplot(overall_kge_df, aes(x = model, y = kge, fill = model)) +
 Consistent ordering under KGE supports the same conclusion as NSE and strengthens
 cross-metric robustness.
 
-```{r transfer-delta-kge-bars-book, fig.height=4.1, fig.width=9.6}
+```{r nh-transfer-delta-kge-bars-book, fig.height=4.1, fig.width=9.6}
 dk_long <- rbind(
   data.frame(group = transfer_benchmark$group, delta_type = "FT - Local", delta_kge = transfer_benchmark$delta_ft_local_kge),
   data.frame(group = transfer_benchmark$group, delta_type = "FT - Global", delta_kge = transfer_benchmark$delta_ft_global_kge)
@@ -875,7 +875,7 @@ ggplot(dk_long, aes(x = group, y = delta_kge, fill = delta_type)) +
 Group-level KGE deltas show whether transfer gains persist once correlation,
 variability, and bias are considered jointly.
 
-```{r transfer-local-ft-scatter-book, fig.height=3.8, fig.width=8.9}
+```{r nh-transfer-local-ft-scatter-book, fig.height=3.8, fig.width=8.9}
 ggplot(transfer_benchmark, aes(x = local_nse_mean, y = ft_nse_mean, size = n_basins)) +
   geom_point(color = lmu_blue, alpha = 0.75) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = grey50) +
@@ -886,7 +886,7 @@ ggplot(transfer_benchmark, aes(x = local_nse_mean, y = ft_nse_mean, size = n_bas
 Points above the 1:1 line indicate groups where fine-tuning beats local training;
 bubble size indicates how many basins each group contains.
 
-```{r transfer-local-vs-gain-book, fig.height=3.6, fig.width=8.9}
+```{r nh-transfer-local-vs-gain-book, fig.height=3.6, fig.width=8.9}
 ggplot(transfer_benchmark, aes(x = local_nse_mean, y = delta_ft_local_nse)) +
   geom_point(size = 2.8, color = green_ok) +
   geom_smooth(method = "lm", se = FALSE, color = grey50) +
@@ -903,7 +903,7 @@ This comparison addresses model dependence of conclusions. If transfer benefits 
 appear in one architecture, practical recommendations should be narrowed. If the effect
 direction is stable across architectures, conclusions are more robust.
 
-```{r transfer-arch-nse-book, fig.height=3.4, fig.width=10.0}
+```{r nh-transfer-arch-nse-book, fig.height=3.4, fig.width=10.0}
 arch_nse <- data.frame(
   model = rep(c("Local", "Global", "Fine-tune"), 2),
   arch = rep(c("CudaLSTM", "EA-LSTM"), each = 3),
@@ -938,7 +938,7 @@ This subsection provides a concrete group-level case study. Group 05 is used as 
 illustrative diagnostic example because it exhibits clear but non-extreme transfer
 effects, making it suitable for discussing both mean-level and basin-level behavior.
 
-```{r transfer-group05-table-book, results='asis'}
+```{r nh-transfer-group05-table-book, results='asis'}
 g05_cmp <- data.frame(
   Setting = c("Global (EA-LSTM)", "Local (EA-LSTM)", "Fine-tune (EA-LSTM)"),
   Mean_NSE = c(g05_global_mean, g05_local_mean, g05_ft_mean)
@@ -952,7 +952,7 @@ cat(sprintf("\n\nFine-tune minus Local = %.3f; Fine-tune minus Global = %.3f.", 
 The table summarizes central tendency. However, mean effects can still mask local
 heterogeneity; therefore a basin-level bar decomposition is provided next.
 
-```{r transfer-group05-bars-book, fig.height=4.2, fig.width=10.4}
+```{r nh-transfer-group05-bars-book, fig.height=4.2, fig.width=10.4}
 g05_plot <- g05_merged[, c("basin", "local_nse", "NSE", "ft_nse")]
 colnames(g05_plot) <- c("basin", "Local", "Global", "Fine-tune")
 
@@ -991,7 +991,7 @@ treated as a hypothesis to be tested rather than assumed.
 
 ---
 
-## Discussion and Outlook {#discussion}
+## Discussion and Outlook {#nh-discussion}
 
 This case study confirms that pretrain-and-adapt pipelines are a strong default for
 regional streamflow prediction. Nevertheless, several methodological limits remain.
@@ -1027,7 +1027,7 @@ causal argument about why and when transfer learning works in hydrology.
 
 ---
 
-## Summary {#summary}
+## Summary {#nh-summary}
 
 Neural hydrology has evolved from proof-of-concept LSTM experiments to a mature
 experimental ecosystem where physically informed design and transfer learning can be

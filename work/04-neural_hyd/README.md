@@ -180,3 +180,70 @@ After running:
 4. Run `python .\results.py`
 5. Run `python .\plot.py`
 6. Verify outputs
+
+## 12. What the results mean and how they link to the report
+
+This section explains how to interpret the generated result files and how each piece is
+used in Chapter 4 (`04-neural_hyd.Rmd`).
+
+### 12.1 Core interpretation
+
+The three-way benchmark compares:
+
+1. Local: trained from scratch within each target group
+2. Global: zero-shot inference from one globally pretrained model
+3. Fine-tune: global pretrained model adapted on each target group
+
+Interpretation rule:
+
+1. If `Fine-tune > Local`, transfer learning improves over local-only training.
+2. If `Fine-tune > Global`, local adaptation adds value beyond zero-shot transfer.
+3. If both are true broadly across groups/basins, transfer gains are structural rather
+  than isolated outliers.
+
+### 12.2 Headline findings used in the report
+
+In the current rendered chapter, the basin-weighted aggregate table reports:
+
+1. NSE: Local = 0.281, Global = 0.565, Fine-tune = 0.589
+2. Delta NSE (Fine-tune - Local) = +0.308
+3. Delta NSE (Fine-tune - Global) = +0.023
+4. KGE: Local = 0.191, Global = 0.485, Fine-tune = 0.535
+
+Meaning:
+
+1. Global pretraining contributes the largest baseline jump over local-only training.
+2. Fine-tuning contributes additional group-specific adaptation on top of global priors.
+3. The recommended strategy in this setup is: pretrain globally, then fine-tune locally.
+
+### 12.3 CSV-to-report mapping
+
+Main files and their role in `04-neural_hyd.Rmd`:
+
+1. `results_folder_groups_summary_with_global_true_ea.csv`
+  - Source for group-level means and overall weighted NSE/KGE
+  - Feeds Table 4.1 and group delta plots
+
+2. `results_folder_groups_all_basins_ea.csv`
+  - Source for basin-level distribution diagnostics
+  - Feeds boxplot and ECDF comparisons (Local vs Fine-tune)
+
+3. `results_folder_05_local_vs_finetune_ea.csv`
+4. `results_folder_05_global_eval_true_ea.csv`
+  - Merged for Group 05 case study
+  - Feeds Group 05 table and per-basin three-way chart
+
+### 12.4 How this supports Chapter 4 claims
+
+The chapter argument is layered and each layer is backed by a different view:
+
+1. Aggregate effect direction: weighted table (overall NSE/KGE ordering)
+2. Regional consistency: group-level bars and delta-to-zero checks
+3. Distributional robustness: basin-level boxplot + ECDF shift
+4. Architecture robustness: EA-LSTM vs CudaLSTM directional agreement
+
+When all four layers agree, the report conclusion is justified:
+
+1. Fine-tuning consistently improves over local-only baselines.
+2. Fine-tuning also improves over zero-shot global in this benchmark setting.
+3. The practical deployment rule is therefore evidence-based, not single-plot driven.
