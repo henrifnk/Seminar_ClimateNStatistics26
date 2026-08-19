@@ -23,7 +23,11 @@ Expected outputs:
 Download CAMELS_US from official NCAR/UCAR sources:
 
 1. https://ral.ucar.edu/solutions/products/camels
-2. https://dx.doi.org/10.5065/D6MW2F4D
+2. https://zenodo.org/records/15529996
+
+Required:
+ `basin_timeseries_v1p2_metForcing_obsFlow.zip` (3.4 GB)
+
 
 Reference:
 
