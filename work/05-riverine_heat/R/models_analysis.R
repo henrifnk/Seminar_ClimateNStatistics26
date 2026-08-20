@@ -274,7 +274,7 @@ anova(lm_intensity, lm_intensity_int)
 
 annual_summary
 
-station_summary <- annual_summary %>%
+station_summary_models <- annual_summary %>%
   filter(station != "pettstadt") %>%
   group_by(station) %>%
   summarise(
@@ -294,49 +294,49 @@ kilometers_main <- c("schwuerbitz" = 438.29,
                      "wuerzburg" = 251.97,
                      "kleinheubach" = 121.74)
 
-station_summary <- station_summary %>%
+station_summary_models <- station_summary_models %>%
   mutate(
     river_km = unname(
       kilometers_main[as.character(station)]
     )
   )
-station_summary
+station_summary_models
 
-station_summary <- station_summary %>%
+station_summary_models <- station_summary_models %>%
   arrange(river_km)
 
 # models
 
-station_summary
+station_summary_models
 
 # frequency
-lm(mean_events ~ river_km, data = station_summary)
-summary(lm(mean_events ~ river_km, data = station_summary))
+lm(mean_events ~ river_km, data = station_summary_models)
+summary(lm(mean_events ~ river_km, data = station_summary_models))
 
 
-cor(station_summary$river_km,
-    station_summary$mean_events,
+cor(station_summary_models$river_km,
+    station_summary_models$mean_events,
     use = "complete.obs")
 
-summary(lm(mean_events ~ river_km, data = station_summary))
+summary(lm(mean_events ~ river_km, data = station_summary_models))
 
 
 # duration
 
-lm(mean_duration ~ river_km, data = station_summary)
+lm(mean_duration ~ river_km, data = station_summary_models)
 
 
-summary(lm(mean_duration ~ river_km, data = station_summary))
+summary(lm(mean_duration ~ river_km, data = station_summary_models))
 
 # max duration 
 
-lm(max_duration ~ river_km, data = station_summary)
+lm(max_duration ~ river_km, data = station_summary_models)
 
-summary(lm(max_duration ~ river_km, data = station_summary))
+summary(lm(max_duration ~ river_km, data = station_summary_models))
 
 
 # intensity
 
-lm(mean_intensity ~ river_km, data = station_summary)
+lm(mean_intensity ~ river_km, data = station_summary_models)
 
-summary(lm(mean_intensity ~ river_km, data = station_summary))
+summary(lm(mean_intensity ~ river_km, data = station_summary_models))
