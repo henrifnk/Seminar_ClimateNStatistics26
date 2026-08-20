@@ -1,4 +1,4 @@
-```{r positive-tp-setup, include=FALSE}
+```{r ptp-setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE,message=FALSE,warning=FALSE,fig.align="center",out.width="90%")
 source("work/11-positive_tp/R/positive_tipping_analysis.R",local=knitr::knit_global())
 ```
@@ -37,7 +37,7 @@ Several mechanisms can contribute to this process. Social contagion means that a
 
 A socio technical system combines technology with its surrounding actors and institutions. Geels and Ayoub describe seven interacting feedback loops linking technological development with firms or consumers. Policymakers and wider publics also shape the transition [@geels2023].
 
-```{r feedbackloops}
+```{r ptp-feedbackloops}
 feedbackLoops <- data.frame(
   `Feedback loop`=c(
     "Users and technology",
@@ -87,7 +87,7 @@ At first glance wind and solar growth may seem enough to describe the transition
 
 Denmark and the United Kingdom are used as benchmark cases. Here a benchmark is an example that helps interpret less mature transitions rather than a formal control group. Denmark represents long renewable expansion while the United Kingdom shows rapid incumbent decline. The annual electricity data comes from Ember [@ember2026yearly].
 
-```{r benchmarkcontext, fig.cap="Historical electricity transitions in Denmark and the United Kingdom. Coal is displayed separately for the United Kingdom.", fig.width=10, fig.height=8}
+```{r ptp-benchmarkcontext, fig.cap="Historical electricity transitions in Denmark and the United Kingdom. Coal is displayed separately for the United Kingdom.", fig.width=10, fig.height=8}
 historical_context_benchmark_plot
 ```
 
@@ -111,13 +111,15 @@ The countries entered the transition with different policy ambitions.
 | Germany | 80 percent of gross electricity consumption from renewables [@bmwknd] |
 | Poland | At least 32 percent renewable electricity under the 2020 NECP [@europeancommission2020] |
 
+Table: (\#tab:ptp-policycontext) Official 2030 electricity targets used as policy context.
+
 ## Data and country context
 
 The analysis uses yearly and monthly electricity data from Ember [@ember2026yearly; @ember2026monthly]. The yearly dataset covers 2000 to 2025 and the main variable is the combined wind and solar share of national electricity generation. Aggregate fossil shares describe the incumbent electricity system.
 
 The monthly dataset covers January 2015 to December 2025 and contains aggregate fossil shares for Spain, Germany and Poland. These observations are used to construct the monthly residual series for the early warning analysis.
 
-```{r maincontext, fig.cap="Annual fossil and wind and solar shares of electricity generation in Spain, Germany and Poland from 2000 to 2025.", fig.width=10, fig.height=8}
+```{r ptp-maincontext, fig.cap="Annual fossil and wind and solar shares of electricity generation in Spain, Germany and Poland from 2000 to 2025.", fig.width=10, fig.height=8}
 historical_context_main_plot
 ```
 
@@ -201,7 +203,7 @@ Monthly fossil shares are separated into seasonal, trend and residual components
 
 ### Wind and solar diffusion
 
-```{r selectedmodels}
+```{r ptp-selectedmodels}
 modelDisplay <- selected_model_table[c("Country","K","r","t0","RMSE")]
 names(modelDisplay) <- c("Country","Saturation K","Diffusion rate r","Inflection year t0","RMSE")
 knitr::kable(modelDisplay,caption="Selected logistic S curve parameters based on historical RMSE.")
@@ -213,7 +215,7 @@ Poland has the fastest estimated diffusion rate at 0.200. Its fitted inflection 
 
 ### Spain
 
-```{r spainscurve, fig.cap="Observed and fitted wind and solar electricity shares in Spain. The shaded area is the residual bootstrap band. Dashed curves use alternative saturation assumptions.", fig.width=10, fig.height=6}
+```{r ptp-spainscurve, fig.cap="Observed and fitted wind and solar electricity shares in Spain. The shaded area is the residual bootstrap band. Dashed curves use alternative saturation assumptions.", fig.width=10, fig.height=6}
 spain_scurve_plot
 ```
 
@@ -221,7 +223,7 @@ Spain shows gradual early growth followed by stronger expansion after 2010. The 
 
 ### Germany
 
-```{r germanyscurve, fig.cap="Observed and fitted wind and solar electricity shares in Germany. The fitted inflection occurs near the end of the observed period.", fig.width=10, fig.height=6}
+```{r ptp-germanyscurve, fig.cap="Observed and fitted wind and solar electricity shares in Germany. The fitted inflection occurs near the end of the observed period.", fig.width=10, fig.height=6}
 germany_scurve_plot
 ```
 
@@ -229,7 +231,7 @@ Germany follows the selected logistic trajectory closely. The estimated inflecti
 
 ### Poland
 
-```{r polandscurve, fig.cap="Observed and fitted wind and solar electricity shares in Poland. The fitted inflection occurs after the observed period.", fig.width=10, fig.height=6}
+```{r ptp-polandscurve, fig.cap="Observed and fitted wind and solar electricity shares in Poland. The fitted inflection occurs after the observed period.", fig.width=10, fig.height=6}
 poland_scurve_plot
 ```
 
@@ -237,7 +239,7 @@ Poland begins with almost no wind and solar generation. Growth becomes visible a
 
 ### Fossil displacement
 
-```{r fossilcontext, fig.cap="Aggregate fossil electricity shares and fitted wind and solar inflection years in Spain, Germany and Poland.", fig.width=10, fig.height=8}
+```{r ptp-fossilcontext, fig.cap="Aggregate fossil electricity shares and fitted wind and solar inflection years in Spain, Germany and Poland.", fig.width=10, fig.height=8}
 fossil_context_plot
 ```
 
@@ -249,7 +251,7 @@ The projected Polish renewable inflection occurs after the observed fossil serie
 
 #### Autocorrelation
 
-```{r ewsar, fig.cap="Rolling lag one autocorrelation of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
+```{r ptp-ewsar, fig.cap="Rolling lag one autocorrelation of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
 ews_ar_plot
 ```
 
@@ -257,13 +259,13 @@ Spain does not show a sustained rise in autocorrelation, and its final value of 
 
 #### Variance
 
-```{r ewsvariance, fig.cap="Rolling variance of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
+```{r ptp-ewsvariance, fig.cap="Rolling variance of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
 ews_variance_plot
 ```
 
 Spain's final variance is 17.5 compared with a period mean of 16.2. Germany ends at 13.5 compared with a mean of 12.9. Poland shows a much stronger increase. Its final variance reaches 31.9 while the period mean is 7.5.
 
-```{r ewssummary}
+```{r ptp-ewssummary}
 ewsDisplay <- ews_summary_table[c("Country","Indicator","selected_K","selected_t0","mean_indicator","last_indicator")]
 names(ewsDisplay) <- c("Country","Indicator","Selected K","Selected t0","Period mean","Final value")
 knitr::kable(ewsDisplay,caption="Summary of rolling early warning indicators.")
