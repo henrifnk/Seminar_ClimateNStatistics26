@@ -155,7 +155,7 @@ merged into one heatwave.
 ### Threshold example: Main data (Kemmern, 2018)
 
 ```{r rh-threshold-kemmern, echo=FALSE, out.width="70%", fig.cap="Temperature time series for Main Kemmern in 2018 (black line). The dotted orage line represents the heatwave threshold for Kemmern station. The red areas mark heatwaves in that year for Kemmern station. The light grey lines represent all temperature time series of Kemmern station for the baseline period."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-threshold_kemmern.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-threshold_kemmern.svg")
 ```
 
 
