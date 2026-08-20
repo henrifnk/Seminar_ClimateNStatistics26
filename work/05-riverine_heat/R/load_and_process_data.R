@@ -43,16 +43,12 @@ stations <- list(
   kleinheubach = main_kleinheubach,
   sachsenheim = wern_sachsenheim
 )
-stations
-
 
 #filter out uncommon years:
 stations <- lapply(stations, function(df) {
    df %>%
      filter(year >= 2005, year <= 2019)
 })
-
-stations
 
 # function to loop:
   
@@ -253,8 +249,6 @@ na_check <- map_dfr(names(stations), function(station_name) {
     dplyr::select(station, year, dplyr::everything())
 })
 
-na_check
-
 # exclude stations with too much missing data
 
 stations <- stations[c("schwuerbitz", "pettstadt", "kemmern", "schweinfurt", "wuerzburg", "kleinheubach")]
@@ -286,7 +280,6 @@ all_events <- map_dfr(names(stations), function(station_name) {
       .before = 1
     )
 })
-all_events
 
 # annual summary df: stores for each station, the heatwave events, heatwave days, mean duration, max duration,
 # mean intensity, max intensity, mean severity and total severity per year
@@ -305,8 +298,6 @@ annual_summary <- all_events %>%
     freq_times_dur = heatwave_events*mean_duration,
     .groups = "drop"
   )
-
-annual_summary
 
 # create framework for dataframe
 
@@ -362,8 +353,6 @@ annual_summary$station <- factor(
 
 # data transformation
 
-annual_summary
-
 station_summary_models <- annual_summary %>%
   filter(station != "pettstadt") %>%
   group_by(station) %>%
@@ -390,7 +379,6 @@ station_summary_models <- station_summary_models %>%
       kilometers_main[as.character(station)]
     )
   )
-station_summary_models
 
 station_summary_models <- station_summary_models %>%
   arrange(river_km)
@@ -420,7 +408,6 @@ annual_summary$station <- factor(
   annual_summary$station,
   levels = station_levels
 )
-annual_summary
 
 station_summary <- annual_summary %>%
   group_by(station) %>%
