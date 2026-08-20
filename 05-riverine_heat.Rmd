@@ -233,12 +233,12 @@ the station effect, as the frequency of heatwaves differs from station to statio
 
 
 ```{r rh-heatwave-events-overview, echo=FALSE, out.width="80%", fig.cap="Frequency distribution over all stations. The orange square signifies station mean value."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-heatwave_events_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-heatwave_events_overview.svg")
 ```
 
 
 ```{r rh-heatwave-events-plot, echo=FALSE, out.width="80%", fig.cap="Temporal development of heatwave events by station. The blue line shows the common temporal trend quasi poisson model."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-heatwave_events_plot.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-heatwave_events_plot.svg")
 ```
 
 
@@ -261,13 +261,13 @@ temporal duration trend, again the model with year x station interaction was tes
 main effects, analogously to the frequency trend, this time using a analysis of variance F-Test. Again there was no indication for significantly differing trends between station, therefore the model with only the main effects was chosen. This resulted in a increasing, however insignificant, temporal trend of duration (slope: 0.08490 days / year, p value: 0.217).
 
 ```{r rh-mean-duration-overview, echo=FALSE, out.width="80%", fig.cap="Distribution of mean duration for all stations. Each point signifies a single heatwave. The orange square signifies the average duration per station."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-mean_duration_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-mean_duration_overview.svg")
 ```
 
 
 
 ```{r rh-duration-plot, echo=FALSE, out.width="80%", fig.cap="Temporal development of mean heatwave duration by station. Each point signifies the annual mean duration for the considered station. The blue line shows the common temporal trend linear model."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-duration_plot.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-duration_plot.svg")
 ```
 
 
@@ -284,12 +284,12 @@ Schwürbitz, Schweinfurt and Kemmern, however a clear temporal trend is not visi
 linear models, nor the common temporal trend model showed a significant trend. The result of the common model was a slope 0.008265 °C per year with a p value of 0.187, while the individual models showed no significant trend for any of the stations. The common temporal trend model was fitted and tested analogously to the model for duration.
 
 ```{r rh-mean-intensity-overview, echo=FALSE, out.width="80%", fig.cap="Distribution of heatwave intensity by station. Each point represents the intensity of one heatwave. The orange square signifies the mean heatwave intensity for each station"}
-knitr::include_graphics("work/05-riverine_heat/figures/05-mean_intensity_overview.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-mean_intensity_overview.svg")
 ```
 
 
 ```{r rh-intensity-plot, echo=FALSE, out.width="80%", fig.cap="Temporal development of mean heatwave intensity by station. Each point signifies the annual mean heatwave intensity for the considered station. The blue line shows the common temporal trend linear model."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-intensity_plot.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-intensity_plot.svg")
 ```
 
 ## Discussion
@@ -299,7 +299,7 @@ knitr::include_graphics("work/05-riverine_heat/figures/05-intensity_plot.pdf")
 
 ```{r rh-polygon-temporal, echo=FALSE, out.width="80%", fig.cap="All three heatwave metrics by year. Values are expressed relative to the mean across years (1.0 = overall mean); the dashed grey triangle indicates the overall mean."}
 knitr::include_graphics(
-  "work/05-riverine_heat/figures/05-polygon_temporal.pdf"
+  "work/05-riverine_heat/figures/05-polygon_temporal.svg"
 )
 ```
 
@@ -324,7 +324,7 @@ series could be used, the climate change bias would be incorporated in the thres
 future development of riverine heatwaves would be possible.
 
 ```{r rh-polygon-spatial, echo=FALSE, fig.cap="All three heatwave metrics by station. Values are expressed relative to the mean across all stations (1.0 = overall mean); the dashed grey triangle indicates the overall mean."}
-knitr::include_graphics("work/05-riverine_heat/figures/05-polygon_spatial.pdf")
+knitr::include_graphics("work/05-riverine_heat/figures/05-polygon_spatial.svg")
 ```
 
 The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The 
