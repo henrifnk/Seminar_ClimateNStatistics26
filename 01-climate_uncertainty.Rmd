@@ -181,7 +181,7 @@ The ensemble sizes therefore differ considerably across models. Directly pooling
 The analysis focuses on three European reference regions from the IPCC AR6 regional framework: Northern Europe (NEU), Western and Central Europe (WCE), and the Mediterranean (MED) [@Iturbide2020]. These standardized regions provide a consistent basis for comparing regional climate-model output and allow differences in projected warming and uncertainty to be examined across northern, central, and southern Europe. The spatial extent of the three study regions is shown in Figure \@ref(fig:unc-study-region-map).
 
 ```{r unc-study-region-map, echo=FALSE, fig.cap="Study regions used in the analysis: NEU, WCE, and MED.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig01_study_region_map.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig01_study_region_map.png")
 ```
 
 The baseline period is defined as
@@ -782,7 +782,7 @@ The results are presented from projected warming magnitude to the structure and 
 Regional JJA warming increases across all three future periods and study regions (Figure \@ref(fig:unc-regional-jja-warming)). The equal-model-weighted multi-model mean is positive throughout and rises steadily from the near term to the late century.
 
 ```{r unc-regional-jja-warming, echo=FALSE, fig.cap="Regional JJA warming across the three future periods. Gray lines show model-specific forced responses, while the highlighted line shows the equal-model-weighted multi-model mean.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig02_regional_jja_warming_timeseries.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig02_regional_jja_warming_timeseries.png")
 ```
 
 The regional ranking is consistent across the three periods: WCE shows the largest multi-model mean warming, followed by MED and NEU. By 2081--2100, mean warming ranges from about $4.0^\circ\mathrm{C}$ in NEU to about $5.4^\circ\mathrm{C}$ in WCE, showing substantial but spatially uneven regional summer warming.
@@ -790,7 +790,7 @@ The regional ranking is consistent across the three periods: WCE shows the large
 The multi-model mean does not show how strongly the individual model responses differ. Figure \@ref(fig:unc-model-forced-response) therefore compares the model-specific forced responses directly. All five models project increasing warming, but their responses separate more clearly with projection lead time.
 
 ```{r unc-model-forced-response, echo=FALSE, fig.cap="Model-specific forced regional JJA warming responses across the three study regions and future periods.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig03_model_forced_response.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig03_model_forced_response.png")
 ```
 
 The divergence is strongest toward the late century and is particularly pronounced in NEU, where the model-specific responses span roughly $2.2$--$6.1^\circ\mathrm{C}$. Thus, the selected models consistently project substantial regional summer warming under SSP3-7.0, while differing considerably in its magnitude. This increasing separation among model-specific forced responses provides the empirical basis for the model-uncertainty results examined in the following section.
@@ -802,25 +802,25 @@ The uncertainty components show different temporal patterns. Internal variabilit
 Internal standard deviation varies more across regions than across future periods. MED consistently shows the lowest internal variability, while NEU and WCE show somewhat larger within-model spread (Figure \@ref(fig:unc-internal-variability)). Despite these regional differences, there is little evidence of a strong temporal increase in internal variability.
 
 ```{r unc-internal-variability, echo=FALSE, fig.cap="Internal variability in 20-year mean regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig04_internal_variability.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig04_internal_variability.png")
 ```
 
 Model uncertainty shows a much clearer temporal increase (Figure \@ref(fig:unc-model-uncertainty)). The spread among model-specific forced responses becomes wider from the near term to the late century in all regions, with the strongest increase in NEU. Regional contrasts in model uncertainty therefore become more pronounced toward the end of the century.
 
 ```{r unc-model-uncertainty, echo=FALSE, fig.cap="Model uncertainty in regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig05_model_uncertainty.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig05_model_uncertainty.png")
 ```
 
 The contribution rates confirm that model uncertainty is the larger variance component throughout the analysis (Figure \@ref(fig:unc-uncertainty-decomposition)). Its contribution increases with projection lead time, while the relative contribution of internal variability declines. By the late century, model uncertainty accounts for more than 90% of total variance in all three regions. This change is mainly driven by the growth of model variance rather than by a strong decline in the absolute magnitude of internal variability.
 
 ```{r unc-uncertainty-decomposition, echo=FALSE, fig.cap="Relative contributions of internal variability and model uncertainty to total fixed-scenario projection variance.", out.width="80%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig06_uncertainty_decomposition.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig06_uncertainty_decomposition.png")
 ```
 
 Total uncertainty increases across the century in all regions and follows the temporal pattern of model uncertainty closely (Figure \@ref(fig:unc-total-uncertainty)). NEU has the highest total uncertainty across the three periods and also shows the strongest late-century spread. Overall, the results indicate that internal variability remains comparatively stable, whereas growing differences among model responses increasingly determine the width of the fixed-scenario projection uncertainty.
 
 ```{r unc-total-uncertainty, echo=FALSE, fig.cap="Total fixed-scenario projection uncertainty, expressed as standard deviation, across regions and future periods.", out.width="50%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig07_total_uncertainty_heatmap.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig07_total_uncertainty_heatmap.png")
 ```
 
 ### Consequences of Uncertainty for Projection Interpretation
@@ -832,7 +832,7 @@ To examine what the changing uncertainty structure means for regional climate pr
 The equal-model-weighted warming distributions widen from the near term to the late century in all three regions (Figure \@ref(fig:unc-prediction-ranges)). The increase is most pronounced in NEU, while MED consistently shows the narrowest distribution and WCE remains intermediate.
 
 ```{r unc-prediction-ranges, echo=FALSE, fig.cap="Equal-model-weighted distributions of 20-year mean regional JJA warming and central 90% prediction ranges across regions and future periods.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig08_warming_distribution_prediction_ranges.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig08_warming_distribution_prediction_ranges.png")
 ```
 
 Regional contrasts become clearest in the late-century period. NEU has the widest central 90% prediction range, reaching a width of about $4.3^\circ\mathrm{C}$, even though its multi-model mean warming is lower than in MED and WCE. WCE, by contrast, shows the highest mean warming but not the widest projection range. This demonstrates that the magnitude of projected warming and the spread of projected outcomes do not necessarily change together.
@@ -844,7 +844,7 @@ The weighted medians remain broadly close to the corresponding multi-model mean 
 The signal-to-noise ratios show that the projected warming signal is larger than the selected uncertainty scale in all regions and future periods. Total SNR is greater than one for every region-period combination, indicating that mean regional warming exceeds total fixed-scenario uncertainty as measured by the total standard deviation (Figure \@ref(fig:unc-total-snr)).
 
 ```{r unc-total-snr, echo=FALSE, fig.cap="Total signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig09_total_snr.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig09_total_snr.png")
 ```
 
 Clear regional differences remain after both internal and model uncertainty are included. NEU has the lowest total SNR across the three periods, whereas MED and WCE show substantially clearer signals by the late century. Thus, warming is evident relative to total fixed-scenario uncertainty in all three regions, but the clarity of its projected magnitude differs regionally.
@@ -852,7 +852,7 @@ Clear regional differences remain after both internal and model uncertainty are 
 Internal SNR is much higher than total SNR in all regions, particularly in the later periods (Figure \@ref(fig:unc-internal-snr)). This indicates that the warming signal is large relative to member-to-member variability in 20-year mean warming.
 
 ```{r unc-internal-snr, echo=FALSE, fig.cap="Internal signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig10_internal_snr.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig10_internal_snr.png")
 ```
 
 The contrast between the two SNR measures is consistent across the regional projections. Internal variability alone produces relatively little ambiguity about the direction of warming, while the inclusion of differences among model responses substantially lowers total signal clarity. The warming signal therefore emerges clearly from internal variability, even though uncertainty in its exact magnitude remains larger when model disagreement is included.
@@ -862,13 +862,13 @@ The contrast between the two SNR measures is consistent across the regional proj
 Threshold exceedance probabilities increase strongly as the regional warming distributions shift toward higher temperatures (Figure \@ref(fig:unc-threshold-exceedance)). In the near-term period, exceedance of $2^\circ\mathrm{C}$ is uncommon in all three regions, while no ensemble members exceed $3^\circ\mathrm{C}$. By mid-century, the regional contrast becomes clearer: exceedance of $2^\circ\mathrm{C}$ is more likely than not in WCE and MED, but remains below one half in NEU. Exceedance of $3^\circ\mathrm{C}$ is still substantially less likely in all three regions.
 
 ```{r unc-threshold-exceedance, echo=FALSE, fig.cap="Equal-model-weighted probabilities that regional 20-year mean JJA warming exceeds 2°C and 3°C relative to the 1995--2014 baseline.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig11_threshold_exceedance_probability.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig11_threshold_exceedance_probability.png")
 ```
 
 The mid-century distributions help explain these regional differences (Figure \@ref(fig:unc-mid-century-threshold-distributions)). In NEU, much of the model-member distribution remains below the $2^\circ\mathrm{C}$ threshold, whereas larger shares of the WCE and MED distributions lie above it. The $3^\circ\mathrm{C}$ threshold remains in the upper part of all three distributions. Mid-century therefore provides a clear example of how the position of a threshold relative to both the center and spread of a distribution affects exceedance probability.
 
 ```{r unc-mid-century-threshold-distributions, echo=FALSE, fig.cap="Mid-century model-member distributions of regional 20-year mean JJA warming relative to the 2°C and 3°C thresholds.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig15b_mid_century_warming_distribution_thresholds.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig15b_mid_century_warming_distribution_thresholds.png")
 ```
 
 By 2081--2100, both thresholds are exceeded by all ensemble members in MED and WCE. NEU also shows a high probability of exceeding $2^\circ\mathrm{C}$, but its $3^\circ\mathrm{C}$ exceedance probability remains lower, at approximately 60.6%. Its wider warming distribution therefore leaves a substantial share of projected outcomes below the higher threshold even in the late-century period.
@@ -880,19 +880,19 @@ Together, the probability estimates and mid-century distributions show that thre
 The robustness analyses support the main qualitative patterns identified in the full-member analysis. The hierarchical bootstrap shows that internal-variability estimates are comparatively stable, whereas intervals for model-related quantities, total uncertainty, and contribution rates are wider (Figure \@ref(fig:unc-bootstrap-uncertainty)). This greater spread is most visible for quantities that depend strongly on differences among the five model responses.
 
 ```{r unc-bootstrap-uncertainty, echo=FALSE, fig.cap="Hierarchical-bootstrap point estimates and 95% percentile intervals for selected uncertainty metrics across regions and future periods.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig16_bootstrap_ci_uncertainty_metrics.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig16_bootstrap_ci_uncertainty_metrics.png")
 ```
 
 The bootstrap results for the distributional diagnostics lead to the same overall interpretation (Figure \@ref(fig:unc-bootstrap-diagnostics)). Signal-to-noise results continue to indicate clear warming relative to the analyzed uncertainty scales. Threshold probabilities are less stable when the threshold lies within the central part of the warming distribution, particularly during the mid-century transition, while probabilities already close to zero or one are more stable. These intervals do not change the main temporal and regional patterns reported above.
 
 ```{r unc-bootstrap-diagnostics, echo=FALSE, fig.cap="Hierarchical-bootstrap point estimates and 95% percentile intervals for signal-to-noise ratios and threshold exceedance probabilities.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig17_bootstrap_ci_snr_threshold_probability.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig17_bootstrap_ci_snr_threshold_probability.png")
 ```
 
 The balanced-member sensitivity analysis provides a complementary check on the unequal original ensemble sizes. Estimates obtained from repeated 20-member-per-model subsamples remain close to the corresponding full-member estimates, with most comparisons lying near the 1:1 line (Figure \@ref(fig:unc-balanced-member-sensitivity)). The regional rankings, temporal increase in model and total uncertainty, and the dominance of model uncertainty are retained. Differences in total standard deviation and total signal-to-noise ratio are also small relative to the main regional and temporal contrasts.
 
 ```{r unc-balanced-member-sensitivity, echo=FALSE, fig.cap="Comparison of full-member estimates with estimates from the balanced 20-member-per-model sensitivity analysis. The diagonal represents exact agreement.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig18_balanced_20_member_sensitivity.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig18_balanced_20_member_sensitivity.png")
 ```
 
 Overall, both robustness checks support the central conclusions of the analysis. Unequal ensemble sizes do not appear to drive the main findings, while the bootstrap confirms that estimates based on between-model differences are less tightly constrained than estimates of within-model variability. The exact magnitude of model uncertainty and its contribution nevertheless remains conditional on the selected five-model ensemble.
@@ -1002,8 +1002,20 @@ appendix_table <- function(data, digits = 3, font_size = 10) {
 
 ```{r appendix-master-summary, echo=FALSE}
 master_summary <- read_result_csv(
-  "regional_temporal_master_summary.csv"
+  "merged_regional_period_summary.csv"
 )
+
+master_summary <- master_summary[, c(
+  "region",
+  "period",
+  "Mean warming (°C)",
+  "Total SD (°C)",
+  "Internal contribution",
+  "Model contribution",
+  "Total SNR",
+  "P(ΔT > 2°C)",
+  "P(ΔT > 3°C)"
+)]
 
 appendix_table(
   master_summary,
@@ -1015,8 +1027,19 @@ appendix_table(
 
 ```{r appendix-uncertainty-magnitudes, echo=FALSE}
 uncertainty_magnitudes <- read_result_csv(
-  "internal_and_model_uncertainty_magnitudes.csv"
+  "merged_regional_period_summary.csv"
 )
+
+uncertainty_magnitudes <- uncertainty_magnitudes[, c(
+  "region",
+  "period",
+  "Internal variance (°C²)",
+  "Internal SD (°C)",
+  "Model variance (°C²)",
+  "Model SD (°C)",
+  "Total variance (°C²)",
+  "Total SD (°C)"
+)]
 
 appendix_table(
   uncertainty_magnitudes,
@@ -1028,8 +1051,18 @@ appendix_table(
 
 ```{r appendix-prediction-ranges, echo=FALSE}
 prediction_ranges <- read_result_csv(
-  "prediction_ranges.csv"
+  "merged_regional_period_summary.csv"
 )
+
+prediction_ranges <- prediction_ranges[, c(
+  "region",
+  "period",
+  "Mean warming (°C)",
+  "Q05 (°C)",
+  "Q50 (°C)",
+  "Q95 (°C)",
+  "90% width (°C)"
+)]
 
 appendix_table(
   prediction_ranges,
@@ -1042,15 +1075,15 @@ appendix_table(
 The following figures provide alternative regional-temporal views of the main uncertainty and projection diagnostics. They complement the figures used in the main Results section without introducing additional statistical quantities.
 
 ```{r unc-appendix-internal-sd, echo=FALSE, fig.cap="Regional and temporal comparison of internal standard deviation in 20-year mean JJA warming.", out.width="70%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig12_regional_temporal_internal_sd.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig12_regional_temporal_internal_sd.png")
 ```
 
 ```{r unc-appendix-total-sd, echo=FALSE, fig.cap="Regional and temporal comparison of total fixed-scenario projection standard deviation.", out.width="70%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig13_regional_temporal_total_sd.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig13_regional_temporal_total_sd.png")
 ```
 
 ```{r unc-appendix-snr-threshold, echo=FALSE, fig.cap="Relationship between Total SNR and Threshold Exceedance Probability.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/01-climate_uncertainty/figures/fig15a_threshold_centered_snr_exceedance_probability.pdf")
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig15a_threshold_centered_snr_exceedance_probability.png")
 ```
 
 ### Appendix C. Robustness Diagnostics
@@ -1072,8 +1105,17 @@ appendix_table(
 
 ```{r appendix-balanced-comparison, echo=FALSE}
 balanced_comparison <- read_result_csv(
-  "full_vs_balanced_comparison_for_total_sd_and_total_snr.csv"
+  "merged_regional_period_summary.csv"
 )
+
+balanced_comparison <- balanced_comparison[, c(
+  "region",
+  "period",
+  "Full total SD",
+  "Balanced total SD",
+  "Full total SNR",
+  "Balanced total SNR"
+)]
 
 appendix_table(
   balanced_comparison,
