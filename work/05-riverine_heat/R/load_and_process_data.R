@@ -6,21 +6,21 @@ library(purrr)
 
 # load raw data
 
-# fraenkische_saale_salz <- read.csv("work/05-riverine_heat/data/data_raw/Fraenkische_Saale_Salz.csv")
-# fraenkische_saale_wolfsmuenster <- read.csv("work/05-riverine_heat/data/data_raw/Fraenkische_Saale_Wolfsmuenster.csv")
-# Itz_schenkenau <- read.csv("work/05-riverine_heat/data/data_raw/Itz_Schenkenau.csv")
-# main_frankfurt_osthafen <- read.csv("work/05-riverine_heat/data/data_raw/main_frankfurt_osthafen.csv")
-main_kemmern <- read.csv("work/05-riverine_heat/data/data_raw/main_kemmern.csv")
-main_kleinheubach <- read.csv("work/05-riverine_heat/data/data_raw/main_kleinheubach.csv")
-# main_krotzenburg <- read.csv("work/05-riverine_heat/data/data_raw/main_krotzenburg.csv")
-# main_mainleus <- read.csv("work/05-riverine_heat/data/data_raw/main_mainleus.csv")
-main_schweinfurt <- read.csv("work/05-riverine_heat/data/data_raw/main_schweinfurt.csv")
-main_schwuerbitz <- read.csv("work/05-riverine_heat/data/data_raw/main_schwuerbitz.csv")
-# main_steinbach <- read.csv("work/05-riverine_heat/data/data_raw/main_steinbach.csv")
-main_wuerzburg <- read.csv("work/05-riverine_heat/data/data_raw/main_wuerzburg.csv")
-regnitz_pettstadt <- read.csv("work/05-riverine_heat/data/data_raw/regnitz_pettstadt.csv")
-# wern_sachsenheim <- read.csv("work/05-riverine_heat/data/data_raw/wern_sachsenheim.csv")
-static_features <- read.csv("work/05-riverine_heat/data/data_raw/static_features.csv")
+fraenkische_saale_salz <- read.csv("work/05-riverine_heat/data/Fraenkische_Saale_Salz.csv")
+fraenkische_saale_wolfsmuenster <- read.csv("work/05-riverine_heat/data/Fraenkische_Saale_Wolfsmuenster.csv")
+Itz_schenkenau <- read.csv("work/05-riverine_heat/data/Itz_Schenkenau.csv")
+main_frankfurt_osthafen <- read.csv("work/05-riverine_heat/data/main_frankfurt_osthafen.csv")
+main_kemmern <- read.csv("work/05-riverine_heat/data/main_kemmern.csv")
+main_kleinheubach <- read.csv("work/05-riverine_heat/data/main_kleinheubach.csv")
+main_krotzenburg <- read.csv("work/05-riverine_heat/data/main_krotzenburg.csv")
+main_mainleus <- read.csv("work/05-riverine_heat/data/main_mainleus.csv")
+main_schweinfurt <- read.csv("work/05-riverine_heat/data/main_schweinfurt.csv")
+main_schwuerbitz <- read.csv("work/05-riverine_heat/data/main_schwuerbitz.csv")
+main_steinbach <- read.csv("work/05-riverine_heat/data/main_steinbach.csv")
+main_wuerzburg <- read.csv("work/05-riverine_heat/data/main_wuerzburg.csv")
+regnitz_pettstadt <- read.csv("work/05-riverine_heat/data/regnitz_pettstadt.csv")
+wern_sachsenheim <- read.csv("work/05-riverine_heat/data/wern_sachsenheim.csv")
+static_features <- read.csv("work/05-riverine_heat/data/static_features.csv")
 
 
 
@@ -28,34 +28,22 @@ static_features <- read.csv("work/05-riverine_heat/data/data_raw/static_features
 # here: exclude stations with insufficient data
 
 stations <- list(
-  kemmern = main_kemmern,
-  kleinheubach = main_kleinheubach,
-  schweinfurt = main_schweinfurt,
+  salz = fraenkische_saale_salz,
+  wolfsmuenster = fraenkische_saale_wolfsmuenster,
+  schenkenau = Itz_schenkenau,
+  frankfurt_osthafen = main_frankfurt_osthafen,
+  krotzenburg = main_krotzenburg,
+  mainleus = main_mainleus,
   schwuerbitz = main_schwuerbitz,
+  pettstadt = regnitz_pettstadt,
+  kemmern = main_kemmern,
+  schweinfurt = main_schweinfurt,
+  steinbach = main_steinbach,
   wuerzburg = main_wuerzburg,
-  pettstadt = regnitz_pettstadt
+  kleinheubach = main_kleinheubach,
+  sachsenheim = wern_sachsenheim
 )
 stations
-
-
-# NAs (calculated in other skript):
-
-# salz 2013 - 2019 / 15/16
-# wolfsmuenster 2013-2020
-# schenkenau 2013-2020
-# frankfurt_osthafen 2009-2020 / 2016
-# kemmern 2001 -2020
-# kleinheubach 2001 - 2019
-# krotzenburg 2009 - 2020
-# mainleus 2018 - 2020
-# schweinfurt 2001 - 2020
-# schwuerbitz 2004 - 2020
-# steinbach 2007 - 2020
-# wuerzburg 2002 - 2020
-# pettstadt 2005 - 2020
-# sachsenheim 2010 - 2020
-
-
 
 
 #filter out uncommon years:
@@ -239,6 +227,38 @@ detect_heatwaves <- function(df) {
 for (i in seq_along(stations)) {
   stations[[i]] <- detect_heatwaves(stations[[i]])
 }
+
+# check nas:
+
+na_check <- map_dfr(names(stations), function(station_name) {
+  
+  df <- stations[[station_name]]
+  
+  df %>%
+    mutate(
+      date = as.Date(date),
+      expected_obs = if_else(leap_year(year), 366, 365)
+    ) %>%
+    group_by(year) %>%
+    summarise(
+      station = station_name,
+      total_days = n(),
+      available_wt = sum(!is.na(wt)),
+      missing_wt = sum(is.na(wt)),
+      expected_days = first(expected_obs),
+      completeness = available_wt / expected_days,
+      usable_90_percent = completeness >= 0.90,
+      .groups = "drop"
+    ) %>%
+    dplyr::select(station, year, dplyr::everything())
+})
+
+na_check
+
+# exclude stations with too much missing data
+
+stations <- stations[c("schwuerbitz", "pettstadt", "kemmern", "schweinfurt", "wuerzburg", "kleinheubach")]
+
 
 # FURTHER PROCESSING
 

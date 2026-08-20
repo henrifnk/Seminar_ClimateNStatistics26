@@ -5,42 +5,6 @@ library(lubridate)
 library(purrr)
 library(tidyr)
 
-# salz <- readRDS("work/05-riverine_heat/data/data_processed/fraenkische_saale_salz.rds")
-# wolfsmuenster <- readRDS("work/05-riverine_heat/data/data_processed/fraenkische_saale_wolfsmuenster.rds")
-# schenkenau <- readRDS("work/05-riverine_heat/data/data_processed/Itz_Schenkenau.rds")
-# frankfurt_osthafen <- readRDS("work/05-riverine_heat/data/data_processed/main_frankfurt_osthafen.rds")
-kemmern <- readRDS("work/05-riverine_heat/data/data_processed/main_kemmern.rds")
-kleinheubach <- readRDS("work/05-riverine_heat/data/data_processed/main_kleinheubach.rds")
-# krotzenburg <- readRDS("work/05-riverine_heat/data/data_processed/main_krotzenburg.rds")
-# mainleus <- readRDS("work/05-riverine_heat/data/data_processed/main_mainleus.rds")
-schweinfurt <- readRDS("work/05-riverine_heat/data/data_processed/main_schweinfurt.rds")
-schwuerbitz <- readRDS("work/05-riverine_heat/data/data_processed/main_schwuerbitz.rds")
-# steinbach <- readRDS("work/05-riverine_heat/data/data_processed/main_steinbach.rds")
-wuerzburg <- readRDS("work/05-riverine_heat/data/data_processed/main_wuerzburg.rds")
-pettstadt <- readRDS("work/05-riverine_heat/data/data_processed/regnitz_pettstadt.rds")
-# sachsenheim <- readRDS("work/05-riverine_heat/data/data_processed/wern_sachsenheim.rds")
-
-
-kemmern
-
-stations <- list(
-  # salz = salz,
-  # wolfsmuenster = wolfsmuenster,
-  # schenkenau = schenkenau,
-  # frankfurt_osthafen = frankfurt_osthafen,
-  kemmern = kemmern ,
-  kleinheubach = kleinheubach,
-  # krotzenburg = krotzenburg,
-  # mainleus = mainleus,
-  schweinfurt = schweinfurt,
-  schwuerbitz = schwuerbitz,
-  # steinbach = steinbach,
-  wuerzburg = wuerzburg,
-  pettstadt = pettstadt
-  # sachsenheim = sachsenheim
-)
-
-
 plots <- function(station, year_cons) {
   
   plot_data <- stations[[station]] %>%
