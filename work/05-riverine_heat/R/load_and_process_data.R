@@ -6,20 +6,20 @@ library(purrr)
 
 # load raw data
 
-fraenkische_saale_salz <- read.csv("work/05-riverine_heat/data/data_raw/Fraenkische_Saale_Salz.csv")
-fraenkische_saale_wolfsmuenster <- read.csv("work/05-riverine_heat/data/data_raw/Fraenkische_Saale_Wolfsmuenster.csv")
-Itz_schenkenau <- read.csv("work/05-riverine_heat/data/data_raw/Itz_Schenkenau.csv")
-main_frankfurt_osthafen <- read.csv("work/05-riverine_heat/data/data_raw/main_frankfurt_osthafen.csv")
+# fraenkische_saale_salz <- read.csv("work/05-riverine_heat/data/data_raw/Fraenkische_Saale_Salz.csv")
+# fraenkische_saale_wolfsmuenster <- read.csv("work/05-riverine_heat/data/data_raw/Fraenkische_Saale_Wolfsmuenster.csv")
+# Itz_schenkenau <- read.csv("work/05-riverine_heat/data/data_raw/Itz_Schenkenau.csv")
+# main_frankfurt_osthafen <- read.csv("work/05-riverine_heat/data/data_raw/main_frankfurt_osthafen.csv")
 main_kemmern <- read.csv("work/05-riverine_heat/data/data_raw/main_kemmern.csv")
 main_kleinheubach <- read.csv("work/05-riverine_heat/data/data_raw/main_kleinheubach.csv")
-main_krotzenburg <- read.csv("work/05-riverine_heat/data/data_raw/main_krotzenburg.csv")
-main_mainleus <- read.csv("work/05-riverine_heat/data/data_raw/main_mainleus.csv")
+# main_krotzenburg <- read.csv("work/05-riverine_heat/data/data_raw/main_krotzenburg.csv")
+# main_mainleus <- read.csv("work/05-riverine_heat/data/data_raw/main_mainleus.csv")
 main_schweinfurt <- read.csv("work/05-riverine_heat/data/data_raw/main_schweinfurt.csv")
 main_schwuerbitz <- read.csv("work/05-riverine_heat/data/data_raw/main_schwuerbitz.csv")
-main_steinbach <- read.csv("work/05-riverine_heat/data/data_raw/main_steinbach.csv")
+# main_steinbach <- read.csv("work/05-riverine_heat/data/data_raw/main_steinbach.csv")
 main_wuerzburg <- read.csv("work/05-riverine_heat/data/data_raw/main_wuerzburg.csv")
 regnitz_pettstadt <- read.csv("work/05-riverine_heat/data/data_raw/regnitz_pettstadt.csv")
-wern_sachsenheim <- read.csv("work/05-riverine_heat/data/data_raw/wern_sachsenheim.csv")
+# wern_sachsenheim <- read.csv("work/05-riverine_heat/data/data_raw/wern_sachsenheim.csv")
 static_features <- read.csv("work/05-riverine_heat/data/data_raw/static_features.csv")
 
 
@@ -28,22 +28,12 @@ static_features <- read.csv("work/05-riverine_heat/data/data_raw/static_features
 # here: exclude stations with insufficient data
 
 stations <- list(
-  fraenkische_saale_salz = fraenkische_saale_salz,
-  fraenkische_saale_wolfsmuenster = fraenkische_saale_wolfsmuenster,
-  Itz_schenkenau = Itz_schenkenau,
-  main_frankfurt_osthafen = main_frankfurt_osthafen,
-  main_kemmern = main_kemmern,
-  main_kleinheubach = main_kleinheubach,
-  main_krotzenburg = main_krotzenburg,
-  main_mainleus = main_mainleus,
-  main_schweinfurt = main_schweinfurt,
-  main_schwuerbitz = main_schwuerbitz,
-  main_steinbach = main_steinbach,
-  main_wuerzburg = main_wuerzburg,
-  regnitz_pettstadt = regnitz_pettstadt,
-  wern_sachsenheim = wern_sachsenheim
-  
-  # ...
+  kemmern = main_kemmern,
+  kleinheubach = main_kleinheubach,
+  schweinfurt = main_schweinfurt,
+  schwuerbitz = main_schwuerbitz,
+  wuerzburg = main_wuerzburg,
+  pettstadt = regnitz_pettstadt
 )
 stations
 
@@ -249,14 +239,179 @@ detect_heatwaves <- function(df) {
 for (i in seq_along(stations)) {
   stations[[i]] <- detect_heatwaves(stations[[i]])
 }
-stations[[1]]
 
-# save the processed data frames automatically
+# FURTHER PROCESSING
 
-for (name in names(stations)) {
+# create start, end, duration, mean_intensity, max_intensity and severity for every heatwave
+
+all_events <- map_dfr(names(stations), function(station_name) {
   
-  saveRDS(
-    stations[[name]],
-    file = paste0("work/05-riverine_heat/data/data_processed/", name, ".rds")
+  df_station <- stations[[station_name]]
+  
+  df_station %>%
+    filter(heatwave) %>%
+    group_by(heatwave_id) %>%
+    summarise(
+      start_date = min(date),
+      end_date = max(date),
+      year = year(start_date),
+      duration = n(),
+      mean_intensity = mean(wt - threshold, na.rm = TRUE),
+      max_intensity = max(wt - threshold, na.rm = TRUE),
+      severity = sum(wt - threshold, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      station = station_name,
+      .before = 1
+    )
+})
+all_events
+
+# annual summary df: stores for each station, the heatwave events, heatwave days, mean duration, max duration,
+# mean intensity, max intensity, mean severity and total severity per year
+
+annual_summary <- all_events %>%
+  group_by(station, year) %>%
+  summarise(
+    heatwave_events = n(),
+    heatwave_days = sum(duration),
+    mean_duration = mean(duration),
+    max_duration = max(duration),
+    mean_intensity = mean(mean_intensity),
+    max_intensity = max(max_intensity),
+    mean_severity = mean(severity),
+    total_severity = sum(severity),
+    freq_times_dur = heatwave_events*mean_duration,
+    .groups = "drop"
   )
-}
+
+annual_summary
+
+# create framework for dataframe
+
+all_years <- expand.grid(
+  station = names(stations),
+  year = 2005:2019
+)
+
+# add to annual_summary
+
+annual_summary <- all_years %>%
+  left_join(annual_summary, by = c("station", "year")) %>%
+  mutate(
+    heatwave_events = replace_na(heatwave_events, 0),
+    heatwave_days = replace_na(heatwave_days, 0),
+    total_severity = replace_na(total_severity, 0)
+  )
+
+all_events %>%
+  group_by(station) %>%
+  summarise(n = n_distinct(heatwave_id))
+annual_summary
+annual_summary %>%
+  group_by(year) %>%
+  summarise(n = sum(heatwave_events))
+
+
+# station levels to order stations
+
+station_levels <- c("kleinheubach",
+                    "wuerzburg",
+                    "schweinfurt",
+                    "kemmern",
+                    "pettstadt",
+                    "schwuerbitz")
+
+
+annual_summary$station <- factor(
+  annual_summary$station,
+  levels = station_levels
+)
+
+unique(as.character(annual_summary$station))
+
+setdiff(unique(as.character(annual_summary$station)), station_levels)
+
+annual_summary$station <- factor(
+  as.character(annual_summary$station),
+  levels = station_levels
+)
+
+# River kilometer Trends
+
+# data transformation
+
+annual_summary
+
+station_summary_models <- annual_summary %>%
+  filter(station != "pettstadt") %>%
+  group_by(station) %>%
+  summarise(
+    max_duration = mean(max_duration, na.rm = TRUE),
+    mean_events = mean(heatwave_events),
+    mean_duration = mean(mean_duration, na.rm = TRUE),
+    mean_intensity = mean(mean_intensity, na.rm = TRUE),
+    mean_severity = mean(mean_severity, na.rm = TRUE),
+    total_severity = mean(total_severity, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+kilometers_main <- c("schwuerbitz" = 438.29,
+                     #"pettstadt" = kemmern + 13.96
+                     "kemmern" = 390.93,
+                     "schweinfurt" = 330.78,
+                     "wuerzburg" = 251.97,
+                     "kleinheubach" = 121.74)
+
+station_summary_models <- station_summary_models %>%
+  mutate(
+    river_km = unname(
+      kilometers_main[as.character(station)]
+    )
+  )
+station_summary_models
+
+station_summary_models <- station_summary_models %>%
+  arrange(river_km)
+
+# station labels fr plot
+
+station_labels <- c(
+  kleinheubach = "Main: Kleinheubach",
+  wuerzburg = "Main: Würzburg",
+  schweinfurt = "Main: Schweinfurt",
+  kemmern = "Main: Kemmern",
+  pettstadt = "Regnitz: Pettstadt",
+  schwuerbitz = "Main: Schwürbitz"
+)
+
+station_levels <- c(
+  "kleinheubach",
+  "wuerzburg",
+  "schweinfurt",
+  "kemmern",
+  "pettstadt",
+  "schwuerbitz"
+)
+
+
+annual_summary$station <- factor(
+  annual_summary$station,
+  levels = station_levels
+)
+annual_summary
+
+station_summary <- annual_summary %>%
+  group_by(station) %>%
+  summarise(
+    max_duration = mean(max_duration, na.rm = TRUE),
+    mean_events = mean(heatwave_events),
+    mean_duration = mean(mean_duration, na.rm = TRUE),
+    mean_intensity = mean(mean_intensity, na.rm = TRUE),
+    mean_severity = mean(mean_severity, na.rm = TRUE),
+    total_severity = mean(total_severity, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
