@@ -1,6 +1,6 @@
 ```{r ptp-setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE,message=FALSE,warning=FALSE,fig.align="center",out.width="90%")
-source("work/11-positive_tp/R/positive_tipping_analysis.R",local=knitr::knit_global())
+#source("work/11-positive_tp/R/positive_tipping_analysis.R",local=knitr::knit_global())
 ```
 
 # Positive tipping points {#ptp}
