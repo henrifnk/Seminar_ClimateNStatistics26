@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Positive tipping points | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Positive tipping points | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Positive tipping points | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="amoc.html"/>
+<link rel="next" href="ctp.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ptp" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Positive tipping points<a href="ptp.html#ptp" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Emir Arif Kilic</em></p>
+<p><em>Supervisor: Helmut Küchenhoff</em></p>
+<p><em>Degree: Master</em></p>
+<div id="abstract-8" class="section level2 unnumbered hasAnchor">
+<h2>Abstract<a href="ptp.html#abstract-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Positive tipping points describe transitions where reinforcing feedbacks make desirable change increasingly self propelling. This chapter examines whether recent wind and solar trajectories in the three study countries show patterns consistent with such dynamics. Annual wind and solar generation shares from 2000 to 2025 are modelled using logistic S curves. Their fitted inflection years are then compared with changes in the fossil share.</p>
+<p>Monthly fossil-share data is used to calculate rolling autocorrelation and variance. Denmark and the United Kingdom provide historical benchmark cases. These are examples of transitions that are already further advanced. Spain has an estimated inflection around 2021 while Germany reaches its fitted inflection near the end of the observed period. Poland has a projected inflection around 2029. The fossil share declines in all three countries although the early warning evidence is more mixed.</p>
+</div>
+<div id="introduction-9" class="section level2 unnumbered hasAnchor">
+<h2>Introduction<a href="ptp.html#introduction-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Climate change mitigation requires a rapid transformation of energy systems. Cleaner electricity can reduce direct power sector emissions and support electrification in transport or heating. Energy systems are more than collections of technologies because firms and consumers influence how they develop. Infrastructure and policy also shape which options can expand.</p>
+<p>It is easy to think of an electricity transition as a simple replacement of one technology by another. In reality firms make investment decisions under uncertainty and power plants remain in operation for many years. Electricity networks are also slow to change so existing infrastructure may continue to favour established technologies even when cleaner alternatives are available. Consumers may delay adoption when alternatives remain expensive or difficult to access. These conditions can slow the beginning of technological change <span class="citation">(<a href="#ref-lenton2023"><span class="nocase">Lenton et al.</span> 2023</a>; <a href="#ref-geels2023">Geels and Ayoub 2023</a>)</span>.</p>
+<p>Transitions do not always continue at a constant speed. Greater deployment can reduce costs through learning and attract new investment. Users also become more familiar with a technology over time. Recent research uses national growth histories to study how wind and solar trajectories develop and differ <span class="citation">(<a href="#ref-jakhmola2026">Jakhmola et al. 2026</a>)</span>.</p>
+</div>
+<div id="positive-tipping-points-and-feedback-loops" class="section level2 unnumbered hasAnchor">
+<h2>Positive tipping points and feedback loops<a href="ptp.html#positive-tipping-points-and-feedback-loops" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A tipping point is the threshold beyond which change becomes self propelling and moves the system into a meaningfully different state. Before that threshold balancing feedbacks help preserve the existing state. Reinforcing feedbacks instead amplify change. A positive tipping point occurs when the reinforcing processes become strong enough to overcome the balancing ones <span class="citation">(<a href="#ref-lenton2026">Lenton et al. 2026</a>)</span>.</p>
+<p>A low carbon transition moves an existing system toward technologies and practices with lower emissions. Positive tipping may accelerate the spread of these alternatives. It may also weaken the established fossil fuel system which is referred to here as the incumbent system. The two processes can occur together <span class="citation">(<a href="#ref-lenton2026">Lenton et al. 2026</a>)</span>.</p>
+<p>One might think that rapid growth alone demonstrates a tipping point. However the central feature is that change improves the conditions for further change. Greater adoption may lower costs through learning by doing while better performance can increase demand. Infrastructure may expand as deployment grows and social acceptance can improve at the same time. These processes create reinforcing feedbacks that can make a transition increasingly self propelling <span class="citation">(<a href="#ref-lenton2026">Lenton et al. 2026</a>)</span>.</p>
+<p>Several mechanisms can contribute to this process. Social contagion means that adoption by some actors encourages others to adopt. Increasing returns arise when greater deployment lowers costs. Coordination matters when a technology becomes more useful as related infrastructure spreads. Percolation describes change through connected groups while co evolution links technological and institutional change <span class="citation">(<a href="#ref-lenton2026">Lenton et al. 2026</a>)</span>.</p>
+<p>A socio technical system combines technology with its surrounding actors and institutions. Geels and Ayoub describe seven interacting feedback loops linking technological development with firms or consumers. Policymakers and wider publics also shape the transition <span class="citation">(<a href="#ref-geels2023">Geels and Ayoub 2023</a>)</span>.</p>
+<table>
+<caption><span id="tab:ptp-feedbackloops">TABLE 11.1: </span>Seven interacting socio technical feedback loops based on Geels and Ayoub.</caption>
+<colgroup>
+<col width="32%" />
+<col width="67%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Feedback loop</th>
+<th align="left">Reinforcing process</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Users and technology</td>
+<td align="left">Adoption supports learning, lower costs and improved performance</td>
+</tr>
+<tr class="even">
+<td align="left">Firms, technology and users</td>
+<td align="left">Demand encourages investment, production and technical development</td>
+</tr>
+<tr class="odd">
+<td align="left">Firms and policymakers</td>
+<td align="left">Growing industries gain influence and obtain stronger policy support</td>
+</tr>
+<tr class="even">
+<td align="left">Policymakers, technology and users</td>
+<td align="left">Policy supports deployment and observed outcomes support policy learning</td>
+</tr>
+<tr class="odd">
+<td align="left">Users and wider publics</td>
+<td align="left">Adoption increases familiarity, visibility and social acceptance</td>
+</tr>
+<tr class="even">
+<td align="left">Wider publics and technology</td>
+<td align="left">Technical improvement strengthens public legitimacy and support</td>
+</tr>
+<tr class="odd">
+<td align="left">Wider publics and policymakers</td>
+<td align="left">Public attention encourages policy action and shapes expectations</td>
+</tr>
+</tbody>
+</table>
+<p>The loops can develop in different sequences. Technological deployment may occur before major changes in political commitment while another transition may begin with policy change. Public opinion can also shift before large technical changes become visible. Positive tipping is therefore better understood as a period of interacting developments than as one perfectly observable moment <span class="citation">(<a href="#ref-geels2023">Geels and Ayoub 2023</a>)</span>.</p>
+</div>
+<div id="diffusion-of-innovation-theory" class="section level2 unnumbered hasAnchor">
+<h2>Diffusion of innovation theory<a href="ptp.html#diffusion-of-innovation-theory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Diffusion of innovation theory explains how a new technology spreads through a population or market. Adoption often begins with innovators and early adopters who accept more uncertainty and higher initial costs. Growth remains limited while the technology is unfamiliar or difficult to access. It accelerates when its advantages become easier to observe and a wider group becomes willing to adopt <span class="citation">(<a href="#ref-rogers2003">Rogers 2003</a>)</span>.</p>
+<p>The cumulative adoption path often resembles an S curve. Its lower section represents early diffusion and the steep middle section shows rapid expansion. The upper section approaches saturation meaning the long run adoption level. The inflection point is where fitted growth is fastest.</p>
+<p>National electricity generation shares do not directly measure the adopter groups described by Rogers. The theory instead motivates the aggregate diffusion pattern used here. Because cumulative diffusion is commonly represented by an S curve, the logistic models apply this structure to national wind and solar shares. They estimate the shape and timing of each country’s aggregate diffusion path. FTT Power is an example of a more detailed model of power sector change that includes induced technological development <span class="citation">(<a href="#ref-mercure2012">Mercure 2012</a>)</span>.</p>
+</div>
+<div id="research-questions" class="section level2 unnumbered hasAnchor">
+<h2>Research questions<a href="ptp.html#research-questions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>RQ1. Do wind and solar generation shares in the three study countries follow S shaped diffusion paths and when do their fitted inflection points occur?</p>
+<p>RQ2. How does the fossil share evolve relative to the fitted wind and solar inflection years?</p>
+<p>RQ3. How do rolling autocorrelation and variance in monthly fossil-share residuals evolve relative to the fitted inflection years?</p>
+<p>At first glance wind and solar growth may seem enough to describe the transition. However renewable generation could expand without reducing the fossil share if electricity demand also rises. The first question examines renewable diffusion and the second connects it with the incumbent system. The third considers whether short term fossil-share fluctuations change during the same period.</p>
+</div>
+<div id="benchmark-transition-cases" class="section level2 unnumbered hasAnchor">
+<h2>Benchmark transition cases<a href="ptp.html#benchmark-transition-cases" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Denmark and the United Kingdom are used as benchmark cases. Here a benchmark is an example that helps interpret less mature transitions rather than a formal control group. Denmark represents long renewable expansion while the United Kingdom shows rapid incumbent decline. The annual electricity data comes from Ember <span class="citation">(<a href="#ref-ember2026yearly">Ember 2026b</a>)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-benchmarkcontext"></span>
+<img src="work/11-positive_tp/figures/benchmark_context.png" alt="Historical electricity transitions in Denmark and the United Kingdom. Coal is displayed separately for the United Kingdom." width="90%" />
+<p class="caption">
+FIGURE 11.1: Historical electricity transitions in Denmark and the United Kingdom. Coal is displayed separately for the United Kingdom.
+</p>
+</div>
+<div id="denmark" class="section level3 unnumbered hasAnchor">
+<h3>Denmark<a href="ptp.html#denmark" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Denmark’s combined wind and solar share increased from around 12 percent in 2000 to more than 70 percent in 2025. The aggregate fossil share declined to around 10 percent. Growth was gradual during the early years and became stronger after 2010. Wind and solar later became the dominant part of the electricity mix. Denmark therefore represents a transition that has moved far beyond the early diffusion stage.</p>
+</div>
+<div id="united-kingdom" class="section level3 unnumbered hasAnchor">
+<h3>United Kingdom<a href="ptp.html#united-kingdom" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wind and solar generation in the United Kingdom was close to zero in 2000 and increased rapidly after 2010. Coal is used separately for the British benchmark because the aggregate fossil category hides its unusually rapid disappearance. The clearest transition concerns coal which generated more than 30 percent of British electricity during much of the early sample. Its share declined rapidly after 2012 and reached almost zero by 2025. Carbon pricing weakened the economic position of coal and contributed to falling profitability. Plant closures then made a return to earlier coal generation levels less likely <span class="citation">(<a href="#ref-sharpe2021">Sharpe and Lenton 2021</a>)</span>.</p>
+</div>
+</div>
+<div id="policy-context" class="section level2 unnumbered hasAnchor">
+<h2>Policy context<a href="ptp.html#policy-context" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The countries entered the transition with different policy ambitions.</p>
+<table>
+<caption><span id="tab:ptp-policycontext">TABLE 11.2: </span> Official 2030 electricity targets used as policy context.</caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="left">Electricity target for 2030</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Denmark</td>
+<td align="left">Renewable output covering 100 percent of electricity demand <span class="citation">(<a href="#ref-denmark2026">Denmark.dk n.d.</a>)</span></td>
+</tr>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="left">At least 95 percent clean generation <span class="citation">(<a href="#ref-govuk2024">GOV.UK 2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Spain</td>
+<td align="left">81 percent renewable generation <span class="citation">(<a href="#ref-miteco2024">MITECO 2024</a>)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="left">80 percent of gross electricity consumption from renewables <span class="citation">(<a href="#ref-bmwk2026">BMWK n.d.</a>)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Poland</td>
+<td align="left">At least 32 percent renewable electricity under the 2020 NECP <span class="citation">(<a href="#ref-europeancommission2020">European Commission 2020</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="data-and-country-context" class="section level2 unnumbered hasAnchor">
+<h2>Data and country context<a href="ptp.html#data-and-country-context" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The analysis uses yearly and monthly electricity data from Ember <span class="citation">(<a href="#ref-ember2026yearly">Ember 2026b</a>, <a href="#ref-ember2026monthly">2026a</a>)</span>. The yearly dataset covers 2000 to 2025 and the main variable is the combined wind and solar share of national electricity generation. Aggregate fossil shares describe the incumbent electricity system.</p>
+<p>The monthly dataset covers January 2015 to December 2025 and contains aggregate fossil shares for Spain, Germany and Poland. These observations are used to construct the monthly residual series for the early warning analysis.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-maincontext"></span>
+<img src="work/11-positive_tp/figures/country_context.png" alt="Annual fossil and wind and solar shares of electricity generation in Spain, Germany and Poland from 2000 to 2025." width="90%" />
+<p class="caption">
+FIGURE 11.2: Annual fossil and wind and solar shares of electricity generation in Spain, Germany and Poland from 2000 to 2025.
+</p>
+</div>
+<p>Spain shows the earliest convergence and the wind and solar share exceeds the fossil share near the end of the sample. Germany also approaches parity. Poland experiences rapid recent renewable growth although the fossil share remains dominant.</p>
+</div>
+<div id="statistical-methods" class="section level2 unnumbered hasAnchor">
+<h2>Statistical methods<a href="ptp.html#statistical-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="logistic-diffusion-model" class="section level3 unnumbered hasAnchor">
+<h3>Logistic diffusion model<a href="ptp.html#logistic-diffusion-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The wind and solar share is represented using a logistic curve for each country.</p>
+<p><span class="math display">\[
+y_t =
+\frac{K}
+{1+e^{-r(t-t_0)}}
++\varepsilon_t.
+\]</span></p>
+<p>Here <span class="math inline">\(y_t\)</span> is the wind and solar share in year <span class="math inline">\(t\)</span>. The parameter <span class="math inline">\(K\)</span> is the saturation level and <span class="math inline">\(r\)</span> controls the diffusion speed. The parameter <span class="math inline">\(t_0\)</span> is the inflection year while <span class="math inline">\(\varepsilon_t\)</span> is the difference between the observed and fitted value. At the inflection point the fitted share equals half of the saturation level.</p>
+<p><span class="math display">\[
+\hat{y}_{t_0}=\frac{K}{2}.
+\]</span></p>
+<p>The fitted trajectory grows most rapidly around <span class="math inline">\(t_0\)</span>. Parameter estimates in macro level diffusion models can change systematically as observations are added <span class="citation">(<a href="#ref-vandenbulte1997">Van den Bulte and Lilien 1997</a>)</span>. The model is therefore fitted over a grid of fixed saturation levels which limits instability when only part of the diffusion path is observed.</p>
+<p>The candidate values for <span class="math inline">\(K\)</span> begin one integer above the rounded-up observed maximum for each country and are capped at 90 percent. The preferred value of <span class="math inline">\(K\)</span> is selected using the historical root mean squared error abbreviated as RMSE. RMSE measures the typical distance between the observed share and the fitted curve.</p>
+<p><span class="math display">\[
+RMSE =
+\sqrt{
+\frac{1}{n}
+\sum_{t=1}^{n}
+(y_t-\hat{y}_t)^2
+}.
+\]</span></p>
+<p>Here <span class="math inline">\(n\)</span> is the number of annual observations and <span class="math inline">\(\hat{y}_t\)</span> is the fitted share. Alternative curves use saturation levels of 50 percent and 70 percent with an 80 percent curve included as well. They show how the assumed long run limit affects the projection.</p>
+</div>
+<div id="bootstrap-bands" class="section level3 unnumbered hasAnchor">
+<h3>Bootstrap bands<a href="ptp.html#bootstrap-bands" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A residual bootstrap represents uncertainty around the selected curve. A residual is the observed value minus the fitted value. Residuals are sampled with replacement and added to the curve. For each bootstrap sample, <span class="math inline">\(r\)</span> and <span class="math inline">\(t_0\)</span> are re-estimated while the selected saturation level <span class="math inline">\(K\)</span> remains fixed. The procedure produces 200 projected paths through 2035 whose 2.5th and 97.5th percentiles form the displayed band.</p>
+</div>
+<div id="fossil-displacement" class="section level3 unnumbered hasAnchor">
+<h3>Fossil displacement<a href="ptp.html#fossil-displacement" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Fossil displacement refers here to a decline in the fossil share while the wind and solar share expands. The fitted renewable inflection years are placed on national fossil-share plots. This allows the timing of renewable acceleration to be compared with the development of the incumbent electricity system. A decline around the estimated inflection provides additional descriptive evidence of wider system change.</p>
+</div>
+<div id="early-warning-indicators" class="section level3 unnumbered hasAnchor">
+<h3>Early warning indicators<a href="ptp.html#early-warning-indicators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A critical transition is a large shift between system states. Systems approaching one may recover more slowly from disturbances, a process called critical slowing down. Greater persistence may appear as rising lag one autocorrelation while larger fluctuations may appear as rising variance <span class="citation">(<a href="#ref-scheffer2009">Scheffer et al. 2009</a>)</span>. Autocorrelation relates current and earlier residuals whereas variance measures their spread.</p>
+<p>A simple autoregressive process can be written as</p>
+<p><span class="math display">\[
+x_t =
+\alpha x_{t-1}
++\varepsilon_t.
+\]</span></p>
+<p>Here <span class="math inline">\(x_t\)</span> is the current monthly fossil-share residual and <span class="math inline">\(x_{t-1}\)</span> is the residual from the previous month. The parameter <span class="math inline">\(\alpha\)</span> measures how strongly the previous disturbance remains in the system, while <span class="math inline">\(\varepsilon_t\)</span> represents the new disturbance occurring in month <span class="math inline">\(t\)</span>. Because the data are monthly lag one corresponds to a one month gap.</p>
+<p><span class="math display">\[
+AR(1)=
+\operatorname{corr}(x_t,x_{t-1}).
+\]</span></p>
+<p>The variance is</p>
+<p><span class="math display">\[
+\operatorname{Var}(x)=
+\frac{1}{n-1}
+\sum_{t=1}^{n}
+(x_t-\bar{x})^2.
+\]</span></p>
+<p>Here <span class="math inline">\(n\)</span> is the number of months in the rolling window and <span class="math inline">\(\bar{x}\)</span> is the mean residual within that window. Because the residuals are measured in percentage points, variance is measured in squared percentage points.</p>
+<p>Monthly fossil shares are separated into seasonal, trend and residual components using robust seasonal trend decomposition. The residual contains the short term fluctuations left after seasonality and trend are removed. AR(1) and variance are estimated within rolling windows of 36 months. Similar indicators have been applied to technological transitions to examine whether an incumbent technology is losing stability <span class="citation">(<a href="#ref-mercure2026">Mercure et al. 2026</a>)</span>.</p>
+</div>
+</div>
+<div id="results-5" class="section level2 unnumbered hasAnchor">
+<h2>Results<a href="ptp.html#results-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="wind-and-solar-diffusion" class="section level3 unnumbered hasAnchor">
+<h3>Wind and solar diffusion<a href="ptp.html#wind-and-solar-diffusion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<caption><span id="tab:ptp-selectedmodels">TABLE 11.3: </span>Selected logistic S curve parameters based on historical RMSE.</caption>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="right">Saturation K</th>
+<th align="right">Diffusion rate r</th>
+<th align="right">Inflection year t0</th>
+<th align="right">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Spain</td>
+<td align="right">67</td>
+<td align="right">0.123</td>
+<td align="right">2021</td>
+<td align="right">2.618</td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="right">88</td>
+<td align="right">0.146</td>
+<td align="right">2025</td>
+<td align="right">1.380</td>
+</tr>
+<tr class="odd">
+<td align="left">Poland</td>
+<td align="right">90</td>
+<td align="right">0.200</td>
+<td align="right">2029</td>
+<td align="right">1.160</td>
+</tr>
+</tbody>
+</table>
+<p>Spain has a selected saturation level of 67 percent. Its estimated diffusion rate is 0.123 and the fitted inflection occurs around 2020.8. The RMSE is 2.62 percentage points. Germany has a selected saturation level of 88 percent and an estimated diffusion rate of 0.146. Its fitted inflection occurs around 2024.6 with an RMSE of 1.38 percentage points.</p>
+<p>Poland has the fastest estimated diffusion rate at 0.200. Its fitted inflection occurs around 2029.3 and the selected saturation level reaches the imposed maximum of 90 percent. This upper boundary becomes important when interpreting the later part of the Polish projection.</p>
+</div>
+<div id="spain" class="section level3 unnumbered hasAnchor">
+<h3>Spain<a href="ptp.html#spain" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-spainscurve"></span>
+<img src="work/11-positive_tp/figures/spain_scurve.png" alt="Observed and fitted wind and solar electricity shares in Spain. The shaded area is the residual bootstrap band. Dashed curves use alternative saturation assumptions." width="90%" />
+<p class="caption">
+FIGURE 11.3: Observed and fitted wind and solar electricity shares in Spain. The shaded area is the residual bootstrap band. Dashed curves use alternative saturation assumptions.
+</p>
+</div>
+<p>Spain shows gradual early growth followed by stronger expansion after 2010. The selected model estimates the inflection around 2020.8, which lies within the observed period, so Spain represents an observed inflection case. Similar historical fits can therefore produce different long run projections.</p>
+</div>
+<div id="germany" class="section level3 unnumbered hasAnchor">
+<h3>Germany<a href="ptp.html#germany" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-germanyscurve"></span>
+<img src="work/11-positive_tp/figures/germany_scurve.png" alt="Observed and fitted wind and solar electricity shares in Germany. The fitted inflection occurs near the end of the observed period." width="90%" />
+<p class="caption">
+FIGURE 11.4: Observed and fitted wind and solar electricity shares in Germany. The fitted inflection occurs near the end of the observed period.
+</p>
+</div>
+<p>Germany follows the selected logistic trajectory closely. The estimated inflection year is 2024.6 and lies near the final observed year. Germany therefore represents a near term inflection case although only a short part of the trajectory after the fitted inflection is observed.</p>
+</div>
+<div id="poland" class="section level3 unnumbered hasAnchor">
+<h3>Poland<a href="ptp.html#poland" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-polandscurve"></span>
+<img src="work/11-positive_tp/figures/poland_scurve.png" alt="Observed and fitted wind and solar electricity shares in Poland. The fitted inflection occurs after the observed period." width="90%" />
+<p class="caption">
+FIGURE 11.5: Observed and fitted wind and solar electricity shares in Poland. The fitted inflection occurs after the observed period.
+</p>
+</div>
+<p>Poland begins with almost no wind and solar generation. Growth becomes visible after 2010 and accelerates after 2020. The projected inflection around 2029 lies outside the observed period. Its selected saturation level also reaches the maximum considered value so the later projection is especially sensitive to the assumed upper limit.</p>
+</div>
+<div id="fossil-displacement-1" class="section level3 unnumbered hasAnchor">
+<h3>Fossil displacement<a href="ptp.html#fossil-displacement-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-fossilcontext"></span>
+<img src="work/11-positive_tp/figures/fossil_context.png" alt="Aggregate fossil electricity shares and fitted wind and solar inflection years in Spain, Germany and Poland." width="90%" />
+<p class="caption">
+FIGURE 11.6: Aggregate fossil electricity shares and fitted wind and solar inflection years in Spain, Germany and Poland.
+</p>
+</div>
+<p>Spain’s fossil share falls from around 60 percent to below 30 percent and its renewable inflection occurs during this wider decline. Germany’s fossil share falls more clearly after 2015. Its renewable inflection occurs close to parity between the wind and solar share and the fossil share. Poland’s fossil share also declines rapidly in the later years although it remains close to 70 percent in 2025.</p>
+<p>The projected Polish renewable inflection occurs after the observed fossil series. All three countries therefore show renewable growth alongside fossil decline but they remain at different stages of the transition.</p>
+</div>
+<div id="early-warning-signals" class="section level3 unnumbered hasAnchor">
+<h3>Early warning signals<a href="ptp.html#early-warning-signals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="autocorrelation" class="section level4 unnumbered hasAnchor">
+<h4>Autocorrelation<a href="ptp.html#autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-ewsar"></span>
+<img src="work/11-positive_tp/figures/ews_ar.png" alt="Rolling lag one autocorrelation of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates." width="90%" />
+<p class="caption">
+FIGURE 11.7: Rolling lag one autocorrelation of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.
+</p>
+</div>
+<p>Spain does not show a sustained rise in autocorrelation, and its final value of 0.151 is below the valid-window mean of 0.298. Germany shows a recent increase and ends at 0.266 compared with a period mean of minus 0.052. Poland shows the highest final autocorrelation at 0.638 while its period mean is 0.271.</p>
+</div>
+<div id="variance" class="section level4 unnumbered hasAnchor">
+<h4>Variance<a href="ptp.html#variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ptp-ewsvariance"></span>
+<img src="work/11-positive_tp/figures/ews_variance.png" alt="Rolling variance of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates." width="90%" />
+<p class="caption">
+FIGURE 11.8: Rolling variance of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.
+</p>
+</div>
+<p>Spain’s final variance is 17.5 compared with a period mean of 16.2. Germany ends at 13.5 compared with a mean of 12.9. Poland shows a much stronger increase. Its final variance reaches 31.9 while the period mean is 7.5.</p>
+<table style="width:100%;">
+<caption><span id="tab:ptp-ewssummary">TABLE 11.4: </span>Summary of rolling early warning indicators.</caption>
+<colgroup>
+<col width="11%" />
+<col width="23%" />
+<col width="15%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Country</th>
+<th align="left">Indicator</th>
+<th align="right">Selected K</th>
+<th align="right">Selected t0</th>
+<th align="right">Period mean</th>
+<th align="right">Final value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Spain</td>
+<td align="left">Rolling AR(1)</td>
+<td align="right">67</td>
+<td align="right">2021</td>
+<td align="right">0.298</td>
+<td align="right">0.151</td>
+</tr>
+<tr class="even">
+<td align="left">Spain</td>
+<td align="left">Rolling variance</td>
+<td align="right">67</td>
+<td align="right">2021</td>
+<td align="right">16.208</td>
+<td align="right">17.467</td>
+</tr>
+<tr class="odd">
+<td align="left">Germany</td>
+<td align="left">Rolling AR(1)</td>
+<td align="right">88</td>
+<td align="right">2025</td>
+<td align="right">-0.052</td>
+<td align="right">0.266</td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="left">Rolling variance</td>
+<td align="right">88</td>
+<td align="right">2025</td>
+<td align="right">12.946</td>
+<td align="right">13.463</td>
+</tr>
+<tr class="odd">
+<td align="left">Poland</td>
+<td align="left">Rolling AR(1)</td>
+<td align="right">90</td>
+<td align="right">2029</td>
+<td align="right">0.271</td>
+<td align="right">0.638</td>
+</tr>
+<tr class="even">
+<td align="left">Poland</td>
+<td align="left">Rolling variance</td>
+<td align="right">90</td>
+<td align="right">2029</td>
+<td align="right">7.501</td>
+<td align="right">31.914</td>
+</tr>
+</tbody>
+</table>
+<p>The Polish series shows the clearest joint increase in autocorrelation and variance. Germany shows a smaller change while Spain remains comparatively stable.</p>
+</div>
+</div>
+</div>
+<div id="discussion-3" class="section level2 unnumbered hasAnchor">
+<h2>Discussion<a href="ptp.html#discussion-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The three countries show S shaped wind and solar paths at different stages. Spain appears to have passed its fitted inflection, Germany reaches it near the end of the sample and Poland remains before its projected inflection. The results therefore do not suggest one common European transition date.</p>
+<p>The fossil share declines as the wind and solar share expands, including a rapid recent fall in Poland despite its continued fossil dependence. Demand, cross border trade and changes in nuclear or hydropower may also affect these shares. The comparison is therefore descriptive rather than causal.</p>
+<p>Uncertainty remains. Poland reaches the upper limit of the saturation grid and each annual series contains only 26 observations. The bootstrap bands cover uncertainty within the selected logistic model, not alternative model families. Denmark and the United Kingdom are contextual benchmarks rather than a formal comparison group.</p>
+</div>
+<div id="conclusion-4" class="section level2 unnumbered hasAnchor">
+<h2>Conclusion<a href="ptp.html#conclusion-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Denmark and the United Kingdom illustrate two advanced transition paths: long renewable expansion in Denmark and rapid coal decline in the United Kingdom. Both show how a new system can grow while the incumbent weakens.</p>
+<p>Spain represents an observed inflection case and its wind and solar share has overtaken the fossil share. Germany’s fitted inflection lies close to 2025. Poland shows rapid renewable growth, but its inflection remains projected and fossil electricity still dominates.</p>
+<p>Renewable growth occurs alongside declining fossil shares in all three countries. The early warning evidence is less uniform: Poland shows the strongest increases, Germany shows partial evidence and Spain little movement. These indicators remain exploratory and do not provide a common signal.</p>
+<p>Overall, the results are more consistent with accelerating renewable diffusion than with one directly observed tipping threshold. Spain appears more advanced, Germany is near its fitted inflection and Poland remains at an earlier stage despite rapid recent change. Positive tipping is therefore better understood as a process than one universal date. Future trajectories may differ because the projections depend on the fitted model and current conditions.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bmwk2026" class="csl-entry">
+BMWK. n.d. <em>The Electricity Market of the Future</em>. Federal Ministry for Economic Affairs; Climate Action; <a href="https://www.bmwk.de/Redaktion/EN/Dossier/electricity-market-of-the-future.html" class="uri">https://www.bmwk.de/Redaktion/EN/Dossier/electricity-market-of-the-future.html</a>.
+</div>
+<div id="ref-denmark2026" class="csl-entry">
+Denmark.dk. n.d. <em>Denmark Is a Laboratory for Green Solutions</em>. Ministry of Foreign Affairs of Denmark; <a href="https://denmark.dk/innovation-and-design/green-solutions/" class="uri">https://denmark.dk/innovation-and-design/green-solutions/</a>.
+</div>
+<div id="ref-ember2026monthly" class="csl-entry">
+Ember. 2026a. <em>Monthly Electricity Data</em>. <a href="https://ember-energy.org/data/monthly-electricity-data/">https://ember-energy.org/data/monthly-electricity-data/</a>.
+</div>
+<div id="ref-ember2026yearly" class="csl-entry">
+Ember. 2026b. <em>Yearly Electricity Data</em>. <a href="https://ember-energy.org/data/yearly-electricity-data/">https://ember-energy.org/data/yearly-electricity-data/</a>.
+</div>
+<div id="ref-europeancommission2020" class="csl-entry">
+European Commission. 2020. <em>Poland Final National Energy and Climate Plan Summary</em>. <a href="https://energy.ec.europa.eu/system/files/2020-01/pl_final_necp_summary_en_0.pdf">https://energy.ec.europa.eu/system/files/2020-01/pl_final_necp_summary_en_0.pdf</a>.
+</div>
+<div id="ref-geels2023" class="csl-entry">
+Geels, Frank W., and Martina Ayoub. 2023. <span>“A Socio-Technical Transition Perspective on Positive Tipping Points in Climate Change Mitigation: Analysing Seven Interacting Feedback Loops in Offshore Wind and Electric Vehicles Acceleration.”</span> <em>Technological Forecasting and Social Change</em> 193: 122639. <a href="https://doi.org/10.1016/j.techfore.2023.122639">https://doi.org/10.1016/j.techfore.2023.122639</a>.
+</div>
+<div id="ref-govuk2024" class="csl-entry">
+GOV.UK. 2024. <em>Clean Power 2030 Action Plan</em>. <a href="https://www.gov.uk/government/publications/clean-power-2030-action-plan">https://www.gov.uk/government/publications/clean-power-2030-action-plan</a>.
+</div>
+<div id="ref-jakhmola2026" class="csl-entry">
+Jakhmola, A., J. Jewell, V. Vinichenko, and A. Cherp. 2026. <span>“Probabilistic Projections of Global Wind and Solar Power Growth Based on Historical National Experience.”</span> <em>Nature Energy</em> 11 (5): 743–55. <a href="https://doi.org/10.1038/s41560-026-02021-w">https://doi.org/10.1038/s41560-026-02021-w</a>.
+</div>
+<div id="ref-lenton2023" class="csl-entry">
+<span class="nocase">Lenton, Timothy M. et al.</span> 2023. <em>The Global Tipping Points Report 2023</em>. University of Exeter. <a href="https://global-tipping-points.org/">https://global-tipping-points.org/</a>.
+</div>
+<div id="ref-lenton2026" class="csl-entry">
+Lenton, Timothy M., Thomas W. R. Powell, Steven R. Smith, et al. 2026. <span>“A Method to Identify Positive Tipping Points to Accelerate Low-Carbon Transitions and Actions to Trigger Them.”</span> <em>Sustainability Science</em> 21 (1): 201–20. <a href="https://doi.org/10.1007/s11625-025-01704-9">https://doi.org/10.1007/s11625-025-01704-9</a>.
+</div>
+<div id="ref-mercure2012" class="csl-entry">
+Mercure, Jean-François. 2012. <span>“<span>FTT:Power</span>: A Global Model of the Power Sector with Induced Technological Change and Natural Resource Depletion.”</span> <em>Energy Policy</em> 48: 799–811. <a href="https://doi.org/10.1016/j.enpol.2012.06.025">https://doi.org/10.1016/j.enpol.2012.06.025</a>.
+</div>
+<div id="ref-mercure2026" class="csl-entry">
+Mercure, Jean-François, Aileen Lam, Joshua E. Buxton, Chris A. Boulton, Amir Akther, and Timothy M. Lenton. 2026. <span>“Evidence of a Cascading Positive Tipping Point Towards Electric Vehicles.”</span> <em>Nature Communications</em> 17: 240. <a href="https://doi.org/10.1038/s41467-025-66945-9">https://doi.org/10.1038/s41467-025-66945-9</a>.
+</div>
+<div id="ref-miteco2024" class="csl-entry">
+MITECO. 2024. <em>Plan Nacional Integrado de Energía y Clima 2023–2030</em>. <a href="https://www.miteco.gob.es/es/energia/estrategia-normativa/pniec-23-30.html">https://www.miteco.gob.es/es/energia/estrategia-normativa/pniec-23-30.html</a>.
+</div>
+<div id="ref-rogers2003" class="csl-entry">
+Rogers, Everett M. 2003. <em>Diffusion of Innovations</em>. 5th ed. Free Press.
+</div>
+<div id="ref-scheffer2009" class="csl-entry">
+Scheffer, Marten, Jordi Bascompte, William A. Brock, et al. 2009. <span>“Early-Warning Signals for Critical Transitions.”</span> <em>Nature</em> 461 (7260): 53–59. <a href="https://doi.org/10.1038/nature08227">https://doi.org/10.1038/nature08227</a>.
+</div>
+<div id="ref-sharpe2021" class="csl-entry">
+Sharpe, Simon, and Timothy M. Lenton. 2021. <span>“Upward-Scaling Tipping Cascades to Meet Climate Goals: Plausible Grounds for Hope.”</span> <em>Climate Policy</em> 21 (4): 421–33. <a href="https://doi.org/10.1080/14693062.2020.1870097">https://doi.org/10.1080/14693062.2020.1870097</a>.
+</div>
+<div id="ref-vandenbulte1997" class="csl-entry">
+Van den Bulte, Christophe, and Gary L. Lilien. 1997. <span>“Bias and Systematic Change in the Parameter Estimates of Macro-Level Diffusion Models.”</span> <em>Marketing Science</em> 16 (4): 338–53. <a href="https://doi.org/10.1287/mksc.16.4.338">https://doi.org/10.1287/mksc.16.4.338</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="amoc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ctp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

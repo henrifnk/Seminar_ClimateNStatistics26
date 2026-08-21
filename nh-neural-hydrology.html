@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Neural Hydrology | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Neural Hydrology | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Neural Hydrology | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hyd.html"/>
+<link rel="next" href="rh.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nh-neural-hydrology" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Neural Hydrology<a href="nh-neural-hydrology.html#nh-neural-hydrology" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Yuxin Qiu</em><br />
+<em>Supervisor: Henri Funk</em><br />
+<em>Degree: Bachelor</em></p>
+<div id="nh-abstract" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Abstract<a href="nh-neural-hydrology.html#nh-abstract" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hydrological prediction under climate variability is a central challenge in environmental
+statistics, especially when regional observations are limited and hydro-climatic
+conditions deviate from historical norms. This chapter presents a detailed investigation
+of neural hydrology, with emphasis on recurrent deep learning architectures and transfer
+learning strategies for streamflow forecasting. We first position neural methods in
+relation to classical process-based models, then formalize sequence-learning principles
+that allow Long Short-Term Memory (LSTM) networks to represent delayed catchment memory
+effects. We further examine physically informed variants, including mass-conserving
+architectures, as mechanisms to improve structural plausibility under distributional
+shift.</p>
+<p>The empirical component uses CAMELS-US data and a three-way comparison framework across
+local-from-scratch training, global pretraining, and global-to-local fine-tuning over
+18 geographic groups. Results are analyzed with basin-weighted NSE and KGE, group-level
+contrasts, basin-level distributional diagnostics, and architecture cross-checks. Across
+evaluation views, fine-tuning provides consistent gains over local-only baselines and
+additional improvement over zero-shot global inference in this benchmark setting.
+Interpretation is framed through bias-variance trade-offs, representation reuse, and
+regional adaptation dynamics.</p>
+<p>Overall, the chapter argues that neural hydrology should be understood not merely as a
+high-performance forecasting tool, but as a statistical modeling framework where
+data-driven representation learning, physical constraints, and transfer protocols can be
+jointly optimized for robust prediction under non-stationary climate conditions.</p>
+</div>
+<div id="nh-introduction" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Introduction<a href="nh-neural-hydrology.html#nh-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Streamflow prediction, that is, estimating river discharge from meteorological forcings,
+is one of the oldest and most consequential tasks in hydrology. Accurate forecasts are
+critical for flood early-warning systems, reservoir operation, drought monitoring, and
+hydropower planning. Under climate change, this task becomes harder because forcing
+regimes are increasingly non-stationary: precipitation intensity distributions,
+temperature seasonality, and snowmelt timing all shift over time <span class="citation">(<a href="#ref-ipcc2021carbon">IPCC 2021b</a>)</span>.</p>
+<p>This chapter reviews the emergence of deep learning as the leading paradigm for
+data-driven streamflow modelling, introduces the <strong>NeuralHydrology</strong> Python library,
+discusses architectures that embed physical constraints into neural networks, and
+explores strategies for transfer learning in a non-stationary climate.</p>
+<p>From a statistical perspective, the central object is a conditional forecasting function
+<span class="math inline">\(f_\theta\)</span> that maps a multivariate hydro-meteorological history and static basin
+descriptors to a discharge distribution:</p>
+<p><span class="math display">\[
+\hat{q}_{t+\tau} \sim f_\theta\Big(\mathbf{x}_{1:t}, \mathbf{z}, \tau\Big),
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{x}_{1:t}\)</span> denotes dynamic forcings up to time <span class="math inline">\(t\)</span>, <span class="math inline">\(\mathbf{z}\)</span> denotes
+time-invariant basin attributes, and <span class="math inline">\(\tau\)</span> is the lead-time index. In deterministic
+setups, one models the conditional mean <span class="math inline">\(\mathbb{E}[q_{t+\tau}\mid\mathbf{x}_{1:t},\mathbf{z}]\)</span>;
+in probabilistic setups, one models the full predictive density
+<span class="math inline">\(p(q_{t+\tau}\mid\mathbf{x}_{1:t},\mathbf{z})\)</span>.</p>
+<p>The hydrological difficulty is that this map is high-dimensional, nonlinear, delayed,
+and non-stationary. Hence, the chapter emphasizes three scientific questions:</p>
+<ol style="list-style-type: decimal">
+<li>How can sequence models approximate memory-dependent rainfall-runoff dynamics?</li>
+<li>How can physical constraints improve plausibility under extrapolation?</li>
+<li>How can transfer learning reduce estimation variance in data-scarce regions?</li>
+</ol>
+<hr />
+</div>
+<div id="nh-background" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Background: From Process-Based to Data-Driven Models<a href="nh-neural-hydrology.html#nh-background" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="traditional-process-based-models" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Traditional Process-Based Models<a href="nh-neural-hydrology.html#traditional-process-based-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Classical hydrological models describe catchment behaviour through systems of differential
+equations representing physical processes: precipitation infiltration, evapotranspiration,
+soil moisture routing, and channel flow. Well-known examples include:</p>
+<ul>
+<li><strong>HBV</strong> (Hydrologiska Byrans Vattenbalansavdelning) - a bucket-type conceptual model</li>
+<li><strong>VIC</strong> (Variable Infiltration Capacity) - a distributed land-surface model</li>
+<li><strong>SAC-SMA</strong> (Sacramento Soil Moisture Accounting) - used operationally by NOAA</li>
+</ul>
+<p>These models are physically interpretable and operate well in data-sparse settings.
+However, they suffer from three fundamental limitations:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Parameter estimation</strong> - many parameters (soil depth, hydraulic conductivity,
+recession coefficients) cannot be measured directly and must be calibrated
+separately for each catchment.</li>
+<li><strong>Spatial heterogeneity</strong> - parameter sets calibrated for one catchment cannot be
+directly transferred to ungauged basins.</li>
+<li><strong>Non-stationarity</strong> - parameters calibrated under historical climate conditions may
+not hold under future climate forcing <span class="citation">(<a href="#ref-milly2008">Milly et al. 2008</a>)</span>.</li>
+</ol>
+</div>
+<div id="process-based-formulation-and-structural-error" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Process-Based Formulation and Structural Error<a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For a conceptual catchment model, storage dynamics can be represented generically as:</p>
+<p><span class="math display">\[
+S_{t+1} = S_t + P_t - ET_t - Q_t - L_t,
+\]</span></p>
+<p>where <span class="math inline">\(S_t\)</span> is catchment storage, <span class="math inline">\(P_t\)</span> precipitation input, <span class="math inline">\(ET_t\)</span> evapotranspiration,
+<span class="math inline">\(Q_t\)</span> discharge, and <span class="math inline">\(L_t\)</span> unobserved losses (deep percolation, abstraction, or closure
+error). Practical model implementations replace these terms with parameterized
+constitutive relationships, for example:</p>
+<p><span class="math display">\[
+Q_t = g_\phi(S_t, \mathbf{u}_t), \quad ET_t = h_\psi(S_t, T_t, R_t, V_t),
+\]</span></p>
+<p>with calibration parameters <span class="math inline">\((\phi,\psi)\)</span> and meteorological covariates <span class="math inline">\(\mathbf{u}_t\)</span>.
+Calibration thus solves an inverse problem that is often ill-posed: multiple parameter
+sets can yield similar hydrographs (equifinality), while parameter meaning can vary with
+the chosen process simplifications.</p>
+<p>This generates two conceptually different errors:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Parametric uncertainty</strong>: insufficient data to identify parameters uniquely.</li>
+<li><strong>Structural uncertainty</strong>: omitted or misspecified process mechanisms.</li>
+</ol>
+<p>Deep learning approaches primarily target structural flexibility by reducing the need to
+prescribe low-dimensional process forms a priori.</p>
+</div>
+<div id="the-deep-learning-breakthrough" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> The Deep Learning Breakthrough<a href="nh-neural-hydrology.html#the-deep-learning-breakthrough" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The pivotal step came in 2018 when <span class="citation">Kratzert et al. (<a href="#ref-kratzert2018">2018</a>)</span> demonstrated that a standard
+Long Short-Term Memory (LSTM) network, trained on the
+<strong>CAMELS-US</strong> dataset <span class="citation">(<a href="#ref-addor2017">Addor et al. 2017</a>)</span> of 241 catchments, outperformed all
+individually calibrated conceptual models - without any catchment-specific calibration.
+The LSTM’s ability to learn temporal dependencies, coupled with its capacity to exploit
+information from hundreds of basins simultaneously, created a step change in the field.</p>
+<hr />
+</div>
+</div>
+<div id="nh-lstm-methods" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> LSTM-Based Methods for Streamflow Modelling<a href="nh-neural-hydrology.html#nh-lstm-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="nh-lstm-arch" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> The LSTM Architecture<a href="nh-neural-hydrology.html#nh-lstm-arch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The LSTM <span class="citation">(<a href="#ref-hochreiter1997">Hochreiter and Schmidhuber 1997</a>)</span> maintains a <strong>cell state</strong> <span class="math inline">\(\mathbf{c}_t\)</span> as an internal
+memory and uses three gating mechanisms to regulate information flow:</p>
+<p><span class="math display">\[\mathbf{i}_t = \sigma(\mathbf{W}_i [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i)\]</span>
+<span class="math display">\[\mathbf{f}_t = \sigma(\mathbf{W}_f [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_f)\]</span>
+<span class="math display">\[\mathbf{g}_t = \tanh(\mathbf{W}_g [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_g)\]</span>
+<span class="math display">\[\mathbf{o}_t = \sigma(\mathbf{W}_o [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_o)\]</span>
+<span class="math display">\[\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \mathbf{i}_t \odot \mathbf{g}_t\]</span>
+<span class="math display">\[\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t)\]</span></p>
+<p>where <span class="math inline">\(\mathbf{i}_t\)</span>, <span class="math inline">\(\mathbf{f}_t\)</span>, <span class="math inline">\(\mathbf{o}_t\)</span> are the input, forget, and output
+gates respectively; <span class="math inline">\(\sigma\)</span> is the sigmoid function; and <span class="math inline">\(\odot\)</span> denotes element-wise
+multiplication. At each time step the model receives a vector of dynamic inputs
+(precipitation, temperature, solar radiation) as <span class="math inline">\(\mathbf{x}_t\)</span> and the previous
+hidden state <span class="math inline">\(\mathbf{h}_{t-1}\)</span>.</p>
+<p>Crucially, the <strong>forget gate</strong> <span class="math inline">\(\mathbf{f}_t\)</span> allows the network to selectively retain
+long-term memory - enabling it to capture multi-month hydrological memory effects such
+as groundwater recharge and snowpack accumulation, which are notoriously difficult to
+represent in conceptual models.</p>
+</div>
+<div id="optimization-objective-and-gradient-flow" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Optimization Objective and Gradient Flow<a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given a training sample <span class="math inline">\(\mathcal{D}=\{(\mathbf{x}^{(n)}_{1:T}, q^{(n)}_{1:T})\}_{n=1}^N\)</span>,
+LSTM training minimizes an empirical risk:</p>
+<p><span class="math display">\[
+\min_\theta \; \frac{1}{N}\sum_{n=1}^N \mathcal{L}\big(q^{(n)}_{1:T}, f_\theta(\mathbf{x}^{(n)}_{1:T})\big) + \lambda\,\Omega(\theta),
+\]</span></p>
+<p>where <span class="math inline">\(\mathcal{L}\)</span> may be MSE/NSE-related and <span class="math inline">\(\Omega\)</span> denotes regularization
+(e.g., dropout-induced stochastic regularization and implicit optimizer bias). The LSTM
+cell-state pathway improves gradient transport because
+<span class="math inline">\(\partial \mathbf{c}_t / \partial \mathbf{c}_{t-1} = \mathbf{f}_t\)</span>, allowing long-range
+credit assignment when forget-gate activations remain away from zero. In hydrology,
+this is directly relevant for delayed runoff generation and snow-storage dynamics.</p>
+<p>From a system-identification viewpoint, the recurrent state acts as a latent storage
+vector whose components are not physically named but can encode multi-timescale memory.
+This latent-state interpretation is one reason LSTMs outperform short-memory models in
+daily rainfall-runoff tasks.</p>
+</div>
+<div id="nh-ea-lstm" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> From Single-Basin to Multi-Basin: EA-LSTM<a href="nh-neural-hydrology.html#nh-ea-lstm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="citation">Kratzert et al. (<a href="#ref-kratzert2019">2019</a>)</span> extended the single-basin LSTM to <strong>simultaneous multi-basin training</strong>
+using the Entity-Aware LSTM (EA-LSTM). The key modification is that the <strong>input gate</strong>
+is conditioned on <em>static</em> catchment attributes <span class="math inline">\(\mathbf{x}_s\)</span> (soil type, terrain
+slope, land cover, climate indices) rather than the dynamic sequence:</p>
+<p><span class="math display">\[\mathbf{i}_t = \sigma(\mathbf{W}_i \mathbf{x}_s + \mathbf{b}_i)\]</span></p>
+<p>This allows the same model to adapt its memory behaviour to each catchment’s physical
+characteristics, effectively learning a <em>regional</em> function that maps catchment
+attributes to hydrological response. In the benchmark on 531 CAMELS-US basins, the
+EA-LSTM substantially outperformed the best process-based baseline
+(SAC-SMA), indicating a clear performance advantage in this benchmark setting.</p>
+</div>
+<div id="hierarchical-interpretation-of-ea-lstm" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Hierarchical Interpretation of EA-LSTM<a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>EA-LSTM can be interpreted as a hierarchical model with partial pooling across basins.
+Dynamic parameters are globally shared, while the static-attribute-conditioned gate
+induces basin-specific modulation. In that sense, EA-LSTM approximates a data-driven
+random-effects structure:</p>
+<p><span class="math display">\[
+f_{\theta}(\mathbf{x}_{1:t}, \mathbf{z}) = f_{\theta_g,\theta_b(\mathbf{z})}(\mathbf{x}_{1:t}),
+\]</span></p>
+<p>where <span class="math inline">\(\theta_g\)</span> are global sequence parameters and <span class="math inline">\(\theta_b(\mathbf{z})\)</span> are
+attribute-conditioned adjustments. This architecture balances bias and variance more
+effectively than independent local calibration in low-sample basins.</p>
+</div>
+<div id="evaluation-metrics-nse-and-kge" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Evaluation Metrics: NSE and KGE<a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We evaluate predictive skill using two complementary metrics. The
+<strong>Nash-Sutcliffe Efficiency</strong> (NSE) is defined as:</p>
+<p><span class="math display">\[
+  \text{NSE} = 1 - \frac{\sum_{t=1}^{T}(\hat{q}_t - q_t)^2}{\sum_{t=1}^{T}(\bar{q} - q_t)^2}.
+\]</span></p>
+<p>An NSE of 1 indicates a perfect model; NSE = 0 means the model is no better than the
+climatological mean; negative NSE indicates the model is worse than the mean.</p>
+<p>To complement NSE, we report the <strong>Kling-Gupta Efficiency</strong> (KGE):</p>
+<p><span class="math display">\[
+  \text{KGE} = 1 - \sqrt{(r-1)^2 + (\alpha-1)^2 + (\beta-1)^2},
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+r = \mathrm{corr}(\hat{q}, q), \qquad
+\alpha = \frac{\sigma_{\hat{q}}}{\sigma_q}, \qquad
+\beta = \frac{\mu_{\hat{q}}}{\mu_q}.
+\]</span></p>
+<p>Using both NSE and KGE reduces the risk of over-interpreting a single metric and helps
+separate timing, variability, and bias effects.</p>
+<hr />
+</div>
+</div>
+<div id="nh-lib" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> NeuralHydrology: A Python Library for Deep Learning in Hydrology<a href="nh-neural-hydrology.html#nh-lib" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>NeuralHydrology</strong> <span class="citation">(<a href="#ref-kratzert2022joss">Kratzert et al. 2022</a>)</span> is an open-source Python library developed at
+the Institute for Machine Learning, Johannes Kepler University Linz, built on top of
+PyTorch. Its design philosophy emphasises <em>modularity</em>: new datasets, model
+architectures, loss functions, and training strategies can be added without modifying
+the core framework.</p>
+<div id="key-features" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Key Features<a href="nh-neural-hydrology.html#key-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Configuration-file driven</strong> - experiments are fully specified in <code>.yml</code> files,
+enabling reproducibility without touching source code.</li>
+<li><strong>Model zoo</strong> - a diverse set of pre-implemented architectures (see Section <a href="nh-neural-hydrology.html#nh-modelzoo">4.5.2</a>).</li>
+<li><strong>Dataset zoo</strong> - native support for CAMELS-US, CAMELS-GB, CAMELS-DE, CAMELS-AUS,
+CAMELS-CL, LamaH, Caravan, and a generic interface for custom datasets.</li>
+<li><strong>Evaluation</strong> - built-in NSE, KGE, MSE, RMSE and signature-based metrics.</li>
+<li><strong>Probabilistic heads</strong> - GMM, CMAL, UMAL for uncertainty quantification.</li>
+</ul>
+<p>From a computational reproducibility standpoint, the configuration-driven interface is
+scientifically important: it creates explicit, versionable experiment declarations.
+This improves methodological traceability and reduces hidden researcher degrees of
+freedom during iterative experimentation.</p>
+</div>
+<div id="nh-modelzoo" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Model Zoo<a href="nh-neural-hydrology.html#nh-modelzoo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="23%" />
+<col width="43%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Architecture</th>
+<th>Key Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>CudaLSTM</strong></td>
+<td>Standard LSTM</td>
+<td>Baseline; uses CUDA-optimised PyTorch implementation</td>
+</tr>
+<tr class="even">
+<td><strong>EA-LSTM</strong></td>
+<td>Entity-Aware LSTM</td>
+<td>Static features condition input gate <span class="citation">(<a href="#ref-kratzert2019">Kratzert et al. 2019</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>MC-LSTM</strong></td>
+<td>Mass-Conserving LSTM</td>
+<td>Precipitation mass budget enforced <span class="citation">(<a href="#ref-hoedt2021">Hoedt et al. 2021</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>MTS-LSTM</strong></td>
+<td>Multi-Timescale LSTM</td>
+<td>Joint training at daily and hourly resolution <span class="citation">(<a href="#ref-gauch2021">Gauch et al. 2021</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>ODE-LSTM</strong></td>
+<td>ODE-based LSTM</td>
+<td>Continuous-time dynamics for irregular sampling</td>
+</tr>
+<tr class="even">
+<td><strong>Transformer</strong></td>
+<td>Self-attention</td>
+<td>Captures global temporal dependencies</td>
+</tr>
+<tr class="odd">
+<td><strong>Mamba</strong></td>
+<td>State-space model</td>
+<td>Linear-time sequence modelling <span class="citation">(<a href="#ref-gu2023">Gu and Dao 2023</a>)</span></td>
+</tr>
+<tr class="even">
+<td><strong>xLSTM</strong></td>
+<td>Extended LSTM</td>
+<td>Exponential gating <span class="citation">(<a href="#ref-beck2024">Beck et al. 2024</a>)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>HybridModel</strong></td>
+<td>LSTM + conceptual</td>
+<td>Neural parameterisation of process models</td>
+</tr>
+</tbody>
+</table>
+<p>A minimal training configuration looks as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="nh-neural-hydrology.html#cb1-1" tabindex="-1"></a><span class="co"># config.yml  -  single basin LSTM example</span></span>
+<span id="cb1-2"><a href="nh-neural-hydrology.html#cb1-2" tabindex="-1"></a><span class="fu">experiment_name</span><span class="kw">:</span><span class="at"> camels_us_lstm_demo</span></span>
+<span id="cb1-3"><a href="nh-neural-hydrology.html#cb1-3" tabindex="-1"></a><span class="fu">model</span><span class="kw">:</span><span class="at"> cudalstm</span></span>
+<span id="cb1-4"><a href="nh-neural-hydrology.html#cb1-4" tabindex="-1"></a><span class="fu">hidden_size</span><span class="kw">:</span><span class="at"> </span><span class="dv">256</span></span>
+<span id="cb1-5"><a href="nh-neural-hydrology.html#cb1-5" tabindex="-1"></a><span class="fu">initial_forget_bias</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb1-6"><a href="nh-neural-hydrology.html#cb1-6" tabindex="-1"></a><span class="fu">output_dropout</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.4</span></span>
+<span id="cb1-7"><a href="nh-neural-hydrology.html#cb1-7" tabindex="-1"></a><span class="fu">loss</span><span class="kw">:</span><span class="at"> NSE</span></span>
+<span id="cb1-8"><a href="nh-neural-hydrology.html#cb1-8" tabindex="-1"></a><span class="fu">optimizer</span><span class="kw">:</span><span class="at"> Adam</span></span>
+<span id="cb1-9"><a href="nh-neural-hydrology.html#cb1-9" tabindex="-1"></a><span class="fu">learning_rate</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="nh-neural-hydrology.html#cb1-10" tabindex="-1"></a><span class="at">  </span><span class="fu">0</span><span class="kw">:</span><span class="at"> </span><span class="fl">1e-3</span></span>
+<span id="cb1-11"><a href="nh-neural-hydrology.html#cb1-11" tabindex="-1"></a><span class="at">  </span><span class="fu">10</span><span class="kw">:</span><span class="at"> </span><span class="fl">5e-4</span></span>
+<span id="cb1-12"><a href="nh-neural-hydrology.html#cb1-12" tabindex="-1"></a><span class="fu">epochs</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb1-13"><a href="nh-neural-hydrology.html#cb1-13" tabindex="-1"></a><span class="fu">seq_length</span><span class="kw">:</span><span class="at"> </span><span class="dv">365</span></span>
+<span id="cb1-14"><a href="nh-neural-hydrology.html#cb1-14" tabindex="-1"></a><span class="fu">dataset</span><span class="kw">:</span><span class="at"> camels_us</span></span>
+<span id="cb1-15"><a href="nh-neural-hydrology.html#cb1-15" tabindex="-1"></a><span class="fu">dynamic_inputs</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="nh-neural-hydrology.html#cb1-16" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> PRCP(mm/day)_nldas</span></span>
+<span id="cb1-17"><a href="nh-neural-hydrology.html#cb1-17" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tmax(C)_daymet</span></span>
+<span id="cb1-18"><a href="nh-neural-hydrology.html#cb1-18" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tmin(C)_daymet</span></span>
+<span id="cb1-19"><a href="nh-neural-hydrology.html#cb1-19" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> srad(W/m2)_daymet</span></span>
+<span id="cb1-20"><a href="nh-neural-hydrology.html#cb1-20" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> vp(Pa)_daymet</span></span>
+<span id="cb1-21"><a href="nh-neural-hydrology.html#cb1-21" tabindex="-1"></a><span class="fu">target_variables</span><span class="kw">:</span></span>
+<span id="cb1-22"><a href="nh-neural-hydrology.html#cb1-22" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> QObs(mm/d)</span></span></code></pre></div>
+<p>Training is launched from the command line:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="nh-neural-hydrology.html#cb2-1" tabindex="-1"></a><span class="ex">uv</span> run nh-run train <span class="at">--config-file</span> config.yml</span></code></pre></div>
+<p>In reproducible workflows, this CLI-level specification should be complemented with
+fixed random seeds, logged software versions, and immutable run directories. Together,
+these reduce procedural variance when comparing architectures or transfer settings.</p>
+<hr />
+</div>
+</div>
+<div id="nh-transfer" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Transfer Learning in a Changing Climate<a href="nh-neural-hydrology.html#nh-transfer" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="motivation" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Motivation<a href="nh-neural-hydrology.html#motivation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Under climate change, hydrological systems are subject to <strong>non-stationarity</strong>: the
+statistical relationship between climate forcing and streamflow may shift due to
+changing land cover, permafrost thaw, or altered precipitation seasonality
+<span class="citation">(<a href="#ref-milly2008">Milly et al. 2008</a>)</span>. A model trained on historical data may fail under future conditions if it
+has over-fitted to the historical distribution.</p>
+<p>Transfer learning offers a principled solution: pre-train a model on a large, diverse
+dataset, then adapt it to a target domain or future scenario with limited additional
+data.</p>
+</div>
+<div id="transfer-learning-as-risk-decomposition" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> Transfer Learning as Risk Decomposition<a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(\mathcal{R}_T(\theta)\)</span> be expected target-domain risk. Transfer learning seeks a
+parameter initialization <span class="math inline">\(\theta_0\)</span> from source-domain training such that fine-tuned
+optimization reaches a low-risk basin for <span class="math inline">\(\mathcal{R}_T\)</span> with fewer target samples.
+Intuitively, pretraining reduces estimation variance by starting from a representation
+already aligned with hydrological structure (seasonality, recession behavior, storage
+memory), while fine-tuning reduces target-domain bias.</p>
+<p>This yields a practical bias-variance trade-off:</p>
+<ol style="list-style-type: decimal">
+<li>local-from-scratch: low transfer bias potential, high variance;</li>
+<li>global zero-shot: low variance, possibly higher target bias;</li>
+<li>global + fine-tune: compromise with lower variance and reduced target bias.</li>
+</ol>
+</div>
+<div id="nh-pretrain" class="section level3 hasAnchor" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> Pre-Train on Large-Sample Data<a href="nh-neural-hydrology.html#nh-pretrain" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first step is training on the full CAMELS dataset (531 basins across the
+continental United States, or multi-country datasets like Caravan <span class="citation">(<a href="#ref-kratzert2023caravan">Kratzert, Nearing, Frame, et al. 2023</a>)</span>
+with &gt;6000 basins). This exposes the model to a wide range of climates, soils, and
+land covers, building a general-purpose hydrological encoder.</p>
+</div>
+<div id="nh-finetune" class="section level3 hasAnchor" number="4.6.4">
+<h3><span class="header-section-number">4.6.4</span> Fine-Tuning Strategies<a href="nh-neural-hydrology.html#nh-finetune" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>NeuralHydrology supports fine-tuning via the configuration:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="nh-neural-hydrology.html#cb3-1" tabindex="-1"></a><span class="fu">finetune_modules</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="nh-neural-hydrology.html#cb3-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> head</span></span>
+<span id="cb3-3"><a href="nh-neural-hydrology.html#cb3-3" tabindex="-1"></a><span class="fu">finetune_epoch</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb3-4"><a href="nh-neural-hydrology.html#cb3-4" tabindex="-1"></a><span class="fu">base_run_dir</span><span class="kw">:</span><span class="at"> /path/to/pretrained/run</span></span></code></pre></div>
+<p>Three strategies are commonly used:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Head-only fine-tuning</strong> - freeze the LSTM body, retrain only the linear output head on target-basin data. Fast; suitable for small data budgets.</li>
+<li><strong>Full fine-tuning</strong> - unfreeze all layers, fine-tune with a small learning rate. Higher capacity; risk of catastrophic forgetting.</li>
+<li><strong>Layer-wise fine-tuning</strong> - unfreeze layers progressively from output to input. Balances adaptation and retention of general features.</li>
+</ol>
+<p>In small-sample hydrology, catastrophic forgetting is a concrete concern. If learning
+rates are too high or too many layers are unfrozen immediately, basin-specific updates
+can overwrite globally useful runoff representations. Layer-wise schedules and reduced
+fine-tuning rates are therefore not just engineering heuristics, but stability controls
+for representation retention.</p>
+<p><span class="citation">Frame et al. (<a href="#ref-frame2022">2022</a>)</span> showed that LSTMs pre-trained on multi-basin data and fine-tuned on a single
+target basin significantly outperform models trained from scratch on the target basin
+alone, even when the target basin lies in a climate zone absent from pre-training data.</p>
+</div>
+<div id="nh-climate-scenarios" class="section level3 hasAnchor" number="4.6.5">
+<h3><span class="header-section-number">4.6.5</span> Climate Change Scenarios<a href="nh-neural-hydrology.html#nh-climate-scenarios" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For future projections, one strategy is <strong>delta-change forcing</strong>: apply projected
+changes from a GCM (e.g., CMIP6 precipitation and temperature anomalies) on top of
+historical forcing before feeding into the pre-trained neural model. The key challenge
+is that the model may extrapolate poorly to precipitation intensities or temperature
+regimes outside its training distribution.</p>
+<p><span class="citation">Hoedt et al. (<a href="#ref-hoedt2021">2021</a>)</span> argue that <strong>physically consistent architectures</strong> (such as MC-LSTM) are
+inherently more robust to distributional shift, because the mass conservation
+constraint prevents unphysical predictions even under novel forcing conditions.</p>
+<p>A useful formal perspective is covariate shift:</p>
+<p><span class="math display">\[
+p_{\text{train}}(\mathbf{x}) \neq p_{\text{test}}(\mathbf{x}), \quad p(q\mid\mathbf{x}) \approx \text{partially shifted},
+\]</span></p>
+<p>where climate change modifies forcing distributions (extremes, seasonality,
+co-occurrence structure). Architectures with structural priors can reduce error growth
+under such shifts by preventing implausible state transitions.</p>
+<hr />
+</div>
+</div>
+<div id="nh-case-study" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Empirical Study: Regional Transfer Learning Under Data Scarcity<a href="nh-neural-hydrology.html#nh-case-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="study-design-and-data" class="section level3 hasAnchor" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Study Design and Data<a href="nh-neural-hydrology.html#study-design-and-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To move beyond conceptual discussion, we evaluate transfer learning in a controlled,
+three-way comparison benchmark built on CAMELS-US and implemented with NeuralHydrology.</p>
+<p>The design intentionally separates three distinct learning regimes:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Local (from scratch)</strong>: train only on target-group basins with random
+initialization.</li>
+<li><strong>Global (zero-shot)</strong>: evaluate the globally pre-trained model directly on each
+target group.</li>
+<li><strong>Global + Fine-tune</strong>: initialize from global weights and adapt on target-group
+basins.</li>
+</ol>
+<p>The benchmark covers <strong>18 geographic groups</strong> and <strong>531 basins</strong> in total. Dynamic
+inputs are Daymet forcing variables and the target is daily streamflow.</p>
+<p>Temporal splitting follows a non-contiguous design to stress out-of-distribution
+generalization:</p>
+<ul>
+<li>Train: 1999-10-01 to 2008-09-30</li>
+<li>Validation: 1980-10-01 to 1989-09-30</li>
+<li>Test: 1989-10-01 to 1999-09-30</li>
+</ul>
+<p>This split choice is important. It avoids a trivial near-contiguous interpolation
+setting and creates a more realistic temporal domain shift scenario for climate-impact
+applications.</p>
+</div>
+<div id="statistical-framing-of-the-three-way-comparison" class="section level3 hasAnchor" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> Statistical Framing of the Three-Way Comparison<a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Define basin-weighted group means <span class="math inline">\(\bar{m}_{\text{Local}}\)</span>,
+<span class="math inline">\(\bar{m}_{\text{Global}}\)</span>, and <span class="math inline">\(\bar{m}_{\text{FT}}\)</span> for metric <span class="math inline">\(m\)</span> (NSE or KGE):</p>
+<p><span class="math display">\[
+\bar{m}_{\cdot} = \frac{\sum_{g=1}^{G} n_g m_{g,\cdot}}{\sum_{g=1}^{G} n_g},
+\]</span></p>
+<p>where <span class="math inline">\(n_g\)</span> is basin count in group <span class="math inline">\(g\)</span>. The principal contrasts are:</p>
+<p><span class="math display">\[
+\Delta_{\text{FT-Local}} = \bar{m}_{\text{FT}} - \bar{m}_{\text{Local}}, \qquad
+\Delta_{\text{FT-Global}} = \bar{m}_{\text{FT}} - \bar{m}_{\text{Global}}.
+\]</span></p>
+<p>Positive values for both contrasts indicate that fine-tuning adds value relative to
+both local-only learning and zero-shot transfer.</p>
+</div>
+<div id="reproducible-analysis-setup" class="section level3 hasAnchor" number="4.7.3">
+<h3><span class="header-section-number">4.7.3</span> Reproducible Analysis Setup<a href="nh-neural-hydrology.html#reproducible-analysis-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section uses pre-computed experiment outputs rather than re-training models inside
+the document build. The rationale is methodological separation: model fitting is
+performed in the dedicated experiment pipeline, while this chapter performs transparent
+secondary analysis of frozen outputs. This improves reproducibility because the exact
+result tables are versioned and can be re-audited independently of the prose.</p>
+<p>The training protocol behind these result files is summarized as follows:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Global pretraining</strong> on 531 CAMELS-US basins to learn transferable runoff
+representations.</li>
+<li><strong>Local baseline training</strong> per group from random initialization using only group
+basins.</li>
+<li><strong>Fine-tuning</strong> initialized from the global checkpoint with lower learning rate and
+group-specific adaptation.</li>
+</ol>
+<p>All three arms are evaluated on the same temporal test period and reported with unified
+NSE/KGE metrics. Therefore, between-arm differences can be interpreted as training
+strategy effects rather than differences in data split or metric definition.</p>
+</div>
+<div id="aggregate-performance" class="section level3 hasAnchor" number="4.7.4">
+<h3><span class="header-section-number">4.7.4</span> Aggregate Performance<a href="nh-neural-hydrology.html#aggregate-performance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Table <a href="nh-neural-hydrology.html#tab:nh-transfer-overall-table">4.1</a> reports basin-weighted overall metrics.</p>
+<table>
+<caption><span id="tab:nh-transfer-overall-table">TABLE 4.1: </span>Basin-weighted overall performance for the EA-LSTM transfer-learning benchmark.</caption>
+<colgroup>
+<col width="20%" />
+<col width="4%" />
+<col width="6%" />
+<col width="7%" />
+<col width="9%" />
+<col width="13%" />
+<col width="13%" />
+<col width="6%" />
+<col width="7%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Scope</th>
+<th align="right">Basins</th>
+<th align="right">NSE Local</th>
+<th align="right">NSE Global</th>
+<th align="right">NSE Fine-tune</th>
+<th align="right">Delta NSE FT-Local</th>
+<th align="right">Delta NSE FT-Global</th>
+<th align="right">KGE Local</th>
+<th align="right">KGE Global</th>
+<th align="right">KGE Fine-tune</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Basin-weighted over 18 groups</td>
+<td align="right">531</td>
+<td align="right">0.281</td>
+<td align="right">0.565</td>
+<td align="right">0.589</td>
+<td align="right">0.308</td>
+<td align="right">0.023</td>
+<td align="right">0.191</td>
+<td align="right">0.485</td>
+<td align="right">0.535</td>
+</tr>
+</tbody>
+</table>
+<p>At aggregate scale, Fine-tune ranks first for both NSE and KGE. In practical terms,
+the model benefits from both broad hydrological priors (global pretraining) and
+region-specific adaptation (local fine-tuning).</p>
+<p>From an inferential perspective, the aggregate table establishes effect direction but
+not effect homogeneity. Therefore, all subsequent figures are designed to answer a
+second question: are gains concentrated in a few groups/basins, or distributed broadly
+across the sample?</p>
+</div>
+<div id="group-wise-structure-of-improvement" class="section level3 hasAnchor" number="4.7.5">
+<h3><span class="header-section-number">4.7.5</span> Group-Wise Structure of Improvement<a href="nh-neural-hydrology.html#group-wise-structure-of-improvement" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The next two figures move from overall averages to group-level contrasts. The first
+shows absolute performance per group and model arm; the second shows paired deltas,
+which are easier to interpret as treatment effects of adaptation.</p>
+<p><img src="book_files/figure-html/nh-transfer-by-group-nse-1.svg" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p>In this plot, the key visual test is rank stability within each group. If fine-tuning
+is consistently useful, the fine-tune bar should dominate local and usually global bars
+for most groups. This is exactly what is observed in the present run.</p>
+<p><img src="book_files/figure-html/nh-transfer-delta-bars-1.svg" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p>The dashed zero line is the decision boundary. Bars above zero imply positive transfer
+effect relative to the chosen comparator. The persistence of positive values across
+groups indicates that gains are structural rather than isolated accidents.</p>
+<p>The group-level signal is clear: Fine-tune exceeds Local for all groups on NSE, and
+also exceeds Global at group mean level in all groups in this run. This pattern is
+consistent with a transfer-learning interpretation rather than isolated outliers.</p>
+</div>
+<div id="basin-level-distributional-evidence" class="section level3 hasAnchor" number="4.7.6">
+<h3><span class="header-section-number">4.7.6</span> Basin-Level Distributional Evidence<a href="nh-neural-hydrology.html#basin-level-distributional-evidence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Group means can hide within-group variance. The next figures therefore analyze basin-
+level distributions to test whether improvements are broad-based at the individual basin
+scale.</p>
+<p><img src="book_files/figure-html/nh-transfer-basin-box-ecdf-1.svg" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p>The boxplot compares medians, interquartile ranges, and tails between Local and
+Fine-tune. A simultaneous upward shift in median and upper quartiles supports a genuine
+distributional improvement rather than a change driven by few extreme basins.</p>
+<p><img src="book_files/figure-html/nh-transfer-basin-ecdf-1.svg" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p>The ECDF provides a stricter dominance check: if the fine-tune curve is shifted toward
+higher NSE across most quantiles, then improvement is robust across weak, medium, and
+strong basins simultaneously.</p>
+<p>Distributional diagnostics show that the benefit is broad-based: performance shifts
+are observed across quantiles rather than being concentrated in a few extreme basins.</p>
+</div>
+<div id="internal-validity-checks" class="section level3 hasAnchor" number="4.7.7">
+<h3><span class="header-section-number">4.7.7</span> Internal Validity Checks<a href="nh-neural-hydrology.html#internal-validity-checks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To strengthen internal validity, this chapter uses concordant evidence across multiple
+diagnostic views:</p>
+<ol style="list-style-type: decimal">
+<li>aggregate weighted means (global effect size);</li>
+<li>group-level contrasts (regional consistency);</li>
+<li>basin-level distributions (heterogeneity and outlier sensitivity);</li>
+<li>architecture cross-check (EA-LSTM vs CudaLSTM directional agreement).</li>
+</ol>
+<p>Agreement across these views reduces the probability that conclusions arise from a
+single aggregation artifact.</p>
+</div>
+<div id="interpretation-and-scientific-implications" class="section level3 hasAnchor" number="4.7.8">
+<h3><span class="header-section-number">4.7.8</span> Interpretation and Scientific Implications<a href="nh-neural-hydrology.html#interpretation-and-scientific-implications" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The empirical results support three claims.</p>
+<p>First, <strong>transfer learning is robustly beneficial</strong> under regional data limitations.
+The Fine-tune arm consistently improves upon purely local training.</p>
+<p>Second, <strong>global pretraining alone is strong but not sufficient</strong>. Zero-shot Global
+already outperforms Local on average, but additional local adaptation yields further
+improvements in most practical settings.</p>
+<p>Third, <strong>benefits are heterogeneous but systematic</strong>. Groups with weaker local baselines
+tend to show larger transfer gains, which is consistent with the hypothesis that shared
+cross-basin representations are especially valuable in information-scarce regimes.</p>
+<p>This pattern is theoretically plausible: when local sample size is limited, local
+estimators have high variance and under-constrained dynamics. Global pretraining
+provides a regularized prior over runoff behavior, and fine-tuning then performs
+targeted correction toward regional specifics.</p>
+</div>
+<div id="spatial-coverage-and-group-heterogeneity" class="section level3 hasAnchor" number="4.7.9">
+<h3><span class="header-section-number">4.7.9</span> Spatial Coverage and Group Heterogeneity<a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before interpreting transfer gains as generalizable, one must verify spatial and sample
+coverage. The following figures therefore document where basins are located and how
+unevenly groups are represented.</p>
+<p><img src="book_files/figure-html/nh-transfer-map-by-group-book-1.svg" alt="" width="1036.8" style="display: block; margin: auto;" /></p>
+<p>This map shows that groups are geographically dispersed rather than confined to a single
+hydro-climatic regime. Consequently, the transfer-learning conclusions are evaluated
+under substantial regional heterogeneity.</p>
+<p>The basin map confirms broad spatial representation and substantial hydro-climatic
+heterogeneity, which is a prerequisite for meaningful transfer-learning evaluation.</p>
+<p><img src="book_files/figure-html/nh-transfer-coverage-bars-book-1.svg" alt="" width="940.8" style="display: block; margin: auto;" /></p>
+<p>Coverage imbalance is important for interpretation. Groups with fewer basins generally
+have higher estimation variance, and thus are expected to benefit more from pretraining.
+This expectation is later cross-checked against observed gain patterns.</p>
+<p><img src="book_files/figure-html/nh-transfer-group-size-dist-book-1.svg" alt="" width="633.6" style="display: block; margin: auto;" /></p>
+<p>The histogram confirms non-uniform group sizes, which motivates basin-weighted
+aggregation in all headline statistics.</p>
+</div>
+<div id="additional-diagnostic-plots" class="section level3 hasAnchor" number="4.7.10">
+<h3><span class="header-section-number">4.7.10</span> Additional Diagnostic Plots<a href="nh-neural-hydrology.html#additional-diagnostic-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="book_files/figure-html/nh-transfer-overall-nse-bars-book-1.svg" alt="" width="787.2" style="display: block; margin: auto;" /></p>
+<p>This bar chart restates Table <a href="nh-neural-hydrology.html#tab:nh-transfer-overall-table">4.1</a> in visual form and makes
+the between-strategy NSE gaps easier to compare.</p>
+<p><img src="book_files/figure-html/nh-transfer-overall-kge-bars-book-1.svg" alt="" width="787.2" style="display: block; margin: auto;" /></p>
+<p>Consistent ordering under KGE supports the same conclusion as NSE and strengthens
+cross-metric robustness.</p>
+<p><img src="book_files/figure-html/nh-transfer-delta-kge-bars-book-1.svg" alt="" width="921.6" style="display: block; margin: auto;" /></p>
+<p>Group-level KGE deltas show whether transfer gains persist once correlation,
+variability, and bias are considered jointly.</p>
+<p><img src="book_files/figure-html/nh-transfer-local-ft-scatter-book-1.svg" alt="" width="854.4" style="display: block; margin: auto;" /></p>
+<p>Points above the 1:1 line indicate groups where fine-tuning beats local training;
+bubble size indicates how many basins each group contains.</p>
+<p><img src="book_files/figure-html/nh-transfer-local-vs-gain-book-1.svg" alt="" width="854.4" style="display: block; margin: auto;" /></p>
+<p>The negative slope indicates diminishing headroom: groups with stronger local baselines
+typically show smaller fine-tuning gains.</p>
+</div>
+<div id="architecture-comparison-ea-lstm-vs-cudalstm" class="section level3 hasAnchor" number="4.7.11">
+<h3><span class="header-section-number">4.7.11</span> Architecture Comparison: EA-LSTM vs CudaLSTM<a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This comparison addresses model dependence of conclusions. If transfer benefits only
+appear in one architecture, practical recommendations should be narrowed. If the effect
+direction is stable across architectures, conclusions are more robust.</p>
+<p><img src="book_files/figure-html/nh-transfer-arch-nse-book-1.svg" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p>While absolute performance differs between architectures, the ordering by training
+strategy remains consistent, supporting a strategy-level interpretation rather than an
+architecture-specific anomaly.</p>
+<p>Across both architectures, transfer-learning ranking remains stable. EA-LSTM and
+CudaLSTM differ in absolute values, but both support the same directional conclusion:
+fine-tuning dominates local-only training.</p>
+</div>
+<div id="group-05-diagnostic-snapshot-ea-lstm" class="section level3 hasAnchor" number="4.7.12">
+<h3><span class="header-section-number">4.7.12</span> Group 05 Diagnostic Snapshot (EA-LSTM)<a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This subsection provides a concrete group-level case study. Group 05 is used as an
+illustrative diagnostic example because it exhibits clear but non-extreme transfer
+effects, making it suitable for discussing both mean-level and basin-level behavior.</p>
+<table>
+<caption><span id="tab:nh-transfer-group05-table-book">TABLE 4.2: </span>Group 05 mean NSE under the EA-LSTM three-way comparison framework</caption>
+<thead>
+<tr class="header">
+<th align="left">Setting</th>
+<th align="right">Mean_NSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Global (EA-LSTM)</td>
+<td align="right">0.608</td>
+</tr>
+<tr class="even">
+<td align="left">Local (EA-LSTM)</td>
+<td align="right">0.437</td>
+</tr>
+<tr class="odd">
+<td align="left">Fine-tune (EA-LSTM)</td>
+<td align="right">0.638</td>
+</tr>
+</tbody>
+</table>
+<p>Fine-tune minus Local = 0.201; Fine-tune minus Global = 0.030.</p>
+<p>The table summarizes central tendency. However, mean effects can still mask local
+heterogeneity; therefore a basin-level bar decomposition is provided next.</p>
+<p><img src="book_files/figure-html/nh-transfer-group05-bars-book-1.svg" alt="" width="998.4" style="display: block; margin: auto;" /></p>
+<p>Sorting basins by fine-tuned NSE highlights whether gains are widespread or restricted
+to selected stations. The observed pattern supports broad within-group benefit.</p>
+</div>
+<div id="practical-synthesis" class="section level3 hasAnchor" number="4.7.13">
+<h3><span class="header-section-number">4.7.13</span> Practical Synthesis<a href="nh-neural-hydrology.html#practical-synthesis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>From an operational perspective, the extended slide-derived analyses reinforce a clear
+deployment rule: pre-train globally, then fine-tune locally. This recommendation is
+supported by aggregate metrics, group-level consistency, and basin-level distributional
+evidence.</p>
+<p>For scientific reporting, this recommendation should be stated with scope conditions:
+it is supported for daily CAMELS-US settings, the examined feature space, and the
+current training budgets. Extrapolation to other hydro-climatic domains should be
+treated as a hypothesis to be tested rather than assumed.</p>
+<hr />
+</div>
+</div>
+<div id="nh-discussion" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> Discussion and Outlook<a href="nh-neural-hydrology.html#nh-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This case study confirms that pretrain-and-adapt pipelines are a strong default for
+regional streamflow prediction. Nevertheless, several methodological limits remain.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Single-seed uncertainty</strong>: the current benchmark is seed-fixed and should be
+extended with multi-seed confidence intervals.</li>
+<li><strong>Geographic scope</strong>: evidence is currently from CAMELS-US; external validity should
+be tested on broader multi-region datasets such as Caravan.</li>
+<li><strong>Metric scope</strong>: NSE and KGE summarize predictive skill but do not fully capture
+hydrograph signatures (e.g., peak timing and recession behavior).</li>
+<li><strong>Climate extrapolation</strong>: transfer robustness under stronger future forcing shifts
+remains an open challenge.</li>
+</ol>
+<p>Methodologically, the next step is a factorial sensitivity design varying pretraining
+budget, fine-tuning depth (head-only vs full), and climate-region holdout strategy.
+Scientifically, integrating physical constraints (e.g., MC-LSTM style mass-consistency)
+with transfer adaptation is a promising direction for robust climate-stress scenarios.</p>
+<div id="toward-publication-grade-extensions" class="section level3 hasAnchor" number="4.8.1">
+<h3><span class="header-section-number">4.8.1</span> Toward Publication-Grade Extensions<a href="nh-neural-hydrology.html#toward-publication-grade-extensions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To meet stronger inferential standards, future work should include:</p>
+<ol style="list-style-type: decimal">
+<li><strong>multi-seed uncertainty quantification</strong> (bootstrap or hierarchical intervals for
+<span class="math inline">\(\Delta_{\text{FT-Local}}\)</span> and <span class="math inline">\(\Delta_{\text{FT-Global}}\)</span>);</li>
+<li><strong>extreme-event conditioned evaluation</strong> (high-flow quantiles and event timing
+metrics);</li>
+<li><strong>domain-shift protocols</strong> (climate-region holdout and synthetic forcing perturbation);</li>
+<li><strong>ablation on adaptation depth</strong> (head-only vs partial vs full fine-tuning);</li>
+<li><strong>physics-transfer interaction tests</strong> (EA-LSTM vs MC-LSTM transfer robustness).</li>
+</ol>
+<p>These steps would convert the current strong empirical pattern into a more comprehensive
+causal argument about why and when transfer learning works in hydrology.</p>
+<hr />
+</div>
+</div>
+<div id="nh-summary" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> Summary<a href="nh-neural-hydrology.html#nh-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Neural hydrology has evolved from proof-of-concept LSTM experiments to a mature
+experimental ecosystem where physically informed design and transfer learning can be
+tested at scale. In this chapter, the transfer-learning benchmark provides direct empirical evidence
+that global pretraining followed by regional fine-tuning improves predictive skill in
+both aggregate and distributional views. The practical implication is straightforward:
+when local observations are limited, transfer learning should be treated as a default
+baseline rather than an optional enhancement.</p>
+<p>At the same time, the chapter emphasizes that scientific robustness requires both
+predictive accuracy and structural credibility. The long-term research opportunity is
+therefore not a binary choice between process-based and data-driven paradigms, but a
+principled integration: physically informed sequence models trained with explicit
+cross-domain transfer objectives under non-stationary climate conditions.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-addor2017" class="csl-entry">
+Addor, Nans, Andrew J. Newman, Naoki Mizukami, and Martyn P. Clark. 2017. <span>“The <span>CAMELS</span> Data Set: Catchment Attributes and Meteorology for Large-Sample Studies.”</span> <em>Hydrology and Earth System Sciences</em> 21 (10): 5293–313. <a href="https://doi.org/10.5194/hess-21-5293-2017">https://doi.org/10.5194/hess-21-5293-2017</a>.
+</div>
+<div id="ref-beck2024" class="csl-entry">
+Beck, Maximilian, Korbinian Poeschel, Markus Spanring, et al. 2024. <span>“<span class="nocase">xLSTM</span>: Extended Long Short-Term Memory.”</span> <em>arXiv Preprint arXiv:2405.04517</em>. <a href="https://arxiv.org/abs/2405.04517">https://arxiv.org/abs/2405.04517</a>.
+</div>
+<div id="ref-frame2022" class="csl-entry">
+Frame, Jonathan M., Frederik Kratzert, Daniel Klotz, et al. 2022. <span>“Deep Learning Rainfall–Runoff Predictions of Extreme Events.”</span> <em>Hydrology and Earth System Sciences</em> 26 (13): 3377–92. <a href="https://doi.org/10.5194/hess-26-3377-2022">https://doi.org/10.5194/hess-26-3377-2022</a>.
+</div>
+<div id="ref-gauch2021" class="csl-entry">
+Gauch, Martin, Frederik Kratzert, Daniel Klotz, Grey Nearing, Jimmy Lin, and Sepp Hochreiter. 2021. <span>“Rainfall–Runoff Prediction at Multiple Timescales with a Single Long Short-Term Memory Network.”</span> <em>Hydrology and Earth System Sciences</em> 25 (4): 2045–62. <a href="https://doi.org/10.5194/hess-25-2045-2021">https://doi.org/10.5194/hess-25-2045-2021</a>.
+</div>
+<div id="ref-gu2023" class="csl-entry">
+Gu, Albert, and Tri Dao. 2023. <span>“Mamba: Linear-Time Sequence Modeling with Selective State Spaces.”</span> <em>arXiv Preprint arXiv:2312.00752</em>. <a href="https://arxiv.org/abs/2312.00752">https://arxiv.org/abs/2312.00752</a>.
+</div>
+<div id="ref-hochreiter1997" class="csl-entry">
+Hochreiter, Sepp, and Juergen Schmidhuber. 1997. <span>“Long Short-Term Memory.”</span> <em>Neural Computation</em> 9 (8): 1735–80. <a href="https://doi.org/10.1162/neco.1997.9.8.1735">https://doi.org/10.1162/neco.1997.9.8.1735</a>.
+</div>
+<div id="ref-hoedt2021" class="csl-entry">
+Hoedt, Pieter-Jan, Frederik Kratzert, Daniel Klotz, et al. 2021. <span>“<span>MC-LSTM</span>: Mass-Conserving <span>LSTM</span>.”</span> <em>Proceedings of the 38th International Conference on Machine Learning (ICML)</em>, 4275–86. <a href="https://arxiv.org/abs/2101.05186">https://arxiv.org/abs/2101.05186</a>.
+</div>
+<div id="ref-ipcc2021carbon" class="csl-entry">
+IPCC. 2021b. <span>“Global <span>Carbon</span> and <span>Other</span> <span>Biogeochemical</span> <span>Cycles</span> and <span>Feedbacks</span>.”</span> In <em>Climate <span>Change</span> 2021 – <span>The</span> <span>Physical</span> <span>Science</span> <span>Basis</span>: <span>Working</span> <span>Group</span> <span>I</span> <span>Contribution</span> to the <span>Sixth</span> <span>Assessment</span> <span>Report</span> of the <span>Intergovernmental</span> <span>Panel</span> on <span>Climate</span> <span>Change</span></em>. Cambridge University Press.
+</div>
+<div id="ref-kratzert2022joss" class="csl-entry">
+Kratzert, Frederik, Martin Gauch, Grey Nearing, and Daniel Klotz. 2022. <span>“<span>NeuralHydrology</span> — <span>A</span> <span>Python</span> Library for Deep Learning Research in Hydrology.”</span> <em>Journal of Open Source Software</em> 7 (71): 4050. <a href="https://doi.org/10.21105/joss.04050">https://doi.org/10.21105/joss.04050</a>.
+</div>
+<div id="ref-kratzert2018" class="csl-entry">
+Kratzert, Frederik, Daniel Klotz, Claire Brenner, Karsten Schulz, and Mathew Herrnegger. 2018. <span>“Rainfall–Runoff Modelling Using Long Short-Term Memory (<span>LSTM</span>) Based Neural Networks.”</span> <em>Hydrology and Earth System Sciences</em> 22 (11): 6005–22. <a href="https://doi.org/10.5194/hess-22-6005-2018">https://doi.org/10.5194/hess-22-6005-2018</a>.
+</div>
+<div id="ref-kratzert2019" class="csl-entry">
+Kratzert, Frederik, Daniel Klotz, Mathew Herrnegger, Alden K. Sampson, Sepp Hochreiter, and Grey S. Nearing. 2019. <span>“Towards Learning Universal, Regional, and Local Hydrological Behaviors via Machine Learning Applied to Large-Sample Datasets.”</span> <em>Hydrology and Earth System Sciences</em> 23 (12): 5089–110. <a href="https://doi.org/10.5194/hess-23-5089-2019">https://doi.org/10.5194/hess-23-5089-2019</a>.
+</div>
+<div id="ref-kratzert2023caravan" class="csl-entry">
+Kratzert, Frederik, Grey Nearing, Jonathan Frame, et al. 2023. <span>“Caravan – <span>A</span> Global Community Dataset for Large-Sample Hydrology.”</span> <em>Scientific Data</em> 10 (1): 61. <a href="https://doi.org/10.1038/s41597-023-01975-w">https://doi.org/10.1038/s41597-023-01975-w</a>.
+</div>
+<div id="ref-milly2008" class="csl-entry">
+Milly, P. C. D., Julio Betancourt, Malin Falkenmark, et al. 2008. <span>“Stationarity Is Dead: Whither Water Management?”</span> <em>Science</em> 319 (5863): 573–74. <a href="https://doi.org/10.1126/science.1151915">https://doi.org/10.1126/science.1151915</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hyd.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rh.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

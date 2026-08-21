@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>References | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="References | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="References | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ctp.html"/>
+
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="references" class="section level1 unnumbered hasAnchor">
+<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Addor, Nans, Andrew J. Newman, Naoki Mizukami, and Martyn P. Clark. 2017. <span>“The <span>CAMELS</span> Data Set: Catchment Attributes and Meteorology for Large-Sample Studies.”</span> <em>Hydrology and Earth System Sciences</em> 21 (10): 5293–313. <a href="https://doi.org/10.5194/hess-21-5293-2017">https://doi.org/10.5194/hess-21-5293-2017</a>.
+</div>
+<div class="csl-entry">
+Armstrong McKay, David I., Arie Staal, Jesse F. Abrams, et al. 2022. <span>“Exceeding 1.5°c Global Warming Could Trigger Multiple Climate Tipping Points.”</span> <em>Science</em> 377 (6611): eabn7950. <a href="https://doi.org/10.1126/science.abn7950">https://doi.org/10.1126/science.abn7950</a>.
+</div>
+<div class="csl-entry">
+Arsenault, Richard, François Brissette, Jean-Luc Martel, et al. 2020. <span>“A Comprehensive, Multisource Database for Hydrometeorological Modeling of 14,425 North American Watersheds.”</span> <em>Scientific Data</em> 7: 243. <a href="https://doi.org/10.1038/s41597-020-00583-2">https://doi.org/10.1038/s41597-020-00583-2</a>.
+</div>
+<div class="csl-entry">
+Beck, Maximilian, Korbinian Poeschel, Markus Spanring, et al. 2024. <span>“<span class="nocase">xLSTM</span>: Extended Long Short-Term Memory.”</span> <em>arXiv Preprint arXiv:2405.04517</em>. <a href="https://arxiv.org/abs/2405.04517">https://arxiv.org/abs/2405.04517</a>.
+</div>
+<div class="csl-entry">
+Bednar-Friedl, Birgit, Robbert Biesbroek, Daniela N. Schmidt, et al. 2022. <span>“Europe.”</span> In <em>Climate Change 2022: Impacts, Adaptation and Vulnerability</em>. Cambridge University Press. <a href="https://doi.org/10.1017/9781009325844.015">https://doi.org/10.1017/9781009325844.015</a>.
+</div>
+<div class="csl-entry">
+BMWK. n.d. <em>The Electricity Market of the Future</em>. Federal Ministry for Economic Affairs; Climate Action; <a href="https://www.bmwk.de/Redaktion/EN/Dossier/electricity-market-of-the-future.html" class="uri">https://www.bmwk.de/Redaktion/EN/Dossier/electricity-market-of-the-future.html</a>.
+</div>
+<div class="csl-entry">
+Boers, Niklas, and Martin Rypdal. 2021. <span>“Critical Slowing down Suggests That the Western Greenland Ice Sheet Is Close to a Tipping Point.”</span> <em>Proceedings of the National Academy of Sciences</em> 118 (21): e2024192118. <a href="https://doi.org/10.1073/pnas.2024192118">https://doi.org/10.1073/pnas.2024192118</a>.
+</div>
+<div class="csl-entry">
+Chagas, Vinicius B. P., Pedro L. B. Chaffe, Nans Addor, et al. 2020. <span>“CAMELS-BR: Hydrometeorological Time Series and Landscape Attributes for 897 Catchments in Brazil.”</span> <em>Earth System Science Data</em> 12: 2075–96. <a href="https://doi.org/10.5194/essd-12-2075-2020">https://doi.org/10.5194/essd-12-2075-2020</a>.
+</div>
+<div class="csl-entry">
+Chen, Yiling, Zhiying Su, R. Iestyn Woolway, et al. 2026. <span>“Persistent River Heatwaves Are Emerging Worldwide Under Climate Change.”</span> <em>Nature Communications</em> 17: 94. <a href="https://doi.org/10.1038/s41467-025-66868-5">https://doi.org/10.1038/s41467-025-66868-5</a>.
+</div>
+<div class="csl-entry">
+Chen, Ying, Huanping Wu, Nengfu Xie, et al. 2025. <span>“<span>STAT-LSTM</span>: <span>A</span> Multivariate Spatiotemporal Feature Aggregation Model for <span class="nocase">SPEI-based</span> Drought Prediction.”</span> <em>Earth Science Informatics</em> 18 (3): 289. <a href="https://doi.org/10.1007/s12145-025-01813-0">https://doi.org/10.1007/s12145-025-01813-0</a>.
+</div>
+<div class="csl-entry">
+Cleveland, Robert B., William S. Cleveland, Jean E. McRae, and Irma Terpenning. 1990. <span>“STL: A Seasonal-Trend Decomposition Procedure Based on Loess.”</span> <em>Journal of Official Statistics</em> 6 (1): 3–73. <a href="https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf">https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf</a>.
+</div>
+<div class="csl-entry">
+Coxon, Gemma, Nans Addor, John P. Bloomfield, et al. 2020. <span>“CAMELS-GB: Hydrometeorological Time Series and Landscape Attributes for 671 Catchments in Great Britain.”</span> <em>Earth System Science Data</em> 12: 2459–83. <a href="https://doi.org/10.5194/essd-12-2459-2020">https://doi.org/10.5194/essd-12-2459-2020</a>.
+</div>
+<div class="csl-entry">
+Denmark.dk. n.d. <em>Denmark Is a Laboratory for Green Solutions</em>. Ministry of Foreign Affairs of Denmark; <a href="https://denmark.dk/innovation-and-design/green-solutions/" class="uri">https://denmark.dk/innovation-and-design/green-solutions/</a>.
+</div>
+<div class="csl-entry">
+Deser, Clara, Flavio Lehner, Keith B. Rodgers, et al. 2020. <span>“Insights from Earth System Model Initial-Condition Large Ensembles and Future Prospects.”</span> <em>Nature Climate Change</em> 10 (4): 277–86. <a href="https://doi.org/10.1038/s41558-020-0731-2">https://doi.org/10.1038/s41558-020-0731-2</a>.
+</div>
+<div class="csl-entry">
+Efron, Bradley, and Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Chapman &amp; Hall/CRC.
+</div>
+<div class="csl-entry">
+Ember. 2026a. <em>Monthly Electricity Data</em>. <a href="https://ember-energy.org/data/monthly-electricity-data/">https://ember-energy.org/data/monthly-electricity-data/</a>.
+</div>
+<div class="csl-entry">
+Ember. 2026b. <em>Yearly Electricity Data</em>. <a href="https://ember-energy.org/data/yearly-electricity-data/">https://ember-energy.org/data/yearly-electricity-data/</a>.
+</div>
+<div class="csl-entry">
+European Commission. 2020. <em>Poland Final National Energy and Climate Plan Summary</em>. <a href="https://energy.ec.europa.eu/system/files/2020-01/pl_final_necp_summary_en_0.pdf">https://energy.ec.europa.eu/system/files/2020-01/pl_final_necp_summary_en_0.pdf</a>.
+</div>
+<div class="csl-entry">
+Frame, Jonathan M., Frederik Kratzert, Daniel Klotz, et al. 2022. <span>“Deep Learning Rainfall–Runoff Predictions of Extreme Events.”</span> <em>Hydrology and Earth System Sciences</em> 26 (13): 3377–92. <a href="https://doi.org/10.5194/hess-26-3377-2022">https://doi.org/10.5194/hess-26-3377-2022</a>.
+</div>
+<div class="csl-entry">
+Funk, Henri, Cornelia Gruber, Göran Kauermann, Helmut Küchenhoff, and Magdalena Mittermeier. 2026. <em>Probabilistic Deep Learning for Drought Forecasting: Role of Internal Climate Variability</em>. <a href="https://arxiv.org/abs/2608.01864">https://arxiv.org/abs/2608.01864</a>.
+</div>
+<div class="csl-entry">
+Gao, Zhihan, Xingjian Shi, Hao Wang, et al. 2023. <em>Earthformer: <span>Exploring Space-Time Transformers</span> for <span>Earth System Forecasting</span></em>. arXiv:2207.05833. arXiv. <a href="https://doi.org/10.48550/arXiv.2207.05833">https://doi.org/10.48550/arXiv.2207.05833</a>.
+</div>
+<div class="csl-entry">
+Gauch, Martin, Frederik Kratzert, Daniel Klotz, Grey Nearing, Jimmy Lin, and Sepp Hochreiter. 2021. <span>“Rainfall–Runoff Prediction at Multiple Timescales with a Single Long Short-Term Memory Network.”</span> <em>Hydrology and Earth System Sciences</em> 25 (4): 2045–62. <a href="https://doi.org/10.5194/hess-25-2045-2021">https://doi.org/10.5194/hess-25-2045-2021</a>.
+</div>
+<div class="csl-entry">
+Geels, Frank W., and Martina Ayoub. 2023. <span>“A Socio-Technical Transition Perspective on Positive Tipping Points in Climate Change Mitigation: Analysing Seven Interacting Feedback Loops in Offshore Wind and Electric Vehicles Acceleration.”</span> <em>Technological Forecasting and Social Change</em> 193: 122639. <a href="https://doi.org/10.1016/j.techfore.2023.122639">https://doi.org/10.1016/j.techfore.2023.122639</a>.
+</div>
+<div class="csl-entry">
+GOV.UK. 2024. <em>Clean Power 2030 Action Plan</em>. <a href="https://www.gov.uk/government/publications/clean-power-2030-action-plan">https://www.gov.uk/government/publications/clean-power-2030-action-plan</a>.
+</div>
+<div class="csl-entry">
+Gruber, Cornelia, Henri Funk, Magdalena Mittermeier, Helmut Küchenhoff, and Göran Kauermann. 2026. <span>“Capturing Aleatoric Uncertainty in Climate Models.”</span> <em>Environmetrics</em> 37 (5): e70108. <a href="https://doi.org/10.1002/env.70108">https://doi.org/10.1002/env.70108</a>.
+</div>
+<div class="csl-entry">
+Gruber, Cornelia, Patrick Oliver Schenk, Malte Schierholz, Frauke Kreuter, and Göran Kauermann. 2025. <em>Sources of Uncertainty in Supervised Machine Learning – a Statisticians’ View</em>. <a href="https://arxiv.org/abs/2305.16703">https://arxiv.org/abs/2305.16703</a>.
+</div>
+<div class="csl-entry">
+Gu, Albert, and Tri Dao. 2023. <span>“Mamba: Linear-Time Sequence Modeling with Selective State Spaces.”</span> <em>arXiv Preprint arXiv:2312.00752</em>. <a href="https://arxiv.org/abs/2312.00752">https://arxiv.org/abs/2312.00752</a>.
+</div>
+<div class="csl-entry">
+<span class="nocase">Hamel, A. van, G. Bruno, C. Chartier-Rescan, et al.</span> 2025. <span>“Riverine Heatwaves Are an Emergent Climate Change Risk.”</span> <em>Nature Water</em> 3: 1356–64. <a href="https://doi.org/10.1038/s44221-025-00541-5">https://doi.org/10.1038/s44221-025-00541-5</a>.
+</div>
+<div class="csl-entry">
+Hawkins, Ed, and Rowan Sutton. 2009. <span>“The Potential to Narrow Uncertainty in Regional Climate Predictions.”</span> <em>Bulletin of the American Meteorological Society</em> 90 (8): 1095–108. <a href="https://doi.org/10.1175/2009BAMS2607.1">https://doi.org/10.1175/2009BAMS2607.1</a>.
+</div>
+<div class="csl-entry">
+Hawkins, Ed, and Rowan Sutton. 2012. <span>“Time of Emergence of Climate Signals.”</span> <em>Geophysical Research Letters</em> 39: L01702. <a href="https://doi.org/10.1029/2011GL050087">https://doi.org/10.1029/2011GL050087</a>.
+</div>
+<div class="csl-entry">
+Hobday, Alistair J., Lisa V. Alexander, Sarah E. Perkins, et al. 2016. <span>“A Hierarchical Approach to Defining Marine Heatwaves.”</span> <em>Progress in Oceanography</em> 141: 227–38. <a href="https://doi.org/10.1016/j.pocean.2015.12.014">https://doi.org/10.1016/j.pocean.2015.12.014</a>.
+</div>
+<div class="csl-entry">
+Hochreiter, Sepp, and Juergen Schmidhuber. 1997. <span>“Long Short-Term Memory.”</span> <em>Neural Computation</em> 9 (8): 1735–80. <a href="https://doi.org/10.1162/neco.1997.9.8.1735">https://doi.org/10.1162/neco.1997.9.8.1735</a>.
+</div>
+<div class="csl-entry">
+Hoedt, Pieter-Jan, Frederik Kratzert, Daniel Klotz, et al. 2021. <span>“<span>MC-LSTM</span>: Mass-Conserving <span>LSTM</span>.”</span> <em>Proceedings of the 38th International Conference on Machine Learning (ICML)</em>, 4275–86. <a href="https://arxiv.org/abs/2101.05186">https://arxiv.org/abs/2101.05186</a>.
+</div>
+<div class="csl-entry">
+Höge, Marvin, Martina Kauzlaric, Rosi Siber, et al. 2023. <span>“CAMELS-CH: Hydro-Meteorological Time Series and Landscape Attributes for 331 Catchments in Hydrologic Switzerland.”</span> <em>Earth System Science Data</em> 15: 5755–84. <a href="https://doi.org/10.5194/essd-15-5755-2023">https://doi.org/10.5194/essd-15-5755-2023</a>.
+</div>
+<div class="csl-entry">
+Hooker, Giles, Lucas Mentch, and Siyu Zhou. 2021. <em>Unrestricted <span>Permutation</span> Forces <span>Extrapolation</span>: <span>Variable Importance Requires</span> at Least <span>One More Model</span>, or <span>There Is No Free Variable Importance</span></em>. arXiv:1905.03151. arXiv. <a href="https://doi.org/10.48550/arXiv.1905.03151">https://doi.org/10.48550/arXiv.1905.03151</a>.
+</div>
+<div class="csl-entry">
+Hurrell, James W. 1995. <span>“Decadal Trends in the North Atlantic Oscillation: Regional Temperatures and Precipitation.”</span> <em>Science</em> 269 (5224): 676–79. <a href="https://doi.org/10.1126/science.269.5224.676">https://doi.org/10.1126/science.269.5224.676</a>.
+</div>
+<div class="csl-entry">
+IPCC. 2021a. <em>Climate Change 2021: The Physical Science Basis. Contribution of Working Group i to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change</em>. Edited by Valérie Masson-Delmotte, Panmao Zhai, Anna Pirani, et al. Cambridge University Press. <a href="https://doi.org/10.1017/9781009157896">https://doi.org/10.1017/9781009157896</a>.
+</div>
+<div class="csl-entry">
+IPCC. 2021b. <span>“Global <span>Carbon</span> and <span>Other</span> <span>Biogeochemical</span> <span>Cycles</span> and <span>Feedbacks</span>.”</span> In <em>Climate <span>Change</span> 2021 – <span>The</span> <span>Physical</span> <span>Science</span> <span>Basis</span>: <span>Working</span> <span>Group</span> <span>I</span> <span>Contribution</span> to the <span>Sixth</span> <span>Assessment</span> <span>Report</span> of the <span>Intergovernmental</span> <span>Panel</span> on <span>Climate</span> <span>Change</span></em>. Cambridge University Press.
+</div>
+<div class="csl-entry">
+Iturbide, Maialen, José M. Gutiérrez, Lincoln M. Alves, et al. 2020. <span>“An Update of IPCC Climate Reference Regions for Subcontinental Analysis of Climate Model Data: Definition and Aggregated Datasets.”</span> <em>Earth System Science Data</em> 12 (4): 2959–70. <a href="https://doi.org/10.5194/essd-12-2959-2020">https://doi.org/10.5194/essd-12-2959-2020</a>.
+</div>
+<div class="csl-entry">
+Jakhmola, A., J. Jewell, V. Vinichenko, and A. Cherp. 2026. <span>“Probabilistic Projections of Global Wind and Solar Power Growth Based on Historical National Experience.”</span> <em>Nature Energy</em> 11 (5): 743–55. <a href="https://doi.org/10.1038/s41560-026-02021-w">https://doi.org/10.1038/s41560-026-02021-w</a>.
+</div>
+<div class="csl-entry">
+Jolliffe, Ian T., and David B. Stephenson, eds. 2003. <em>Forecast Verification: A Practitioner’s Guide in Atmospheric Science</em>. John Wiley &amp; Sons.
+</div>
+<div class="csl-entry">
+Klingler, Christoph, Karsten Schulz, and Mathew Herrnegger. 2021. <span>“LamaH-CE: LArge-SaMple DAta for Hydrology and Environmental Sciences for Central Europe.”</span> <em>Earth System Science Data</em> 13: 4529–65. <a href="https://doi.org/10.5194/essd-13-4529-2021">https://doi.org/10.5194/essd-13-4529-2021</a>.
+</div>
+<div class="csl-entry">
+Kratzert, Frederik, Martin Gauch, Grey Nearing, and Daniel Klotz. 2022. <span>“<span>NeuralHydrology</span> — <span>A</span> <span>Python</span> Library for Deep Learning Research in Hydrology.”</span> <em>Journal of Open Source Software</em> 7 (71): 4050. <a href="https://doi.org/10.21105/joss.04050">https://doi.org/10.21105/joss.04050</a>.
+</div>
+<div class="csl-entry">
+Kratzert, Frederik, Daniel Klotz, Claire Brenner, Karsten Schulz, and Mathew Herrnegger. 2018. <span>“Rainfall–Runoff Modelling Using Long Short-Term Memory (<span>LSTM</span>) Based Neural Networks.”</span> <em>Hydrology and Earth System Sciences</em> 22 (11): 6005–22. <a href="https://doi.org/10.5194/hess-22-6005-2018">https://doi.org/10.5194/hess-22-6005-2018</a>.
+</div>
+<div class="csl-entry">
+Kratzert, Frederik, Daniel Klotz, Mathew Herrnegger, Alden K. Sampson, Sepp Hochreiter, and Grey S. Nearing. 2019. <span>“Towards Learning Universal, Regional, and Local Hydrological Behaviors via Machine Learning Applied to Large-Sample Datasets.”</span> <em>Hydrology and Earth System Sciences</em> 23 (12): 5089–110. <a href="https://doi.org/10.5194/hess-23-5089-2019">https://doi.org/10.5194/hess-23-5089-2019</a>.
+</div>
+<div class="csl-entry">
+Kratzert, Frederik, Grey Nearing, Nans Addor, et al. 2023. <span>“Caravan – a Global Community Dataset for Large-Sample Hydrology.”</span> <em>Scientific Data</em> 10: 61. <a href="https://doi.org/10.1038/s41597-023-01975-w">https://doi.org/10.1038/s41597-023-01975-w</a>.
+</div>
+<div class="csl-entry">
+Kratzert, Frederik, Grey Nearing, Jonathan Frame, et al. 2023. <span>“Caravan – <span>A</span> Global Community Dataset for Large-Sample Hydrology.”</span> <em>Scientific Data</em> 10 (1): 61. <a href="https://doi.org/10.1038/s41597-023-01975-w">https://doi.org/10.1038/s41597-023-01975-w</a>.
+</div>
+<div class="csl-entry">
+Lehner, Flavio, Clara Deser, Nicola Maher, et al. 2020. <span>“Partitioning Climate Projection Uncertainty with Multiple Large Ensembles and CMIP5/6.”</span> <em>Earth System Dynamics</em> 11 (2): 491–508. <a href="https://doi.org/10.5194/esd-11-491-2020">https://doi.org/10.5194/esd-11-491-2020</a>.
+</div>
+<div class="csl-entry">
+<span class="nocase">Lenton, Timothy M. et al.</span> 2023. <em>The Global Tipping Points Report 2023</em>. University of Exeter. <a href="https://global-tipping-points.org/">https://global-tipping-points.org/</a>.
+</div>
+<div class="csl-entry">
+Lenton, Timothy M., Hermann Held, Elmar Kriegler, et al. 2008. <span>“Tipping Elements in the Earth’s Climate System.”</span> <em>Proceedings of the National Academy of Sciences</em> 105 (6): 1786–93. <a href="https://doi.org/10.1073/pnas.0705414105">https://doi.org/10.1073/pnas.0705414105</a>.
+</div>
+<div class="csl-entry">
+Lenton, Timothy M., Thomas W. R. Powell, Steven R. Smith, et al. 2026. <span>“A Method to Identify Positive Tipping Points to Accelerate Low-Carbon Transitions and Actions to Trigger Them.”</span> <em>Sustainability Science</em> 21 (1): 201–20. <a href="https://doi.org/10.1007/s11625-025-01704-9">https://doi.org/10.1007/s11625-025-01704-9</a>.
+</div>
+<div class="csl-entry">
+Lionello, P., P. Malanotte-Rizzoli, R. Boscolo, et al. 2006. <span>“The <span>Mediterranean</span> Climate: <span>An</span> Overview of the Main Characteristics and Issues.”</span> In <em>Mediterranean</em>, edited by P. Lionello, P. Malanotte-Rizzoli, and R. Boscolo, vol. 4. Developments in <span>Earth</span> and <span>Environmental Sciences</span>. Elsevier. <a href="https://doi.org/10.1016/S1571-9197(06)80003-0">https://doi.org/10.1016/S1571-9197(06)80003-0</a>.
+</div>
+<div class="csl-entry">
+Maher, Nicola, Adam S. Phillips, Clara Deser, et al. 2025. <span>“The Updated Multi-Model Large Ensemble Archive and the Climate Variability Diagnostics Package: New Tools for the Study of Climate Variability and Change.”</span> <em>Geoscientific Model Development</em> 18: 6341–65. <a href="https://doi.org/10.5194/gmd-18-6341-2025">https://doi.org/10.5194/gmd-18-6341-2025</a>.
+</div>
+<div class="csl-entry">
+Mannerfelt, Erik Schytt, Amaury Dehecq, Romain Hugonnet, et al. 2022. <span>“Halving of Swiss Glacier Volume Since 1931 Observed from Terrestrial Image Photogrammetry.”</span> <em>The Cryosphere</em> 16: 3249–68. <a href="https://doi.org/10.5194/tc-16-3249-2022">https://doi.org/10.5194/tc-16-3249-2022</a>.
+</div>
+<div class="csl-entry">
+Marusov, Alexander, Vsevolod Grabar, Yury Maximov, Nazar Sotiriadi, Alexander Bulkin, and Alexey Zaytsev. 2024. <span>“Long-Term Drought Prediction Using Deep Neural Networks Based on Geospatial Weather Data.”</span> <em>Environmental Modelling &amp; Software</em> 179 (August): 106127. <a href="https://doi.org/10.1016/j.envsoft.2024.106127">https://doi.org/10.1016/j.envsoft.2024.106127</a>.
+</div>
+<div class="csl-entry">
+<span class="nocase">Matiu, Michael, Alice Crespi, Giacomo Bertoldi, et al.</span> 2021. <span>“Observed Snow Depth Trends in the European Alps: 1971 to 2019.”</span> <em>The Cryosphere</em> 15: 1343–82. <a href="https://doi.org/10.5194/tc-15-1343-2021">https://doi.org/10.5194/tc-15-1343-2021</a>.
+</div>
+<div class="csl-entry">
+McKee, Thomas B., Nolan J. Doesken, and John Kleist. 1993. <span>“The Relationship of Drought Frequency and Duration to Time Scales.”</span> <em>Proceedings of the 8th <span>Conference</span> on <span>Applied Climatology</span></em> 17: 179–83.
+</div>
+<div class="csl-entry">
+McKinnon, Karen A., and Clara Deser. 2018. <span>“Internal Variability and Regional Climate Trends in an Observational Large Ensemble.”</span> <em>Journal of Climate</em> 31: 6783–802. <a href="https://doi.org/10.1175/JCLI-D-17-0901.1">https://doi.org/10.1175/JCLI-D-17-0901.1</a>.
+</div>
+<div class="csl-entry">
+McKinnon, Karen A., and Clara Deser. 2021. <span>“The Inherent Uncertainty of Precipitation Variability, Trends, and Extremes Due to Internal Variability, with Implications for Western u.s. Water Resources.”</span> <em>Journal of Climate</em> 34: 9605–22. <a href="https://doi.org/10.1175/JCLI-D-21-0251.1">https://doi.org/10.1175/JCLI-D-21-0251.1</a>.
+</div>
+<div class="csl-entry">
+Mercure, Jean-François. 2012. <span>“<span>FTT:Power</span>: A Global Model of the Power Sector with Induced Technological Change and Natural Resource Depletion.”</span> <em>Energy Policy</em> 48: 799–811. <a href="https://doi.org/10.1016/j.enpol.2012.06.025">https://doi.org/10.1016/j.enpol.2012.06.025</a>.
+</div>
+<div class="csl-entry">
+Mercure, Jean-François, Aileen Lam, Joshua E. Buxton, Chris A. Boulton, Amir Akther, and Timothy M. Lenton. 2026. <span>“Evidence of a Cascading Positive Tipping Point Towards Electric Vehicles.”</span> <em>Nature Communications</em> 17: 240. <a href="https://doi.org/10.1038/s41467-025-66945-9">https://doi.org/10.1038/s41467-025-66945-9</a>.
+</div>
+<div class="csl-entry">
+Milinski, Sebastian, Nicola Maher, and Dirk Olonscheck. 2020. <span>“How Large Does a Large Ensemble Need to Be?”</span> <em>Earth System Dynamics</em> 11: 885–901. <a href="https://doi.org/10.5194/esd-11-885-2020">https://doi.org/10.5194/esd-11-885-2020</a>.
+</div>
+<div class="csl-entry">
+Millot, Claude, and Isabelle Taupier-Letage. 2005. <span>“Circulation in the <span>Mediterranean Sea</span>.”</span> In <em>The <span>Mediterranean Sea</span></em>, edited by Alain Saliot. Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/b107143">https://doi.org/10.1007/b107143</a>.
+</div>
+<div class="csl-entry">
+Milly, P. C. D., Julio Betancourt, Malin Falkenmark, et al. 2008. <span>“Stationarity Is Dead: Whither Water Management?”</span> <em>Science</em> 319 (5863): 573–74. <a href="https://doi.org/10.1126/science.1151915">https://doi.org/10.1126/science.1151915</a>.
+</div>
+<div class="csl-entry">
+MITECO. 2024. <em>Plan Nacional Integrado de Energía y Clima 2023–2030</em>. <a href="https://www.miteco.gob.es/es/energia/estrategia-normativa/pniec-23-30.html">https://www.miteco.gob.es/es/energia/estrategia-normativa/pniec-23-30.html</a>.
+</div>
+<div class="csl-entry">
+Nandgude, Neeta, T. P. Singh, Sachin Nandgude, and Mukesh Tiwari. 2023. <span>“Drought <span>Prediction</span>: <span>A Comprehensive Review</span> of <span>Different Drought Prediction Models</span> and <span>Adopted Technologies</span>.”</span> <em>Sustainability</em> 15 (15): 11684. <a href="https://doi.org/10.3390/su151511684">https://doi.org/10.3390/su151511684</a>.
+</div>
+<div class="csl-entry">
+Nguyen, Tung, Johannes Brandstetter, Ashish Kapoor, Jayesh K. Gupta, and Aditya Grover. 2023. <em><span>ClimaX</span>: <span>A</span> Foundation Model for Weather and Climate</em>. arXiv:2301.10343. arXiv. <a href="https://doi.org/10.48550/arXiv.2301.10343">https://doi.org/10.48550/arXiv.2301.10343</a>.
+</div>
+<div class="csl-entry">
+Noël, Brice, Leo van Kampenhout, Jan T. M. Lenaerts, Willem Jan van de Berg, and Michiel R. van den Broeke. 2021. <span>“A 21st Century Warming Threshold for Sustained Greenland Ice Sheet Mass Loss.”</span> <em>Geophysical Research Letters</em> 48 (5): e2020GL090471. <a href="https://doi.org/10.1029/2020GL090471">https://doi.org/10.1029/2020GL090471</a>.
+</div>
+<div class="csl-entry">
+O’Neill, Brian C., Claudia Tebaldi, Detlef P. van Vuuren, et al. 2016. <span>“The Scenario Model Intercomparison Project (ScenarioMIP) for CMIP6.”</span> <em>Geoscientific Model Development</em> 9 (9): 3461–82. <a href="https://doi.org/10.5194/gmd-9-3461-2016">https://doi.org/10.5194/gmd-9-3461-2016</a>.
+</div>
+<div class="csl-entry">
+Pathak, Jaideep, Shashank Subramanian, Peter Harrington, et al. 2022. <em><span>FourCastNet</span>: <span class="nocase">A Global Data-driven High-resolution Weather Model</span> Using <span>Adaptive Fourier Neural Operators</span></em>. arXiv:2202.11214. arXiv. <a href="https://doi.org/10.48550/arXiv.2202.11214">https://doi.org/10.48550/arXiv.2202.11214</a>.
+</div>
+<div class="csl-entry">
+Perez, Ethan, Florian Strub, Harm De Vries, Vincent Dumoulin, and Aaron Courville. 2018. <span>“<span>FiLM</span>: <span>Visual Reasoning</span> with a <span>General Conditioning Layer</span>.”</span> <em>Proceedings of the <span>AAAI Conference</span> on <span>Artificial Intelligence</span></em> 32 (April). <a href="https://doi.org/10.1609/aaai.v32i1.11671">https://doi.org/10.1609/aaai.v32i1.11671</a>.
+</div>
+<div class="csl-entry">
+Rietkerk, Max, Vanessa Skiba, Els Weinans, Raphaël Hébert, and Thomas Laepple. 2025. <span>“Ambiguity of Early Warning Signals for Climate Tipping Points.”</span> <em>Nature Climate Change</em> 15 (5): 479–88. <a href="https://doi.org/10.1038/s41558-025-02328-8">https://doi.org/10.1038/s41558-025-02328-8</a>.
+</div>
+<div class="csl-entry">
+Robinson, Alexander, Reinhard Calov, and Andrey Ganopolski. 2012. <span>“Multistability and Critical Thresholds of the Greenland Ice Sheet.”</span> <em>Nature Climate Change</em> 2 (6): 429–32. <a href="https://doi.org/10.1038/nclimate1449">https://doi.org/10.1038/nclimate1449</a>.
+</div>
+<div class="csl-entry">
+Rodgers, Keith B., Sun-Seon Lee, Nan Rosenbloom, et al. 2021. <span>“Ubiquity of Human-Induced Changes in Climate Variability.”</span> <em>Earth System Dynamics</em> 12: 1393–411. <a href="https://doi.org/10.5194/esd-12-1393-2021">https://doi.org/10.5194/esd-12-1393-2021</a>.
+</div>
+<div class="csl-entry">
+Rogers, Everett M. 2003. <em>Diffusion of Innovations</em>. 5th ed. Free Press.
+</div>
+<div class="csl-entry">
+Rumpf, Sabine B., Mathieu Gravey, Olivier Brönnimann, et al. 2022. <span>“From White to Green: Snow Cover Loss and Increased Vegetation Productivity in the European Alps.”</span> <em>Science</em> 376: 1119–22. <a href="https://doi.org/10.1126/science.abn6697">https://doi.org/10.1126/science.abn6697</a>.
+</div>
+<div class="csl-entry">
+Sadayappan, Kayalvizhi, and Li Li. 2025. <span>“Riverine Heat Waves on the Rise, Outpacing Air Heat Waves.”</span> <em>Proceedings of the National Academy of Sciences</em> 122 (39): e2503160122. <a href="https://doi.org/10.1073/pnas.2503160122">https://doi.org/10.1073/pnas.2503160122</a>.
+</div>
+<div class="csl-entry">
+Saravanan, V., Gordon J. Berman, and Samuel J. Sober. 2020. <span>“Application of the Hierarchical Bootstrap to Multi-Level Data in Neuroscience.”</span> <em>Neurons, Behavior, Data Analysis, and Theory</em> 3 (5): 1–25.
+</div>
+<div class="csl-entry">
+Scheffer, Marten, Jordi Bascompte, William A. Brock, et al. 2009. <span>“Early-Warning Signals for Critical Transitions.”</span> <em>Nature</em> 461 (7260): 53–59. <a href="https://doi.org/10.1038/nature08227">https://doi.org/10.1038/nature08227</a>.
+</div>
+<div class="csl-entry">
+Schmocker-Fackel, Petra, and Felix Naef. 2010. <span>“More Frequent Flooding? Changes in Flood Frequency in Switzerland Since 1850.”</span> <em>Journal of Hydrology</em> 381: 1–8. <a href="https://doi.org/10.1016/j.jhydrol.2009.09.022">https://doi.org/10.1016/j.jhydrol.2009.09.022</a>.
+</div>
+<div class="csl-entry">
+Sen, Pranab Kumar. 1968. <span>“Estimates of the Regression Coefficient Based on Kendall’s Tau.”</span> <em>Journal of the American Statistical Association</em> 63: 1379–89. <a href="https://doi.org/10.1080/01621459.1968.10480934">https://doi.org/10.1080/01621459.1968.10480934</a>.
+</div>
+<div class="csl-entry">
+Sharpe, Simon, and Timothy M. Lenton. 2021. <span>“Upward-Scaling Tipping Cascades to Meet Climate Goals: Plausible Grounds for Hope.”</span> <em>Climate Policy</em> 21 (4): 421–33. <a href="https://doi.org/10.1080/14693062.2020.1870097">https://doi.org/10.1080/14693062.2020.1870097</a>.
+</div>
+<div class="csl-entry">
+Swart, Neil C., Jason N. S. Cole, Viatcheslav V. Kharin, et al. 2019. <span>“The Canadian Earth System Model Version 5 (CanESM5.0.3).”</span> <em>Geoscientific Model Development</em> 12 (11): 4823–73. <a href="https://doi.org/10.5194/gmd-12-4823-2019">https://doi.org/10.5194/gmd-12-4823-2019</a>.
+</div>
+<div class="csl-entry">
+Tebaldi, Claudia, and Reto Knutti. 2007. <span>“The Use of the Multi-Model Ensemble in Probabilistic Climate Projections.”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em> 365 (1857): 2053–75. <a href="https://doi.org/10.1098/rsta.2007.2076">https://doi.org/10.1098/rsta.2007.2076</a>.
+</div>
+<div class="csl-entry">
+Van den Bulte, Christophe, and Gary L. Lilien. 1997. <span>“Bias and Systematic Change in the Parameter Estimates of Macro-Level Diffusion Models.”</span> <em>Marketing Science</em> 16 (4): 338–53. <a href="https://doi.org/10.1287/mksc.16.4.338">https://doi.org/10.1287/mksc.16.4.338</a>.
+</div>
+<div class="csl-entry">
+Vicente-Serrano, Sergio M., Santiago Beguería, and Juan I. López-Moreno. 2010. <span>“A <span>Multiscalar Drought Index Sensitive</span> to <span>Global Warming</span>: <span>The Standardized Precipitation Evapotranspiration Index</span>.”</span> <em>Journal of Climate</em> 23 (7): 1696–718. <a href="https://doi.org/10.1175/2009JCLI2909.1">https://doi.org/10.1175/2009JCLI2909.1</a>.
+</div>
+<div class="csl-entry">
+Wang, Tian, Xinjun Tu, Vijay P. Singh, Xiaohong Chen, Kairong Lin, and Zonglin Zhou. 2023. <span>“Drought Prediction: <span>Insights</span> from the Fusion of <span>LSTM</span> and Multi-Source Factors.”</span> <em>Science of The Total Environment</em> 902 (December): 166361. <a href="https://doi.org/10.1016/j.scitotenv.2023.166361">https://doi.org/10.1016/j.scitotenv.2023.166361</a>.
+</div>
+<div class="csl-entry">
+Wilks, Daniel S. 2011. <em>Statistical Methods in the Atmospheric Sciences</em>. Elsevier Academic Press. <a href="https://www.sciencedirect.com/bookseries/international-geophysics/vol/100/suppl/C">https://www.sciencedirect.com/bookseries/international-geophysics/vol/100/suppl/C</a>.
+</div>
+<div class="csl-entry">
+Yu, Jiaxin, Tinghuai Ma, Li Jia, Huan Rong, Yuming Su, and Mohamed Magdy Abdel Wahab. 2023. <span>“Multivariate Spatio-Temporal Modeling of Drought Prediction Using Graph Neural Network.”</span> <em>Journal of Hydroinformatics</em> 26 (1): 107–24. <a href="https://doi.org/10.2166/hydro.2023.134">https://doi.org/10.2166/hydro.2023.134</a>.
+</div>
+<div class="csl-entry">
+Zargar, Amin, Rehan Sadiq, Bahman Naser, and Faisal I. Khan. 2011. <span>“A Review of Drought Indices.”</span> <em>Environmental Reviews</em> 19: 333–49. <a href="https://www.jstor.org/stable/envirevi.19.333">https://www.jstor.org/stable/envirevi.19.333</a>.
+</div>
+<div class="csl-entry">
+Zeiler, Matthew D., and Rob Fergus. 2013. <em>Visualizing and <span>Understanding Convolutional Networks</span></em>. arXiv:1311.2901. arXiv. <a href="https://doi.org/10.48550/arXiv.1311.2901">https://doi.org/10.48550/arXiv.1311.2901</a>.
+</div>
+<div class="csl-entry">
+Zeng, Ailing, Muxi Chen, Lei Zhang, and Qiang Xu. 2022. <em>Are <span>Transformers Effective</span> for <span>Time Series Forecasting</span>?</em> arXiv:2205.13504. arXiv. <a href="https://doi.org/10.48550/arXiv.2205.13504">https://doi.org/10.48550/arXiv.2205.13504</a>.
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ctp.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

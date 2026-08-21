@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Hydrology under Climate Change | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Hydrology under Climate Change | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Hydrology under Climate Change | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dp.html"/>
+<link rel="next" href="nh-neural-hydrology.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hyd" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Hydrology under Climate Change<a href="hyd.html#hyd" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Rong Bao</em></p>
+<p><em>Supervisor: Henri Funk</em></p>
+<p><em>Degree: Bachelor</em></p>
+<div id="abstract-1" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Abstract<a href="hyd.html#abstract-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Streamflow integrates the weather, geology and land cover of an entire catchment into a single measured quantity, which makes it a natural indicator of hydrological change. At the same time, rivers are noisy: they swing between wet and dry years on their own, and this natural variability can mask a slow climate-driven trend for decades. This chapter asks when, where, and in which seasons the climate-change signal in Swiss river flows becomes detectable above natural variability — the <em>time of emergence</em> (ToE) <span class="citation">(<a href="#ref-hawkins2012">Hawkins and Sutton 2012</a>)</span> — and whether flow is increasing or decreasing. Using observed daily discharge from 209 quality-controlled catchments of the CAMELS-CH dataset (1981–2020) <span class="citation">(<a href="#ref-hoege2023">Höge et al. 2023</a>)</span>, the climate signal is separated from noise with a robust STL decomposition <span class="citation">(<a href="#ref-cleveland1990">Cleveland et al. 1990</a>)</span>, and emergence is declared when the signal-to-noise ratio (SNR) permanently exceeds a threshold of 1 (lenient) or 2 (strict). By 2020 only 19 of 209 rivers have emerged at the lenient threshold; extrapolating the robust Theil–Sen trend <span class="citation">(<a href="#ref-sen1968">Sen 1968</a>)</span> suggests a median emergence year around 2046, while 73 rivers never emerge by 2100. Emergence is spatially structured: the low-elevation Jura and Plateau lead, while high Alpine regions are delayed in the annual analysis because winter increases and summer decreases partly cancel. A complementary per-season analysis shows that spring and summer are the sentinel seasons (about 70 % of rivers emerged by 2100), and reveals a seasonal redistribution of water: winter flows predominantly rise while summer flows predominantly fall. Estimated emergence years carry substantial uncertainty and should be read as indicative; the direction, ordering and spatial-seasonal pattern of change are the robust results.</p>
+</div>
+<div id="introduction-2" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Introduction<a href="hyd.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hydrology is the study of water moving through the landscape: rain and snow fall, water is stored in soil, snowpack and glaciers, and eventually reaches the rivers. Streamflow — the amount of water in a river — is special among climate indicators because it aggregates the meteorological forcing and physical properties of a whole catchment into one number that is measured operationally, often for many decades.</p>
+<p>One difficulty runs through any attempt to detect climate change in river flow: rivers are noisy. Even without any external forcing, discharge fluctuates strongly between wet and dry years and between decades. Natural variability in this sense is the year-to-year and decade-to-decade swing a river shows on its own; it has no long-term trend and averages to zero over time. A forced climate signal only becomes <em>detectable</em> once it has grown large relative to this background — the concept of the time of emergence, introduced for temperature by <span class="citation">Hawkins and Sutton (<a href="#ref-hawkins2012">2012</a>)</span> and since applied across climate variables.</p>
+<p>The way around the noisiness of individual records is scale: analysing not one river but hundreds at once. This is exactly what the recent <em>large-sample hydrology</em> datasets enable. The research question of this chapter is therefore:</p>
+<blockquote>
+<p><strong>When, where, and in which seasons does the climate-change signal in Swiss streamflow become detectable above natural variability — and is the flow increasing or decreasing?</strong></p>
+</blockquote>
+</div>
+<div id="data" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Data<a href="hyd.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-camels-family" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> The CAMELS family<a href="hyd.html#the-camels-family" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Large-sample hydrology requires data for hundreds of catchments in one consistent format. CAMELS (“Catchment Attributes and MEteorology for Large-sample Studies”) datasets package, for every gauged catchment in a region, three matched data types: (i) daily streamflow at the gauge, (ii) catchment-averaged meteorology (precipitation, temperature, potential evapotranspiration), and (iii) static attributes describing topography, climate, soil, geology and land cover <span class="citation">(<a href="#ref-addor2017">Addor et al. 2017</a>)</span>. Following the original US dataset, national versions exist for Great Britain <span class="citation">(<a href="#ref-coxon2020">Coxon et al. 2020</a>)</span>, Brazil <span class="citation">(<a href="#ref-chagas2020">Chagas et al. 2020</a>)</span>, Central Europe <span class="citation">(<a href="#ref-klingler2021">Klingler et al. 2021</a>)</span> and North America <span class="citation">(<a href="#ref-arsenault2020">Arsenault et al. 2020</a>)</span>, among others, and the Caravan initiative merges them into a global community dataset <span class="citation">(<a href="#ref-kratzert2023">Kratzert, Nearing, Addor, et al. 2023</a>)</span>.</p>
+</div>
+<div id="camels-ch-and-the-case-for-switzerland" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> CAMELS-CH and the case for Switzerland<a href="hyd.html#camels-ch-and-the-case-for-switzerland" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>CAMELS-CH is the Swiss member of this family <span class="citation">(<a href="#ref-hoege2023">Höge et al. 2023</a>)</span>. It covers 331 catchments in hydrologic Switzerland over 40 years (1981–2020); about one third of the catchments extend into neighbouring countries. This chapter uses two components: the <strong>observed</strong> daily specific discharge (mm d<sup>-1</sup>) — simulated series are deliberately excluded, because the goal is to identify emergence directly from observations — and the catchment boundary polygons, needed to assign every gauge to a reporting region.</p>
+<p>Switzerland is a natural laboratory for this question. It is often called the “water tower of Europe”, holding the largest share of the Alpine glacier mass, and change is already visible throughout its water cycle: Alpine snow cover has declined by more than 8 % per decade since the early 1970s <span class="citation">(<a href="#ref-matiu2021"><span class="nocase">Matiu et al.</span> 2021</a>)</span>, glaciers have lost about half of their volume since 1931 <span class="citation">(<a href="#ref-mannerfelt2022">Mannerfelt et al. 2022</a>)</span>, flood frequency has increased in parts of the country since around 1970 <span class="citation">(<a href="#ref-schmockerfackel2010">Schmocker-Fackel and Naef 2010</a>)</span>, and the Alps are literally turning greener <span class="citation">(<a href="#ref-rumpf2022">Rumpf et al. 2022</a>)</span>. The broader water cycle is clearly changing; the precise question here is when that change becomes statistically visible in river discharge itself.</p>
+</div>
+<div id="regions-and-preprocessing" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Regions and preprocessing<a href="hyd.html#regions-and-preprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For reporting, catchments are grouped into the seven official FOEN bio-geographic regions (Fig. <a href="hyd.html#fig:hyd-regions">3.1</a>): Jura, the Black Forest border area, the Plateau, and the four Alpine regions Alps North, West, South and East. This grouping matters because Switzerland is not hydrologically uniform — a low-elevation Plateau river and a high Alpine snowmelt river can respond very differently to warming. Regions are assigned by spatial overlay of the official region polygons with the CAMELS-CH catchment polygons; each catchment is assigned to the region covering the largest share of its area. About 20 % of catchments cross a regional boundary.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-regions"></span>
+<img src="work/03-hydrology_cc/figures/regions_of_swiss_map.png" alt="The seven FOEN bio-geographic regions of Switzerland used for reporting. Adapted from @hoege2023 (Fig. 4); region polygons: Swiss Federal Office for the Environment (FOEN)." width="85%" />
+<p class="caption">
+FIGURE 3.1: The seven FOEN bio-geographic regions of Switzerland used for reporting. Adapted from <span class="citation">Höge et al. (<a href="#ref-hoege2023">2023</a>)</span> (Fig. 4); region polygons: Swiss Federal Office for the Environment (FOEN).
+</p>
+</div>
+<p>Three preparation steps precede the analysis. First, daily discharge is aggregated to quarterly means using climatological seasons (DJF, MAM, JJA, SON; December is assigned to the following year’s winter). Second, quality control: a quarter with more than 5 % of daily values missing is dropped, and a station is excluded entirely if any of its seasonal series is more than 20 % incomplete. After filtering, <strong>209 of the 331 rivers</strong> remain. Third, the regional assignment described above.</p>
+</div>
+</div>
+<div id="methods-2" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Methods<a href="hyd.html#methods-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="signal-versus-noise" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Signal versus noise<a href="hyd.html#signal-versus-noise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Any observed change in river flow can be decomposed into a forced, climate-related <strong>signal</strong> and <strong>noise</strong> — natural variability including wet and dry years and extreme events that are not part of the long-term trend. A signal is detectable only when it is large compared with the noise, which motivates a signal-to-noise framework.</p>
+</div>
+<div id="stl-decomposition" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> STL decomposition<a href="hyd.html#stl-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Alpine rivers have a strong seasonal cycle — high flow in the melt season, low flow in winter — which would dominate the analysis and inflate the noise if left in the series. STL (Seasonal-Trend decomposition using Loess) <span class="citation">(<a href="#ref-cleveland1990">Cleveland et al. 1990</a>)</span> writes the observed quarterly flow <span class="math inline">\(Y_t\)</span> as three additive components,</p>
+<p><span class="math display">\[
+Y_t = T_t + S_t + R_t,
+\]</span></p>
+<p>where <span class="math inline">\(T_t\)</span> is the slowly varying <strong>trend</strong> (used as the signal), <span class="math inline">\(S_t\)</span> the regular within-year <strong>seasonal cycle</strong>, and <span class="math inline">\(R_t\)</span> the <strong>remainder</strong> (used to estimate the noise).</p>
+<p>STL assumes no parametric model; every component is built from one smoother, loess, applied inside two nested loops. Loess estimates the value at a target time <span class="math inline">\(x\)</span> by taking the <span class="math inline">\(q\)</span> nearest observations, scaling their distances by <span class="math inline">\(\lambda_q(x)\)</span>, the distance to the <span class="math inline">\(q\)</span>-th nearest neighbour, down-weighting more distant points, and fitting a locally weighted regression. The <strong>inner loop</strong> alternates between updating the seasonal component — smoothing each seasonal subseries (all winters together, all springs together, …) and removing leftover trend with a low-pass filter — and updating the trend by smoothing the deseasonalised series. The <strong>outer loop</strong> makes the procedure robust: points with extreme remainders receive small (or zero) robustness weights before the inner loop is repeated. This matters hydrologically because flood and drought years are real but should not bend the long-term trend; here the outer loop is iterated 15 times.</p>
+</div>
+<div id="signal-noise-and-time-of-emergence" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Signal, noise, and time of emergence<a href="hyd.html#signal-noise-and-time-of-emergence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The reference period is <strong>1981–2000</strong> (80 quarterly values), treated as the pre-change baseline. The signal at time <span class="math inline">\(t\)</span> is the STL trend relative to its baseline mean, and the noise <span class="math inline">\(\sigma_N\)</span> is the standard deviation of the STL remainder over the same period, so every river is scaled by its own baseline variability:</p>
+<p><span class="math display">\[
+\mathrm{SNR}(t) \;=\; \frac{T_t - \overline{T}_{\mathrm{ref}}}{\sigma_N},
+\qquad
+\sigma_N = \mathrm{sd}\!\left(R_t \,\middle|\, t \in \text{1981–2000}\right).
+\]</span></p>
+<p>The <strong>time of emergence</strong> is the first year in which <span class="math inline">\(|\mathrm{SNR}(t)|\)</span> crosses a threshold and stays beyond it until the end of the record. Two thresholds are reported, following the time-of-emergence literature <span class="citation">(<a href="#ref-hawkins2012">Hawkins and Sutton 2012</a>)</span>: a lenient level <span class="math inline">\(|\mathrm{SNR}| \ge 1\)</span> and a strict level <span class="math inline">\(|\mathrm{SNR}| \ge 2\)</span>.</p>
+<p>To extend the analysis beyond 2020, the trend is extrapolated with the <strong>Theil–Sen slope</strong> <span class="citation">(<a href="#ref-sen1968">Sen 1968</a>)</span>: the median of the slopes between all pairs of time points (12,720 pairwise slopes for 160 quarters). The median is stable because a single extreme event can affect some pairs but cannot easily control the middle of the distribution.</p>
+</div>
+<div id="a-worked-example" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> A worked example<a href="hyd.html#a-worked-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Figures <a href="hyd.html#fig:hyd-stl-overlay">3.2</a> and <a href="hyd.html#fig:hyd-stl-snr">3.3</a> illustrate the pipeline for gauge 2219. The observed quarterly series (grey) is strongly seasonal and noisy; STL separates the seasonal cycle (pink: trend + seasonality) from the smooth trend (blue). For this river the baseline trend mean is 5.40 mm d<sup>-1</sup> and the baseline noise is 0.89 mm d<sup>-1</sup>. The Theil–Sen slope is positive, about +0.22 mm d<sup>-1</sup> per decade, so this river is getting wetter in the trend component. By 2020 the SNR reaches 0.67 — below the lenient threshold, so the signal has not yet emerged within the observed record; extrapolation puts lenient emergence at 2034 and strict emergence at 2073.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-stl-overlay"></span>
+<img src="work/03-hydrology_cc/figures/stl_example_overlay.png" alt="Worked example (gauge 2219): observed quarterly flow (grey), STL trend plus seasonality (pink) and STL trend (blue)." width="90%" />
+<p class="caption">
+FIGURE 3.2: Worked example (gauge 2219): observed quarterly flow (grey), STL trend plus seasonality (pink) and STL trend (blue).
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-stl-snr"></span>
+<img src="work/03-hydrology_cc/figures/stl_example_snr.png" alt="Worked example (gauge 2219): the trend standardised by baseline noise, with the lenient and strict emergence thresholds and the extrapolated Theil–Sen trend." width="90%" />
+<p class="caption">
+FIGURE 3.3: Worked example (gauge 2219): the trend standardised by baseline noise, with the lenient and strict emergence thresholds and the extrapolated Theil–Sen trend.
+</p>
+</div>
+</div>
+</div>
+<div id="results-2" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Results<a href="hyd.html#results-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="annual-emergence-and-threshold-sensitivity" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Annual emergence and threshold sensitivity<a href="hyd.html#annual-emergence-and-threshold-sensitivity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Across all 209 analysable rivers, the choice of threshold matters greatly for the numbers but not for the conclusion (Table <a href="hyd.html#tab:hyd-thresholds">3.1</a>). At the lenient threshold, 19 rivers have already emerged by 2020, another 117 are projected to emerge by 2100 (median emergence year around 2046), and 73 never emerge by 2100. At the strict threshold only 2 rivers have emerged, 71 are projected to emerge, and 136 never do. Either way, most annual-flow emergence is not yet visible in 2020 — it happens after mid-century.</p>
+<table style="width:100%;">
+<caption><span id="tab:hyd-thresholds">TABLE 3.1: </span>Threshold sensitivity of annual emergence (209 rivers).</caption>
+<colgroup>
+<col width="45%" />
+<col width="17%" />
+<col width="22%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Threshold</th>
+<th align="right">Emerged by 2020</th>
+<th align="right">Projected 2021–2100</th>
+<th align="right">Never by 2100</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lenient (<span class="math inline">\(\lvert\mathrm{SNR}\rvert \ge 1\)</span>)</td>
+<td align="right">19</td>
+<td align="right">117</td>
+<td align="right">73</td>
+</tr>
+<tr class="even">
+<td align="left">Strict (<span class="math inline">\(\lvert\mathrm{SNR}\rvert \ge 2\)</span>)</td>
+<td align="right">2</td>
+<td align="right">71</td>
+<td align="right">136</td>
+</tr>
+</tbody>
+</table>
+<p>How certain are these years? Of the 136 rivers that emerge at the lenient threshold, only 19 do so within the observed record; all other years are extrapolations. Each estimated year therefore carries an error bar — formally about ±5 years, realistically 10–20 years, widening into the future (Fig. <a href="hyd.html#fig:hyd-uncertainty">3.4</a>). The direction and the <em>ordering</em> of emergence are trustworthy; any single year should be read as ±a decade, and anything past 2080 as indicative only.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-uncertainty"></span>
+<img src="work/03-hydrology_cc/figures/emergence_year_uncertainty.png" alt="Uncertainty of estimated emergence years: the dark band shows the formal range (about $\pm$5 years), the pale band a realistic range (10--20 years), widening into the future." width="90%" />
+<p class="caption">
+FIGURE 3.4: Uncertainty of estimated emergence years: the dark band shows the formal range (about $$5 years), the pale band a realistic range (10–20 years), widening into the future.
+</p>
+</div>
+</div>
+<div id="regional-patterns-low-elevations-lead" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Regional patterns: low elevations lead<a href="hyd.html#regional-patterns-low-elevations-lead" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Emergence is spatially structured (Fig. <a href="hyd.html#fig:hyd-extent-region">3.5</a>). The low-to-mid elevation regions climb fastest: by 2050 the Jura reaches 78 % emerged and the Plateau 62 %. The high Alpine regions are slower — Alps North, East and South reach only about 40–60 % by 2100, with Alps South slowest at roughly 40 %. This may seem surprising given how strongly the Alps are affected by warming, but in high Alpine catchments winter <em>increases</em> and summer <em>decreases</em> can partly cancel in the annual mean, delaying annual emergence — a first hint that the annual perspective hides the real fingerprint.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-extent-region"></span>
+<img src="work/03-hydrology_cc/figures/emergence_extent_by_region.png" alt="Cumulative share of rivers with an emerged annual signal over time, by bio-geographic region (lenient threshold)." width="95%" />
+<p class="caption">
+FIGURE 3.5: Cumulative share of rivers with an emerged annual signal over time, by bio-geographic region (lenient threshold).
+</p>
+</div>
+</div>
+<div id="seasonal-analysis-spring-and-summer-as-sentinels" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Seasonal analysis: spring and summer as sentinels<a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Climate change in Alpine hydrology has a seasonal fingerprint: snow storage, snowmelt timing, glacier melt and rainfall affect different seasons differently. For each gauge, four annual series are built (one value per year for DJF, MAM, JJA, SON). Since each series has one value per year, no within-year cycle remains and STL is not re-applied; instead the signal is a Theil–Sen robust line, the noise is the standard deviation of detrended residuals over 1981–2000, and the emergence rule is unchanged.</p>
+<p>By 2020 the emerged share is still around 10 % in every season; the seasons then separate (Fig. <a href="hyd.html#fig:hyd-seasonal-curves">3.6</a>). By 2050 spring, summer and autumn reach about 40–44 % while winter lags at 31 %; by 2100 spring reaches 71 % and summer 70 %, against 59 % in autumn and 53 % in winter. <strong>Spring and summer are the sentinel seasons</strong> — not the only seasons changing, but those where emergence becomes most widespread.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-seasonal-curves"></span>
+<img src="work/03-hydrology_cc/figures/seasonal_emergence_extent_curves.png" alt="Emerged share of rivers over time for each season (lenient threshold)." width="95%" />
+<p class="caption">
+FIGURE 3.6: Emerged share of rivers over time for each season (lenient threshold).
+</p>
+</div>
+</div>
+<div id="direction-of-change-winter-up-summer-down" class="section level3 hasAnchor" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Direction of change: winter up, summer down<a href="hyd.html#direction-of-change-winter-up-summer-down" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The directional split is clean (Fig. <a href="hyd.html#fig:hyd-direction-bars">3.7</a>). Winter is the only season where rises dominate: 39 % of winter rivers show a rising signal by 2100 against 14 % falling. Every other season is dominated by declines, most extremely summer, where 64 % of rivers decline and only 6 % rise. A plausible mechanism is the classic Alpine fingerprint: warming turns winter snowfall into rain and shifts snowmelt earlier, so more water leaves in winter and less meltwater remains for summer. The data thus show a <em>seasonal redistribution</em> of water — more flow in winter, less in the rest of the year — which is partly hidden in annual averages.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-direction-bars"></span>
+<img src="work/03-hydrology_cc/figures/seasonal_direction_bars.png" alt="Share of rivers per season whose signal emerges by 2100 with rising versus falling direction (lenient threshold); the gap to 100\% corresponds to rivers that never emerge." width="90%" />
+<p class="caption">
+FIGURE 3.7: Share of rivers per season whose signal emerges by 2100 with rising versus falling direction (lenient threshold); the gap to 100% corresponds to rivers that never emerge.
+</p>
+</div>
+<p>The direction also varies systematically by region (Fig. <a href="hyd.html#fig:hyd-direction-region">3.8</a>). Winter increases are concentrated in the high Alps (86 % of emerged rivers rising in Alps South, 80 % in Alps East), while low regions are mixed. In summer, declines dominate everywhere (83 % in Alps East, 76 % in Alps West, 71 % in Alps North, 60 % on the Plateau). Spring shows the sharpest contrast: strongly decreasing in the low regions (Jura 96 %, Plateau 76 %, Black Forest 71 %) while the western, southern and eastern Alps retain 43–47 % increasing shares. In autumn, decreases dominate almost everywhere (Jura 100 %, Alps West 88 %, Plateau 67 %). The winter-up signal is an Alpine signal; the decreases appear first and most completely in the low regions.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-direction-region"></span>
+<img src="work/03-hydrology_cc/figures/seasonal_direction_by_region.png" alt="Direction of the emerged signal by 2100, split by season and bio-geographic region: share of emerged rivers with rising (red) versus falling (blue) flow." width="95%" />
+<p class="caption">
+FIGURE 3.8: Direction of the emerged signal by 2100, split by season and bio-geographic region: share of emerged rivers with rising (red) versus falling (blue) flow.
+</p>
+</div>
+<p>Finally, the season-by-region heatmap (Fig. <a href="hyd.html#fig:hyd-heatmap">3.9</a>) gives the fine structure of emergence extent by 2100. In winter, emergence climbs with elevation, from 19 % in the Jura to 86–87 % in Alps South and East. Spring is almost the mirror image, strongest in the low regions (Jura 96 %, Black Forest 88 %, Plateau 83 %) and weakest in Alps East (47 %). Summer peaks in the Alps (Alps East 90 %, Alps West 88 %, Alps North 78 %), and autumn is the most uneven row (Jura 100 %, Alps West 88 %, but Alps South only 10 %). Every region has at least one season with high emergence — but <em>which</em> season differs systematically.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hyd-heatmap"></span>
+<img src="work/03-hydrology_cc/figures/seasonal_emergence_heatmap.png" alt="Season-by-region heatmap: share of rivers whose signal emerges by 2100 at the lenient threshold, in either direction." width="95%" />
+<p class="caption">
+FIGURE 3.9: Season-by-region heatmap: share of rivers whose signal emerges by 2100 at the lenient threshold, in either direction.
+</p>
+</div>
+</div>
+</div>
+<div id="conclusion-2" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Conclusion<a href="hyd.html#conclusion-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Five points summarise this chapter. <strong>Method</strong>: the signal is the STL trend relative to the 1981–2000 baseline, scaled by baseline noise; emergence is the first lasting crossing of an SNR threshold. <strong>Timing</strong>: of 209 rivers, only 19 have emerged by 2020 at the lenient threshold; the median projected emergence year is around 2046, and 73 rivers never emerge by 2100. <strong>Geography</strong>: the Jura and Plateau lead (62–78 % emerged by 2050), while the high Alpine regions are slower in the annual analysis. <strong>Season</strong>: spring and summer are the sentinel seasons, each reaching about 70 % of rivers emerged by 2100. <strong>Direction</strong>: winter up, summer down — winter is the only season where rises dominate (39 % of rivers), while summer declines most (64 % falling).</p>
+<p>The strength of this analysis lies in the direction, the spatial and seasonal pattern, and the <em>relative</em> timing of change — which regions and seasons emerge earlier than others. The specific emergence years are estimates with substantial error bars; their value is comparative, not predictive. A useful monitoring strategy for Swiss rivers should therefore be seasonal and regional, not only national and annual.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-addor2017" class="csl-entry">
+Addor, Nans, Andrew J. Newman, Naoki Mizukami, and Martyn P. Clark. 2017. <span>“The <span>CAMELS</span> Data Set: Catchment Attributes and Meteorology for Large-Sample Studies.”</span> <em>Hydrology and Earth System Sciences</em> 21 (10): 5293–313. <a href="https://doi.org/10.5194/hess-21-5293-2017">https://doi.org/10.5194/hess-21-5293-2017</a>.
+</div>
+<div id="ref-arsenault2020" class="csl-entry">
+Arsenault, Richard, François Brissette, Jean-Luc Martel, et al. 2020. <span>“A Comprehensive, Multisource Database for Hydrometeorological Modeling of 14,425 North American Watersheds.”</span> <em>Scientific Data</em> 7: 243. <a href="https://doi.org/10.1038/s41597-020-00583-2">https://doi.org/10.1038/s41597-020-00583-2</a>.
+</div>
+<div id="ref-chagas2020" class="csl-entry">
+Chagas, Vinicius B. P., Pedro L. B. Chaffe, Nans Addor, et al. 2020. <span>“CAMELS-BR: Hydrometeorological Time Series and Landscape Attributes for 897 Catchments in Brazil.”</span> <em>Earth System Science Data</em> 12: 2075–96. <a href="https://doi.org/10.5194/essd-12-2075-2020">https://doi.org/10.5194/essd-12-2075-2020</a>.
+</div>
+<div id="ref-cleveland1990" class="csl-entry">
+Cleveland, Robert B., William S. Cleveland, Jean E. McRae, and Irma Terpenning. 1990. <span>“STL: A Seasonal-Trend Decomposition Procedure Based on Loess.”</span> <em>Journal of Official Statistics</em> 6 (1): 3–73. <a href="https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf">https://www.scb.se/contentassets/ca21efb41fee47d293bbee5bf7be7fb3/stl-a-seasonal-trend-decomposition-procedure-based-on-loess.pdf</a>.
+</div>
+<div id="ref-coxon2020" class="csl-entry">
+Coxon, Gemma, Nans Addor, John P. Bloomfield, et al. 2020. <span>“CAMELS-GB: Hydrometeorological Time Series and Landscape Attributes for 671 Catchments in Great Britain.”</span> <em>Earth System Science Data</em> 12: 2459–83. <a href="https://doi.org/10.5194/essd-12-2459-2020">https://doi.org/10.5194/essd-12-2459-2020</a>.
+</div>
+<div id="ref-hawkins2012" class="csl-entry">
+Hawkins, Ed, and Rowan Sutton. 2012. <span>“Time of Emergence of Climate Signals.”</span> <em>Geophysical Research Letters</em> 39: L01702. <a href="https://doi.org/10.1029/2011GL050087">https://doi.org/10.1029/2011GL050087</a>.
+</div>
+<div id="ref-hoege2023" class="csl-entry">
+Höge, Marvin, Martina Kauzlaric, Rosi Siber, et al. 2023. <span>“CAMELS-CH: Hydro-Meteorological Time Series and Landscape Attributes for 331 Catchments in Hydrologic Switzerland.”</span> <em>Earth System Science Data</em> 15: 5755–84. <a href="https://doi.org/10.5194/essd-15-5755-2023">https://doi.org/10.5194/essd-15-5755-2023</a>.
+</div>
+<div id="ref-klingler2021" class="csl-entry">
+Klingler, Christoph, Karsten Schulz, and Mathew Herrnegger. 2021. <span>“LamaH-CE: LArge-SaMple DAta for Hydrology and Environmental Sciences for Central Europe.”</span> <em>Earth System Science Data</em> 13: 4529–65. <a href="https://doi.org/10.5194/essd-13-4529-2021">https://doi.org/10.5194/essd-13-4529-2021</a>.
+</div>
+<div id="ref-kratzert2023" class="csl-entry">
+Kratzert, Frederik, Grey Nearing, Nans Addor, et al. 2023. <span>“Caravan – a Global Community Dataset for Large-Sample Hydrology.”</span> <em>Scientific Data</em> 10: 61. <a href="https://doi.org/10.1038/s41597-023-01975-w">https://doi.org/10.1038/s41597-023-01975-w</a>.
+</div>
+<div id="ref-mannerfelt2022" class="csl-entry">
+Mannerfelt, Erik Schytt, Amaury Dehecq, Romain Hugonnet, et al. 2022. <span>“Halving of Swiss Glacier Volume Since 1931 Observed from Terrestrial Image Photogrammetry.”</span> <em>The Cryosphere</em> 16: 3249–68. <a href="https://doi.org/10.5194/tc-16-3249-2022">https://doi.org/10.5194/tc-16-3249-2022</a>.
+</div>
+<div id="ref-matiu2021" class="csl-entry">
+<span class="nocase">Matiu, Michael, Alice Crespi, Giacomo Bertoldi, et al.</span> 2021. <span>“Observed Snow Depth Trends in the European Alps: 1971 to 2019.”</span> <em>The Cryosphere</em> 15: 1343–82. <a href="https://doi.org/10.5194/tc-15-1343-2021">https://doi.org/10.5194/tc-15-1343-2021</a>.
+</div>
+<div id="ref-rumpf2022" class="csl-entry">
+Rumpf, Sabine B., Mathieu Gravey, Olivier Brönnimann, et al. 2022. <span>“From White to Green: Snow Cover Loss and Increased Vegetation Productivity in the European Alps.”</span> <em>Science</em> 376: 1119–22. <a href="https://doi.org/10.1126/science.abn6697">https://doi.org/10.1126/science.abn6697</a>.
+</div>
+<div id="ref-schmockerfackel2010" class="csl-entry">
+Schmocker-Fackel, Petra, and Felix Naef. 2010. <span>“More Frequent Flooding? Changes in Flood Frequency in Switzerland Since 1850.”</span> <em>Journal of Hydrology</em> 381: 1–8. <a href="https://doi.org/10.1016/j.jhydrol.2009.09.022">https://doi.org/10.1016/j.jhydrol.2009.09.022</a>.
+</div>
+<div id="ref-sen1968" class="csl-entry">
+Sen, Pranab Kumar. 1968. <span>“Estimates of the Regression Coefficient Based on Kendall’s Tau.”</span> <em>Journal of the American Statistical Association</em> 63: 1379–89. <a href="https://doi.org/10.1080/01621459.1968.10480934">https://doi.org/10.1080/01621459.1968.10480934</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nh-neural-hydrology.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Melting Perspectives on Uncertainty in Climate | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Melting Perspectives on Uncertainty in Climate | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Melting Perspectives on Uncertainty in Climate | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="dp.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="unc" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Melting Perspectives on Uncertainty in Climate<a href="unc.html#unc" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Shuangying Xu</em></p>
+<p><em>Supervisor: Henri Funk</em></p>
+<p><em>Degree: Bachelor</em></p>
+<div id="abstract" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Abstract<a href="unc.html#abstract" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Regional climate projections contain uncertainty from both internal variability and differences among climate-model responses, and these sources can affect how projected warming is interpreted. This seminar work examines fixed-scenario uncertainty in 20-year mean regional JJA warming across Northern Europe, Western and Central Europe, and the Mediterranean using five MMLEAv2 large-ensemble models with 166 ensemble members under SSP3-7.0. Internal variability is estimated from within-model member spread, while model uncertainty is estimated from differences among model-specific ensemble-mean responses using equal model weighting. The analysis further uses prediction ranges, signal-to-noise ratios, threshold exceedance probabilities, hierarchical bootstrap, and balanced-member sensitivity tests. Regional summer warming increases across the century in all three regions, while model-specific responses become increasingly separated. Internal variability in the 20-year warming target remains comparatively stable, whereas model uncertainty grows and becomes the dominant contributor to total fixed-scenario uncertainty. Projection ranges also widen with lead time, with Northern Europe showing particularly large spread despite lower central warming than the other regions. The warming signal is clear relative to internal variability, but disagreement among models reduces confidence in its exact magnitude. Robustness analyses support these qualitative patterns. Overall, the results show that uncertainty attribution depends not only on the model ensemble but also on the definition and temporal averaging of the prediction target.</p>
+</div>
+<div id="introduction" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Introduction<a href="unc.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uncertainty is a central feature of climate projections and can arise from different sources, providing multiple perspectives on how future climate should be interpreted <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. Understanding these different dimensions of uncertainty is important because projected climate change cannot be fully described by a single expected value. This seminar work examines these issues in the context of projected regional summer temperature change.</p>
+<div id="background-and-motivation-uncertainty-in-regional-climate-projections" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Background and Motivation: Uncertainty in Regional Climate Projections<a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At regional scales, climate projections are better understood as a range of possible outcomes than as a single estimate of future change. Different simulations can follow different climate trajectories, while different climate models can also produce different responses to external forcing. Ensemble projections therefore provide information not only about the expected climate response, but also about the spread around that response <span class="citation">(<a href="#ref-Tebaldi2007">Tebaldi and Knutti 2007</a>; <a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p>This spread is particularly relevant for regional climate change. The importance of different sources of uncertainty depends on the region, projection horizon, and spatial and temporal averaging scale <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. Natural climate variability is generally more visible at regional and shorter time scales and may temporarily strengthen or weaken the underlying climate-change signal <span class="citation">(<a href="#ref-Deser2020">Deser et al. 2020</a>; <a href="#ref-Gruber2026">Gruber et al. 2026</a>)</span>. Temporal averaging can reduce the influence of shorter-term fluctuations, so the magnitude of uncertainty also depends on how the projection target is defined <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p>Regional summer temperature is especially relevant for climate-impact assessment. In Europe, increasing temperature and extreme heat are associated with risks to human health, agricultural production, ecosystems, infrastructure, and energy demand, while the severity of these impacts differs across regions <span class="citation">(<a href="#ref-BednarFriedl2022">Bednar-Friedl et al. 2022</a>)</span>. Regional June–July–August (JJA) temperature therefore provides a useful indicator for examining both the magnitude of future warming and the uncertainty surrounding it.</p>
+<p>A multi-model mean alone cannot fully describe these different perspectives on a projection. It does not show the variation among simulations, the disagreement among model responses, or the overall width of the projected warming distribution. A distribution-based interpretation can therefore complement the mean by describing both the magnitude and structure of projection uncertainty. These considerations motivate examining regional warming in terms of how large the projected change is, how uncertain it is, where that uncertainty comes from, and how the resulting distribution can be interpreted. To address these questions consistently, the next section introduces the statistical concepts of uncertainty and connects them to the structure of climate-model ensembles.</p>
+</div>
+<div id="conceptual-and-literature-framework" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Conceptual and Literature Framework<a href="unc.html#conceptual-and-literature-framework" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The sources of projection uncertainty can be viewed through both statistical and climate-specific perspectives <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>; <a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. These perspectives are related, but their correspondence is interpretive rather than exact, especially when applied to complex climate-model ensembles. This section develops that connection and uses it to organize the large-ensemble, fixed-scenario, and distribution-based framework adopted in the analysis.</p>
+<div id="statistical-concepts-of-uncertainty" class="section level4 hasAnchor" number="1.2.2.1">
+<h4><span class="header-section-number">1.2.2.1</span> Statistical Concepts of Uncertainty<a href="unc.html#statistical-concepts-of-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A common statistical distinction is between aleatoric and epistemic uncertainty.</p>
+<p><strong>Aleatoric uncertainty</strong> refers to stochastic variation that remains under a given information set. In probabilistic terms, it can be represented by the conditional distribution of an outcome <span class="math inline">\(Y\)</span> given available information <span class="math inline">\(X=x\)</span>, with its magnitude often summarized by the conditional variance,</p>
+<p><span class="math display">\[
+\operatorname{Var}(Y \mid X=x).
+\]</span></p>
+<p>If this conditional distribution is not concentrated at a single value, the outcome cannot be predicted exactly even when the underlying relationship is known <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>)</span>.</p>
+<p><strong>Epistemic uncertainty</strong>, in contrast, arises from incomplete knowledge about the process being represented. It may reflect imperfect model structure, missing information, omitted processes, or simplifying assumptions, and may in principle be reduced as knowledge, observations, or models improve <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>)</span>. The distinction between aleatoric and epistemic uncertainty is nevertheless context-dependent. Variation that appears irreducible under one information set may become partly explainable when additional information is available. The classification therefore depends on the model, the data, and the information being conditioned on.</p>
+<p>The aleatoric–epistemic distinction is useful for organizing sources of uncertainty, but it does not imply that all sources can be separated cleanly or combined through a general additive decomposition <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>)</span>. More generally, uncertainty can be represented through probability distributions and summarized using measures such as variance, standard deviation, intervals, and probabilities. The following section relates these statistical concepts to the main uncertainty sources in climate projections.</p>
+</div>
+<div id="climate-specific-uncertainty-and-its-statistical-interpretation" class="section level4 hasAnchor" number="1.2.2.2">
+<h4><span class="header-section-number">1.2.2.2</span> Climate-Specific Uncertainty and Its Statistical Interpretation<a href="unc.html#climate-specific-uncertainty-and-its-statistical-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Climate projections are commonly affected by three broad sources of uncertainty: internal variability, model uncertainty, and scenario uncertainty <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. These sources arise from different parts of the climate-projection process and can be related, with appropriate qualifications, to the statistical concepts introduced above.</p>
+<p><strong>Internal variability</strong> refers to fluctuations generated by the inherently chaotic dynamics of the climate system. Under the same model structure and external forcing, small differences in initial conditions can lead to different climate trajectories. In a single-model initial-condition large ensemble, the resulting spread among ensemble members therefore represents variability that remains when model structure and forcing are held fixed <span class="citation">(<a href="#ref-Gruber2026">Gruber et al. 2026</a>)</span>. In this conditional sense, internal variability has an aleatoric-like interpretation because it represents stochastic variation within the modeled climate system. This interpretation is not exact, however, because it depends on how well the climate model represents the underlying stochastic dynamics of the real climate system <span class="citation">(<a href="#ref-Gruber2026">Gruber et al. 2026</a>)</span>. The magnitude of this member-to-member variability also depends on the spatial and temporal scale of the climate quantity being analyzed <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p><strong>Model uncertainty</strong> describes differences in the simulated forced response across climate models exposed to comparable external forcing <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. These differences may arise from model structure, parameterizations, representations of physical processes, and climate feedbacks. From a statistical perspective, model uncertainty has an epistemic-like interpretation because it reflects incomplete knowledge about how the climate system should be represented <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>)</span>. In a multi-model large ensemble, differences among model-specific responses can therefore provide an empirical representation of model uncertainty. However, the spread among a finite set of climate models should not be interpreted as the full epistemic uncertainty associated with the real climate system.</p>
+<p><strong>Scenario uncertainty</strong> arises from differences among possible future forcing pathways. Future emissions, land use, and other external drivers are not known in advance, and alternative pathways can therefore produce different climate responses <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. Unlike internal variability, scenario uncertainty does not describe stochastic variation among realizations under the same forcing. It is more appropriately interpreted as uncertainty associated with alternative conditioning pathways. Because the present analysis later conditions on a single forcing pathway, scenario uncertainty is outside the empirical decomposition considered in this study.</p>
+<p>The relationship between statistical and climate-specific uncertainty can therefore be summarized as follows:</p>
+<table>
+<caption><span id="tab:unc-uncertainty-category">TABLE 1.1: </span> Conceptual relationship between climate-specific and statistical uncertainty.</caption>
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Climate uncertainty source</th>
+<th align="left">Statistical interpretation</th>
+<th align="left">Role in this study</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Internal variability</td>
+<td align="left">Aleatoric-like</td>
+<td align="left">Within-model member variation</td>
+</tr>
+<tr class="even">
+<td align="left">Model uncertainty</td>
+<td align="left">Epistemic-like</td>
+<td align="left">Spread among model responses</td>
+</tr>
+<tr class="odd">
+<td align="left">Scenario uncertainty</td>
+<td align="left">Conditional pathway</td>
+<td align="left">Held fixed in the analysis</td>
+</tr>
+</tbody>
+</table>
+<p>These correspondences provide a useful framework for organizing the analysis, but they should not be treated as strict identities. Whether a source is interpreted as aleatoric or epistemic depends on the model, available information, and conditioning assumptions <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>)</span>. The next section translates these concepts into the hierarchical structure of multi-model large ensembles and defines the climate quantity to which the uncertainty is attached.</p>
+</div>
+<div id="hierarchical-large-ensemble-framework" class="section level4 hasAnchor" number="1.2.2.3">
+<h4><span class="header-section-number">1.2.2.3</span> Hierarchical Large-Ensemble Framework<a href="unc.html#hierarchical-large-ensemble-framework" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The structure of a multi-model large ensemble provides a natural way to distinguish within-model from between-model variation. For regional summer warming, this structure can be represented conceptually as</p>
+<span class="math display" id="eq:unc-hierarchical-framework">\[\begin{equation}
+Y_{m,r,R,P}
+=
+\mu_{R,P}
++
+a_{m,R,P}
++
+\varepsilon_{m,r,R,P},
+\tag{1.1}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(Y_{m,r,R,P}\)</span> denotes period-mean regional JJA warming for model <span class="math inline">\(m\)</span>, ensemble member <span class="math inline">\(r\)</span>, region <span class="math inline">\(R\)</span>, and future period <span class="math inline">\(P\)</span>. The term <span class="math inline">\(\mu_{R,P}\)</span> represents the multi-model mean forced response, <span class="math inline">\(a_{m,R,P}\)</span> represents the model-specific deviation from this mean, and <span class="math inline">\(\varepsilon_{m,r,R,P}\)</span> represents the member-specific deviation associated with internal variability. Equation <a href="unc.html#eq:unc-hierarchical-framework">(1.1)</a> therefore separates variation across model responses from variation among members of the same model.</p>
+<p>Within a single-model initial-condition large ensemble, members share the same model formulation and external forcing but follow different trajectories because of small differences in initial conditions. Member-to-member variation can therefore be used to characterize internal variability, while averaging across members reduces the influence of individual internal fluctuations and provides an estimate of the model-specific forced response <span class="citation">(<a href="#ref-Gruber2026">Gruber et al. 2026</a>; <a href="#ref-Deser2020">Deser et al. 2020</a>)</span>. Because the ensemble is finite, the ensemble mean remains an estimate rather than the exact forced response.</p>
+<p>Extending this structure across several climate models introduces a second level of variation. Differences among model-specific ensemble means represent differences in simulated forced responses, while variation around each model mean represents within-model internal variability. Multiple large ensembles therefore separate these two levels more clearly than collections of single realizations, where internal fluctuations and differences in forced responses can be difficult to distinguish <span class="citation">(<a href="#ref-Lehner2020">Lehner et al. 2020</a>)</span>.</p>
+<p>Because the models contain different numbers of ensemble members, model-level and member-level information should be treated separately rather than pooling all members with equal influence across models. The equal-model weighting design is described in Section 2.4, while the corresponding estimators are introduced in the Methods section.</p>
+</div>
+<div id="fixed-scenario-and-distributional-interpretation" class="section level4 hasAnchor" number="1.2.2.4">
+<h4><span class="header-section-number">1.2.2.4</span> Fixed-Scenario and Distributional Interpretation<a href="unc.html#fixed-scenario-and-distributional-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When the analysis is conditioned on a single future forcing pathway, differences among alternative scenarios fall outside the quantities being estimated. The resulting uncertainty should therefore be interpreted as conditional on that pathway rather than as the complete uncertainty associated with future climate projections <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p>Within this conditional setting, the analysis focuses on two sources of variation identified above: internal variability within climate models and differences in forced responses across models. The variance decomposition used later provides an operational way to quantify the magnitude and relative contribution of these components. It is specific to the climate-ensemble framework adopted in this study and should not be interpreted as a general additive decomposition of aleatoric and epistemic uncertainty.</p>
+<p>Variance decomposition alone, however, does not fully describe the projected warming distribution. A distributional perspective complements source-based decomposition by considering both the location and spread of possible warming outcomes <span class="citation">(<a href="#ref-Tebaldi2007">Tebaldi and Knutti 2007</a>)</span>. Prediction ranges describe the absolute spread of the distribution, signal-to-noise ratios compare the warming signal with uncertainty, and threshold exceedance probabilities describe the position of the distribution relative to specified warming levels <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p>These diagnostics provide complementary views of the same regional warming distribution: how uncertain it is, how clearly the warming signal emerges relative to that uncertainty, and where the projected outcomes lie relative to selected thresholds. Their specific definitions and estimators are introduced in the Methods section.</p>
+</div>
+</div>
+<div id="study-aim-and-research-questions" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> Study Aim and Research Questions<a href="unc.html#study-aim-and-research-questions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Building on the conceptual framework above, this section defines the focus of the seminar work and translates it into research questions on regional summer warming and its uncertainty.</p>
+<p><strong>Study Aim</strong></p>
+<p>This seminar work aims to quantify, decompose, and interpret fixed-scenario uncertainty in projected regional JJA temperature change across selected European IPCC AR6 reference regions. The study applies established large-ensemble methods to distinguish internal variability from differences among model responses and to interpret the resulting warming distribution.</p>
+<p><strong>Study Scope</strong></p>
+<p>The study uses monthly near-surface air temperature (<code>tas</code>) from five CMIP6 large-ensemble models in MMLEAv2, comprising 166 ensemble members under SSP370. The analysis covers Northern Europe (NEU), Western and Central Europe (WCE), and the Mediterranean (MED), with warming calculated relative to the 1995–2014 baseline for three 20-year future periods: 2021–2040, 2041–2060, and 2081–2100. The analysis focuses on internal variability and model uncertainty and complements their decomposition with prediction ranges, internal and total signal-to-noise ratios, and exceedance probabilities for <span class="math inline">\(2^\circ\mathrm{C}\)</span> and <span class="math inline">\(3^\circ\mathrm{C}\)</span> warming.</p>
+<p><strong>Research Questions</strong></p>
+<p>The study is guided by three research questions:</p>
+<p><strong>RQ1: Warming magnitude.</strong> How much does regional JJA temperature increase relative to the 1995–2014 baseline across the selected regions and future periods?</p>
+<p><strong>RQ2: Uncertainty magnitude and source.</strong> How large are internal variability, model uncertainty, and total fixed-scenario projection uncertainty in 20-year mean warming, and how do their relative contributions vary across regions and periods?</p>
+<p><strong>RQ3: Interpretation of projection uncertainty.</strong> How can the projected regional warming distribution be interpreted through prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities?</p>
+<p><strong>Analytical Approach</strong></p>
+<p>The analysis follows a consistent workflow from climate-model output to uncertainty interpretation. Monthly gridded <code>tas</code> is first aggregated to regional annual JJA temperature and then expressed as future-period warming relative to the 1995–2014 baseline. Ensemble information is used to distinguish model-specific forced responses, within-model internal variability, and between-model differences in forced responses. Multi-model quantities are constructed with equal model influence, while the resulting warming distribution is interpreted using prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities. Robustness is assessed through hierarchical bootstrap and balanced 20-member subsampling.</p>
+</div>
+</div>
+<div id="data-and-study-design" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Data and Study Design<a href="unc.html#data-and-study-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter describes the data and study design used to define the regional climate projections analyzed in this work. It introduces the ensemble dataset, model and member selection, spatial and temporal domains, and the conditioning and weighting choices that determine the scope of the subsequent uncertainty analysis.</p>
+<div id="mmleav2-dataset-and-climate-variable" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> MMLEAv2 Dataset and Climate Variable<a href="unc.html#mmleav2-dataset-and-climate-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The analysis uses the Multi-Model Large Ensemble Archive Version 2 (MMLEAv2), an updated collection of initial-condition large ensembles designed to facilitate comparison across climate models <span class="citation">(<a href="#ref-Maher2025">Maher et al. 2025</a>)</span>. The archive contains multiple climate models and ensemble members on a common <span class="math inline">\(2.5^\circ \times 2.5^\circ\)</span> horizontal grid and provides a range of monthly climate variables <span class="citation">(<a href="#ref-Maher2025">Maher et al. 2025</a>)</span>. The variable used in this study is monthly near-surface air temperature (<code>tas</code>).</p>
+<p>For the selected model ensemble, historical simulations are used to establish the reference-period climate, while SSP370 simulations provide the data for the future periods. The original gridded data are organized hierarchically by climate model, ensemble member, year, month, and grid cell. This structure preserves both repeated realizations within individual models and differences across models.</p>
+<p>MMLEAv2 is therefore well suited to the uncertainty framework developed in Section 1.2. Multiple members within the same model provide information on within-model variability, whereas the availability of multiple large ensembles allows differences among model responses to be examined <span class="citation">(<a href="#ref-Maher2025">Maher et al. 2025</a>)</span>. The statistical inference in this study is conditional on the selected subset of MMLEAv2 models and simulations, which is described in the following section.</p>
+</div>
+<div id="model-and-ensemble-member-selection" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Model and Ensemble-Member Selection<a href="unc.html#model-and-ensemble-member-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Five CMIP6 large ensembles from MMLEAv2 were selected for the main analysis, giving a total of 166 ensemble members. The selected models and ensemble sizes are summarized in Table <a href="unc.html#tab:unc-model-members">1.2</a>.</p>
+<table>
+<caption><span id="tab:unc-model-members">TABLE 1.2: </span> Selected climate models and ensemble-member counts used in the main analysis.</caption>
+<thead>
+<tr class="header">
+<th align="left">Model</th>
+<th align="left">Members used</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ACCESS-ESM1-5</td>
+<td align="left">40</td>
+</tr>
+<tr class="even">
+<td align="left">CanESM5</td>
+<td align="left">25</td>
+</tr>
+<tr class="odd">
+<td align="left">CESM2 (CMIP6)</td>
+<td align="left">50</td>
+</tr>
+<tr class="even">
+<td align="left">E3SMv2</td>
+<td align="left">21</td>
+</tr>
+<tr class="odd">
+<td align="left">MPI-ESM1-2-LR</td>
+<td align="left">30</td>
+</tr>
+</tbody>
+</table>
+<p>Thus,</p>
+<p><span class="math display">\[
+M=5,
+\qquad
+N=166.
+\]</span></p>
+<p>Member selection was based on the availability of the historical and SSP370 simulations required for the analysis, with additional consistency rules for CESM2 and CanESM5. For CESM2, the large ensemble contains two groups of 50 members that differ in their treatment of biomass-burning forcing. The present study uses the 50 members following the original CMIP6 biomass-burning forcing protocol, thereby avoiding the combination of the two forcing configurations within a single model ensemble <span class="citation">(<a href="#ref-Rodgers2021">Rodgers et al. 2021</a>)</span>. For CanESM5, one consistent group of 25 <code>p1</code> members is used. The <code>p1</code> and <code>p2</code> ensembles differ in the remapping of wind-stress fields, so restricting the analysis to one variant avoids treating this configuration difference as internal variability <span class="citation">(<a href="#ref-Swart2019">Swart et al. 2019</a>)</span>. For ACCESS-ESM1-5, E3SMv2, and MPI-ESM1-2-LR, the available members with the required historical and SSP370 data are retained.</p>
+<p>The ensemble sizes therefore differ considerably across models. Directly pooling all 166 members with equal member weight would give greater influence to models with larger ensembles, particularly CESM2 and ACCESS-ESM1-5. Multi-model quantities are instead constructed so that each climate model receives the same total analytical weight. The formal weighting scheme is described in Section 2.4.</p>
+</div>
+<div id="study-regions-and-time-periods" class="section level3 hasAnchor" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Study Regions and Time Periods<a href="unc.html#study-regions-and-time-periods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The analysis focuses on three European reference regions from the IPCC AR6 regional framework: Northern Europe (NEU), Western and Central Europe (WCE), and the Mediterranean (MED) <span class="citation">(<a href="#ref-Iturbide2020">Iturbide et al. 2020</a>)</span>. These standardized regions provide a consistent basis for comparing regional climate-model output and allow differences in projected warming and uncertainty to be examined across northern, central, and southern Europe. The spatial extent of the three study regions is shown in Figure <a href="unc.html#fig:unc-study-region-map">1.1</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-study-region-map"></span>
+<img src="work/01-climate_uncertainty/figures/fig01_study_region_map.png" alt="Study regions used in the analysis: NEU, WCE, and MED." width="100%" />
+<p class="caption">
+FIGURE 1.1: Study regions used in the analysis: NEU, WCE, and MED.
+</p>
+</div>
+<p>The baseline period is defined as</p>
+<p><span class="math display">\[
+P_0 = 1995\text{--}2014.
+\]</span></p>
+<p>Projected warming is evaluated for three 20-year future periods,</p>
+<p><span class="math display">\[
+P_1 = 2021\text{--}2040,
+\qquad
+P_2 = 2041\text{--}2060,
+\qquad
+P_3 = 2081\text{--}2100.
+\]</span></p>
+<p>These periods represent the near-term, mid-term, and late-century projection windows used in this study and are consistent with the time-slice framework used in the IPCC AR6 assessment <span class="citation">(<a href="#ref-IPCC2021">IPCC 2021a</a>)</span>. All temperature changes are calculated relative to the 1995–2014 baseline.</p>
+<p>The <span class="math inline">\(2^\circ\mathrm{C}\)</span> and <span class="math inline">\(3^\circ\mathrm{C}\)</span> thresholds considered later in the analysis refer specifically to regional JJA warming relative to 1995–2014. They should therefore not be interpreted as global warming levels relative to the pre-industrial period.</p>
+</div>
+<div id="fixed-scenario-design-and-equal-model-weighting" class="section level3 hasAnchor" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Fixed-Scenario Design and Equal Model Weighting<a href="unc.html#fixed-scenario-design-and-equal-model-weighting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>All future simulations in this study follow the SSP3-7.0 forcing pathway, identified as <code>ssp370</code> in CMIP6. SSP3-7.0 is part of the ScenarioMIP design for CMIP6 and represents a relatively high-forcing future pathway <span class="citation">(<a href="#ref-ONeill2016">O’Neill et al. 2016</a>)</span>. Because only one forcing pathway is considered, differences among alternative future scenarios are not sampled in the present analysis. Scenario uncertainty is therefore outside the uncertainty decomposition used in this study <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p>The resulting uncertainty estimates are interpreted as <strong>total fixed-scenario projection uncertainty</strong>. They describe uncertainty associated with internal variability and differences among the selected model responses under the same forcing pathway, rather than the full uncertainty across alternative future scenarios. The formal variance decomposition is introduced later in the Methods section.</p>
+<p>Because the five models contain different numbers of ensemble members, the analysis gives each model equal total influence in multi-model summaries rather than pooling all members with equal weight across models. Model-level information is therefore combined using equal model weighting, while members within each model contribute within that model’s share. This prevents models with larger ensembles from receiving greater influence solely because they contain more members, but it does not imply that the five models are equally accurate <span class="citation">(<a href="#ref-Tebaldi2007">Tebaldi and Knutti 2007</a>)</span>.</p>
+<p>The resulting inference is conditional on the SSP3-7.0 pathway, the five selected climate models, JJA temperature, and the three European study regions. Together with the spatial and temporal domains defined above, these conditions specify the scope within which the subsequent uncertainty estimates and distributional diagnostics are interpreted.</p>
+</div>
+</div>
+<div id="methods" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Methods<a href="unc.html#methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Building on the data and study design described above, this chapter defines the statistical procedures used to construct the regional JJA warming indicator and quantify its uncertainty. The analysis proceeds from temperature aggregation and warming calculation to forced-response estimation, uncertainty decomposition, distribution-based diagnostics, and robustness assessment.</p>
+<div id="analytical-framework-and-statistical-targets" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Analytical Framework and Statistical Targets<a href="unc.html#analytical-framework-and-statistical-targets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The analysis is organized around the hierarchical structure of the multi-model large ensemble. Let <span class="math inline">\(m\)</span> denote the climate model, <span class="math inline">\(r\)</span> the ensemble member, <span class="math inline">\(R\)</span> the study region, and <span class="math inline">\(P\)</span> the future period. The indices <span class="math inline">\(y\)</span> and <span class="math inline">\(g\)</span> are used below for year and grid cell, respectively.</p>
+<p>The core response variable is</p>
+<p><span class="math display">\[
+Y_{m,r,R,P},
+\]</span></p>
+<p>which represents the 20-year mean regional JJA warming for model <span class="math inline">\(m\)</span>, member <span class="math inline">\(r\)</span>, region <span class="math inline">\(R\)</span>, and period <span class="math inline">\(P\)</span>, relative to the 1995–2014 baseline. The detailed construction of this quantity from monthly gridded <code>tas</code> is given in Section 3.2. Importantly, the uncertainty analyzed below therefore concerns member-to-member variation in 20-year mean warming rather than year-to-year JJA temperature variability.</p>
+<p>The main statistical targets are the model-specific forced response <span class="math inline">\(\overline{Y}_{m,R,P}\)</span>, the equal-model-weighted multi-model response <span class="math inline">\(\overline{Y}_{\cdot,R,P}\)</span>, and the internal, model, and total fixed-scenario uncertainty components <span class="math inline">\(U_{\mathrm{internal},R,P}\)</span>, <span class="math inline">\(U_{\mathrm{model},R,P}\)</span>, and <span class="math inline">\(U_{\mathrm{total},R,P}\)</span>. Their relative contributions are evaluated using variance contribution rates. The same model-member warming values are then used to characterize the projection distribution through prediction quantiles, signal-to-noise ratios, and threshold exceedance probabilities.</p>
+<p>The overall analytical workflow is summarized in Figure <a href="unc.html#fig:unc-workflow">1.2</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-workflow"></span>
+<img src="work/01-climate_uncertainty/figures/workflow.png" alt="Analytical Sequence" width="100%" />
+<p class="caption">
+FIGURE 1.2: Analytical Sequence
+</p>
+</div>
+</div>
+<div id="construction-of-the-regional-summer-warming-indicator" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Construction of the Regional Summer Warming Indicator<a href="unc.html#construction-of-the-regional-summer-warming-indicator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The core response variable is constructed from monthly gridded <code>tas</code> in two stages. First, monthly temperature is aggregated to annual regional JJA mean temperature using seasonal and spatial weighting; second, temperature anomalies relative to the 1995–2014 baseline are averaged over each 20-year future period. These steps produce a consistent regional warming indicator for each model and ensemble member.</p>
+<div id="jja-and-spatial-aggregation" class="section level4 hasAnchor" number="1.4.2.1">
+<h4><span class="header-section-number">1.4.2.1</span> JJA and Spatial Aggregation<a href="unc.html#jja-and-spatial-aggregation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Monthly <code>tas</code> values were first converted from kelvin to degrees Celsius where necessary,</p>
+<p><span class="math display">\[
+T(^\circ\mathrm{C})
+=
+T(\mathrm{K})-273.15.
+\]</span></p>
+<p>Because temperature differences have the same numerical magnitude in kelvin and degrees Celsius, this conversion does not affect the later warming anomalies.</p>
+<p>For each model, ensemble member, year, and grid cell, summer temperature was calculated from June, July, and August using the number of days in each month. Under the JJA weighting used in this analysis,</p>
+<p><span class="math display">\[
+T^{\mathrm{JJA}}_{m,r,y,g}
+=
+\frac{
+30T_{m,r,y,6,g}
++
+31T_{m,r,y,7,g}
++
+31T_{m,r,y,8,g}
+}{92},
+\]</span></p>
+<p>where <span class="math inline">\(T_{m,r,y,k,g}\)</span> denotes the monthly mean temperature for month <span class="math inline">\(k\)</span> at grid cell <span class="math inline">\(g\)</span>.</p>
+<p>The gridded JJA values were then aggregated to the study regions using cosine-latitude weights. For grid cell <span class="math inline">\(g\)</span> in region <span class="math inline">\(R\)</span>, the normalized spatial weight is</p>
+<p><span class="math display">\[
+w_g
+=
+\frac{\cos(\phi_g)}
+{\sum_{h\in R}\cos(\phi_h)},
+\]</span></p>
+<p>where <span class="math inline">\(\phi_g\)</span> is the latitude of the grid-cell center and the weights satisfy</p>
+<p><span class="math display">\[
+\sum_{g\in R} w_g = 1.
+\]</span></p>
+<p>The annual regional JJA mean temperature is therefore</p>
+<p><span class="math display">\[
+I_{m,r,y,R}
+=
+\sum_{g\in R}
+w_g T^{\mathrm{JJA}}_{m,r,y,g}.
+\]</span></p>
+<p>This procedure produces one regional JJA mean temperature for each model, ensemble member, year, and study region. These annual regional values are used in the next step to calculate baseline-relative anomalies and 20-year period-mean warming.</p>
+</div>
+<div id="baseline-anomalies-and-period-means" class="section level4 hasAnchor" number="1.4.2.2">
+<h4><span class="header-section-number">1.4.2.2</span> Baseline Anomalies and Period Means<a href="unc.html#baseline-anomalies-and-period-means" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For each model, ensemble member, and region, the reference climate is defined as the mean regional JJA temperature over the 1995–2014 baseline period <span class="math inline">\(P_0\)</span>,</p>
+<p><span class="math display">\[
+I_{m,r,P_0,R}
+=
+\frac{1}{|P_0|}
+\sum_{y\in P_0}
+I_{m,r,y,R},
+\]</span></p>
+<p>where <span class="math inline">\(|P_0|=20\)</span>. Calculating the baseline separately for each model and ensemble member allows the analysis to focus on simulated temperature change rather than differences in absolute climatology.</p>
+<p>Annual JJA temperature anomalies are then calculated relative to the corresponding baseline,</p>
+<p><span class="math display">\[
+\Delta I_{m,r,y,R}
+=
+I_{m,r,y,R}
+-
+I_{m,r,P_0,R}.
+\]</span></p>
+<p>For each future period <span class="math inline">\(P\)</span>, the core response variable is defined as the mean anomaly over the 20 years in that period:</p>
+<span class="math display" id="eq:unc-period-mean-warming">\[\begin{equation}
+Y_{m,r,R,P}
+=
+\frac{1}{|P|}
+\sum_{y\in P}
+\Delta I_{m,r,y,R},
+\qquad |P|=20.
+\tag{1.2}
+\end{equation}\]</span>
+<p>Thus, <span class="math inline">\(Y_{m,r,R,P}\)</span> represents the 20-year mean regional JJA warming for one model and ensemble member relative to 1995–2014. All subsequent forced-response estimates, uncertainty components, and distributional diagnostics are calculated from these period-mean warming values.</p>
+</div>
+</div>
+<div id="estimation-of-forced-responses-and-uncertainty-components" class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Estimation of Forced Responses and Uncertainty Components<a href="unc.html#estimation-of-forced-responses-and-uncertainty-components" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the 20-year mean warming values <span class="math inline">\(Y_{m,r,R,P}\)</span>, the analysis next separates the projected response into model-specific forced responses and uncertainty components. Ensemble means are used to estimate forced warming, while within-model member variation and between-model differences are used to quantify internal variability and model uncertainty. These components are then combined to characterize total fixed-scenario uncertainty and their relative contributions.</p>
+<div id="model-specific-and-multi-model-forced-responses" class="section level4 hasAnchor" number="1.4.3.1">
+<h4><span class="header-section-number">1.4.3.1</span> Model-Specific and Multi-Model Forced Responses<a href="unc.html#model-specific-and-multi-model-forced-responses" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For each climate model, the model-specific forced response is estimated by averaging the 20-year mean warming values across its ensemble members,</p>
+<span class="math display" id="eq:unc-model-forced-response">\[\begin{equation}
+\overline{Y}_{m,R,P}
+=
+\frac{1}{n_m}
+\sum_{r=1}^{n_m}
+Y_{m,r,R,P},
+\tag{1.3}
+\end{equation}\]</span>
+<p>where (n_m) is the number of ensemble members available for model (m). Because members of the same model share the same model formulation and external forcing, averaging across members reduces the influence of member-specific internal fluctuations. The resulting ensemble mean is therefore interpreted as an estimate of that model’s forced warming response <span class="citation">(<a href="#ref-Deser2020">Deser et al. 2020</a>; <a href="#ref-Lehner2020">Lehner et al. 2020</a>)</span>. Internal variability is not assumed to be completely removed, because the ensemble contains a finite number of members.</p>
+<p>The multi-model mean forced response is then calculated from the model-specific ensemble means,</p>
+<span class="math display" id="eq:unc-multimodel-forced-response">\[\begin{equation}
+\overline{Y}_{\cdot,R,P}
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+\overline{Y}_{m,R,P},
+\tag{1.4}
+\end{equation}\]</span>
+<p>where (M=5) is the number of climate models. Equation <a href="unc.html#eq:unc-multimodel-forced-response">(1.4)</a> gives each model the same total weight, regardless of its ensemble size. The calculation therefore averages within models first and then across models, rather than pooling all 166 ensemble members with equal weight.</p>
+<p>The resulting multi-model mean provides an equal-model-weighted summary of the forced warming responses represented by the selected models. Differences between the individual model-specific responses and this multi-model mean form the basis for estimating between-model uncertainty in the following section.</p>
+</div>
+<div id="within-model-and-between-model-variance" class="section level4 hasAnchor" number="1.4.3.2">
+<h4><span class="header-section-number">1.4.3.2</span> Within-Model and Between-Model Variance<a href="unc.html#within-model-and-between-model-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Internal variability is estimated from the spread of ensemble members around the model-specific forced response. For each model, region, and future period, the within-model variance is calculated as</p>
+<span class="math display" id="eq:unc-within-model-variance">\[\begin{equation}
+s^2_{\mathrm{internal},m,R,P}
+=
+\frac{1}{n_m-1}
+\sum_{r=1}^{n_m}
+\left(
+Y_{m,r,R,P}
+-
+\overline{Y}_{m,R,P}
+\right)^2.
+\tag{1.5}
+\end{equation}\]</span>
+<p>Because <span class="math inline">\(Y_{m,r,R,P}\)</span> represents 20-year mean warming, Equation <a href="unc.html#eq:unc-within-model-variance">(1.5)</a> measures member-to-member variability in the 20-year warming response within model <span class="math inline">\(m\)</span>, rather than year-to-year temperature variability. This within-model spread provides the operational measure of internal variability used in the analysis <span class="citation">(<a href="#ref-Deser2020">Deser et al. 2020</a>; <a href="#ref-Lehner2020">Lehner et al. 2020</a>)</span>.</p>
+<p>To prevent models with larger ensembles from contributing more strongly to the multi-model estimate, the model-specific variances are averaged with equal model weight,</p>
+<span class="math display" id="eq:unc-internal-variance">\[\begin{equation}
+U_{\mathrm{internal},R,P}
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+s^2_{\mathrm{internal},m,R,P}.
+\tag{1.6}
+\end{equation}\]</span>
+<p>The corresponding internal standard deviation is</p>
+<p><span class="math display">\[
+\sigma_{\mathrm{internal},R,P}
+=
+\sqrt{U_{\mathrm{internal},R,P}}.
+\]</span></p>
+<p>Model uncertainty is estimated at the second level of the ensemble hierarchy. It is defined from the spread of the model-specific forced-response estimates around the equal-model-weighted multi-model mean,</p>
+<span class="math display" id="eq:unc-model-variance">\[\begin{equation}
+U_{\mathrm{model},R,P}
+=
+\frac{1}{M-1}
+\sum_{m=1}^{M}
+\left(
+\overline{Y}_{m,R,P}
+-
+\overline{Y}_{\cdot,R,P}
+\right)^2.
+\tag{1.7}
+\end{equation}\]</span>
+<p>with the corresponding standard deviation</p>
+<p><span class="math display">\[
+\sigma_{\mathrm{model},R,P}
+=
+\sqrt{U_{\mathrm{model},R,P}}.
+\]</span></p>
+<p>The two quantities therefore describe different levels of variation in the ensemble: <span class="math inline">\(U_{\mathrm{internal},R,P}\)</span> summarizes within-model member variation, whereas <span class="math inline">\(U_{\mathrm{model},R,P}\)</span> summarizes differences among the forced responses of the selected models. Variances are retained for the subsequent uncertainty decomposition, while the corresponding standard deviations express uncertainty magnitude in the same temperature units as the warming response.</p>
+</div>
+<div id="total-uncertainty-and-contribution-rates" class="section level4 hasAnchor" number="1.4.3.3">
+<h4><span class="header-section-number">1.4.3.3</span> Total Uncertainty and Contribution Rates<a href="unc.html#total-uncertainty-and-contribution-rates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Under the fixed-scenario framework, total projection uncertainty is defined as the sum of the internal and model variance components,</p>
+<span class="math display" id="eq:unc-total-variance">\[\begin{equation}
+U_{\mathrm{total},R,P}
+=
+U_{\mathrm{internal},R,P}
++
+U_{\mathrm{model},R,P}.
+\tag{1.8}
+\end{equation}\]</span>
+<p>This quantity represents the total variance considered in the present analysis and is therefore conditional on the SSP3-7.0 pathway and the selected climate-model ensemble. The corresponding total standard deviation is</p>
+<span class="math display" id="eq:unc-total-standard-deviation">\[\begin{equation}
+\sigma_{\mathrm{total},R,P}
+=
+\sqrt{
+U_{\mathrm{internal},R,P}
++
+U_{\mathrm{model},R,P}
+}.
+\tag{1.9}
+\end{equation}\]</span>
+<p>Thus, the two variance components are added before taking the square root. Internal and model standard deviations are not added directly.</p>
+<p>To describe the relative importance of the two uncertainty sources, their contributions to total variance are calculated as</p>
+<span class="math display" id="eq:unc-internal-contribution">\[\begin{equation}
+C_{\mathrm{internal},R,P}
+=
+\frac{
+U_{\mathrm{internal},R,P}
+}{
+U_{\mathrm{total},R,P}
+}.
+\tag{1.10}
+\end{equation}\]</span>
+<p>and</p>
+<span class="math display" id="eq:unc-model-contribution">\[\begin{equation}
+C_{\mathrm{model},R,P}
+=
+\frac{
+U_{\mathrm{model},R,P}
+}{
+U_{\mathrm{total},R,P}
+}.
+\tag{1.11}
+\end{equation}\]</span>
+<p>By construction,</p>
+<p><span class="math display">\[
+C_{\mathrm{internal},R,P}
++
+C_{\mathrm{model},R,P}
+=
+1.
+\]</span></p>
+<p>The contribution rates are relative measures and therefore depend on both variance components. A change in the internal contribution, for example, does not necessarily imply a corresponding change in the absolute magnitude of internal variability. The variance decomposition describes the magnitude and source of fixed-scenario uncertainty; the following section complements it with distribution-based measures of projection spread and interpretation.</p>
+</div>
+</div>
+<div id="distribution-based-interpretation-of-projection-uncertainty" class="section level3 hasAnchor" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> Distribution-Based Interpretation of Projection Uncertainty<a href="unc.html#distribution-based-interpretation-of-projection-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Variance decomposition describes the magnitude and sources of projection uncertainty, but it does not fully characterize the distribution of possible warming outcomes. The analysis therefore complements the variance-based measures with prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities, which describe the distributional spread, the clarity of the warming signal, and the position of projected warming relative to specified thresholds.</p>
+<div id="equal-model-weighted-prediction-ranges" class="section level4 hasAnchor" number="1.4.4.1">
+<h4><span class="header-section-number">1.4.4.1</span> Equal-Model-Weighted Prediction Ranges<a href="unc.html#equal-model-weighted-prediction-ranges" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To describe the distribution of projected warming directly, the model-member warming values are combined into an equal-model-weighted empirical distribution. For region <span class="math inline">\(R\)</span> and future period <span class="math inline">\(P\)</span>, the empirical cumulative distribution function is defined as</p>
+<span class="math display" id="eq:unc-empirical-mixture">\[\begin{equation}
+F_{R,P}(y)
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+\frac{1}{n_m}
+\sum_{r=1}^{n_m}
+\mathbf{1}
+\left(
+Y_{m,r,R,P}\le y
+\right),
+\tag{1.12}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\mathbf{1}(\cdot)\)</span> is the indicator function. This construction assigns each model a total weight of <span class="math inline">\(1/M\)</span>, while the members within model <span class="math inline">\(m\)</span> share that weight equally. It therefore preserves equal model influence despite differences in ensemble size.</p>
+<p>Weighted quantiles are obtained from Equation <a href="unc.html#eq:unc-empirical-mixture">(1.12)</a> as</p>
+<p><span class="math display">\[
+Q_{q,R,P}
+=
+F^{-1}_{R,P}(q),
+\qquad
+q\in\{0.05,0.50,0.95\}.
+\]</span></p>
+<p>Here, <span class="math inline">\(Q_{0.50,R,P}\)</span> is the weighted median, while the 5th and 95th percentiles define the central 90% prediction range,</p>
+<p><span class="math display">\[
+\mathrm{PI}_{90,R,P}
+=
+\left[
+Q_{0.05,R,P},
+Q_{0.95,R,P}
+\right].
+\]</span></p>
+<p>The width of this range is</p>
+<p><span class="math display">\[
+W_{90,R,P}
+=
+Q_{0.95,R,P}
+-
+Q_{0.05,R,P}.
+\]</span></p>
+<p>Because the empirical distribution contains members from all selected models, the prediction range reflects both within-model member variation and differences among model responses. The range and its width are expressed directly in degrees Celsius and provide an absolute measure of projection spread. They are interpreted as descriptive ensemble-based ranges conditional on SSP3-7.0 and the selected model ensemble, rather than as confidence intervals for an unknown population parameter <span class="citation">(<a href="#ref-Tebaldi2007">Tebaldi and Knutti 2007</a>)</span>.</p>
+</div>
+<div id="signal-to-noise-ratios" class="section level4 hasAnchor" number="1.4.4.2">
+<h4><span class="header-section-number">1.4.4.2</span> Signal-to-Noise Ratios<a href="unc.html#signal-to-noise-ratios" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Signal-to-noise ratios are used to compare the magnitude of projected warming with the uncertainty surrounding that response. For each region and future period, the signal is defined as the absolute equal-model-weighted multi-model mean warming,</p>
+<p><span class="math display">\[
+\mathrm{Signal}_{R,P}
+=
+\left|
+\overline{Y}_{\cdot,R,P}
+\right|.
+\]</span></p>
+<p>Two noise scales are considered. The internal signal-to-noise ratio compares the warming signal with the standard deviation associated with within-model internal variability,</p>
+<span class="math display" id="eq:unc-internal-snr">\[\begin{equation}
+\mathrm{SNR}^{\mathrm{internal}}_{R,P}
+=
+\frac{
+\left|
+\overline{Y}_{\cdot,R,P}
+\right|
+}{
+\sigma_{\mathrm{internal},R,P}
+}.
+\tag{1.13}
+\end{equation}\]</span>
+<p>Equation <a href="unc.html#eq:unc-internal-snr">(1.13)</a> therefore measures how large the projected 20-year mean warming is relative to member-to-member variability within the climate models. A larger value indicates that the warming signal is more clearly separated from this internal variability.</p>
+<p>The total signal-to-noise ratio additionally incorporates differences among model forced responses by using the total fixed-scenario standard deviation,</p>
+<span class="math display" id="eq:unc-total-snr">\[\begin{equation}
+\mathrm{SNR}^{\mathrm{total}}_{R,P}
+=
+\frac{
+\left|
+\overline{Y}_{\cdot,R,P}
+\right|
+}{
+\sigma_{\mathrm{total},R,P}
+}.
+\tag{1.14}
+\end{equation}\]</span>
+<p>Equation <a href="unc.html#eq:unc-total-snr">(1.14)</a> measures signal clarity relative to the combined internal and model uncertainty considered in this study. Comparing the two ratios therefore distinguishes signal clarity relative to internal variability from signal clarity after between-model disagreement is also included.</p>
+<p>The ratios are interpreted descriptively: values below one indicate that the selected uncertainty scale is larger than the signal, values near one indicate similar magnitudes, and values above one indicate that the signal is larger than the selected uncertainty scale. An SNR greater than one is not a formal significance criterion or hypothesis test.</p>
+<p>The definitions used here are standard-deviation-based SNR measures, consistent with large-ensemble applications that compare the magnitude of an ensemble-mean signal with ensemble spread <span class="citation">(<a href="#ref-McKinnon2018">McKinnon and Deser 2018</a>, <a href="#ref-McKinnon2021">2021</a>)</span>. They differ from the 90%-uncertainty scaling used in the SNR formulation of Hawkins and Sutton, so numerical SNR values should be interpreted according to the definition applied here <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+</div>
+<div id="threshold-exceedance-probabilities" class="section level4 hasAnchor" number="1.4.4.3">
+<h4><span class="header-section-number">1.4.4.3</span> Threshold Exceedance Probabilities<a href="unc.html#threshold-exceedance-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Threshold exceedance probabilities are used to describe the position of the projected warming distribution relative to selected warming levels. The thresholds considered in this analysis are</p>
+<p><span class="math display">\[
+\theta
+\in
+\left\{
+2^\circ\mathrm{C},
+3^\circ\mathrm{C}
+\right\}.
+\]</span></p>
+<p>As defined in Section 2.3, these thresholds refer to 20-year mean regional JJA warming relative to the 1995–2014 baseline.</p>
+<p>For each model, the exceedance probability is estimated as the proportion of ensemble members whose period-mean warming exceeds threshold <span class="math inline">\(\theta\)</span>,</p>
+<span class="math display" id="eq:unc-model-threshold-probability">\[\begin{equation}
+p_{m,R,P}(\theta)
+=
+\frac{1}{n_m}
+\sum_{r=1}^{n_m}
+\mathbf{1}
+\left(
+Y_{m,r,R,P}&gt;\theta
+\right),
+\tag{1.15}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\mathbf{1}(\cdot)\)</span> is the indicator function. The multi-model exceedance probability is then obtained by averaging the model-level probabilities with equal model weight,</p>
+<span class="math display" id="eq:unc-weighted-threshold-probability">\[\begin{equation}
+p_{R,P}(\theta)
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+p_{m,R,P}(\theta).
+\tag{1.16}
+\end{equation}\]</span>
+<p>Equation <a href="unc.html#eq:unc-weighted-threshold-probability">(1.16)</a> ensures that each climate model contributes equally to the final probability, regardless of its number of ensemble members. The resulting value can be interpreted as the fraction of the equal-model-weighted warming distribution lying above the specified threshold.</p>
+<p>Threshold exceedance probability depends on both the location and the spread of the warming distribution. It therefore complements the prediction ranges and signal-to-noise ratios by describing how much of the projected distribution lies beyond a specified warming level. These probabilities are empirical, ensemble-based quantities conditional on SSP3-7.0 and the selected five-model ensemble.</p>
+</div>
+</div>
+<div id="robustness-and-sensitivity-assessment" class="section level3 hasAnchor" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Robustness and Sensitivity Assessment<a href="unc.html#robustness-and-sensitivity-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Two complementary analyses are used to assess the robustness of the main statistical results. A hierarchical bootstrap evaluates the stability of the estimated quantities under resampling of models and ensemble members, while a balanced-member sensitivity analysis examines whether unequal ensemble sizes materially affect the results. Together, these analyses assess whether the main findings are sensitive to the finite model-member sample and the ensemble-size structure of the dataset.</p>
+<div id="hierarchical-bootstrap" class="section level4 hasAnchor" number="1.4.5.1">
+<h4><span class="header-section-number">1.4.5.1</span> Hierarchical Bootstrap<a href="unc.html#hierarchical-bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A hierarchical bootstrap is used to assess the stability of the estimated uncertainty measures and distributional diagnostics under the finite model-member sample. The resampling procedure follows the two-level structure of the multi-model large ensemble by treating climate models as the first level and ensemble members within each model as the second level <span class="citation">(<a href="#ref-Saravanan2020">Saravanan et al. 2020</a>)</span>.</p>
+<p>For bootstrap replicate <span class="math inline">\(b\)</span>, <span class="math inline">\(M=5\)</span> models are first sampled with replacement from the five models used in the main analysis,</p>
+<p><span class="math display">\[
+m^{*(b)}_1,
+m^{*(b)}_2,
+\ldots,
+m^{*(b)}_M.
+\]</span></p>
+<p>For each selected model occurrence, ensemble members are then sampled with replacement from that model using its original ensemble size <span class="math inline">\(n_m\)</span>. If the same model is selected more than once at the model level, each occurrence is treated as a separate bootstrap draw and its members are resampled independently.</p>
+<p>For each bootstrap replicate, the analysis recalculates the internal, model, and total uncertainty components, their contribution rates, the internal and total signal-to-noise ratios, and the threshold exceedance probabilities. This produces bootstrap replicates of each target statistic,</p>
+<p><span class="math display">\[
+Q^{*(1)},Q^{*(2)},\ldots,Q^{*(B)},
+\]</span></p>
+<p>with</p>
+<p><span class="math display">\[
+B=1000.
+\]</span></p>
+<p>For any target statistic <span class="math inline">\(Q\)</span>, a 95% bootstrap percentile interval is obtained from the 2.5th and 97.5th percentiles of its bootstrap distribution <span class="citation">(<a href="#ref-Efron1993">Efron and Tibshirani 1993</a>)</span>,</p>
+<p><span class="math display">\[
+\mathrm{CI}_{95\%}(Q)
+=
+\left[
+Q^*_{2.5\%},
+Q^*_{97.5\%}
+\right].
+\]</span></p>
+<p>These intervals are used to evaluate whether the main estimates and qualitative patterns remain stable when models and ensemble members are resampled. They are interpreted as resampling-based measures conditional on the selected five-model ensemble and do not represent uncertainty across all possible climate-model structures or forcing scenarios.</p>
+</div>
+<div id="balanced-member-sensitivity-analysis" class="section level4 hasAnchor" number="1.4.5.2">
+<h4><span class="header-section-number">1.4.5.2</span> Balanced-Member Sensitivity Analysis<a href="unc.html#balanced-member-sensitivity-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A balanced-member sensitivity analysis is used to examine whether differences in ensemble size across the five climate models affect the main uncertainty estimates. The full analysis uses 40, 25, 50, 21, and 30 members across the five models, respectively. Although equal model weighting prevents models with larger ensembles from receiving greater total weight, the precision of within-model estimates can still vary with the number of available members. Repeated subsampling therefore provides an additional check on sensitivity to ensemble-size imbalance <span class="citation">(<a href="#ref-Milinski2020">Milinski et al. 2020</a>; <a href="#ref-Lehner2020">Lehner et al. 2020</a>)</span>.</p>
+<p>For each subsampling run, 20 ensemble members are randomly selected without replacement from each model,</p>
+<p><span class="math display">\[
+n_m^{\mathrm{sub}}=20.
+\]</span></p>
+<p>Because all five models contain at least 21 selected members, the same subsample size can be applied to every model. Each balanced run therefore contains</p>
+<p><span class="math display">\[
+N^{\mathrm{sub}}
+=
+5\times20
+=
+100
+\]</span></p>
+<p>ensemble members.</p>
+<p>The subsampling procedure is repeated</p>
+<p><span class="math display">\[
+s=1,2,\ldots,S,
+\qquad
+S=100.
+\]</span></p>
+<p>For each run, the same estimators as in the main analysis are recalculated for each region and future period, including</p>
+<p><span class="math display">\[
+U_{\mathrm{internal},R,P}^{(s)},
+\qquad
+U_{\mathrm{model},R,P}^{(s)},
+\qquad
+U_{\mathrm{total},R,P}^{(s)},
+\]</span></p>
+<p><span class="math display">\[
+C_{\mathrm{internal},R,P}^{(s)},
+\qquad
+C_{\mathrm{model},R,P}^{(s)},
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\mathrm{SNR}^{\mathrm{internal},(s)}_{R,P},
+\qquad
+\mathrm{SNR}^{\mathrm{total},(s)}_{R,P}.
+\]</span></p>
+<p>For each statistic <span class="math inline">\(Q\)</span>, the balanced-member estimate is summarized by the mean across the 100 subsampling runs,</p>
+<p><span class="math display">\[
+\overline{Q}^{\mathrm{sub}}
+=
+\frac{1}{S}
+\sum_{s=1}^{S}
+Q^{(s)}.
+\]</span></p>
+<p>These balanced-member estimates are compared with the corresponding estimates from the full-member analysis. Absolute differences and full-versus-balanced comparisons are used to assess whether the main results are materially affected by the unequal original ensemble sizes. This analysis is intended specifically as a sensitivity check for ensemble-member imbalance; it does not assess uncertainty associated with model selection, model dependence, or forcing scenarios.</p>
+</div>
+</div>
+</div>
+<div id="results" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Results<a href="unc.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The results are presented from projected warming magnitude to the structure and consequences of projection uncertainty. The analysis first compares regional and model-specific warming responses, then examines internal, model, and total uncertainty, followed by distribution-based diagnostics and robustness assessments.</p>
+<div id="projected-warming-and-divergence-among-model-responses" class="section level3 hasAnchor" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> Projected Warming and Divergence among Model Responses<a href="unc.html#projected-warming-and-divergence-among-model-responses" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Regional JJA warming increases across all three future periods and study regions (Figure <a href="unc.html#fig:unc-regional-jja-warming">1.3</a>). The equal-model-weighted multi-model mean is positive throughout and rises steadily from the near term to the late century.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-regional-jja-warming"></span>
+<img src="work/01-climate_uncertainty/figures/fig02_regional_jja_warming_timeseries.png" alt="Regional JJA warming across the three future periods. Gray lines show model-specific forced responses, while the highlighted line shows the equal-model-weighted multi-model mean." width="100%" />
+<p class="caption">
+FIGURE 1.3: Regional JJA warming across the three future periods. Gray lines show model-specific forced responses, while the highlighted line shows the equal-model-weighted multi-model mean.
+</p>
+</div>
+<p>The regional ranking is consistent across the three periods: WCE shows the largest multi-model mean warming, followed by MED and NEU. By 2081–2100, mean warming ranges from about <span class="math inline">\(4.0^\circ\mathrm{C}\)</span> in NEU to about <span class="math inline">\(5.4^\circ\mathrm{C}\)</span> in WCE, showing substantial but spatially uneven regional summer warming.</p>
+<p>The multi-model mean does not show how strongly the individual model responses differ. Figure <a href="unc.html#fig:unc-model-forced-response">1.4</a> therefore compares the model-specific forced responses directly. All five models project increasing warming, but their responses separate more clearly with projection lead time.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-model-forced-response"></span>
+<img src="work/01-climate_uncertainty/figures/fig03_model_forced_response.png" alt="Model-specific forced regional JJA warming responses across the three study regions and future periods." width="100%" />
+<p class="caption">
+FIGURE 1.4: Model-specific forced regional JJA warming responses across the three study regions and future periods.
+</p>
+</div>
+<p>The divergence is strongest toward the late century and is particularly pronounced in NEU, where the model-specific responses span roughly <span class="math inline">\(2.2\)</span>–<span class="math inline">\(6.1^\circ\mathrm{C}\)</span>. Thus, the selected models consistently project substantial regional summer warming under SSP3-7.0, while differing considerably in its magnitude. This increasing separation among model-specific forced responses provides the empirical basis for the model-uncertainty results examined in the following section.</p>
+</div>
+<div id="changing-structure-of-projection-uncertainty" class="section level3 hasAnchor" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Changing Structure of Projection Uncertainty<a href="unc.html#changing-structure-of-projection-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The uncertainty components show different temporal patterns. Internal variability remains relatively stable across the three future periods, while model uncertainty increases substantially with projection lead time. As a result, total fixed-scenario uncertainty also increases over time and becomes increasingly dominated by differences among model responses.</p>
+<p>Internal standard deviation varies more across regions than across future periods. MED consistently shows the lowest internal variability, while NEU and WCE show somewhat larger within-model spread (Figure <a href="unc.html#fig:unc-internal-variability">1.5</a>). Despite these regional differences, there is little evidence of a strong temporal increase in internal variability.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-internal-variability"></span>
+<img src="work/01-climate_uncertainty/figures/fig04_internal_variability.png" alt="Internal variability in 20-year mean regional JJA warming across regions and future periods." width="65%" />
+<p class="caption">
+FIGURE 1.5: Internal variability in 20-year mean regional JJA warming across regions and future periods.
+</p>
+</div>
+<p>Model uncertainty shows a much clearer temporal increase (Figure <a href="unc.html#fig:unc-model-uncertainty">1.6</a>). The spread among model-specific forced responses becomes wider from the near term to the late century in all regions, with the strongest increase in NEU. Regional contrasts in model uncertainty therefore become more pronounced toward the end of the century.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-model-uncertainty"></span>
+<img src="work/01-climate_uncertainty/figures/fig05_model_uncertainty.png" alt="Model uncertainty in regional JJA warming across regions and future periods." width="65%" />
+<p class="caption">
+FIGURE 1.6: Model uncertainty in regional JJA warming across regions and future periods.
+</p>
+</div>
+<p>The contribution rates confirm that model uncertainty is the larger variance component throughout the analysis (Figure <a href="unc.html#fig:unc-uncertainty-decomposition">1.7</a>). Its contribution increases with projection lead time, while the relative contribution of internal variability declines. By the late century, model uncertainty accounts for more than 90% of total variance in all three regions. This change is mainly driven by the growth of model variance rather than by a strong decline in the absolute magnitude of internal variability.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-uncertainty-decomposition"></span>
+<img src="work/01-climate_uncertainty/figures/fig06_uncertainty_decomposition.png" alt="Relative contributions of internal variability and model uncertainty to total fixed-scenario projection variance." width="80%" />
+<p class="caption">
+FIGURE 1.7: Relative contributions of internal variability and model uncertainty to total fixed-scenario projection variance.
+</p>
+</div>
+<p>Total uncertainty increases across the century in all regions and follows the temporal pattern of model uncertainty closely (Figure <a href="unc.html#fig:unc-total-uncertainty">1.8</a>). NEU has the highest total uncertainty across the three periods and also shows the strongest late-century spread. Overall, the results indicate that internal variability remains comparatively stable, whereas growing differences among model responses increasingly determine the width of the fixed-scenario projection uncertainty.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-total-uncertainty"></span>
+<img src="work/01-climate_uncertainty/figures/fig07_total_uncertainty_heatmap.png" alt="Total fixed-scenario projection uncertainty, expressed as standard deviation, across regions and future periods." width="50%" />
+<p class="caption">
+FIGURE 1.8: Total fixed-scenario projection uncertainty, expressed as standard deviation, across regions and future periods.
+</p>
+</div>
+</div>
+<div id="consequences-of-uncertainty-for-projection-interpretation" class="section level3 hasAnchor" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Consequences of Uncertainty for Projection Interpretation<a href="unc.html#consequences-of-uncertainty-for-projection-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To examine what the changing uncertainty structure means for regional climate projections, the analysis next considers the warming distributions beyond their variance components alone. The results are evaluated through prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities, which describe projection spread, signal clarity, and the position of projected warming relative to selected thresholds.</p>
+<div id="widening-projection-ranges-and-regional-contrasts" class="section level4 hasAnchor" number="1.5.3.1">
+<h4><span class="header-section-number">1.5.3.1</span> Widening Projection Ranges and Regional Contrasts<a href="unc.html#widening-projection-ranges-and-regional-contrasts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The equal-model-weighted warming distributions widen from the near term to the late century in all three regions (Figure <a href="unc.html#fig:unc-prediction-ranges">1.9</a>). The increase is most pronounced in NEU, while MED consistently shows the narrowest distribution and WCE remains intermediate.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-prediction-ranges"></span>
+<img src="work/01-climate_uncertainty/figures/fig08_warming_distribution_prediction_ranges.png" alt="Equal-model-weighted distributions of 20-year mean regional JJA warming and central 90% prediction ranges across regions and future periods." width="100%" />
+<p class="caption">
+FIGURE 1.9: Equal-model-weighted distributions of 20-year mean regional JJA warming and central 90% prediction ranges across regions and future periods.
+</p>
+</div>
+<p>Regional contrasts become clearest in the late-century period. NEU has the widest central 90% prediction range, reaching a width of about <span class="math inline">\(4.3^\circ\mathrm{C}\)</span>, even though its multi-model mean warming is lower than in MED and WCE. WCE, by contrast, shows the highest mean warming but not the widest projection range. This demonstrates that the magnitude of projected warming and the spread of projected outcomes do not necessarily change together.</p>
+<p>The weighted medians remain broadly close to the corresponding multi-model mean warming values across regions and periods. This indicates that the centers of the empirical distributions are generally similar under the two summaries, without implying that the distributions are normally distributed. Overall, the results show a clear widening of projection ranges over time together with persistent regional differences in both central warming and distributional spread.</p>
+</div>
+<div id="signal-emergence-and-total-signal-clarity" class="section level4 hasAnchor" number="1.5.3.2">
+<h4><span class="header-section-number">1.5.3.2</span> Signal Emergence and Total Signal Clarity<a href="unc.html#signal-emergence-and-total-signal-clarity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The signal-to-noise ratios show that the projected warming signal is larger than the selected uncertainty scale in all regions and future periods. Total SNR is greater than one for every region-period combination, indicating that mean regional warming exceeds total fixed-scenario uncertainty as measured by the total standard deviation (Figure <a href="unc.html#fig:unc-total-snr">1.10</a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-total-snr"></span>
+<img src="work/01-climate_uncertainty/figures/fig09_total_snr.png" alt="Total signal-to-noise ratios for regional JJA warming across regions and future periods." width="65%" />
+<p class="caption">
+FIGURE 1.10: Total signal-to-noise ratios for regional JJA warming across regions and future periods.
+</p>
+</div>
+<p>Clear regional differences remain after both internal and model uncertainty are included. NEU has the lowest total SNR across the three periods, whereas MED and WCE show substantially clearer signals by the late century. Thus, warming is evident relative to total fixed-scenario uncertainty in all three regions, but the clarity of its projected magnitude differs regionally.</p>
+<p>Internal SNR is much higher than total SNR in all regions, particularly in the later periods (Figure <a href="unc.html#fig:unc-internal-snr">1.11</a>). This indicates that the warming signal is large relative to member-to-member variability in 20-year mean warming.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-internal-snr"></span>
+<img src="work/01-climate_uncertainty/figures/fig10_internal_snr.png" alt="Internal signal-to-noise ratios for regional JJA warming across regions and future periods." width="65%" />
+<p class="caption">
+FIGURE 1.11: Internal signal-to-noise ratios for regional JJA warming across regions and future periods.
+</p>
+</div>
+<p>The contrast between the two SNR measures is consistent across the regional projections. Internal variability alone produces relatively little ambiguity about the direction of warming, while the inclusion of differences among model responses substantially lowers total signal clarity. The warming signal therefore emerges clearly from internal variability, even though uncertainty in its exact magnitude remains larger when model disagreement is included.</p>
+</div>
+<div id="distributional-spread-and-threshold-risk" class="section level4 hasAnchor" number="1.5.3.3">
+<h4><span class="header-section-number">1.5.3.3</span> Distributional Spread and Threshold Risk<a href="unc.html#distributional-spread-and-threshold-risk" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Threshold exceedance probabilities increase strongly as the regional warming distributions shift toward higher temperatures (Figure <a href="unc.html#fig:unc-threshold-exceedance">1.12</a>). In the near-term period, exceedance of <span class="math inline">\(2^\circ\mathrm{C}\)</span> is uncommon in all three regions, while no ensemble members exceed <span class="math inline">\(3^\circ\mathrm{C}\)</span>. By mid-century, the regional contrast becomes clearer: exceedance of <span class="math inline">\(2^\circ\mathrm{C}\)</span> is more likely than not in WCE and MED, but remains below one half in NEU. Exceedance of <span class="math inline">\(3^\circ\mathrm{C}\)</span> is still substantially less likely in all three regions.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-threshold-exceedance"></span>
+<img src="work/01-climate_uncertainty/figures/fig11_threshold_exceedance_probability.png" alt="Equal-model-weighted probabilities that regional 20-year mean JJA warming exceeds 2°C and 3°C relative to the 1995--2014 baseline." width="100%" />
+<p class="caption">
+FIGURE 1.12: Equal-model-weighted probabilities that regional 20-year mean JJA warming exceeds 2°C and 3°C relative to the 1995–2014 baseline.
+</p>
+</div>
+<p>The mid-century distributions help explain these regional differences (Figure <a href="unc.html#fig:unc-mid-century-threshold-distributions">1.13</a>). In NEU, much of the model-member distribution remains below the <span class="math inline">\(2^\circ\mathrm{C}\)</span> threshold, whereas larger shares of the WCE and MED distributions lie above it. The <span class="math inline">\(3^\circ\mathrm{C}\)</span> threshold remains in the upper part of all three distributions. Mid-century therefore provides a clear example of how the position of a threshold relative to both the center and spread of a distribution affects exceedance probability.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-mid-century-threshold-distributions"></span>
+<img src="work/01-climate_uncertainty/figures/fig15b_mid_century_warming_distribution_thresholds.png" alt="Mid-century model-member distributions of regional 20-year mean JJA warming relative to the 2°C and 3°C thresholds." width="100%" />
+<p class="caption">
+FIGURE 1.13: Mid-century model-member distributions of regional 20-year mean JJA warming relative to the 2°C and 3°C thresholds.
+</p>
+</div>
+<p>By 2081–2100, both thresholds are exceeded by all ensemble members in MED and WCE. NEU also shows a high probability of exceeding <span class="math inline">\(2^\circ\mathrm{C}\)</span>, but its <span class="math inline">\(3^\circ\mathrm{C}\)</span> exceedance probability remains lower, at approximately 60.6%. Its wider warming distribution therefore leaves a substantial share of projected outcomes below the higher threshold even in the late-century period.</p>
+<p>Together, the probability estimates and mid-century distributions show that threshold exceedance cannot be inferred from mean warming alone. The resulting probability depends on where the threshold lies within the projected distribution as well as on the distributional spread. These probabilities refer to 20-year mean regional JJA warming relative to 1995–2014 and should therefore be interpreted as conditional, ensemble-based risk-style diagnostics rather than probabilities for individual summers.</p>
+</div>
+</div>
+<div id="robustness-of-the-main-findings" class="section level3 hasAnchor" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Robustness of the Main Findings<a href="unc.html#robustness-of-the-main-findings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The robustness analyses support the main qualitative patterns identified in the full-member analysis. The hierarchical bootstrap shows that internal-variability estimates are comparatively stable, whereas intervals for model-related quantities, total uncertainty, and contribution rates are wider (Figure <a href="unc.html#fig:unc-bootstrap-uncertainty">1.14</a>). This greater spread is most visible for quantities that depend strongly on differences among the five model responses.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-bootstrap-uncertainty"></span>
+<img src="work/01-climate_uncertainty/figures/fig16_bootstrap_ci_uncertainty_metrics.png" alt="Hierarchical-bootstrap point estimates and 95% percentile intervals for selected uncertainty metrics across regions and future periods." width="100%" />
+<p class="caption">
+FIGURE 1.14: Hierarchical-bootstrap point estimates and 95% percentile intervals for selected uncertainty metrics across regions and future periods.
+</p>
+</div>
+<p>The bootstrap results for the distributional diagnostics lead to the same overall interpretation (Figure <a href="unc.html#fig:unc-bootstrap-diagnostics">1.15</a>). Signal-to-noise results continue to indicate clear warming relative to the analyzed uncertainty scales. Threshold probabilities are less stable when the threshold lies within the central part of the warming distribution, particularly during the mid-century transition, while probabilities already close to zero or one are more stable. These intervals do not change the main temporal and regional patterns reported above.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-bootstrap-diagnostics"></span>
+<img src="work/01-climate_uncertainty/figures/fig17_bootstrap_ci_snr_threshold_probability.png" alt="Hierarchical-bootstrap point estimates and 95% percentile intervals for signal-to-noise ratios and threshold exceedance probabilities." width="100%" />
+<p class="caption">
+FIGURE 1.15: Hierarchical-bootstrap point estimates and 95% percentile intervals for signal-to-noise ratios and threshold exceedance probabilities.
+</p>
+</div>
+<p>The balanced-member sensitivity analysis provides a complementary check on the unequal original ensemble sizes. Estimates obtained from repeated 20-member-per-model subsamples remain close to the corresponding full-member estimates, with most comparisons lying near the 1:1 line (Figure <a href="unc.html#fig:unc-balanced-member-sensitivity">1.16</a>). The regional rankings, temporal increase in model and total uncertainty, and the dominance of model uncertainty are retained. Differences in total standard deviation and total signal-to-noise ratio are also small relative to the main regional and temporal contrasts.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-balanced-member-sensitivity"></span>
+<img src="work/01-climate_uncertainty/figures/fig18_balanced_20_member_sensitivity.png" alt="Comparison of full-member estimates with estimates from the balanced 20-member-per-model sensitivity analysis. The diagonal represents exact agreement." width="100%" />
+<p class="caption">
+FIGURE 1.16: Comparison of full-member estimates with estimates from the balanced 20-member-per-model sensitivity analysis. The diagonal represents exact agreement.
+</p>
+</div>
+<p>Overall, both robustness checks support the central conclusions of the analysis. Unequal ensemble sizes do not appear to drive the main findings, while the bootstrap confirms that estimates based on between-model differences are less tightly constrained than estimates of within-model variability. The exact magnitude of model uncertainty and its contribution nevertheless remains conditional on the selected five-model ensemble.</p>
+</div>
+</div>
+<div id="discussion" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Discussion<a href="unc.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The results show that the interpretation of projection uncertainty depends not only on its magnitude, but also on how the projection target is defined. The discussion therefore focuses on the role of 20-year temporal averaging in the uncertainty decomposition, the distinction between signal emergence and model agreement, and how the findings should be interpreted in relation to previous work and the conditional scope of the analysis.</p>
+<div id="temporal-averaging-and-the-dominance-of-model-uncertainty" class="section level3 hasAnchor" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Temporal Averaging and the Dominance of Model Uncertainty<a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The strong contribution of model uncertainty should be interpreted in relation to the temporal scale of the prediction target. The uncertainty decomposition is applied to 20-year mean regional JJA warming, as defined in Equation <a href="unc.html#eq:unc-period-mean-warming">(1.2)</a>, rather than to annual temperature anomalies. Internal variability therefore describes differences among ensemble members in their 20-year mean warming. Averaging over a longer period allows positive and negative short-term deviations to partly cancel, reducing the member-to-member spread of the period means <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>.</p>
+<p>A simple statistical approximation illustrates this effect. For a temporally varying quantity <span class="math inline">\(X\)</span>,</p>
+<p><span class="math display">\[
+\operatorname{Var}(\overline{X})
+\approx
+\frac{\sigma^2}{n_{\mathrm{eff}}},
+\]</span></p>
+<p>where <span class="math inline">\(\sigma^2\)</span> is the variance at the shorter time scale and <span class="math inline">\(n_{\mathrm{eff}}\)</span> is the effective number of independent observations contributing to the mean. Because climate values can be autocorrelated, <span class="math inline">\(n_{\mathrm{eff}}\)</span> may be smaller than the 20 years contained in each period. Nevertheless, averaging still suppresses part of the short-term variability that would be more visible in annual or shorter-period indicators.</p>
+<p>This helps explain the uncertainty pattern found in the analysis. Internal standard deviation changes relatively little across the future periods, while the spread among model-specific forced responses grows substantially. Temporal averaging reduces the influence of member-specific fluctuations on the 20-year target, but persistent differences among model responses are not removed in the same way. As these between-model differences increase with projection lead time, they account for an increasing share of total fixed-scenario variance (Figure <a href="unc.html#fig:unc-uncertainty-decomposition">1.7</a>).</p>
+<p>The resulting decline in the internal contribution should therefore not be interpreted as evidence that internal variability is generally unimportant. It means that internal variability contributes relatively little to the specific quantity analyzed here: 20-year mean regional summer warming. A different prediction target, such as annual temperature, a shorter averaging period, or a smaller spatial scale, could retain more internal variability and produce a different uncertainty balance.</p>
+<p>This scale dependence is consistent with Hawkins and Sutton, who explicitly considered the effect of temporal averaging in their uncertainty framework and mainly analyzed decadal mean temperature projections <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>)</span>. Their results also show that the relative importance of internal and model uncertainty changes with prediction horizon and averaging scale. The particularly high model contribution found here is therefore plausibly influenced by the use of 20-year means, but temporal averaging should not be treated as the only explanation. The selected models, regional and seasonal aggregation, fixed forcing pathway, weighting scheme, and variance estimators can also affect the estimated contribution rates.</p>
+</div>
+<div id="signal-emergence-model-disagreement-and-risk-interpretation" class="section level3 hasAnchor" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Signal Emergence, Model Disagreement, and Risk Interpretation<a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The signal-to-noise results distinguish two related but different questions: whether regional warming is large relative to internal variability, and whether models agree closely on the magnitude of that warming. The high internal SNR values indicate that the warming signal is clearly separated from member-to-member variability in 20-year mean warming (Figure <a href="unc.html#fig:unc-internal-snr">1.11</a>). This interpretation is consistent with the use of internal variability as the noise component in climate signal-to-noise analysis <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>; <a href="#ref-Gruber2026">Gruber et al. 2026</a>)</span>. It does not imply that internal variability is negligible at shorter temporal scales or for other climate indicators.</p>
+<p>The lower total SNR values show that this clear emergence from internal variability does not translate into equally precise agreement among model projections (Figure <a href="unc.html#fig:unc-total-snr">1.10</a>). Once differences among model-specific forced responses are included, the uncertainty surrounding the magnitude of warming becomes substantially larger. The selected models therefore agree more strongly on the direction of regional warming than on its exact magnitude. In this sense, <strong>signal emergence does not imply precise projection agreement</strong>.</p>
+<p>The distribution-based diagnostics further show why warming magnitude and uncertainty must be considered jointly. NEU provides the clearest example: although its central warming estimate is lower than in WCE and MED, it has the widest late-century prediction range and the lowest total signal clarity. WCE, by contrast, combines stronger central warming with a narrower distribution than NEU. These differences show that a larger mean response does not necessarily imply greater projection uncertainty, and a smaller mean response does not necessarily imply greater confidence (Figure <a href="unc.html#fig:unc-prediction-ranges">1.9</a>).</p>
+<p>The same distinction is important for interpreting threshold exceedance. Exceedance probability depends on where a threshold lies relative to both the center and the spread of the warming distribution. When most of the distribution has moved beyond a threshold, exceedance becomes consistently high; when the threshold cuts through a wider distribution, substantial uncertainty remains even when the mean warming is above that level (Figure <a href="unc.html#fig:unc-threshold-exceedance">1.12</a>). This is particularly relevant for NEU at the higher threshold, where the wider distribution produces less certain exceedance than in the other regions.</p>
+<p>These threshold probabilities should nevertheless be interpreted narrowly. They are conditional, ensemble-based diagnostics for 20-year mean regional JJA warming relative to the 1995–2014 baseline, rather than complete measures of climate risk. They do not represent the probability of an individual hot summer, nor do the <span class="math inline">\(2^\circ\mathrm{C}\)</span> and <span class="math inline">\(3^\circ\mathrm{C}\)</span> thresholds correspond to global warming levels relative to the pre-industrial period. More broadly, the results illustrate the value of interpreting multi-model projections as distributions rather than relying on the ensemble mean alone <span class="citation">(<a href="#ref-Tebaldi2007">Tebaldi and Knutti 2007</a>)</span>.</p>
+</div>
+<div id="relation-to-previous-work-and-overall-interpretation" class="section level3 hasAnchor" number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> Relation to Previous Work and Overall Interpretation<a href="unc.html#relation-to-previous-work-and-overall-interpretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The main findings are broadly consistent with previous work on uncertainty in climate-model ensembles. Initial-condition large ensembles provide a way to separate member-to-member internal variability from the model-specific forced response, while multiple large ensembles extend this framework to differences among model responses <span class="citation">(<a href="#ref-Deser2020">Deser et al. 2020</a>; <a href="#ref-Lehner2020">Lehner et al. 2020</a>)</span>. The increasing importance of model uncertainty with projection lead time is also consistent with established climate-projection uncertainty frameworks <span class="citation">(<a href="#ref-Hawkins2009">Hawkins and Sutton 2009</a>; <a href="#ref-Lehner2020">Lehner et al. 2020</a>)</span>. However, the relative contribution of each uncertainty source is not a universal property of climate projections. It depends on the prediction horizon, spatial and temporal scale, climate indicator, model sample, scenario design, and statistical treatment. The contribution rates found here should therefore be interpreted for the specific 20-year regional summer-warming target used in this study rather than compared directly with values obtained for annual or differently aggregated projections.</p>
+<p>The analysis also supports the value of combining source-based and distribution-based views of uncertainty. The variance decomposition identifies whether spread arises mainly within models or among model responses, whereas prediction ranges, signal-to-noise ratios, and threshold probabilities describe how that spread affects the interpretation of projected warming. This complements the multi-model distributional perspective emphasized in previous work, where the ensemble mean alone is not sufficient to describe projection uncertainty <span class="citation">(<a href="#ref-Tebaldi2007">Tebaldi and Knutti 2007</a>)</span>. In the present analysis, these different summaries lead to a consistent interpretation: the warming signal is clear, but uncertainty in its exact regional magnitude remains strongly influenced by disagreement among model responses.</p>
+<p>The robustness analyses strengthen this qualitative interpretation without removing the dependence on the available model sample. The balanced-member analysis indicates that the dominance of model uncertainty is not simply a consequence of unequal ensemble sizes. At the same time, the hierarchical bootstrap shows that quantities based on between-model differences are less tightly constrained than within-model estimates. This is expected when model uncertainty is estimated from only five model-specific responses. The robustness results therefore support the main regional and temporal patterns, while suggesting more caution in interpreting the exact magnitude of model variance and its contribution rate.</p>
+<p>The scope of these conclusions is deliberately conditional. The analysis considers SSP3-7.0 only, five selected large-ensemble models with equal model weight, JJA mean temperature, three European regions, and 20-year warming relative to 1995–2014. Scenario uncertainty is not included, and the <span class="math inline">\(2^\circ\mathrm{C}\)</span> and <span class="math inline">\(3^\circ\mathrm{C}\)</span> thresholds refer to regional baseline-relative summer warming rather than global warming levels. Moreover, the spread among the selected models is an empirical representation of model disagreement, not a complete measure of real-world epistemic uncertainty <span class="citation">(<a href="#ref-Gruber2025">Gruber et al. 2025</a>)</span>.</p>
+<p>Overall, the results reinforce a central statistical point: uncertainty attribution depends on both the ensemble being analyzed and the definition of the prediction target. For 20-year mean regional summer warming under a fixed forcing pathway, temporal aggregation limits the relative contribution of within-model variability, while persistent differences among model forced responses become the dominant source of projection spread. Considering uncertainty from several complementary perspectives therefore provides a more informative interpretation than reporting the multi-model mean alone.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Conclusion<a href="unc.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This seminar work examined fixed-scenario uncertainty in projected 20-year mean regional JJA warming across NEU, WCE, and MED using five large-ensemble climate models under SSP3-7.0. All regions show increasing summer warming across the century, while the model-specific forced responses become more widely separated with projection lead time. Internal variability in the 20-year warming target remains comparatively stable, whereas model uncertainty increases and becomes the main contributor to total fixed-scenario projection uncertainty.</p>
+<p>The distribution-based diagnostics lead to the same overall interpretation from a different perspective. The warming signal is clear relative to internal variability, but agreement on its exact magnitude is reduced when differences among model responses are included. Prediction ranges and threshold exceedance probabilities further show that central warming and projection spread must be considered together: regions with similar or even lower mean warming can still differ substantially in the range and threshold behavior of projected outcomes.</p>
+<p>The robustness analyses support these qualitative findings and indicate that unequal ensemble sizes do not drive the main uncertainty pattern. At the same time, the results remain conditional on the selected five-model ensemble, SSP3-7.0, the regional JJA temperature target, and the use of 20-year means. In particular, the relatively small contribution of internal variability should be understood as a property of this temporally averaged prediction target rather than as a general statement about climate variability. Overall, the analysis shows that the interpretation of climate-projection uncertainty depends both on the source of variation and on how the prediction target is defined.</p>
+</div>
+<div id="appendices" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Appendices<a href="unc.html#appendices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The appendices provide complete numerical summaries and supplementary diagnostics that support the main text. To reduce repetition, the model/member-count table and the complete model-specific forced-response table are omitted because the same information is already presented in the Data and Results sections. The uncertainty-magnitude table is retained in a reduced form so that the complete internal and model uncertainty estimates remain available without repeating total uncertainty already reported in the master summary.</p>
+<p>All numerical tables are read directly from the analysis outputs in <code>work/01-climate_uncertainty/results/</code>.</p>
+<div id="appendix-a.-complete-result-tables" class="section level3 hasAnchor" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> Appendix A. Complete Result Tables<a href="unc.html#appendix-a.-complete-result-tables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Table A.1. Regional and Temporal Master Summary</strong></p>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+region
+</th>
+<th style="text-align:left;">
+period
+</th>
+<th style="text-align:right;">
+Mean warming (°C)
+</th>
+<th style="text-align:right;">
+Total SD (°C)
+</th>
+<th style="text-align:right;">
+Internal contribution
+</th>
+<th style="text-align:right;">
+Model contribution
+</th>
+<th style="text-align:right;">
+Total SNR
+</th>
+<th style="text-align:right;">
+P(ΔT &gt; 2°C)
+</th>
+<th style="text-align:right;">
+P(ΔT &gt; 3°C)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+1.289
+</td>
+<td style="text-align:right;">
+0.422
+</td>
+<td style="text-align:right;">
+0.158
+</td>
+<td style="text-align:right;">
+0.842
+</td>
+<td style="text-align:right;">
+3.054
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+2.409
+</td>
+<td style="text-align:right;">
+0.602
+</td>
+<td style="text-align:right;">
+0.105
+</td>
+<td style="text-align:right;">
+0.895
+</td>
+<td style="text-align:right;">
+4.000
+</td>
+<td style="text-align:right;">
+0.691
+</td>
+<td style="text-align:right;">
+0.216
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+4.943
+</td>
+<td style="text-align:right;">
+1.053
+</td>
+<td style="text-align:right;">
+0.034
+</td>
+<td style="text-align:right;">
+0.966
+</td>
+<td style="text-align:right;">
+4.694
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.983
+</td>
+<td style="text-align:right;">
+0.637
+</td>
+<td style="text-align:right;">
+0.202
+</td>
+<td style="text-align:right;">
+0.798
+</td>
+<td style="text-align:right;">
+1.543
+</td>
+<td style="text-align:right;">
+0.029
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+1.959
+</td>
+<td style="text-align:right;">
+0.913
+</td>
+<td style="text-align:right;">
+0.123
+</td>
+<td style="text-align:right;">
+0.877
+</td>
+<td style="text-align:right;">
+2.145
+</td>
+<td style="text-align:right;">
+0.432
+</td>
+<td style="text-align:right;">
+0.138
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+4.022
+</td>
+<td style="text-align:right;">
+1.727
+</td>
+<td style="text-align:right;">
+0.032
+</td>
+<td style="text-align:right;">
+0.968
+</td>
+<td style="text-align:right;">
+2.329
+</td>
+<td style="text-align:right;">
+0.948
+</td>
+<td style="text-align:right;">
+0.606
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+1.379
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+<td style="text-align:right;">
+0.331
+</td>
+<td style="text-align:right;">
+0.669
+</td>
+<td style="text-align:right;">
+2.656
+</td>
+<td style="text-align:right;">
+0.084
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+2.606
+</td>
+<td style="text-align:right;">
+0.688
+</td>
+<td style="text-align:right;">
+0.197
+</td>
+<td style="text-align:right;">
+0.803
+</td>
+<td style="text-align:right;">
+3.785
+</td>
+<td style="text-align:right;">
+0.770
+</td>
+<td style="text-align:right;">
+0.341
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+5.444
+</td>
+<td style="text-align:right;">
+1.169
+</td>
+<td style="text-align:right;">
+0.082
+</td>
+<td style="text-align:right;">
+0.918
+</td>
+<td style="text-align:right;">
+4.657
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table A.2. Internal and model uncertainty magnitudes across regions and future periods.</strong></p>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+region
+</th>
+<th style="text-align:left;">
+period
+</th>
+<th style="text-align:right;">
+Internal variance (°C²)
+</th>
+<th style="text-align:right;">
+Internal SD (°C)
+</th>
+<th style="text-align:right;">
+Model variance (°C²)
+</th>
+<th style="text-align:right;">
+Model SD (°C)
+</th>
+<th style="text-align:right;">
+Total variance (°C²)
+</th>
+<th style="text-align:right;">
+Total SD (°C)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.028
+</td>
+<td style="text-align:right;">
+0.168
+</td>
+<td style="text-align:right;">
+0.150
+</td>
+<td style="text-align:right;">
+0.387
+</td>
+<td style="text-align:right;">
+0.178
+</td>
+<td style="text-align:right;">
+0.422
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+0.038
+</td>
+<td style="text-align:right;">
+0.195
+</td>
+<td style="text-align:right;">
+0.325
+</td>
+<td style="text-align:right;">
+0.570
+</td>
+<td style="text-align:right;">
+0.363
+</td>
+<td style="text-align:right;">
+0.602
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+0.037
+</td>
+<td style="text-align:right;">
+0.193
+</td>
+<td style="text-align:right;">
+1.071
+</td>
+<td style="text-align:right;">
+1.035
+</td>
+<td style="text-align:right;">
+1.109
+</td>
+<td style="text-align:right;">
+1.053
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.082
+</td>
+<td style="text-align:right;">
+0.287
+</td>
+<td style="text-align:right;">
+0.324
+</td>
+<td style="text-align:right;">
+0.569
+</td>
+<td style="text-align:right;">
+0.406
+</td>
+<td style="text-align:right;">
+0.637
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+0.103
+</td>
+<td style="text-align:right;">
+0.321
+</td>
+<td style="text-align:right;">
+0.731
+</td>
+<td style="text-align:right;">
+0.855
+</td>
+<td style="text-align:right;">
+0.834
+</td>
+<td style="text-align:right;">
+0.913
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+0.095
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:right;">
+2.886
+</td>
+<td style="text-align:right;">
+1.699
+</td>
+<td style="text-align:right;">
+2.982
+</td>
+<td style="text-align:right;">
+1.727
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.089
+</td>
+<td style="text-align:right;">
+0.299
+</td>
+<td style="text-align:right;">
+0.180
+</td>
+<td style="text-align:right;">
+0.425
+</td>
+<td style="text-align:right;">
+0.270
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+0.093
+</td>
+<td style="text-align:right;">
+0.305
+</td>
+<td style="text-align:right;">
+0.381
+</td>
+<td style="text-align:right;">
+0.617
+</td>
+<td style="text-align:right;">
+0.474
+</td>
+<td style="text-align:right;">
+0.688
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+0.112
+</td>
+<td style="text-align:right;">
+0.335
+</td>
+<td style="text-align:right;">
+1.254
+</td>
+<td style="text-align:right;">
+1.120
+</td>
+<td style="text-align:right;">
+1.366
+</td>
+<td style="text-align:right;">
+1.169
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table A.3. Equal-model-weighted prediction quantiles and central 90% prediction-range widths across regions and future periods.</strong></p>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+region
+</th>
+<th style="text-align:left;">
+period
+</th>
+<th style="text-align:right;">
+Mean warming (°C)
+</th>
+<th style="text-align:right;">
+Q05 (°C)
+</th>
+<th style="text-align:right;">
+Q50 (°C)
+</th>
+<th style="text-align:right;">
+Q95 (°C)
+</th>
+<th style="text-align:right;">
+90% width (°C)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+1.289
+</td>
+<td style="text-align:right;">
+0.665
+</td>
+<td style="text-align:right;">
+1.363
+</td>
+<td style="text-align:right;">
+1.839
+</td>
+<td style="text-align:right;">
+1.174
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+2.409
+</td>
+<td style="text-align:right;">
+1.613
+</td>
+<td style="text-align:right;">
+2.455
+</td>
+<td style="text-align:right;">
+3.239
+</td>
+<td style="text-align:right;">
+1.626
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+4.943
+</td>
+<td style="text-align:right;">
+3.661
+</td>
+<td style="text-align:right;">
+4.620
+</td>
+<td style="text-align:right;">
+6.373
+</td>
+<td style="text-align:right;">
+2.712
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.983
+</td>
+<td style="text-align:right;">
+0.106
+</td>
+<td style="text-align:right;">
+0.928
+</td>
+<td style="text-align:right;">
+1.865
+</td>
+<td style="text-align:right;">
+1.759
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+1.959
+</td>
+<td style="text-align:right;">
+0.816
+</td>
+<td style="text-align:right;">
+1.676
+</td>
+<td style="text-align:right;">
+3.188
+</td>
+<td style="text-align:right;">
+2.372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+4.022
+</td>
+<td style="text-align:right;">
+1.979
+</td>
+<td style="text-align:right;">
+3.750
+</td>
+<td style="text-align:right;">
+6.239
+</td>
+<td style="text-align:right;">
+4.260
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+1.379
+</td>
+<td style="text-align:right;">
+0.655
+</td>
+<td style="text-align:right;">
+1.417
+</td>
+<td style="text-align:right;">
+2.089
+</td>
+<td style="text-align:right;">
+1.434
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+2.606
+</td>
+<td style="text-align:right;">
+1.636
+</td>
+<td style="text-align:right;">
+2.722
+</td>
+<td style="text-align:right;">
+3.499
+</td>
+<td style="text-align:right;">
+1.863
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+5.444
+</td>
+<td style="text-align:right;">
+3.768
+</td>
+<td style="text-align:right;">
+5.558
+</td>
+<td style="text-align:right;">
+6.787
+</td>
+<td style="text-align:right;">
+3.019
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="appendix-b.-supplementary-figures" class="section level3 hasAnchor" number="1.8.2">
+<h3><span class="header-section-number">1.8.2</span> Appendix B. Supplementary Figures<a href="unc.html#appendix-b.-supplementary-figures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following figures provide alternative regional-temporal views of the main uncertainty and projection diagnostics. They complement the figures used in the main Results section without introducing additional statistical quantities.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-appendix-internal-sd"></span>
+<img src="work/01-climate_uncertainty/figures/fig12_regional_temporal_internal_sd.png" alt="Regional and temporal comparison of internal standard deviation in 20-year mean JJA warming." width="70%" />
+<p class="caption">
+FIGURE 1.17: Regional and temporal comparison of internal standard deviation in 20-year mean JJA warming.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-appendix-total-sd"></span>
+<img src="work/01-climate_uncertainty/figures/fig13_regional_temporal_total_sd.png" alt="Regional and temporal comparison of total fixed-scenario projection standard deviation." width="70%" />
+<p class="caption">
+FIGURE 1.18: Regional and temporal comparison of total fixed-scenario projection standard deviation.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unc-appendix-snr-threshold"></span>
+<img src="work/01-climate_uncertainty/figures/fig15a_threshold_centered_snr_exceedance_probability.png" alt="Relationship between Total SNR and Threshold Exceedance Probability." width="100%" />
+<p class="caption">
+FIGURE 1.19: Relationship between Total SNR and Threshold Exceedance Probability.
+</p>
+</div>
+</div>
+<div id="appendix-c.-robustness-diagnostics" class="section level3 hasAnchor" number="1.8.3">
+<h3><span class="header-section-number">1.8.3</span> Appendix C. Robustness Diagnostics<a href="unc.html#appendix-c.-robustness-diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Table C.1. Average width of the 95% hierarchical-bootstrap percentile interval by metric.</strong></p>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Metric
+</th>
+<th style="text-align:right;">
+Mean 95% CI width
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+exceedance_probability_2c
+</td>
+<td style="text-align:right;">
+0.266
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exceedance_probability_3c
+</td>
+<td style="text-align:right;">
+0.259
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+internal_contribution
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+internal_sd
+</td>
+<td style="text-align:right;">
+0.124
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+internal_snr
+</td>
+<td style="text-align:right;">
+8.167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+model_contribution
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total_sd
+</td>
+<td style="text-align:right;">
+0.629
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total_snr
+</td>
+<td style="text-align:right;">
+5.006
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table C.2. Comparison of full-member and balanced 20-member-per-model estimates for total standard deviation and total signal-to-noise ratio.</strong></p>
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+region
+</th>
+<th style="text-align:left;">
+period
+</th>
+<th style="text-align:right;">
+Full total SD
+</th>
+<th style="text-align:right;">
+Balanced total SD
+</th>
+<th style="text-align:right;">
+Full total SNR
+</th>
+<th style="text-align:right;">
+Balanced total SNR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.422
+</td>
+<td style="text-align:right;">
+0.423
+</td>
+<td style="text-align:right;">
+3.054
+</td>
+<td style="text-align:right;">
+3.050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+0.602
+</td>
+<td style="text-align:right;">
+0.601
+</td>
+<td style="text-align:right;">
+4.000
+</td>
+<td style="text-align:right;">
+4.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+1.053
+</td>
+<td style="text-align:right;">
+1.054
+</td>
+<td style="text-align:right;">
+4.694
+</td>
+<td style="text-align:right;">
+4.691
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.637
+</td>
+<td style="text-align:right;">
+0.635
+</td>
+<td style="text-align:right;">
+1.543
+</td>
+<td style="text-align:right;">
+1.556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+0.913
+</td>
+<td style="text-align:right;">
+0.909
+</td>
+<td style="text-align:right;">
+2.145
+</td>
+<td style="text-align:right;">
+2.161
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NEU
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+1.727
+</td>
+<td style="text-align:right;">
+1.724
+</td>
+<td style="text-align:right;">
+2.329
+</td>
+<td style="text-align:right;">
+2.335
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2021-2040
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+<td style="text-align:right;">
+0.519
+</td>
+<td style="text-align:right;">
+2.656
+</td>
+<td style="text-align:right;">
+2.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2041-2060
+</td>
+<td style="text-align:right;">
+0.688
+</td>
+<td style="text-align:right;">
+0.685
+</td>
+<td style="text-align:right;">
+3.785
+</td>
+<td style="text-align:right;">
+3.809
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WCE
+</td>
+<td style="text-align:left;">
+2081-2100
+</td>
+<td style="text-align:right;">
+1.169
+</td>
+<td style="text-align:right;">
+1.171
+</td>
+<td style="text-align:right;">
+4.657
+</td>
+<td style="text-align:right;">
+4.652
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-BednarFriedl2022" class="csl-entry">
+Bednar-Friedl, Birgit, Robbert Biesbroek, Daniela N. Schmidt, et al. 2022. <span>“Europe.”</span> In <em>Climate Change 2022: Impacts, Adaptation and Vulnerability</em>. Cambridge University Press. <a href="https://doi.org/10.1017/9781009325844.015">https://doi.org/10.1017/9781009325844.015</a>.
+</div>
+<div id="ref-Deser2020" class="csl-entry">
+Deser, Clara, Flavio Lehner, Keith B. Rodgers, et al. 2020. <span>“Insights from Earth System Model Initial-Condition Large Ensembles and Future Prospects.”</span> <em>Nature Climate Change</em> 10 (4): 277–86. <a href="https://doi.org/10.1038/s41558-020-0731-2">https://doi.org/10.1038/s41558-020-0731-2</a>.
+</div>
+<div id="ref-Efron1993" class="csl-entry">
+Efron, Bradley, and Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-Gruber2026" class="csl-entry">
+Gruber, Cornelia, Henri Funk, Magdalena Mittermeier, Helmut Küchenhoff, and Göran Kauermann. 2026. <span>“Capturing Aleatoric Uncertainty in Climate Models.”</span> <em>Environmetrics</em> 37 (5): e70108. <a href="https://doi.org/10.1002/env.70108">https://doi.org/10.1002/env.70108</a>.
+</div>
+<div id="ref-Gruber2025" class="csl-entry">
+Gruber, Cornelia, Patrick Oliver Schenk, Malte Schierholz, Frauke Kreuter, and Göran Kauermann. 2025. <em>Sources of Uncertainty in Supervised Machine Learning – a Statisticians’ View</em>. <a href="https://arxiv.org/abs/2305.16703">https://arxiv.org/abs/2305.16703</a>.
+</div>
+<div id="ref-Hawkins2009" class="csl-entry">
+Hawkins, Ed, and Rowan Sutton. 2009. <span>“The Potential to Narrow Uncertainty in Regional Climate Predictions.”</span> <em>Bulletin of the American Meteorological Society</em> 90 (8): 1095–108. <a href="https://doi.org/10.1175/2009BAMS2607.1">https://doi.org/10.1175/2009BAMS2607.1</a>.
+</div>
+<div id="ref-IPCC2021" class="csl-entry">
+IPCC. 2021a. <em>Climate Change 2021: The Physical Science Basis. Contribution of Working Group i to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change</em>. Edited by Valérie Masson-Delmotte, Panmao Zhai, Anna Pirani, et al. Cambridge University Press. <a href="https://doi.org/10.1017/9781009157896">https://doi.org/10.1017/9781009157896</a>.
+</div>
+<div id="ref-Iturbide2020" class="csl-entry">
+Iturbide, Maialen, José M. Gutiérrez, Lincoln M. Alves, et al. 2020. <span>“An Update of IPCC Climate Reference Regions for Subcontinental Analysis of Climate Model Data: Definition and Aggregated Datasets.”</span> <em>Earth System Science Data</em> 12 (4): 2959–70. <a href="https://doi.org/10.5194/essd-12-2959-2020">https://doi.org/10.5194/essd-12-2959-2020</a>.
+</div>
+<div id="ref-Lehner2020" class="csl-entry">
+Lehner, Flavio, Clara Deser, Nicola Maher, et al. 2020. <span>“Partitioning Climate Projection Uncertainty with Multiple Large Ensembles and CMIP5/6.”</span> <em>Earth System Dynamics</em> 11 (2): 491–508. <a href="https://doi.org/10.5194/esd-11-491-2020">https://doi.org/10.5194/esd-11-491-2020</a>.
+</div>
+<div id="ref-Maher2025" class="csl-entry">
+Maher, Nicola, Adam S. Phillips, Clara Deser, et al. 2025. <span>“The Updated Multi-Model Large Ensemble Archive and the Climate Variability Diagnostics Package: New Tools for the Study of Climate Variability and Change.”</span> <em>Geoscientific Model Development</em> 18: 6341–65. <a href="https://doi.org/10.5194/gmd-18-6341-2025">https://doi.org/10.5194/gmd-18-6341-2025</a>.
+</div>
+<div id="ref-McKinnon2018" class="csl-entry">
+McKinnon, Karen A., and Clara Deser. 2018. <span>“Internal Variability and Regional Climate Trends in an Observational Large Ensemble.”</span> <em>Journal of Climate</em> 31: 6783–802. <a href="https://doi.org/10.1175/JCLI-D-17-0901.1">https://doi.org/10.1175/JCLI-D-17-0901.1</a>.
+</div>
+<div id="ref-McKinnon2021" class="csl-entry">
+McKinnon, Karen A., and Clara Deser. 2021. <span>“The Inherent Uncertainty of Precipitation Variability, Trends, and Extremes Due to Internal Variability, with Implications for Western u.s. Water Resources.”</span> <em>Journal of Climate</em> 34: 9605–22. <a href="https://doi.org/10.1175/JCLI-D-21-0251.1">https://doi.org/10.1175/JCLI-D-21-0251.1</a>.
+</div>
+<div id="ref-Milinski2020" class="csl-entry">
+Milinski, Sebastian, Nicola Maher, and Dirk Olonscheck. 2020. <span>“How Large Does a Large Ensemble Need to Be?”</span> <em>Earth System Dynamics</em> 11: 885–901. <a href="https://doi.org/10.5194/esd-11-885-2020">https://doi.org/10.5194/esd-11-885-2020</a>.
+</div>
+<div id="ref-ONeill2016" class="csl-entry">
+O’Neill, Brian C., Claudia Tebaldi, Detlef P. van Vuuren, et al. 2016. <span>“The Scenario Model Intercomparison Project (ScenarioMIP) for CMIP6.”</span> <em>Geoscientific Model Development</em> 9 (9): 3461–82. <a href="https://doi.org/10.5194/gmd-9-3461-2016">https://doi.org/10.5194/gmd-9-3461-2016</a>.
+</div>
+<div id="ref-Rodgers2021" class="csl-entry">
+Rodgers, Keith B., Sun-Seon Lee, Nan Rosenbloom, et al. 2021. <span>“Ubiquity of Human-Induced Changes in Climate Variability.”</span> <em>Earth System Dynamics</em> 12: 1393–411. <a href="https://doi.org/10.5194/esd-12-1393-2021">https://doi.org/10.5194/esd-12-1393-2021</a>.
+</div>
+<div id="ref-Saravanan2020" class="csl-entry">
+Saravanan, V., Gordon J. Berman, and Samuel J. Sober. 2020. <span>“Application of the Hierarchical Bootstrap to Multi-Level Data in Neuroscience.”</span> <em>Neurons, Behavior, Data Analysis, and Theory</em> 3 (5): 1–25.
+</div>
+<div id="ref-Swart2019" class="csl-entry">
+Swart, Neil C., Jason N. S. Cole, Viatcheslav V. Kharin, et al. 2019. <span>“The Canadian Earth System Model Version 5 (CanESM5.0.3).”</span> <em>Geoscientific Model Development</em> 12 (11): 4823–73. <a href="https://doi.org/10.5194/gmd-12-4823-2019">https://doi.org/10.5194/gmd-12-4823-2019</a>.
+</div>
+<div id="ref-Tebaldi2007" class="csl-entry">
+Tebaldi, Claudia, and Reto Knutti. 2007. <span>“The Use of the Multi-Model Ensemble in Probabilistic Climate Projections.”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em> 365 (1857): 2053–75. <a href="https://doi.org/10.1098/rsta.2007.2076">https://doi.org/10.1098/rsta.2007.2076</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

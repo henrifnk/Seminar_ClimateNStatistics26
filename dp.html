@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Long-term drought prediction using deep neural networks based on geospatial weather data | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Long-term drought prediction using deep neural networks based on geospatial weather data | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Long-term drought prediction using deep neural networks based on geospatial weather data | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="unc.html"/>
+<link rel="next" href="hyd.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dp" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Long-term drought prediction using deep neural networks based on geospatial weather data<a href="dp.html#dp" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Helena Veit</em></p>
+<p><em>Supervisor: Henri Funk</em></p>
+<p><em>Degree: Master</em></p>
+<style>
+.book-body .page-inner p { text-align: justify; hyphens: auto; }
+.book-body .page-inner table th,
+.book-body .page-inner table td { padding-left: 5px; padding-right: 5px; }
+.book-body .page-inner table td:first-child { white-space: nowrap; }
+.book-body .page-inner .loss-fig p { text-align: right; margin: 0; }
+</style>
+<div id="introduction-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="dp.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Drought has no single, universally accepted definition, and which definition applies depends on the part of the water cycle and the impacts under consideration <span class="citation">(<a href="#ref-zargar2011">Zargar et al. 2011</a>)</span>.
+Four types are commonly distinguished (Figure <a href="dp.html#fig:dp-drought-types">2.1</a>, adapted from <span class="citation">Nandgude et al. (<a href="#ref-nandgude2023">2023</a>)</span>): in a simplified manner a precipitation deficit produces a <em>meteorological</em> drought, which depletes soil moisture into an <em>agricultural</em> drought, lowers streamflow and groundwater into a <em>hydrological</em> drought, and finally reaches water-dependent goods as a <em>socioeconomic</em> drought.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-drought-types"></span>
+<img src="work/02-drought_prediction/figures/general/drought_types_vector.svg" alt="The four drought types as a propagating cascade. The depiction is adapted from Nandgude et al. (2023)." width="100%" />
+<p class="caption">
+FIGURE 2.1: The four drought types as a propagating cascade. The depiction is adapted from <span class="citation">Nandgude et al. (<a href="#ref-nandgude2023">2023</a>)</span>.
+</p>
+</div>
+<p>This work targets <em>meteorological drought</em>, the first stage and earliest signal, driven by a precipitation deficit together with high evapotranspiration.
+It can be quantified with various indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) <span class="citation">(<a href="#ref-vicenteserrano2010">Vicente-Serrano et al. 2010</a>)</span>.</p>
+<p>Predicting such droughts well ahead of time is valuable for agriculture, water management, and planning, where early warning shapes what can be done in response.
+It is also difficult, since at a lead of several months to a year the predictable signal is weak, and it is further obscured by the rising drought frequency of the last decades.</p>
+<p>This work forecasts SPEI-1 over the Alpine region one year into the future from thirty-six months of history, using a convolutional LSTM (ConvLSTM) that treats spatial and temporal structure jointly.
+Rather than search for a single best model, it asks which design choices actually shape performance, comparing training losses and how global and static features are supplied to the network.
+Three research questions guide this work:</p>
+<ul>
+<li><strong>RQ1 (loss):</strong> How does the choice of loss function affect drought detection in a regression setting?</li>
+<li><strong>RQ2 (global features):</strong> How can dynamic global features be integrated into the ConvLSTM architecture?</li>
+<li><strong>RQ3 (static features):</strong> How can static spatial features be integrated into the ConvLSTM architecture?</li>
+</ul>
+<p>Answering these questions is the main contribution: a controlled comparison of loss and feature-injection choices for long-term drought prediction.</p>
+</div>
+<div id="related-work" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Related Work<a href="dp.html#related-work" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Drought prediction has moved from simple baselines such as logistic regression and gradient-boosted trees (see e.g. <span class="citation">Marusov et al. (<a href="#ref-marusov2024">2024</a>)</span>) toward machine and deep learning <span class="citation">(<a href="#ref-nandgude2023">Nandgude et al. 2023</a>)</span>.
+The task is both temporal, inferring a future drought from past conditions, and spatial, since nearby locations are not independent. Approaches mainly differ in how they handle the two.
+Models from the LSTM family capture the temporal side well but treat space only through their inputs or not at all <span class="citation">(<a href="#ref-wang2023">Wang et al. 2023</a>; <a href="#ref-chen2025">Chen et al. 2025</a>)</span>, whereas graph-based and transformer models represent the spatial field more directly <span class="citation">(<a href="#ref-yu2023">Yu et al. 2023</a>; <a href="#ref-gao2023">Gao et al. 2023</a>; <a href="#ref-pathak2022">Pathak et al. 2022</a>; <a href="#ref-nguyen2023">Nguyen et al. 2023</a>)</span>, at the cost of model scale and compute, and without a guaranteed performance edge, since simple linear baselines can often rival transformer forecasters <span class="citation">(<a href="#ref-zeng2022">Zeng et al. 2022</a>)</span>.</p>
+<p>Across the named studies two factors stand out.
+First, they mostly forecast at a short, one-month lead <span class="citation">(<a href="#ref-wang2023">Wang et al. 2023</a>; <a href="#ref-chen2025">Chen et al. 2025</a>; <a href="#ref-yu2023">Yu et al. 2023</a>)</span>, the main exception treating long-lead drought as a binary classification <span class="citation">(<a href="#ref-marusov2024">Marusov et al. 2024</a>)</span>.
+Second, evaluation usually falls on one side of a divide, a continuous index scored by average error or discrete categories scored by classification metrics.
+The loss function and the handling of input features are usually fixed rather than compared accross different options.</p>
+<p>This work directly predicts SPEI-1 at a twelve-month lead over the entire Alpine region, evaluates it for both point accuracy and severe-drought detection skill, and studies how the choice of loss and the injection strategies for global and static features shape the trade-off between them.</p>
+</div>
+<div id="data-and-task" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Data and Task<a href="dp.html#data-and-task" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="domain-and-source" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Domain and source<a href="dp.html#domain-and-source" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The study region is the Alpine region at a monthly resolution from 1971 to 2024 (648 months).
+The data is derived from the ERA5-Land data set, regridded to a 12kmx12km resolution.
+A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure <a href="dp.html#fig:dp-al-topography-html">2.2</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-al-topography-html"></span>
+<img src="work/02-drought_prediction/figures/raw/topography.svg" alt="Topography over Europe. The red outline marks the Alpine study domain." width="70%" />
+<p class="caption">
+FIGURE 2.2: Topography over Europe. The red outline marks the Alpine study domain.
+</p>
+</div>
+</div>
+<div id="variables" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Variables<a href="dp.html#variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The inputs fall into three groups.</p>
+<p>The <em>dynamic spatial</em> variables, which vary in both space and time. They include the SPEI (the target, also supplied as history, also seen in Figure <a href="dp.html#fig:dp-spei-snapshots">2.3</a>), precipitation, near-surface temperature, surface pressure, and water balance.</p>
+<p>The <em>dynamic global</em> variables, which vary in time only and capture the large-scale drivers of European moisture and its seasonality: the North Atlantic Oscillation index <span class="citation">(<a href="#ref-hurrell1995">Hurrell 1995</a>)</span>, grouped Mediterranean sea-surface temperatures (SST), and a cyclical month encoding.
+The fourteen Mediterranean basins are aggregated into three regional means <span class="citation">(<a href="#ref-millot2005">Millot and Taupier-Letage 2005</a>; <a href="#ref-lionello2006">Lionello et al. 2006</a>)</span> (Figure <a href="dp.html#fig:dp-med-slt">2.4</a>).</p>
+<p>And the <em>static spatial</em> input, which varies in space only: the topography, whose elevation strongly shapes Alpine precipitation and temperature.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-spei-snapshots"></span>
+<img src="work/02-drought_prediction/figures/raw/al/spei.svg" alt="SPEI over the Alpine domain across 1971." width="100%" />
+<p class="caption">
+FIGURE 2.3: SPEI over the Alpine domain across 1971.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-med-slt"></span>
+<img src="work/02-drought_prediction/figures/raw/slides/mediterranean_slt.svg" alt="Mediterranean SST, 1971--2024, aggregated into three regional groups (western Mediterranean, eastern Mediterranean, Black Sea)." width="100%" />
+<p class="caption">
+FIGURE 2.4: Mediterranean SST, 1971–2024, aggregated into three regional groups (western Mediterranean, eastern Mediterranean, Black Sea).
+</p>
+</div>
+</div>
+<div id="drought-definition-spei" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Drought definition: SPEI<a href="dp.html#drought-definition-spei" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Standardized Precipitation Evapotranspiration Index (SPEI) <span class="citation">(<a href="#ref-vicenteserrano2010">Vicente-Serrano et al. 2010</a>)</span> extends the precipitation-only Standardized Precipitation Index (SPI) <span class="citation">(<a href="#ref-mckee1993">McKee et al. 1993</a>)</span> by using the water balance, so that temperature enters through evapotranspiration, which can better account for rising temperatures under climate change.</p>
+<p>The SPEI is built on the water balance,</p>
+<p><span class="math display">\[D = P - PET, \qquad \begin{cases} D &gt; 0 &amp; \text{water surplus} \\ D &lt; 0 &amp; \text{water deficit} \end{cases}\]</span></p>
+<p>where <span class="math inline">\(P\)</span> is precipitation and <span class="math inline">\(PET\)</span> is potential evapotranspiration.</p>
+<p>SPEI is defined at a chosen timescale <span class="math inline">\(k\)</span>: the monthly water balance is summed over a rolling window of the preceding <span class="math inline">\(k\)</span> months, and the accumulated series is fitted to a distribution and standardized.
+Common choices are 1, 3, 6, 12, and 24 months.
+Short timescales respond to rapid, month-to-month deficits and longer ones to slower, accumulated dryness.
+This work uses SPEI-1, so each value uses the water balance of one month expressed in standard deviations from the local mean.
+The index is computed as in <span class="citation">Funk et al. (<a href="#ref-funk2026">2026</a>)</span>, with a three-parameter gamma fit calibrated over 1990 to 2019.</p>
+</div>
+<div id="preprocessing" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Preprocessing<a href="dp.html#preprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cells outside the Alpine mask are filled and excluded from all statistics.
+All variables, including SPEI, are standardized to zero mean and unit variance using training-years statistics over valid cells only.
+Because SPEI is also the prediction target, this same training-period standardization sets the units of the target, so predictions, the reported RMSE, and the SPEI <span class="math inline">\(\le -1.5\)</span> detection threshold are all expressed in training-period standardized units.</p>
+</div>
+<div id="split-and-nonstationarity" class="section level3 hasAnchor" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Split and nonstationarity<a href="dp.html#split-and-nonstationarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data is split chronologically: training on 1971 to 2004, validation on 2005 to 2014, and testing on 2015 to 2024.
+Because the split is by time rather than at random, the periods differ in climate.
+The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is substancially drier than the training period, as shown in Figure <a href="dp.html#fig:dp-drought-freq-severe">2.5</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-drought-freq-severe"></span>
+<img src="work/02-drought_prediction/figures/processed/exploratory/drought_frequency_severe.svg" alt="Severe-drought (SPEI $\le -1.5$) frequency by split." width="100%" />
+<p class="caption">
+FIGURE 2.5: Severe-drought (SPEI <span class="math inline">\(\le -1.5\)</span>) frequency by split.
+</p>
+</div>
+</div>
+<div id="task-model" class="section level3 hasAnchor" number="2.3.6">
+<h3><span class="header-section-number">2.3.6</span> Task &amp; Model<a href="dp.html#task-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The forecasting task is a continuous, per-cell regression of SPEI-1.
+Given thirty-six months of history, the model predicts a single SPEI-1 map at a twelve-month lead.
+It is a direct forecast, the horizon is predicted in one step rather than iterated month by month, avoiding recursive error accumulation.</p>
+<p>The forecasting model is a Convolutional LSTM (ConvLSTM), following the variant of <span class="citation">Marusov et al. (<a href="#ref-marusov2024">2024</a>)</span>.
+It replaces the matrix products in the gates of a standard LSTM <span class="citation">(<a href="#ref-hochreiter1997">Hochreiter and Schmidhuber 1997</a>)</span> with convolutions, so the input <span class="math inline">\(x_t\)</span>, hidden state <span class="math inline">\(h_t\)</span>, and cell state <span class="math inline">\(c_t\)</span> are three-dimensional feature maps rather than vectors, which preserves spatial structure.
+Figure <a href="dp.html#fig:dp-convlstm-schematic">2.6</a> shows the resulting cell.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-convlstm-schematic"></span>
+<img src="work/02-drought_prediction/figures/architecture/ConvLSTM.svg" alt="ConvLSTM cell. The depiction is by Marusov et al. (2024)." width="75%" />
+<p class="caption">
+FIGURE 2.6: ConvLSTM cell. The depiction is by <span class="citation">Marusov et al. (<a href="#ref-marusov2024">2024</a>)</span>.
+</p>
+</div>
+<p>Each gate applies a convolution followed by batch normalization, whose affine shift replaces the additive bias,</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_t &amp;= \sigma(\mathrm{BN}(W_f \ast x_t + U_f \ast h_{t-1})), &amp; i_t &amp;= \sigma(\mathrm{BN}(W_i \ast x_t + U_i \ast h_{t-1})), \\
+\tilde{c}_t &amp;= \tanh(\mathrm{BN}(W_c \ast x_t + U_c \ast h_{t-1})), &amp; o_t &amp;= \sigma(\mathrm{BN}(W_o \ast x_t + U_o \ast h_{t-1})),
+\end{aligned}
+\]</span></p>
+<p>and the cell and hidden states are updated as</p>
+<p><span class="math display">\[c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t, \qquad h_t = o_t \odot \tanh(c_t),\]</span></p>
+<p>where <span class="math inline">\(\ast\)</span> denotes convolution, <span class="math inline">\(\odot\)</span> the elementwise product, and <span class="math inline">\(\sigma\)</span> the sigmoid.</p>
+<p>The final hidden state is mapped to the predicted SPEI map by a bounded regression head,</p>
+<p><span class="math display">\[\hat{y}_T = \lambda \tanh(W_{\text{out}} \ast h_T),\]</span></p>
+<p>where the scaled <span class="math inline">\(\tanh\)</span> keeps the output within <span class="math inline">\([-\lambda, \lambda]\)</span>, with <span class="math inline">\(\lambda = 10\)</span>.</p>
+</div>
+</div>
+<div id="methods-1" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Methods<a href="dp.html#methods-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Each of the three research questions is treated as one axis of variation, as defined below.</p>
+<div id="rq1-loss-functions" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> RQ1: Loss functions<a href="dp.html#rq1-loss-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The loss sets how strongly errors on dry cells are weighted, and how hard the model is pushed to predict droughts.
+Three families are compared, each averaged over valid cells, with <span class="math inline">\(y\)</span> the observed and <span class="math inline">\(\hat{y}\)</span> the predicted SPEI.</p>
+<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #3C3C3C; padding-left: 1em;">
+<div style="min-width: 0;">
+<p><strong style='color:#3C3C3C'>Mean squared error</strong> is the symmetric baseline,</p>
+<p><span class="math display">\[\mathcal{L}_{\text{MSE}} = (\hat{y} - y)^2.\]</span></p>
+</div>
+<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
+<p><img src="work/02-drought_prediction/reports/figures/mse.svg" alt="" width="170px" /></p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #286EA0; padding-left: 1em;">
+<div style="min-width: 0;">
+<p><strong style='color:#286EA0'>Hinge-weighted MSE</strong> keeps the squared error but up-weights cells on the dry side of normal,</p>
+<p><span class="math display">\[\begin{aligned}
+\mathcal{L}_{\text{hwMSE}} &amp;= w\,(\hat{y} - y)^2, \\
+w &amp;= 1 + \alpha \max(0, -y), \quad \alpha \in \{1, 5\},
+\end{aligned}\]</span></p>
+<p>so a given error costs more the drier the observed cell.</p>
+</div>
+<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
+<p><img src="work/02-drought_prediction/reports/figures/hinge_weight.svg" alt="" width="170px" /><img src="work/02-drought_prediction/reports/figures/hinge_loss.svg" alt="" width="170px" /></p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #C6402A; padding-left: 1em;">
+<div style="min-width: 0;">
+<p><strong style='color:#C6402A'>Pinball (quantile) loss</strong> at <span class="math inline">\(\tau = 0.20\)</span> is asymmetric,</p>
+<p><span class="math display">\[\mathcal{L}_{\text{pin}} = \begin{cases} \tau\,(y - \hat{y}) &amp; \hat{y} \le y, \\ (1-\tau)\,(\hat{y} - y) &amp; \hat{y} &gt; y, \end{cases}\]</span></p>
+<p>penalizing over-prediction (too wet, missing a drought) by a factor <span class="math inline">\(\tfrac{1-\tau}{\tau}=4\)</span> over under-prediction, biasing the model toward the dry tail.</p>
+</div>
+<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
+<p><img src="work/02-drought_prediction/reports/figures/pinball.svg" alt="" width="170px" /></p>
+</div>
+</div>
+</div>
+<div id="rq2-dynamic-global-features" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> RQ2: Dynamic global features<a href="dp.html#rq2-dynamic-global-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Two ways of feeding the global features into the ConvLSTM are compared (Figure <a href="dp.html#fig:dp-naive-vs-film">2.7</a>).
+The naive baseline broadcasts each global scalar across the grid as an extra input channel.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-naive-vs-film"></span>
+<img src="work/02-drought_prediction/figures/architecture/Naive_vs_film.svg" alt="Dynamic global feature injection strategies. Naive injection is on the left and FiLM on the right. The FiLM depiction is by Perez et al. (2018)." width="90%" />
+<p class="caption">
+FIGURE 2.7: Dynamic global feature injection strategies. Naive injection is on the left and FiLM on the right. The FiLM depiction is by <span class="citation">Perez et al. (<a href="#ref-perez2018">2018</a>)</span>.
+</p>
+</div>
+<p>FiLM (feature-wise linear modulation) <span class="citation">(<a href="#ref-perez2018">Perez et al. 2018</a>)</span> instead conditions the network by applying a per-channel affine transform to the feature maps,</p>
+<p><span class="math display">\[\mathrm{FiLM}(F_c) = \gamma_c\, F_c + \beta_c, \qquad \gamma_c = f_c(x_t), \; \beta_c = h_c(x_t),\]</span></p>
+<p>where <span class="math inline">\(F_c\)</span> is the activation of channel <span class="math inline">\(c\)</span> and the scale <span class="math inline">\(\gamma_c\)</span> and shift <span class="math inline">\(\beta_c\)</span> are learned functions <span class="math inline">\(f_c, h_c\)</span> of the global features <span class="math inline">\(x_t\)</span>, produced together by a small shared MLP.
+Rather than adding channels, FiLM lets the global state reshape the existing ones in an interaction-like manner. Figure <a href="dp.html#fig:dp-convlstm-film">2.8</a> shows where this conditioning enters the ConvLSTM cell introduced above.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-convlstm-film"></span>
+<img src="work/02-drought_prediction/figures/architecture/ConvLSTM_FiLM.svg" alt="Where FiLM sits inside the ConvLSTM cell: it conditions the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by Marusov et al. (2024)." width="75%" />
+<p class="caption">
+FIGURE 2.8: Where FiLM sits inside the ConvLSTM cell: it conditions the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by <span class="citation">Marusov et al. (<a href="#ref-marusov2024">2024</a>)</span>.
+</p>
+</div>
+</div>
+<div id="rq3-static-spatial-features" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> RQ3: Static spatial features<a href="dp.html#rq3-static-spatial-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Three ways of incorporating the static topography are compared, contrasted in Figure <a href="dp.html#fig:dp-naive-vs-static-encoder">2.9</a>.
+The naive baseline appends the raw static field repeatedly at each time step, treating it the same as a dynamic spatial feature.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-naive-vs-static-encoder"></span>
+<img src="work/02-drought_prediction/figures/architecture/Naive_vs_single_seasonal.svg" alt="Static spatial feature injection strategies. Naive injection is on the left and the learned encoder on the right (single and seasonal variants)." width="90%" />
+<p class="caption">
+FIGURE 2.9: Static spatial feature injection strategies. Naive injection is on the left and the learned encoder on the right (single and seasonal variants).
+</p>
+</div>
+<p>The other two learn a seperate static encoding through a small convolutional network,</p>
+<p><span class="math display">\[E(S) = \mathrm{ReLU}(W_2 \ast \mathrm{ReLU}(W_1 \ast S)),\]</span></p>
+<p>with static features <span class="math inline">\(S\)</span> and convolutional kernels <span class="math inline">\(W_1, W_2\)</span> (each with batch normalization), whose output is concatenated to the embedding <span class="math inline">\(x_t^{\text{emb}}\)</span> at every timestep.
+The <em>single</em> variant uses one shared encoder, giving <span class="math inline">\([\,x_t^{\text{emb}}, E(S)\,]\)</span>, while the <em>seasonal</em> variant uses four encoders, one per meteorological season, selected by the season <span class="math inline">\(s(m_t)\)</span> of the target month, giving <span class="math inline">\([\,x_t^{\text{emb}}, E_{s(m_t)}(S)\,]\)</span>. Figure <a href="dp.html#fig:dp-convlstm-static">2.10</a> shows where the resulting encoder output enters the cell.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-convlstm-static"></span>
+<img src="work/02-drought_prediction/figures/architecture/ConvLSTM_static.svg" alt="Where the static encoder sits inside the ConvLSTM cell: it concatenates its output to the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by Marusov et al. (2024)." width="75%" />
+<p class="caption">
+FIGURE 2.10: Where the static encoder sits inside the ConvLSTM cell: it concatenates its output to the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by <span class="citation">Marusov et al. (<a href="#ref-marusov2024">2024</a>)</span>.
+</p>
+</div>
+</div>
+<div id="experimental-setup" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Experimental setup<a href="dp.html#experimental-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The three axes are crossed into a full grid of <span class="math inline">\(4 \times 2 \times 3 = 24\)</span> configurations: four losses, by two global-feature strategies, by three static-feature strategies.
+All configurations share a single random seed (42) and the same training protocol: an Adam optimizer with batch size 32, up to 50 epochs with early stopping based on the validation RMSE, and the learning rate reduced on plateau.
+Learning rate, dropout, and weight decay received limited tuning on the validation set.</p>
+</div>
+<div id="evaluation" class="section level3 hasAnchor" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Evaluation<a href="dp.html#evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>All metrics are computed on the test period (2015–2024), over all valid cells and test months.
+Point accuracy is measured by the RMSE of the predicted SPEI,</p>
+<p><span class="math display">\[\mathrm{RMSE} = \sqrt{\frac{1}{T G}\sum_{t=1}^{T}\sum_{g=1}^{G}\left(\hat{y}_{g,t} - y_{g,t}\right)^2},\]</span></p>
+<p>over <span class="math inline">\(T\)</span> test months and <span class="math inline">\(G\)</span> valid cells.</p>
+<p>Detection is evaluated at the severe-drought cutoff <span class="math inline">\(c = -1.5\)</span>, with observed and predicted indicators <span class="math inline">\(d_{g,t} = \mathbb{1}\{y_{g,t} \le c\}\)</span> and <span class="math inline">\(\hat{d}_{g,t} = \mathbb{1}\{\hat{y}_{g,t} \le c\}\)</span> at cell <span class="math inline">\(g\)</span> and month <span class="math inline">\(t\)</span>.
+The true positives, false positives, and false negatives are pooled over all valid cells and test months into a single confusion matrix, rather than a per-cell or per-month average, giving the true positive rate (TPR) and F1,</p>
+<p><span class="math display">\[\mathrm{TPR} = \frac{TP}{TP + FN}, \qquad \mathrm{F1} = \frac{2\,TP}{2\,TP + FP + FN}.\]</span></p>
+</div>
+</div>
+<div id="results-1" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Results<a href="dp.html#results-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="baselines" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Baselines<a href="dp.html#baselines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Three reference forecasts are evaluated on the test period (2015–2024): persistence (the last observed SPEI carried forward twelve months), climatology (the training-period cell mean), and a per-cell linear trend extrapolated from the training years to the test years <span class="citation">(<a href="#ref-wilks2011">Wilks 2011</a>; <a href="#ref-jolliffe2003">Jolliffe and Stephenson 2003</a>)</span>.
+They are evaluated in Table <a href="dp.html#tab:dp-baselines">2.1</a>.
+The trend gives the lowest baseline RMSE (1.065), just ahead of climatology (1.077), but neither ever predicts a severe drought, so both score zero on detection.
+Persistence is the only baseline that detects drought (F1 0.290, TPR 0.281), at a substantially higher RMSE (1.349).
+The trend therefore sets the bar to beat on RMSE, and persistence the bar to beat on detection.</p>
+<table class="table" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dp-baselines">TABLE 2.1: </span>Baseline performance on the test set.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Baseline
+</th>
+<th style="text-align:left;">
+Forecast
+</th>
+<th style="text-align:center;">
+RMSE
+</th>
+<th style="text-align:center;">
+F1
+</th>
+<th style="text-align:center;">
+TPR
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Persistence
+</td>
+<td style="text-align:left;">
+last SPEI carried forward 12 months
+</td>
+<td style="text-align:center;">
+1.349
+</td>
+<td style="text-align:center;">
+<span style="font-weight: bold;">0.290</span>
+</td>
+<td style="text-align:center;">
+<span style="font-weight: bold;">0.281</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Climatology
+</td>
+<td style="text-align:left;">
+per-cell training-period mean
+</td>
+<td style="text-align:center;">
+1.077
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trend
+</td>
+<td style="text-align:left;">
+per-cell linear-trend extrapolation
+</td>
+<td style="text-align:center;">
+<span style="font-weight: bold;">1.065</span>
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="rq1-loss-functions-1" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> RQ1: Loss functions<a href="dp.html#rq1-loss-functions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Holding both static spatial feature injection and dynamic global feature injection at the naive strategy, the loss alone shapes a trade-off between accuracy and detection (Table <a href="dp.html#tab:dp-loss-results">2.2</a>).
+MSE and the <span class="math inline">\(w=1\)</span> hinge-weighted MSE loss attain the lowest RMSE (0.965 and 0.962), both beating the trend floor, but MSE’s detection collapses to F1 0.115, far below persistence: minimizing squared error pulls predictions toward the mean and away from the dry tail.
+This mean-pulling is most pronounced for MSE and the <span class="math inline">\(w=1\)</span> hinge, which still closely resembles a plain MSE, although even that mild weighting already improves detection markedly, doubling or even tripling both detection metrics.
+Raising the hinge weight to <span class="math inline">\(w=5\)</span> buys some detection capability at the cost of RMSE (1.028), althoug it is only a slight improvement over <span class="math inline">\(w=1\)</span> in detection.
+Pinball performs best on both detection metrics and is the only loss to beat persistence on both F1 (0.384) and TPR (0.327), but it carries the highest RMSE (1.155), above the trend floor.
+Accuracy and detection thus generally move in opposite directions as the loss shifts from MSE to Pinball.</p>
+<table class="table" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dp-loss-results">TABLE 2.2: </span>Loss function performance on the test set.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Loss
+</th>
+<th style="text-align:center;">
+F1
+</th>
+<th style="text-align:center;">
+TPR
+</th>
+<th style="text-align:center;">
+RMSE
+</th>
+<th style="text-align:center;">
+Trend RMSE <span class="math inline">\(-\)</span> model RMSE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(60, 60, 60, 1) !important;"><span class="math inline">\(\mathrm{MSE}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.115
+</td>
+<td style="text-align:center;">
+0.064
+</td>
+<td style="text-align:center;">
+0.965
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.100</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(110, 165, 200, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=1}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.277
+</td>
+<td style="text-align:center;">
+0.192
+</td>
+<td style="text-align:center;">
+<span style="font-weight: bold;">0.962</span>
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.103</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(40, 110, 160, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=5}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.297
+</td>
+<td style="text-align:center;">
+0.208
+</td>
+<td style="text-align:center;">
+1.028
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.037</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(198, 64, 42, 1) !important;"><span class="math inline">\(\mathrm{Pinball}_{\tau=0.2}\)</span></span>
+</td>
+<td style="text-align:center;">
+<span style="font-weight: bold;">0.384</span>
+</td>
+<td style="text-align:center;">
+<span style="font-weight: bold;">0.327</span>
+</td>
+<td style="text-align:center;">
+1.155
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.090</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Persistence
+</td>
+<td style="text-align:center;">
+0.290
+</td>
+<td style="text-align:center;">
+0.281
+</td>
+<td style="text-align:center;">
+1.349
+</td>
+<td style="text-align:center;">
+—
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="rq2-global-features" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> RQ2: Global features<a href="dp.html#rq2-global-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the static features held at naive injection, naive injection and FiLM conditioning are compared for the global features (Table <a href="dp.html#tab:dp-film-results">2.3</a>).
+The effect is again loss-dependent.
+Under MSE and the hinge-weighted MSE losses, FiLM reduces detection, sharply for the lighter losses (MSE and the <span class="math inline">\(w=1\)</span> hinge), while RMSE hardly moves.
+Only under Pinball does FiLM improve detection, raising F1 by 0.064 and TPR by 0.131.
+FiLM therefore does not help uniformly. It reshapes the accuracy-detection balance in a loss-dependent way, improving detection only under Pinball while barely changing accuracy.</p>
+<table class="table" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dp-film-results">TABLE 2.3: </span>Global-feature injection performance on the test set. <span class="math inline">\(\Delta\)</span> is FiLM minus naive.
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+F1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+TPR
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+RMSE
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Loss
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+FiLM
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+FiLM
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+FiLM
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(60, 60, 60, 1) !important;"><span class="math inline">\(\mathrm{MSE}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.115
+</td>
+<td style="text-align:center;">
+0.008
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.107</span>
+</td>
+<td style="text-align:center;">
+0.064
+</td>
+<td style="text-align:center;">
+0.004
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.060</span>
+</td>
+<td style="text-align:center;">
+0.965
+</td>
+<td style="text-align:center;">
+0.943
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.022</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(110, 165, 200, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=1}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.277
+</td>
+<td style="text-align:center;">
+0.094
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.183</span>
+</td>
+<td style="text-align:center;">
+0.192
+</td>
+<td style="text-align:center;">
+0.051
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.142</span>
+</td>
+<td style="text-align:center;">
+0.962
+</td>
+<td style="text-align:center;">
+0.948
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.014</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(40, 110, 160, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=5}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.297
+</td>
+<td style="text-align:center;">
+0.261
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.035</span>
+</td>
+<td style="text-align:center;">
+0.208
+</td>
+<td style="text-align:center;">
+0.167
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.041</span>
+</td>
+<td style="text-align:center;">
+1.028
+</td>
+<td style="text-align:center;">
+1.055
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.027</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(198, 64, 42, 1) !important;"><span class="math inline">\(\mathrm{Pinball}_{\tau=0.2}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.384
+</td>
+<td style="text-align:center;">
+0.448
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.064</span>
+</td>
+<td style="text-align:center;">
+0.327
+</td>
+<td style="text-align:center;">
+0.459
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.131</span>
+</td>
+<td style="text-align:center;">
+1.155
+</td>
+<td style="text-align:center;">
+1.160
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.005</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>FiLM does not act uniformly across the SPEI range either, as Table <a href="dp.html#tab:dp-film-stratified-main">2.4</a> shows.
+Its benefit is largely concentrated in the two drought categories the <span class="math inline">\(-1.5\)</span> detection threshold covers, severe (<span class="math inline">\(-2 &lt;\)</span> SPEI <span class="math inline">\(\le -1.5\)</span>) and extreme (SPEI <span class="math inline">\(\le -2\)</span>).
+FiLM lowers RMSE in both categories, and the reduction grows with drought severity and as the loss pushes harder toward the tail, reaching <span class="math inline">\(-0.10\)</span> in the extreme category under Pinball.
+Because the severe and extreme categories together cover under a tenth of the test distribution, these gains carry little weight in the pooled RMSE, which worsens by just <span class="math inline">\(+0.005\)</span> under Pinball.
+Under MSE, which weights the tail least, the reduction is negligible, <span class="math inline">\(0.01\)</span> or less in both categories.</p>
+<table class="table" style="font-size: 13px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dp-film-stratified-main">TABLE 2.4: </span>Per-category RMSE on the test set. <span class="math inline">\(\Delta\)</span> is FiLM minus naive. Severe: <span class="math inline">\(-2 \lt\)</span> SPEI <span class="math inline">\(\le -1.5\)</span> (18,572 cell-occurrences). Extreme: SPEI <span class="math inline">\(\le -2\)</span> (5,221 cell-occurrences).
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Severe
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Extreme
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Loss
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+FiLM
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+FiLM
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(60, 60, 60, 1) !important;"><span class="math inline">\(\mathrm{MSE}\)</span></span>
+</td>
+<td style="text-align:center;">
+1.162
+</td>
+<td style="text-align:center;">
+1.162
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(119, 119, 119, 1) !important;">-0.000</span>
+</td>
+<td style="text-align:center;">
+1.520
+</td>
+<td style="text-align:center;">
+1.509
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.010</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(110, 165, 200, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=1}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.915
+</td>
+<td style="text-align:center;">
+0.890
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.025</span>
+</td>
+<td style="text-align:center;">
+1.253
+</td>
+<td style="text-align:center;">
+1.181
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.072</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(40, 110, 160, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=5}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.660
+</td>
+<td style="text-align:center;">
+0.621
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.039</span>
+</td>
+<td style="text-align:center;">
+1.008
+</td>
+<td style="text-align:center;">
+0.946
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.062</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(198, 64, 42, 1) !important;"><span class="math inline">\(\mathrm{Pinball}_{\tau=0.2}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.519
+</td>
+<td style="text-align:center;">
+0.475
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.044</span>
+</td>
+<td style="text-align:center;">
+0.832
+</td>
+<td style="text-align:center;">
+0.735
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.097</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="rq3-static-features" class="section level3 hasAnchor" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> RQ3: Static features<a href="dp.html#rq3-static-features" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the global features held at naive injection, naive injection, a single encoder, and a seasonal encoder are compared for the static features (Tables <a href="dp.html#tab:dp-single-results">2.5</a> and <a href="dp.html#tab:dp-seasonal-results">2.6</a>).
+Both encoders show the same loss-dependence and act mainly on detection, leaving RMSE broadly stable.
+The single encoder improves detection only under Pinball, where it lifts TPR by 0.214 and lowers RMSE slightly, but reduces detection under the hinge losses.
+The seasonal encoder also helps most under Pinball (TPR up 0.220) and, unlike the single encoder, under MSE too, yet it degrades sharply under the <span class="math inline">\(w=5\)</span> hinge (F1 down 0.220).
+Neither encoder consistently beats the other.</p>
+<table class="table" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dp-single-results">TABLE 2.5: </span>Static-feature encoding performance on the test set. <span class="math inline">\(\Delta\)</span> is the single encoder minus naive.
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+F1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+TPR
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+RMSE
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Loss
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+Single
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+Single
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+Single
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(60, 60, 60, 1) !important;"><span class="math inline">\(\mathrm{MSE}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.115
+</td>
+<td style="text-align:center;">
+0.096
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.018</span>
+</td>
+<td style="text-align:center;">
+0.064
+</td>
+<td style="text-align:center;">
+0.054
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.010</span>
+</td>
+<td style="text-align:center;">
+0.965
+</td>
+<td style="text-align:center;">
+0.964
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.001</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(110, 165, 200, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=1}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.277
+</td>
+<td style="text-align:center;">
+0.110
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.167</span>
+</td>
+<td style="text-align:center;">
+0.192
+</td>
+<td style="text-align:center;">
+0.061
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.131</span>
+</td>
+<td style="text-align:center;">
+0.962
+</td>
+<td style="text-align:center;">
+0.965
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.004</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(40, 110, 160, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=5}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.297
+</td>
+<td style="text-align:center;">
+0.254
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.042</span>
+</td>
+<td style="text-align:center;">
+0.208
+</td>
+<td style="text-align:center;">
+0.180
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.027</span>
+</td>
+<td style="text-align:center;">
+1.028
+</td>
+<td style="text-align:center;">
+1.044
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.016</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(198, 64, 42, 1) !important;"><span class="math inline">\(\mathrm{Pinball}_{\tau=0.2}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.384
+</td>
+<td style="text-align:center;">
+0.438
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.054</span>
+</td>
+<td style="text-align:center;">
+0.327
+</td>
+<td style="text-align:center;">
+0.541
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.214</span>
+</td>
+<td style="text-align:center;">
+1.155
+</td>
+<td style="text-align:center;">
+1.144
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.011</span>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="font-size: 13px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:dp-seasonal-results">TABLE 2.6: </span>Static-feature encoding performance on the test set. <span class="math inline">\(\Delta\)</span> is the seasonal encoder minus naive.
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+F1
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+TPR
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+RMSE
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Loss
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+Seasonal
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+Seasonal
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+<th style="text-align:center;">
+Naive
+</th>
+<th style="text-align:center;">
+Seasonal
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\Delta\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(60, 60, 60, 1) !important;"><span class="math inline">\(\mathrm{MSE}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.115
+</td>
+<td style="text-align:center;">
+0.165
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.051</span>
+</td>
+<td style="text-align:center;">
+0.064
+</td>
+<td style="text-align:center;">
+0.099
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.035</span>
+</td>
+<td style="text-align:center;">
+0.965
+</td>
+<td style="text-align:center;">
+0.971
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.006</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(110, 165, 200, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=1}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.277
+</td>
+<td style="text-align:center;">
+0.251
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.026</span>
+</td>
+<td style="text-align:center;">
+0.192
+</td>
+<td style="text-align:center;">
+0.176
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.016</span>
+</td>
+<td style="text-align:center;">
+0.962
+</td>
+<td style="text-align:center;">
+0.964
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.003</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(40, 110, 160, 1) !important;"><span class="math inline">\(\mathrm{hwMSE}_{w=5}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.297
+</td>
+<td style="text-align:center;">
+0.077
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.220</span>
+</td>
+<td style="text-align:center;">
+0.208
+</td>
+<td style="text-align:center;">
+0.041
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">-0.166</span>
+</td>
+<td style="text-align:center;">
+1.028
+</td>
+<td style="text-align:center;">
+1.056
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(120, 20, 20, 1) !important;">+0.028</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span style="font-weight: bold;    color: rgba(198, 64, 42, 1) !important;"><span class="math inline">\(\mathrm{Pinball}_{\tau=0.2}\)</span></span>
+</td>
+<td style="text-align:center;">
+0.384
+</td>
+<td style="text-align:center;">
+0.427
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.043</span>
+</td>
+<td style="text-align:center;">
+0.327
+</td>
+<td style="text-align:center;">
+0.547
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">+0.220</span>
+</td>
+<td style="text-align:center;">
+1.155
+</td>
+<td style="text-align:center;">
+1.142
+</td>
+<td style="text-align:center;">
+<span style="color: rgba(0, 80, 40, 1) !important;">-0.013</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="overall" class="section level3 hasAnchor" number="2.5.5">
+<h3><span class="header-section-number">2.5.5</span> Overall<a href="dp.html#overall" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Across the full grid, the 24 configurations trade accuracy against detection, and the best of them form a Pareto front (Figure <a href="dp.html#fig:dp-frontier">2.11</a>).
+Where a model lands is set almost entirely by the loss, from MSE at low RMSE and near-zero detection to Pinball at high detection and high RMSE, with the hinge losses between.
+The feature-injection choices only make small, loss-specific differences, with no single configuration winning throughout, leaving the loss as the dominant control.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-frontier"></span>
+<img src="work/02-drought_prediction/figures/frontier_tpr_light.svg" alt="RMSE against drought detection, as TPR (left) and F1 (right), for all 24 configurations and the persistence and climatology baselines. The vertical line marks the linear-trend RMSE." width="48%" /><img src="work/02-drought_prediction/figures/frontier_f1_light.svg" alt="RMSE against drought detection, as TPR (left) and F1 (right), for all 24 configurations and the persistence and climatology baselines. The vertical line marks the linear-trend RMSE." width="48%" />
+<p class="caption">
+FIGURE 2.11: RMSE against drought detection, as TPR (left) and F1 (right), for all 24 configurations and the persistence and climatology baselines. The vertical line marks the linear-trend RMSE.
+</p>
+</div>
+</div>
+</div>
+<div id="discussion-1" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Discussion<a href="dp.html#discussion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A consistent picture emerges across the three comparisons.</p>
+<ul>
+<li><strong>RQ1:</strong> The loss function governs the accuracy-detection trade-off more strongly than any other choice examined here: it moves a model from low RMSE and almost no detection (MSE) to high detection and high RMSE (Pinball).</li>
+<li><strong>RQ2:</strong> FiLM conditioning on the global dynamic variables helps only conditionally. It improves detection as compared to naive injection only under Pinball but costs detection under the other losses. In the drought tail it lowers error across the severe and extreme categories under every loss.</li>
+<li><strong>RQ3:</strong> Neither the learned single nor the seasonal topography encoder reliably improves on naive injection: both act mainly on detection in a similar loss-dependent way, and neither is consistently ahead.</li>
+</ul>
+<p>Across the full grid of configurations the loss is the main lever, and no single setup dominates the Pareto front.</p>
+<p>At a twelve-month lead in a complex region like the Alps, the task itself is hard.
+Some of the models beat the simple linear-trend baseline on RMSE, but only by a small margin, and no configuration pulls far ahead.
+The loss acts less as a way to extract more skill than as a way to choose an operating point on this trade-off, moving the model toward lower RMSE or toward higher detection.
+Together, these factors could also explain why the feature-injection choices, which barely affect this basic tension, only move models short distances along the trade-off.</p>
+<p>Because Pinball shifts predictions toward the dry tail, part of its detection edge could come from that shift, though it also wins on F1, which penalises false alarms, so it is not merely predicting more droughts blindly.
+Nevertheless, its detection gains are best read together with the RMSE they cost.
+The limited impact of the injection strategies may also be a reflection of the usefulness of the features themselves, since the achievable gains are bounded by how informative the injected features are.
+Further analysis of feature importance is given in the appendix.</p>
+<p>These conclusions should be seen in light of several limitations.
+Each configuration was trained once, so the reported differences carry no estimate of run-to-run variance, and the smaller gaps should be read cautiously.
+This work also only covers a single region, a single lead time, a single drought index (SPEI-1), and one fixed set of input features, so how far the loss-dominance and the feature-injection comparisons generalize is unclear.
+The chronological split also leaves the test period drier than the training period, as severe-drought frequency rises across time, so the models are evaluated under a distribution shift rather than on identically distributed data.</p>
+</div>
+<div id="conclusion-1" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Conclusion<a href="dp.html#conclusion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This work compared loss functions and feature-injection strategies for a ConvLSTM forecasting SPEI-1 one year ahead over the Alps.
+The main finding is that the loss is the dominant lever, fixing where the model sits on a trade-off between point accuracy and severe-drought detection, while the global and static feature injection strategies only change model performance marginally.
+Future work should investigate whether these findings hold across multiple seeds or ensembles, more regions, shorter and more predictable forecasting horizons, and richer or differently chosen conditioning features.</p>
+</div>
+<div id="appendix-ai-declaration" class="section level2 unnumbered hasAnchor">
+<h2>Appendix: AI Declaration<a href="dp.html#appendix-ai-declaration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I hereby declare that this seminar thesis is my own work and that I have used no sources or aids other than those acknowledged.</p>
+<p>During the preparation of this manuscript, generative AI tools were used in a supportive and transparent manner, in accordance with the guidelines of the Institute of Statistics at LMU Munich.
+Specifically, Claude was used to assist with language formulation, stylistic refinement, and clarity of presentation across the whole manuscript.
+All suggested formulations were critically reviewed and, where adopted, revised by me.</p>
+<p>In addition, Claude and Claude Code were used selectively for programming support, including as a coding aid, for debugging assistance, and for minor refactoring suggestions.
+All code was fully understood, tested, and validated by me, and I retain full responsibility for its correctness and functionality.</p>
+<p>All scientific content, methodological decisions, analyses, and interpretations were developed by me, and I take full responsibility for the integrity and correctness of the work.</p>
+</div>
+<div id="appendix-spei-drought-classification" class="section level2 unnumbered hasAnchor">
+<h2>Appendix: SPEI drought classification<a href="dp.html#appendix-spei-drought-classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>SPEI values map onto standard drought categories (Table <a href="dp.html#tab:dp-spei-grades">2.7</a>).
+The severe and extreme categories, at the <span class="math inline">\(-1.5\)</span> threshold and below, are the ones this work targets.</p>
+<table>
+<caption><span id="tab:dp-spei-grades">TABLE 2.7: </span> SPEI drought classification <span class="citation">(<a href="#ref-vicenteserrano2010">Vicente-Serrano et al. 2010</a>; <a href="#ref-chen2025">Chen et al. 2025</a>)</span>.</caption>
+<thead>
+<tr class="header">
+<th align="center">Grade</th>
+<th align="left">Category</th>
+<th align="left">SPEI range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="left">No drought</td>
+<td align="left"><span class="math inline">\(-0.5 &lt; \text{SPEI}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="left">Light drought</td>
+<td align="left"><span class="math inline">\(-1.0 &lt; \text{SPEI} \le -0.5\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="left">Moderate drought</td>
+<td align="left"><span class="math inline">\(-1.5 &lt; \text{SPEI} \le -1.0\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="left">Severe drought</td>
+<td align="left"><span class="math inline">\(-2.0 &lt; \text{SPEI} \le -1.5\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="left">Extreme drought</td>
+<td align="left"><span class="math inline">\(\text{SPEI} \le -2.0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="appendix-feature-importance" class="section level2 unnumbered hasAnchor">
+<h2>Appendix: Feature importance<a href="dp.html#appendix-feature-importance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Each input was occluded in turn (set to its training mean) and the frozen Pinball model re-scored on the test set <span class="citation">(<a href="#ref-zeiler2013">Zeiler and Fergus 2013</a>)</span>.
+Inputs are occluded rather than permuted because the driver fields are correlated <span class="citation">(<a href="#ref-hooker2021">Hooker et al. 2021</a>)</span>.</p>
+<p>The left panel of Figure <a href="dp.html#fig:dp-feat-importance">2.12</a> shows that point accuracy is unmovable, as every bar sits near zero and no input shifts the pooled RMSE by more than 0.06 in any configuration.
+Detection (right panel) rests on a few inputs.
+The Mediterranean SST is the strongest driver where no static encoder is present (the grey bars).
+Adding a single or seasonal encoder raises the importance of near-surface temperature and lowers the SST’s, though the two become comparable rather than temperature fully taking over.
+FiLM changes this less than the static encoder does, though without an encoder it slightly deepens reliance on the global drivers it conditions on, lengthening the Mediterranean SST and month bars (the darker shade in each pair).
+Topography is the one input whose removal raises TPR, and the remaining fields barely move it.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dp-feat-importance"></span>
+<img src="work/02-drought_prediction/figures/interpretability/feature_importance_across_conditions.svg" alt="Occlusion feature importance for the Pinball models across all six architecture conditions. Change in pooled RMSE (left) and drought TPR (right) when each input is set to its training mean on the test set, configurations labelled static / global." width="95%" />
+<p class="caption">
+FIGURE 2.12: Occlusion feature importance for the Pinball models across all six architecture conditions. Change in pooled RMSE (left) and drought TPR (right) when each input is set to its training mean on the test set, configurations labelled static / global.
+</p>
+</div>
+</div>
+<div id="appendix-implementation-details" class="section level2 unnumbered hasAnchor">
+<h2>Appendix: Implementation details<a href="dp.html#appendix-implementation-details" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The two feature groups can either be appended to the input or routed through a learned pathway, which changes how many channels the ConvLSTM input <span class="math inline">\(x\)</span> carries (Table <a href="dp.html#tab:dp-input-channels">2.8</a>).</p>
+<table>
+<caption><span id="tab:dp-input-channels">TABLE 2.8: </span> Input channels per configuration, from a dynamic base of five gridded variables. Naive injection appends features as channels, while the learned encoders (static CNN, FiLM) route them into a dedicated pathway.</caption>
+<thead>
+<tr class="header">
+<th align="left">Static / global</th>
+<th align="center"><span class="math inline">\(x\)</span> channels</th>
+<th align="left">Injected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">naive / naive</td>
+<td align="center">13</td>
+<td align="left">+2 static, +6 global</td>
+</tr>
+<tr class="even">
+<td align="left">single / naive</td>
+<td align="center">11</td>
+<td align="left">+6 global</td>
+</tr>
+<tr class="odd">
+<td align="left">seasonal / naive</td>
+<td align="center">11</td>
+<td align="left">+6 global</td>
+</tr>
+<tr class="even">
+<td align="left">naive / FiLM</td>
+<td align="center">7</td>
+<td align="left">+2 static</td>
+</tr>
+<tr class="odd">
+<td align="left">single / FiLM</td>
+<td align="center">5</td>
+<td align="left">—</td>
+</tr>
+<tr class="even">
+<td align="left">seasonal / FiLM</td>
+<td align="center">5</td>
+<td align="left">—</td>
+</tr>
+</tbody>
+</table>
+<p>Beyond the protocol given in the main text, the initial embedding uses 16 channels and the ConvLSTM hidden state 32.
+Early stopping monitors the validation RMSE median with patience 5 and a minimum delta of 0.003, and the learning rate follows ReduceLROnPlateau with patience 3.
+The static encoder maps the two static channels to 16.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-chen2025" class="csl-entry">
+Chen, Ying, Huanping Wu, Nengfu Xie, et al. 2025. <span>“<span>STAT-LSTM</span>: <span>A</span> Multivariate Spatiotemporal Feature Aggregation Model for <span class="nocase">SPEI-based</span> Drought Prediction.”</span> <em>Earth Science Informatics</em> 18 (3): 289. <a href="https://doi.org/10.1007/s12145-025-01813-0">https://doi.org/10.1007/s12145-025-01813-0</a>.
+</div>
+<div id="ref-funk2026" class="csl-entry">
+Funk, Henri, Cornelia Gruber, Göran Kauermann, Helmut Küchenhoff, and Magdalena Mittermeier. 2026. <em>Probabilistic Deep Learning for Drought Forecasting: Role of Internal Climate Variability</em>. <a href="https://arxiv.org/abs/2608.01864">https://arxiv.org/abs/2608.01864</a>.
+</div>
+<div id="ref-gao2023" class="csl-entry">
+Gao, Zhihan, Xingjian Shi, Hao Wang, et al. 2023. <em>Earthformer: <span>Exploring Space-Time Transformers</span> for <span>Earth System Forecasting</span></em>. arXiv:2207.05833. arXiv. <a href="https://doi.org/10.48550/arXiv.2207.05833">https://doi.org/10.48550/arXiv.2207.05833</a>.
+</div>
+<div id="ref-hochreiter1997" class="csl-entry">
+Hochreiter, Sepp, and Juergen Schmidhuber. 1997. <span>“Long Short-Term Memory.”</span> <em>Neural Computation</em> 9 (8): 1735–80. <a href="https://doi.org/10.1162/neco.1997.9.8.1735">https://doi.org/10.1162/neco.1997.9.8.1735</a>.
+</div>
+<div id="ref-hooker2021" class="csl-entry">
+Hooker, Giles, Lucas Mentch, and Siyu Zhou. 2021. <em>Unrestricted <span>Permutation</span> Forces <span>Extrapolation</span>: <span>Variable Importance Requires</span> at Least <span>One More Model</span>, or <span>There Is No Free Variable Importance</span></em>. arXiv:1905.03151. arXiv. <a href="https://doi.org/10.48550/arXiv.1905.03151">https://doi.org/10.48550/arXiv.1905.03151</a>.
+</div>
+<div id="ref-hurrell1995" class="csl-entry">
+Hurrell, James W. 1995. <span>“Decadal Trends in the North Atlantic Oscillation: Regional Temperatures and Precipitation.”</span> <em>Science</em> 269 (5224): 676–79. <a href="https://doi.org/10.1126/science.269.5224.676">https://doi.org/10.1126/science.269.5224.676</a>.
+</div>
+<div id="ref-jolliffe2003" class="csl-entry">
+Jolliffe, Ian T., and David B. Stephenson, eds. 2003. <em>Forecast Verification: A Practitioner’s Guide in Atmospheric Science</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-lionello2006" class="csl-entry">
+Lionello, P., P. Malanotte-Rizzoli, R. Boscolo, et al. 2006. <span>“The <span>Mediterranean</span> Climate: <span>An</span> Overview of the Main Characteristics and Issues.”</span> In <em>Mediterranean</em>, edited by P. Lionello, P. Malanotte-Rizzoli, and R. Boscolo, vol. 4. Developments in <span>Earth</span> and <span>Environmental Sciences</span>. Elsevier. <a href="https://doi.org/10.1016/S1571-9197(06)80003-0">https://doi.org/10.1016/S1571-9197(06)80003-0</a>.
+</div>
+<div id="ref-marusov2024" class="csl-entry">
+Marusov, Alexander, Vsevolod Grabar, Yury Maximov, Nazar Sotiriadi, Alexander Bulkin, and Alexey Zaytsev. 2024. <span>“Long-Term Drought Prediction Using Deep Neural Networks Based on Geospatial Weather Data.”</span> <em>Environmental Modelling &amp; Software</em> 179 (August): 106127. <a href="https://doi.org/10.1016/j.envsoft.2024.106127">https://doi.org/10.1016/j.envsoft.2024.106127</a>.
+</div>
+<div id="ref-mckee1993" class="csl-entry">
+McKee, Thomas B., Nolan J. Doesken, and John Kleist. 1993. <span>“The Relationship of Drought Frequency and Duration to Time Scales.”</span> <em>Proceedings of the 8th <span>Conference</span> on <span>Applied Climatology</span></em> 17: 179–83.
+</div>
+<div id="ref-millot2005" class="csl-entry">
+Millot, Claude, and Isabelle Taupier-Letage. 2005. <span>“Circulation in the <span>Mediterranean Sea</span>.”</span> In <em>The <span>Mediterranean Sea</span></em>, edited by Alain Saliot. Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/b107143">https://doi.org/10.1007/b107143</a>.
+</div>
+<div id="ref-nandgude2023" class="csl-entry">
+Nandgude, Neeta, T. P. Singh, Sachin Nandgude, and Mukesh Tiwari. 2023. <span>“Drought <span>Prediction</span>: <span>A Comprehensive Review</span> of <span>Different Drought Prediction Models</span> and <span>Adopted Technologies</span>.”</span> <em>Sustainability</em> 15 (15): 11684. <a href="https://doi.org/10.3390/su151511684">https://doi.org/10.3390/su151511684</a>.
+</div>
+<div id="ref-nguyen2023" class="csl-entry">
+Nguyen, Tung, Johannes Brandstetter, Ashish Kapoor, Jayesh K. Gupta, and Aditya Grover. 2023. <em><span>ClimaX</span>: <span>A</span> Foundation Model for Weather and Climate</em>. arXiv:2301.10343. arXiv. <a href="https://doi.org/10.48550/arXiv.2301.10343">https://doi.org/10.48550/arXiv.2301.10343</a>.
+</div>
+<div id="ref-pathak2022" class="csl-entry">
+Pathak, Jaideep, Shashank Subramanian, Peter Harrington, et al. 2022. <em><span>FourCastNet</span>: <span class="nocase">A Global Data-driven High-resolution Weather Model</span> Using <span>Adaptive Fourier Neural Operators</span></em>. arXiv:2202.11214. arXiv. <a href="https://doi.org/10.48550/arXiv.2202.11214">https://doi.org/10.48550/arXiv.2202.11214</a>.
+</div>
+<div id="ref-perez2018" class="csl-entry">
+Perez, Ethan, Florian Strub, Harm De Vries, Vincent Dumoulin, and Aaron Courville. 2018. <span>“<span>FiLM</span>: <span>Visual Reasoning</span> with a <span>General Conditioning Layer</span>.”</span> <em>Proceedings of the <span>AAAI Conference</span> on <span>Artificial Intelligence</span></em> 32 (April). <a href="https://doi.org/10.1609/aaai.v32i1.11671">https://doi.org/10.1609/aaai.v32i1.11671</a>.
+</div>
+<div id="ref-vicenteserrano2010" class="csl-entry">
+Vicente-Serrano, Sergio M., Santiago Beguería, and Juan I. López-Moreno. 2010. <span>“A <span>Multiscalar Drought Index Sensitive</span> to <span>Global Warming</span>: <span>The Standardized Precipitation Evapotranspiration Index</span>.”</span> <em>Journal of Climate</em> 23 (7): 1696–718. <a href="https://doi.org/10.1175/2009JCLI2909.1">https://doi.org/10.1175/2009JCLI2909.1</a>.
+</div>
+<div id="ref-wang2023" class="csl-entry">
+Wang, Tian, Xinjun Tu, Vijay P. Singh, Xiaohong Chen, Kairong Lin, and Zonglin Zhou. 2023. <span>“Drought Prediction: <span>Insights</span> from the Fusion of <span>LSTM</span> and Multi-Source Factors.”</span> <em>Science of The Total Environment</em> 902 (December): 166361. <a href="https://doi.org/10.1016/j.scitotenv.2023.166361">https://doi.org/10.1016/j.scitotenv.2023.166361</a>.
+</div>
+<div id="ref-wilks2011" class="csl-entry">
+Wilks, Daniel S. 2011. <em>Statistical Methods in the Atmospheric Sciences</em>. Elsevier Academic Press. <a href="https://www.sciencedirect.com/bookseries/international-geophysics/vol/100/suppl/C">https://www.sciencedirect.com/bookseries/international-geophysics/vol/100/suppl/C</a>.
+</div>
+<div id="ref-yu2023" class="csl-entry">
+Yu, Jiaxin, Tinghuai Ma, Li Jia, Huan Rong, Yuming Su, and Mohamed Magdy Abdel Wahab. 2023. <span>“Multivariate Spatio-Temporal Modeling of Drought Prediction Using Graph Neural Network.”</span> <em>Journal of Hydroinformatics</em> 26 (1): 107–24. <a href="https://doi.org/10.2166/hydro.2023.134">https://doi.org/10.2166/hydro.2023.134</a>.
+</div>
+<div id="ref-zargar2011" class="csl-entry">
+Zargar, Amin, Rehan Sadiq, Bahman Naser, and Faisal I. Khan. 2011. <span>“A Review of Drought Indices.”</span> <em>Environmental Reviews</em> 19: 333–49. <a href="https://www.jstor.org/stable/envirevi.19.333">https://www.jstor.org/stable/envirevi.19.333</a>.
+</div>
+<div id="ref-zeiler2013" class="csl-entry">
+Zeiler, Matthew D., and Rob Fergus. 2013. <em>Visualizing and <span>Understanding Convolutional Networks</span></em>. arXiv:1311.2901. arXiv. <a href="https://doi.org/10.48550/arXiv.1311.2901">https://doi.org/10.48550/arXiv.1311.2901</a>.
+</div>
+<div id="ref-zeng2022" class="csl-entry">
+Zeng, Ailing, Muxi Chen, Lei Zhang, and Qiang Xu. 2022. <em>Are <span>Transformers Effective</span> for <span>Time Series Forecasting</span>?</em> arXiv:2205.13504. arXiv. <a href="https://doi.org/10.48550/arXiv.2205.13504">https://doi.org/10.48550/arXiv.2205.13504</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hyd.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

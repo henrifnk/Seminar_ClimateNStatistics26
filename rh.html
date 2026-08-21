@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Riverine Heatwaves | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Riverine Heatwaves | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Riverine Heatwaves | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="nh-neural-hydrology.html"/>
+<link rel="next" href="irh.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>1</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="unc.html"><a href="unc.html#abstract"><i class="fa fa-check"></i><b>1.1</b> Abstract</a></li>
+<li class="chapter" data-level="1.2" data-path="unc.html"><a href="unc.html#introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>1.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="1.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>1.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="1.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>1.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>1.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>1.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="1.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>1.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="1.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>1.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="1.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>1.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="unc.html"><a href="unc.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>1.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="1.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>1.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="1.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>1.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="1.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>1.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="unc.html"><a href="unc.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>1.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="1.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>1.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="1.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>1.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="1.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>1.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="unc.html"><a href="unc.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>1.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="1.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>1.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="1.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>1.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="unc.html"><a href="unc.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="1.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>1.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>1.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="1.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>1.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="1.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>1.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>2</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dp.html"><a href="dp.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>2.2</b> Related Work</a></li>
+<li class="chapter" data-level="2.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>2.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>2.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="2.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>2.3.2</b> Variables</a></li>
+<li class="chapter" data-level="2.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>2.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="2.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>2.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="2.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>2.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="2.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>2.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="dp.html"><a href="dp.html#methods-1"><i class="fa fa-check"></i><b>2.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>2.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>2.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="2.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>2.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="2.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>2.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="2.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>2.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="dp.html"><a href="dp.html#results-1"><i class="fa fa-check"></i><b>2.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>2.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="2.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>2.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="2.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>2.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="2.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>2.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="2.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>2.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="dp.html"><a href="dp.html#discussion-1"><i class="fa fa-check"></i><b>2.6</b> Discussion</a></li>
+<li class="chapter" data-level="2.7" data-path="dp.html"><a href="dp.html#conclusion-1"><i class="fa fa-check"></i><b>2.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract-1"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-2"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-2"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-3"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-2"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-3"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>7</b> Changepoint analysis is statistics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="cs.html"><a href="cs.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>8</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="utp.html"><a href="utp.html#abstract-5"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="utp.html"><a href="utp.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-6"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-4"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-3"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="amoc.html"><a href="amoc.html"><i class="fa fa-check"></i><b>10</b> Atlantic Meridional Overturning Circulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="amoc.html"><a href="amoc.html#abstract-7"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="amoc.html"><a href="amoc.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-8"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-5"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-3"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-4"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ctp.html"><a href="ctp.html"><i class="fa fa-check"></i><b>12</b> Graphics and communication of risks by tipping points</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ctp.html"><a href="ctp.html#abstract-9"><i class="fa fa-check"></i><b>12.1</b> Abstract</a></li>
+<li class="chapter" data-level="12.2" data-path="ctp.html"><a href="ctp.html#introduction-10"><i class="fa fa-check"></i><b>12.2</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rh" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Riverine Heatwaves<a href="rh.html#rh" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Tom Baumann</em></p>
+<p><em>Supervisor: Henri Funk</em></p>
+<p><em>Degree: Bachelor</em></p>
+<div id="abstract-2" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Abstract<a href="rh.html#abstract-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Riverine Heatwaves, which are prolonged periods of exceptionally high water temperatures in river systems, are a
+hydrological phenomenon, that is expected to gain considerable importance throughout the next years, also due to their
+link to climate change. The following paper will give an introduction to the precise definition of riverine heatwaves,
+as well as explain its drivers and impacts. Furthermore, it will focus on the methodology used to detect riverine
+heatwaves from temperature time series, and how their development, both spatially and temporally, can be quantified. Applying these methods on a dataset from Main river system in Bavaria delivered a significant increase in frequency over time, while increasing temporal trends in duration and intensity were insignificant. Also linear trends between river kilometer and the heatwave metrics could not be verified. However, the dataset only included a relatively short time period, therefore a larger data size might lead to more precise results.</p>
+</div>
+<div id="introduction-3" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Introduction<a href="rh.html#introduction-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Overview<a href="rh.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In contrast to air, lake and ocean heatwaves, research on river heatwaves is still just emerging. However it is a topic
+that is only projected to become more relevant over time, as increasing water temperatures in rivers are closely linked
+to climate change, and also riverine heatwaves are expected to become more frequent, long and intense. In fact, they are
+even projected to increase more rapidly than air heatwaves <span class="citation">(<a href="#ref-sadayappan2025">Sadayappan and Li 2025</a>)</span>. To research riverine heatwaves, it is
+important to understand precisely how they are defined, how they can be quantified, and what sort of data is required
+for their analysis. Also the drivers and impacts of riverine heatwaves need to be examined, to understand their
+appearance, and how they can be mitigated. Lastly, it is important to be able to forecast and predict riverine
+heatwaves, which requires the construction of reliable models.
+This paper is going to give an overview on the topic of riverine heatwaves, by introducing their definition, drivers and
+impacts. This will be helpful, to gain a better understanding of riverine heatwaves. Furthermore it will give a baseline on how riverine heatwaves can be detected from temperature time series, and what metrics can be used to quantify them. Later
+these methods will be used to perform an exploratory analysis on a data set of water temperature data from Main river
+system, focusing on the evolution of riverine heatwaves over time and the differences between stations.</p>
+</div>
+<div id="definition" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Definition<a href="rh.html#definition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Riverine Heatwaves are defined similarly to atmospheric heatwaves, as periods where daily mean water temperature
+exceeds a local seasonally varying percentile based threshold for a prolonged period of time. For riverine heatwaves,
+usually a 90th percentile threshold and a 5 day period are used <span class="citation">(<a href="#ref-vanhamel2025"><span class="nocase">Hamel et al.</span> 2025</a>)</span>.
+Although their definitions are similar, riverine heatwaves and atmospheric heatwaves behave differently, as riverine
+heatwaves tend to be more rare, but more persistent, than atmospheric heatwaves <span class="citation">(<a href="#ref-sadayappan2025">Sadayappan and Li 2025</a>)</span>.</p>
+</div>
+<div id="drivers" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Drivers<a href="rh.html#drivers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As riverine heatwaves are a phenomenon that has not gained much attention so far, its drivers are not fully understood
+yet. We know that river temperature in general is controlled by a variety of factors. There are the atmospheric
+conditions like air temperature, wind, rainfall and solar radiation, the hydrologic conditions which means the
+discharge, how the river interacts with different water bodies within its proximity and processes at the water stream
+bed interface, for example the interaction of the river with ground water. On top of that, the water temperature can be
+influenced by its environment, for example by the amount of vegetation and shading, by impervious surfaces nearby or by
+the presence of thermal effluents from near industries or human waste water <span class="citation">(<a href="#ref-vanhamel2025"><span class="nocase">Hamel et al.</span> 2025</a>)</span>.</p>
+<p>However, so far little is known on how specifically riverine heatwaves are caused. From literature we know, that
+riverine heatwaves are primarely driven by climate drivers. These include air temperature, while especially trends of
+minimum and maximum temperature play a role, and trends in low discharge. Also the contribution of groundwater, winter
+precipitation percentage and trends of snow water play a role, as these help to buffer the impact of extremely hot air
+temperatures on river temperature <span class="citation">(<a href="#ref-sadayappan2025">Sadayappan and Li 2025</a>)</span>. Behind climate drivers, there are also direct anthropogenic
+drivers, such as river dams, which typically tend to elongate riverine heatwaves <span class="citation">(<a href="#ref-sadayappan2025">Sadayappan and Li 2025</a>)</span>. Nevertheless, the
+processes that cause riverine heatwaves are still not fully understood.</p>
+</div>
+<div id="impacts" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Impacts<a href="rh.html#impacts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The appearance of riverine heatwaves can have both ecological and socioeconomic impacts. These can be parted into
+different layers. Firstly there are the immediate effects of prolonged periods of high water temperature. The higher
+temperature could lead to an increased rate of open water evaporation. Moreover, they might lead to an increased spread
+of diseases, harmful algee bloom and a decrease in water quality in general. This in turn can reduce the availability
+of drinking water or the possibility of recreational activities and be harmful to flora and fauna living in, or close by
+the river systems. Also the prolonged high temperatures can cause thermal stress on fish and other aquatic species
+<span class="citation">(<a href="#ref-vanhamel2025"><span class="nocase">Hamel et al.</span> 2025</a>)</span>. Together this is threatening fishing and aquaculture which is a vital source of food for a large part of
+the population <span class="citation">(<a href="#ref-chen2026">Chen et al. 2026</a>)</span>. Moreover, high water temperatures can also negatively impact energy production, as nuclear
+power production often relies on cooling water from close by river system, which already has been unavailable due to
+riverine heatwaves in some cases <span class="citation">(<a href="#ref-vanhamel2025"><span class="nocase">Hamel et al.</span> 2025</a>)</span>.</p>
+</div>
+</div>
+<div id="data-1" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Data<a href="rh.html#data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-set" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Data Set<a href="rh.html#data-set" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For the analysis a dataset of longitudinal temperature data from 14 gauges at Main river system in Bavaria was used.
+The data set includes eight measurements of water temperature per day over a time period of 5 to 20 years between 2000
+and 2020.
+According to the literature, the analysis of riverine heatwaves requires time series of at least 10, ideally 30 years with
+at least daily data and not more than 50 percent, ideally not more than 25 percent of missing data <span class="citation">(<a href="#ref-vanhamel2025"><span class="nocase">Hamel et al.</span> 2025</a>)</span> . Also for this
+analysis it is necessary to have a common time period for all stations, to obtain comparable results between
+stations. As many of the stations do not cover a common time period, and as some of the stations have a high amount of
+missing data for some years, the analysis was limited to six of the stations to guarantee these standards. Excluding
+the other stations gave us a 15 year common period time series of daily water temperature, with almost no missing
+values (not more than ten percent per yearly station specific time series). The used stations are marked in figure <a href="rh.html#fig:rh-stations-map">5.1</a>, which also shows their position along the main river system.</p>
+</div>
+<div id="locations" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Locations<a href="rh.html#locations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-stations-map"></span>
+<img src="work/05-riverine_heat/figures/05-stations_map.png" alt="Map of Main river systen. The station included in the analysis are marked red." width="80%" />
+<p class="caption">
+FIGURE 5.1: Map of Main river systen. The station included in the analysis are marked red.
+</p>
+</div>
+</div>
+</div>
+<div id="methods-3" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Methods<a href="rh.html#methods-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="threshold" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Threshold<a href="rh.html#threshold" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The threshold which classifies riverine heatwaves has to be precisely defined. This paper uses the definition
+of marine heatwaves by Hobday. Although it was originally defined for marine heatwaves, it has since been used on many
+different studies about riverine heatwaves as well.</p>
+<p>The definition of marine heatwaves by Hobday uses a 90th percentile seasonally varying threshold, which is also varying
+with location and therefore calculated separately for each station. To calculate the seasonally varying threshold, for
+each day the historical temperature measurements, as well as the historical measurements from a 11 day surrounding
+window are taken. From these data points, the 90 percent quantile is taken. The exact formula for this calculation is
+depicted below, where y is the year variable, d is the day variable and j is the day for the considered temperature <a href="rh.html#eq:rh-threshold">(5.1)</a>. <span class="math inline">\(Y_s\)</span> and <span class="math inline">\(y_e\)</span> are the years that mark the beginning and end of the baseline period, <span class="math inline">\(P_{90}(X)\)</span> is the 90 percent
+quantile of <span class="math inline">\(X\)</span> . This procedure will be repeated for each day of year, until the threshold for the entire year is
+completed <span class="citation">(<a href="#ref-hobday2016">Hobday et al. 2016</a>)</span>.</p>
+<p><span class="math display" id="eq:rh-threshold">\[\begin{equation}
+T_{90}(j) = P_{90}(X),
+\quad \text{where}
+\quad
+X = \left\{T(y,d)\;\middle|\; y_s \le y \le y_e,\; j-5 \le d \le j+5 \right\}
+\tag{5.1}
+\end{equation}\]</span></p>
+<p>Usually, for this a historical baseline period is used. But since here the data set only covers a relatively short time
+period, the same time period was used for the calculation of the threshold and the analysis. Even if the same threshold
+definition is used, comparing results from different studies on riverine heatwaves has to be treated carefully. It can
+be problematic to compare exact numbers for metrics between studies with different baseline periods, as climate change
+suggests a temperature biased over time. However, as in this paper the focus is only to demonstrate how heatwaves evolve
+relatively to another over time by looking for general trends rather than comparing exact metrics with other studies.
+And since in this paper only measurements from the same stations with the same baseline period were compared, this
+approach also suffices.</p>
+<p>Resulting from this procedure, for each station a threshold is obtained, that can be used for comparison with the time
+series of each year. In figure <a href="rh.html#fig:rh-threshold-kemmern">5.2</a> an example of this is shown for the Kemmern station and the
+year 2018. Heatwaves can then be detected, by firstly marking all potential candidates, which are all days exceeding the
+thresholds. After, the time series are examined for events of at least five consecutive days exceeding the threshold.
+These are marked as heatwaves and given an ID, while all shorter events are discarded. When there is a gap of only one
+or two days between two or more heatwaves that have a duration of at least five days each, the heatwaves, are
+merged into one heatwave.</p>
+</div>
+<div id="threshold-example-main-data-kemmern-2018" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Threshold example: Main data (Kemmern, 2018)<a href="rh.html#threshold-example-main-data-kemmern-2018" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-threshold-kemmern"></span>
+<img src="work/05-riverine_heat/figures/05-threshold_kemmern.svg" alt="Temperature time series for Main Kemmern in 2018 (black line). The dotted orage line represents the heatwave threshold for Kemmern station. The red areas mark heatwaves in that year for Kemmern station. The light grey lines represent all temperature time series of Kemmern station for the baseline period." width="70%" />
+<p class="caption">
+FIGURE 5.2: Temperature time series for Main Kemmern in 2018 (black line). The dotted orage line represents the heatwave threshold for Kemmern station. The red areas mark heatwaves in that year for Kemmern station. The light grey lines represent all temperature time series of Kemmern station for the baseline period.
+</p>
+</div>
+</div>
+<div id="metrics-used" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Metrics used<a href="rh.html#metrics-used" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This paper focuses on three primary metrics, that are used to quantify the evolution of riverine heatwaves. A frequency
+metric, a duration metric and an intensity metric were used, to describe the evolution under different aspects.</p>
+<p>To quantify the evolution of frequency the number of heatwave events per year is used. For this, the number of different
+heatwaves IDs are being counted per year and station.</p>
+<p>Furthermore, the duration of a heatwave is considered. This is calculated using the first and last day of each
+heatwave <a href="rh.html#eq:rh-duration">(5.2)</a> <span class="citation">(<a href="#ref-hobday2016">Hobday et al. 2016</a>)</span>. The duration plays an important role, as especially longer heatwaves can have more severe
+impacts.</p>
+<p><span class="math display" id="eq:rh-duration">\[\begin{equation}
+D = t_e - t_s
+\tag{5.2}
+\end{equation}\]</span></p>
+<p>Lastly, intensity is used, to assess the amount of the heat spike. The original definition by Hobday suggests to to define it as the temperature by which the climatological mean is exceeded. However, most literature on riverine heatwaves define intensity as the exceendance of the 90th percentile threshold <span class="citation">(<a href="#ref-sadayappan2025">Sadayappan and Li 2025</a>)</span> <span class="citation">(<a href="#ref-chen2026">Chen et al. 2026</a>)</span>. Therefore this was also adopted for this paper. Also in this paper intensity is defined, as the mean of the daily temperature exceedance per heatwave<a href="rh.html#eq:rh-intensity">(5.3)</a>.</p>
+<p><span class="math display" id="eq:rh-intensity">\[\begin{equation}
+i_{\mathrm{mean}}
+=
+\overline{T(t)-T_{90}(j)}
+\tag{5.3}
+\end{equation}\]</span></p>
+<p>These metrics can also be used to summarize two or more of these characteristics. For example, the heatwave events can
+be multiplied with the mean annual duration, to obtain the number of heatwave days per year. Or the duration of a
+heatwave can be multiplied with its mean intensity, to obtain its mean severity.</p>
+</div>
+<div id="research-question" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Research Question<a href="rh.html#research-question" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This paper examines the evolution of riverine heatwaves during climate change. Therefore, its focus lies primarily on the development of the three previously defined metrics over time by posing the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>How has the frequency of riverine heatwaves changed over time?</p></li>
+<li><p>How has the duration of riverine heatwaves changed over time?</p></li>
+<li><p>How has the intensity of riverine heatwaves changed over time?</p></li>
+</ol>
+<p>Given the availability of stations with different locations along the same river system, it was also looked into how
+the metrics differ between the stations. To answer these research questions, an exploratory analysis was performed
+on the heatwave data, examining it for differences between stations and years. Also linear and quasi poisson modells
+were fitted on the data, to look for significant temporal and spatial trends.</p>
+</div>
+</div>
+<div id="results-3" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Results<a href="rh.html#results-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="frequency" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Frequency<a href="rh.html#frequency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Figure <a href="rh.html#fig:rh-heatwave-events-overview">5.3</a> shows the distribution of the number of heatwave events per year for each
+station, with the stations being ordered by their position along the river from downstream to upstream. The plot shows, that
+for each station the mean number of heatwave events lies between 2.5 and 3. Both its mean and its variance seem to
+slightly increase in a downstream direction. To investigate this more thoroughly, a linear model between the mean
+number of heatwave events per station, and the river kilometer was used. The river kilometer is a static variable that describes, the stations distance to the river mouth in kilometers. The model indicated a decreasing, however insignificant trend of -0.001935 events / year
+with a p value of 0.197. As Pettstadt station lies on an inflow river and not directly on Main, it was excluded from
+this model.</p>
+<p>To examine the temporal trend of frequency, the heatwave events were grouped by their station, and a quasi poisson model
+was used, to look for correlation between the frequency and year. Fitting a model for each individual station led only
+to 1 significant and 5 insignificant results. Furthermore a common temporal trend quasi poisson model of frequency and
+year was used, to examine the general temporal frequency trend. An analysis-of-deviance F-test was used to assess
+whether including a year x station interaction significantly improved the quasi poisson model compared with a model
+containing only year and station main effects. The year × station interaction did not significantly improve model fit (analysis of deviance F-test: F(5, 78) = 0.737, p = 0.598), indicating no statistical evidence that temporal trends
+differed among stations.Therefore, the model with station as a fixed effect and a common temporal trend was used for the
+analysis.
+This resulted into a significant positive trend over time (slope: 0.05350, p value : 0.002), which indicates an increase
+of heatwave events by 5.5 % per year. The common quasi poisson is depicted in figure <a href="rh.html#fig:rh-heatwave-events-plot">5.4</a>
+where it is plotted into the frequency distribution of each station individually. The offset represents the intercept of
+the station effect, as the frequency of heatwaves differs from station to station.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-heatwave-events-overview"></span>
+<img src="work/05-riverine_heat/figures/05-heatwave_events_overview.svg" alt="Frequency distribution over all stations. The orange square signifies station mean value." width="80%" />
+<p class="caption">
+FIGURE 5.3: Frequency distribution over all stations. The orange square signifies station mean value.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-heatwave-events-plot"></span>
+<img src="work/05-riverine_heat/figures/05-heatwave_events_plot.svg" alt="Temporal development of heatwave events by station. The blue line shows the common temporal trend quasi poisson model." width="80%" />
+<p class="caption">
+FIGURE 5.4: Temporal development of heatwave events by station. The blue line shows the common temporal trend quasi poisson model.
+</p>
+</div>
+</div>
+<div id="duration" class="section level3 hasAnchor" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Duration<a href="rh.html#duration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The durations of heatwaves of Main river in the considered period lay between 5 and 28, with averages between 8 and
+10 days. Again the stations were placed according to their order along the
+river, and while the mean stays consistent, the variance seems to increase downstream <a href="rh.html#fig:rh-mean-duration-overview">5.5</a>. Also extremely long heatwaves
+seem more common at the downstream stations. Again there was a model fitted between the mean duration of each station
+and the river kilometer, this time a linear model was used, however it showed no significant trend
+(slope: -0.002058 days / km, p value: 0.459). Another idea would be to examine the mean of the yearly maximum duration
+of each station and look for a downstream trend. However, for this data set, this approach also did not deliver a
+significant result (slope: -0.002475 days / km, p value: 0.616 ).</p>
+<p>For the temporal trend a similar approach was used. The yearly mean durations for each station were plotted <a href="rh.html#fig:rh-duration-plot">5.6</a>, and for each a linear model was fitted. Four of the six stations showed a positive trend, with only one of them being
+significant, while the other stations showed a insignificant negative trend. To fit a linear model for the common
+temporal duration trend, again the model with year x station interaction was tested against the model including only the
+main effects, analogously to the frequency trend, this time using a analysis of variance F-Test. Again there was no indication for significantly differing trends between station, therefore the model with only the main effects was chosen. This resulted in a increasing, however insignificant, temporal trend of duration (slope: 0.08490 days / year, p value: 0.217).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-mean-duration-overview"></span>
+<img src="work/05-riverine_heat/figures/05-mean_duration_overview.svg" alt="Distribution of mean duration for all stations. Each point signifies a single heatwave. The orange square signifies the average duration per station." width="80%" />
+<p class="caption">
+FIGURE 5.5: Distribution of mean duration for all stations. Each point signifies a single heatwave. The orange square signifies the average duration per station.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-duration-plot"></span>
+<img src="work/05-riverine_heat/figures/05-duration_plot.svg" alt="Temporal development of mean heatwave duration by station. Each point signifies the annual mean duration for the considered station. The blue line shows the common temporal trend linear model." width="80%" />
+<p class="caption">
+FIGURE 5.6: Temporal development of mean heatwave duration by station. Each point signifies the annual mean duration for the considered station. The blue line shows the common temporal trend linear model.
+</p>
+</div>
+</div>
+<div id="intensity" class="section level3 hasAnchor" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Intensity<a href="rh.html#intensity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The intensity lies between 0 and 2 degrees celsius over the threshold, with the stations means laying between 0.5 and
+0.8 degrees Celsius. Again the plot <a href="rh.html#fig:rh-mean-intensity-overview">5.7</a> suggests a trend between the location of the
+stations, it seems like the mean intensity and its variance decrease stream downwards. To capture this trend, a linear
+model was used, which gave a slope of 0.0011531 °C per km, however again this result was not significant for the 95
+percent confidence level with a p value of 0.059.</p>
+<p>Looking at the yearly data <a href="rh.html#fig:rh-intensity-plot">5.8</a>, the plots again reflect the higher variance for upstream stations
+Schwürbitz, Schweinfurt and Kemmern, however a clear temporal trend is not visible. Also neither the station specific
+linear models, nor the common temporal trend model showed a significant trend. The result of the common model was a slope 0.008265 °C per year with a p value of 0.187, while the individual models showed no significant trend for any of the stations. The common temporal trend model was fitted and tested analogously to the model for duration.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-mean-intensity-overview"></span>
+<img src="work/05-riverine_heat/figures/05-mean_intensity_overview.svg" alt="Distribution of heatwave intensity by station. Each point represents the intensity of one heatwave. The orange square signifies the mean heatwave intensity for each station" width="80%" />
+<p class="caption">
+FIGURE 5.7: Distribution of heatwave intensity by station. Each point represents the intensity of one heatwave. The orange square signifies the mean heatwave intensity for each station
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-intensity-plot"></span>
+<img src="work/05-riverine_heat/figures/05-intensity_plot.svg" alt="Temporal development of mean heatwave intensity by station. Each point signifies the annual mean heatwave intensity for the considered station. The blue line shows the common temporal trend linear model." width="80%" />
+<p class="caption">
+FIGURE 5.8: Temporal development of mean heatwave intensity by station. Each point signifies the annual mean heatwave intensity for the considered station. The blue line shows the common temporal trend linear model.
+</p>
+</div>
+</div>
+</div>
+<div id="discussion-2" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Discussion<a href="rh.html#discussion-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview-of-trends-common-models" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Overview of trends common models<a href="rh.html#overview-of-trends-common-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-polygon-temporal"></span>
+<img src="work/05-riverine_heat/figures/05-polygon_temporal.svg" alt="All three heatwave metrics by year. Values are expressed relative to the mean across years (1.0 = overall mean); the dashed grey triangle indicates the overall mean." width="80%" />
+<p class="caption">
+FIGURE 5.9: All three heatwave metrics by year. Values are expressed relative to the mean across years (1.0 = overall mean); the dashed grey triangle indicates the overall mean.
+</p>
+</div>
+<p>The observed results of all three metrics are summarized for the temporal trends in figure <a href="rh.html#fig:rh-polygon-temporal">5.9</a>
+and for the differences between stations in figure <a href="rh.html#fig:rh-polygon-spatial">5.10</a>. From the literature a increasing trend
+over time for all three metrics would be expected <span class="citation">(<a href="#ref-chen2026">Chen et al. 2026</a>)</span> <span class="citation">(<a href="#ref-sadayappan2025">Sadayappan and Li 2025</a>)</span>. This analysis only reflects a significant increasing trend for
+frequency, while duration and intensity also show increasing, but insignificant trends. However, the recommended data
+size of time series with a length of ideally at least 30 years were not met, as only a period of 15 years was
+considered. Also there was no historical period used to calculate the heatwave threshold. This might explain the
+insignificance of the duration and intensity trend. Moreover, only data from one river was considered, and a trend of
+one river does not necessarily match the global trend of riverine heatwave increase. With a longer time series it might
+be possible to obtain significant results for the temporal trends of duration and intensity, or it might be possible to
+have a larger confidence that there is no significant temporal trend for these metrics in Main river system.</p>
+<p>However, finding usable data for the analysis of riverine heatwaves is difficult, as due to the suspected climate
+change bias it is not always reasonable to use a long period of historical data as a baseline. With the temperatures
+being in general a lot higher than in the past, a historical threshold would not be able to capture heatwaves anymore,
+as a too large amount of temperatures would exceed it. Leading to permanent heatwave states, which would make the
+examination of frequency and duration meaningless, and a temporal trend would not be able to be detected. An idea to
+account for the temporal bias in temperature data would be to use simulated data. By using simulated data, longer time
+series could be used, the climate change bias would be incorporated in the threshold calculation, and predictions for
+future development of riverine heatwaves would be possible.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rh-polygon-spatial"></span>
+<img src="work/05-riverine_heat/figures/05-polygon_spatial.svg" alt="All three heatwave metrics by station. Values are expressed relative to the mean across all stations (1.0 = overall mean); the dashed grey triangle indicates the overall mean."  />
+<p class="caption">
+FIGURE 5.10: All three heatwave metrics by station. Values are expressed relative to the mean across all stations (1.0 = overall mean); the dashed grey triangle indicates the overall mean.
+</p>
+</div>
+<p>The plots indicated, that there was a correlation between frequency and intensity and the river kilometer. The
+implication was, that the frequency of heatwaves increase downstream ward, while their intensity decreases. These trends
+however could not be verified using linear models, which did not deliver significant results. However, it could be
+interesting to perfom further examinations on this trends, using longer time series, or a larger number of stations along
+the same river, maybe also on a different river with a denser network of gauges. The frequency trend might indicate,
+that there is a downstream movement of riverine heatwaves, that might explain the higher frequency downstream wards.
+This could be interesting to make predictions on the appearance of heatwaves downstreams, after one has appeared further
+upstream.</p>
+<p>The results, in a way, show the difficulties of data scarcities when working on temporal trend analysis with riverine
+heatwaves during climate change. This underlines the importance of constructing a dense network of temperature data,
+perhaps with the help of simulated data. Although a significant temporal trend was only detected for frequency, there
+were some implications for increasing trends from the other metrics, which, as potential trends between the river
+kilometer and frequency and intensity, might be an interesting relation to examine in a larger data set. In conclusion
+riverine heatwaves remain a relevant phenomenon, during climate change, that still offers many interesting research
+possibilities.</p>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-chen2026" class="csl-entry">
+Chen, Yiling, Zhiying Su, R. Iestyn Woolway, et al. 2026. <span>“Persistent River Heatwaves Are Emerging Worldwide Under Climate Change.”</span> <em>Nature Communications</em> 17: 94. <a href="https://doi.org/10.1038/s41467-025-66868-5">https://doi.org/10.1038/s41467-025-66868-5</a>.
+</div>
+<div id="ref-vanhamel2025" class="csl-entry">
+<span class="nocase">Hamel, A. van, G. Bruno, C. Chartier-Rescan, et al.</span> 2025. <span>“Riverine Heatwaves Are an Emergent Climate Change Risk.”</span> <em>Nature Water</em> 3: 1356–64. <a href="https://doi.org/10.1038/s44221-025-00541-5">https://doi.org/10.1038/s44221-025-00541-5</a>.
+</div>
+<div id="ref-hobday2016" class="csl-entry">
+Hobday, Alistair J., Lisa V. Alexander, Sarah E. Perkins, et al. 2016. <span>“A Hierarchical Approach to Defining Marine Heatwaves.”</span> <em>Progress in Oceanography</em> 141: 227–38. <a href="https://doi.org/10.1016/j.pocean.2015.12.014">https://doi.org/10.1016/j.pocean.2015.12.014</a>.
+</div>
+<div id="ref-sadayappan2025" class="csl-entry">
+Sadayappan, Kayalvizhi, and Li Li. 2025. <span>“Riverine Heat Waves on the Rise, Outpacing Air Heat Waves.”</span> <em>Proceedings of the National Academy of Sciences</em> 122 (39): e2503160122. <a href="https://doi.org/10.1073/pnas.2503160122">https://doi.org/10.1073/pnas.2503160122</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nh-neural-hydrology.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="irh.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='720.00pt' height='244.80pt' viewBox='0 0 720.00 244.80'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHwyNDQuODA='>
+    <rect x='0.00' y='0.00' width='720.00' height='244.80' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHwyNDQuODA=)'>
+<rect x='-0.000000000000064' y='0.00' width='720.00' height='244.80' style='stroke-width: 1.16; stroke: none; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpMzguNDJ8NzE0LjAyfDUuOTh8MTgzLjY3'>
+    <rect x='38.42' y='5.98' width='675.60' height='177.69' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMzguNDJ8NzE0LjAyfDUuOTh8MTgzLjY3)'>
+<polyline points='38.42,183.67 714.02,183.67 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='38.42,138.37 714.02,138.37 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='38.42,93.08 714.02,93.08 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='38.42,47.78 714.02,47.78 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='165.10,183.67 165.10,5.98 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='376.22,183.67 376.22,5.98 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='587.35,183.67 587.35,5.98 ' style='stroke-width: 1.16; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='93.84' y='79.06' width='63.34' height='104.61' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #888888;' />
+<rect x='304.97' y='32.82' width='63.34' height='150.85' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #888888;' />
+<rect x='516.09' y='25.02' width='63.34' height='158.65' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #888888;' />
+<rect x='173.02' y='120.05' width='63.34' height='63.62' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00558C;' />
+<rect x='384.14' y='55.66' width='63.34' height='128.01' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00558C;' />
+<rect x='595.26' y='50.38' width='63.34' height='133.29' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00558C;' />
+<text x='125.51' y='77.81' text-anchor='middle' style='font-size: 9.10px; font-family: "Liberation Sans";' textLength='22.78px' lengthAdjust='spacingAndGlyphs'>0.462</text>
+<text x='336.64' y='31.57' text-anchor='middle' style='font-size: 9.10px; font-family: "Liberation Sans";' textLength='22.78px' lengthAdjust='spacingAndGlyphs'>0.666</text>
+<text x='547.76' y='23.76' text-anchor='middle' style='font-size: 9.10px; font-family: "Liberation Sans";' textLength='22.78px' lengthAdjust='spacingAndGlyphs'>0.701</text>
+<text x='204.68' y='118.80' text-anchor='middle' style='font-size: 9.10px; font-family: "Liberation Sans";' textLength='22.78px' lengthAdjust='spacingAndGlyphs'>0.281</text>
+<text x='415.81' y='54.41' text-anchor='middle' style='font-size: 9.10px; font-family: "Liberation Sans";' textLength='22.78px' lengthAdjust='spacingAndGlyphs'>0.565</text>
+<text x='626.93' y='49.13' text-anchor='middle' style='font-size: 9.10px; font-family: "Liberation Sans";' textLength='22.78px' lengthAdjust='spacingAndGlyphs'>0.589</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHwyNDQuODA=)'>
+<text x='33.04' y='186.97' text-anchor='end' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='13.33px' lengthAdjust='spacingAndGlyphs'>0.0</text>
+<text x='33.04' y='141.67' text-anchor='end' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='13.33px' lengthAdjust='spacingAndGlyphs'>0.2</text>
+<text x='33.04' y='96.37' text-anchor='end' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='13.33px' lengthAdjust='spacingAndGlyphs'>0.4</text>
+<text x='33.04' y='51.08' text-anchor='end' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='13.33px' lengthAdjust='spacingAndGlyphs'>0.6</text>
+<text x='165.10' y='195.64' text-anchor='middle' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='22.91px' lengthAdjust='spacingAndGlyphs'>Local</text>
+<text x='376.22' y='195.64' text-anchor='middle' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='27.70px' lengthAdjust='spacingAndGlyphs'>Global</text>
+<text x='587.35' y='195.64' text-anchor='middle' style='font-size: 9.60px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='40.48px' lengthAdjust='spacingAndGlyphs'>Fine-tune</text>
+<text transform='translate(14.24,94.82) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: "Liberation Sans";' textLength='111.81px' lengthAdjust='spacingAndGlyphs'>Weighted mean NSE</text>
+<text x='269.95' y='228.33' style='font-size: 12.00px; font-family: "Liberation Sans";' textLength='64.02px' lengthAdjust='spacingAndGlyphs'>Architecture</text>
+<rect x='340.72' y='216.34' width='15.73' height='15.73' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #888888;' />
+<rect x='418.43' y='216.34' width='15.73' height='15.73' style='stroke-width: 1.16; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00558C;' />
+<text x='363.20' y='227.50' style='font-size: 9.60px; font-family: "Liberation Sans";' textLength='48.48px' lengthAdjust='spacingAndGlyphs'>CudaLSTM</text>
+<text x='440.92' y='227.50' style='font-size: 9.60px; font-family: "Liberation Sans";' textLength='41.58px' lengthAdjust='spacingAndGlyphs'>EA-LSTM</text>
+</g>
+</g>
+</svg>
