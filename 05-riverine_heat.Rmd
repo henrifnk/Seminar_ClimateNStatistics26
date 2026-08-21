@@ -5,8 +5,6 @@ output:
     fig_crop: false
   html_document: default
   word_document: default
-bibliography: "rh_bib.bib"
-csl: https://www.zotero.org/styles/apa
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
