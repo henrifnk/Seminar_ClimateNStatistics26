@@ -38,7 +38,7 @@ is one of the oldest and most consequential tasks in hydrology. Accurate forecas
 critical for flood early-warning systems, reservoir operation, drought monitoring, and
 hydropower planning. Under climate change, this task becomes harder because forcing
 regimes are increasingly non-stationary: precipitation intensity distributions,
-temperature seasonality, and snowmelt timing all shift over time [@ipcc2021].
+temperature seasonality, and snowmelt timing all shift over time [@ipcc2021carbon].
 
 This chapter reviews the emergence of deep learning as the leading paradigm for
 data-driven streamflow modelling, introduces the **NeuralHydrology** Python library,

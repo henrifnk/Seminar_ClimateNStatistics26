@@ -2,7 +2,7 @@
 title: "Climate And Statistics"
 author: "Henri Funk, Helmut Küchenhoff"
 date: "`r Sys.Date()`"
-bibliography: [nh-bib.bib, ptp_bib.bib, unc_bib.bib, tp_book.bib, dp_bib.bib, book.bib, rh_bib.bib, packages.bib]
+bibliography: [nh-bib.bib, ptp-bib.bib, unc-bib.bib, tp-book.bib, dp-bib.bib, book.bib, rh-bib.bib, packages.bib]
 biblio-style: apalike
 link-citations: true
 colorlinks: true
