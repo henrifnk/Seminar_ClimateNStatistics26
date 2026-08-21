@@ -105,10 +105,10 @@ The countries entered the transition with different policy ambitions.
 
 | Country | Electricity target for 2030 |
 |:--|:--|
-| Denmark | Renewable output covering 100 percent of electricity demand [@denmarknd] |
+| Denmark | Renewable output covering 100 percent of electricity demand [@denmark2026] |
 | United Kingdom | At least 95 percent clean generation [@govuk2024] |
 | Spain | 81 percent renewable generation [@miteco2024] |
-| Germany | 80 percent of gross electricity consumption from renewables [@bmwknd] |
+| Germany | 80 percent of gross electricity consumption from renewables [@bmwk2026] |
 | Poland | At least 32 percent renewable electricity under the 2020 NECP [@europeancommission2020] |
 
 Table: (\#tab:ptp-policycontext) Official 2030 electricity targets used as policy context.
