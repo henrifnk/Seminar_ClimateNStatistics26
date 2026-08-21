@@ -1,6 +1,15 @@
 ```{r ptp-setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE,message=FALSE,warning=FALSE,fig.align="center",out.width="90%")
-#source("work/11-positive_tp/R/positive_tipping_analysis.R",local=knitr::knit_global())
+# The Ember source data is not redistributed with the book (see
+# work/11-positive_tp/data/README.md), so positive_tipping_analysis.R cannot be
+# sourced here. The chapter renders from the artefacts that script produced:
+# figures/*.png and results/*.csv.
+ptpFig <- function(name) {
+  knitr::include_graphics(file.path("work/11-positive_tp/figures", name))
+}
+ptpResult <- function(name) {
+  read.csv(file.path("work/11-positive_tp/results", name))
+}
 ```
 
 # Positive tipping points {#ptp}
@@ -88,7 +97,7 @@ At first glance wind and solar growth may seem enough to describe the transition
 Denmark and the United Kingdom are used as benchmark cases. Here a benchmark is an example that helps interpret less mature transitions rather than a formal control group. Denmark represents long renewable expansion while the United Kingdom shows rapid incumbent decline. The annual electricity data comes from Ember [@ember2026yearly].
 
 ```{r ptp-benchmarkcontext, fig.cap="Historical electricity transitions in Denmark and the United Kingdom. Coal is displayed separately for the United Kingdom.", fig.width=10, fig.height=8}
-historical_context_benchmark_plot
+ptpFig("benchmark_context.png")
 ```
 
 ### Denmark {-}
@@ -120,7 +129,7 @@ The analysis uses yearly and monthly electricity data from Ember [@ember2026year
 The monthly dataset covers January 2015 to December 2025 and contains aggregate fossil shares for Spain, Germany and Poland. These observations are used to construct the monthly residual series for the early warning analysis.
 
 ```{r ptp-maincontext, fig.cap="Annual fossil and wind and solar shares of electricity generation in Spain, Germany and Poland from 2000 to 2025.", fig.width=10, fig.height=8}
-historical_context_main_plot
+ptpFig("country_context.png")
 ```
 
 Spain shows the earliest convergence and the wind and solar share exceeds the fossil share near the end of the sample. Germany also approaches parity. Poland experiences rapid recent renewable growth although the fossil share remains dominant.
@@ -204,6 +213,7 @@ Monthly fossil shares are separated into seasonal, trend and residual components
 ### Wind and solar diffusion {-}
 
 ```{r ptp-selectedmodels}
+selected_model_table <- ptpResult("selected_models.csv")
 modelDisplay <- selected_model_table[c("Country","K","r","t0","RMSE")]
 names(modelDisplay) <- c("Country","Saturation K","Diffusion rate r","Inflection year t0","RMSE")
 knitr::kable(modelDisplay,caption="Selected logistic S curve parameters based on historical RMSE.")
@@ -216,7 +226,7 @@ Poland has the fastest estimated diffusion rate at 0.200. Its fitted inflection 
 ### Spain {-}
 
 ```{r ptp-spainscurve, fig.cap="Observed and fitted wind and solar electricity shares in Spain. The shaded area is the residual bootstrap band. Dashed curves use alternative saturation assumptions.", fig.width=10, fig.height=6}
-spain_scurve_plot
+ptpFig("spain_scurve.png")
 ```
 
 Spain shows gradual early growth followed by stronger expansion after 2010. The selected model estimates the inflection around 2020.8, which lies within the observed period, so Spain represents an observed inflection case. Similar historical fits can therefore produce different long run projections.
@@ -224,7 +234,7 @@ Spain shows gradual early growth followed by stronger expansion after 2010. The 
 ### Germany {-}
 
 ```{r ptp-germanyscurve, fig.cap="Observed and fitted wind and solar electricity shares in Germany. The fitted inflection occurs near the end of the observed period.", fig.width=10, fig.height=6}
-germany_scurve_plot
+ptpFig("germany_scurve.png")
 ```
 
 Germany follows the selected logistic trajectory closely. The estimated inflection year is 2024.6 and lies near the final observed year. Germany therefore represents a near term inflection case although only a short part of the trajectory after the fitted inflection is observed.
@@ -232,7 +242,7 @@ Germany follows the selected logistic trajectory closely. The estimated inflecti
 ### Poland {-}
 
 ```{r ptp-polandscurve, fig.cap="Observed and fitted wind and solar electricity shares in Poland. The fitted inflection occurs after the observed period.", fig.width=10, fig.height=6}
-poland_scurve_plot
+ptpFig("poland_scurve.png")
 ```
 
 Poland begins with almost no wind and solar generation. Growth becomes visible after 2010 and accelerates after 2020. The projected inflection around 2029 lies outside the observed period. Its selected saturation level also reaches the maximum considered value so the later projection is especially sensitive to the assumed upper limit.
@@ -240,7 +250,7 @@ Poland begins with almost no wind and solar generation. Growth becomes visible a
 ### Fossil displacement {-}
 
 ```{r ptp-fossilcontext, fig.cap="Aggregate fossil electricity shares and fitted wind and solar inflection years in Spain, Germany and Poland.", fig.width=10, fig.height=8}
-fossil_context_plot
+ptpFig("fossil_context.png")
 ```
 
 Spain's fossil share falls from around 60 percent to below 30 percent and its renewable inflection occurs during this wider decline. Germany's fossil share falls more clearly after 2015. Its renewable inflection occurs close to parity between the wind and solar share and the fossil share. Poland's fossil share also declines rapidly in the later years although it remains close to 70 percent in 2025.
@@ -252,7 +262,7 @@ The projected Polish renewable inflection occurs after the observed fossil serie
 #### Autocorrelation {-}
 
 ```{r ptp-ewsar, fig.cap="Rolling lag one autocorrelation of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
-ews_ar_plot
+ptpFig("ews_ar.png")
 ```
 
 Spain does not show a sustained rise in autocorrelation, and its final value of 0.151 is below the valid-window mean of 0.298. Germany shows a recent increase and ends at 0.266 compared with a period mean of minus 0.052. Poland shows the highest final autocorrelation at 0.638 while its period mean is 0.271.
@@ -260,12 +270,13 @@ Spain does not show a sustained rise in autocorrelation, and its final value of 
 #### Variance {-}
 
 ```{r ptp-ewsvariance, fig.cap="Rolling variance of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
-ews_variance_plot
+ptpFig("ews_variance.png")
 ```
 
 Spain's final variance is 17.5 compared with a period mean of 16.2. Germany ends at 13.5 compared with a mean of 12.9. Poland shows a much stronger increase. Its final variance reaches 31.9 while the period mean is 7.5.
 
 ```{r ptp-ewssummary}
+ews_summary_table <- ptpResult("ews_summary.csv")
 ewsDisplay <- ews_summary_table[c("Country","Indicator","selected_K","selected_t0","mean_indicator","last_indicator")]
 names(ewsDisplay) <- c("Country","Indicator","Selected K","Selected t0","Period mean","Final value")
 knitr::kable(ewsDisplay,caption="Summary of rolling early warning indicators.")
