@@ -11,6 +11,10 @@ output:
 library(bookdown)
 library(svglite)
 library(kableExtra)
+
+# SVG has no LaTeX backend: use the .pdf twin of each figure when knitting to
+# PDF (knitr only swaps the extension where that twin actually exists)
+options(knitr.graphics.auto_pdf = TRUE)
 ```
 
 # Riverine Heatwaves {#rh}
