@@ -4,7 +4,7 @@ output:
   html_document: default
 ---
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r dp-setup, message=FALSE, warning=FALSE, include=FALSE}
 library(bookdown)
 library(svglite)
 library(kableExtra)
@@ -21,6 +21,7 @@ library(kableExtra)
 ```{r dp-table-css, echo=FALSE, results='asis'}
 if (knitr::is_html_output()) cat('
 <style>
+.book-body .page-inner p { text-align: justify; hyphens: auto; }
 .book-body .page-inner table th,
 .book-body .page-inner table td { padding-left: 5px; padding-right: 5px; }
 .book-body .page-inner table td:first-child { white-space: nowrap; }
@@ -37,19 +38,33 @@ dphead <- function(x, color) {
   else
     sprintf("<strong style='color:%s'>%s</strong>", color, x)
 }
+# For PDF, use the .png twin of each figure (LaTeX can't embed .svg); HTML keeps the .svg.
+dp_img <- function(p) knitr::include_graphics(
+  if (knitr::is_latex_output()) sub("\\.svg$", ".png", p) else p
+)
+# Emit raw HTML only for HTML output (empty string for LaTeX).
+h <- function(x) if (knitr::is_html_output()) x else ""
+# out.width in CSS px for HTML (the two-column CSS grid layout the div
+# wrappers above set up). PDF has no such grid -- true side-by-side
+# minipages don't survive pandoc's own paragraph/display-math block
+# splitting -- so LaTeX instead gets a modest, centered, stand-alone
+# figure sized as a fraction of the full text width.
+ow <- function(px, latex_frac = 0.33) if (knitr::is_latex_output()) paste0(round(100 * latex_frac), "%") else paste0(px, "px")
 ```
 
 ## Introduction
 
-Drought has no single, universally accepted definition, and which definition applies depends on the part of the water cycle and the impacts under consideration [@zargarReviewDroughtIndices2011].
-Four types are commonly distinguished (Figure \@ref(fig:drought-types), adapted from @nandgudeDroughtPredictionComprehensive2023): in a simplified manner a precipitation deficit produces a *meteorological* drought, which depletes soil moisture into an *agricultural* drought, lowers streamflow and groundwater into a *hydrological* drought, and finally reaches water-dependent goods as a *socioeconomic* drought.
+Drought has no single, universally accepted definition, and which definition applies depends on the part of the water cycle and the impacts under consideration [@zargar2011].
+Four types are commonly distinguished (Figure \@ref(fig:dp-drought-types), adapted from @nandgude2023): in a simplified manner a precipitation deficit produces a *meteorological* drought, which depletes soil moisture into an *agricultural* drought, lowers streamflow and groundwater into a *hydrological* drought, and finally reaches water-dependent goods as a *socioeconomic* drought.
 
-```{r drought-types, echo=FALSE, fig.cap="The four drought types as a propagating cascade, adapted from @nandgudeDroughtPredictionComprehensive2023.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/general/drought_types_vector.svg")
+(ref:dp-drought-types-cap) The four drought types as a propagating cascade. The depiction is adapted from @nandgude2023.
+
+```{r dp-drought-types, echo=FALSE, fig.cap="(ref:dp-drought-types-cap)", out.width="100%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/general/drought_types_vector.svg")
 ```
 
 This work targets *meteorological drought*, the first stage and earliest signal, driven by a precipitation deficit together with high evapotranspiration.
-It can be quantified with various indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) [@vicente-serranoMultiscalarDroughtIndex2010].
+It can be quantified with various indices, of which this work uses the Standardized Precipitation Evapotranspiration Index (SPEI) [@vicenteserrano2010].
 
 Predicting such droughts well ahead of time is valuable for agriculture, water management, and planning, where early warning shapes what can be done in response.
 It is also difficult, since at a lead of several months to a year the predictable signal is weak, and it is further obscured by the rising drought frequency of the last decades.
@@ -66,12 +81,12 @@ Answering these questions is the main contribution: a controlled comparison of l
 
 ## Related Work
 
-Drought prediction has moved from simple baselines such as logistic regression and gradient-boosted trees (see e.g. @marusovLongtermDroughtPrediction2024a) toward machine and deep learning [@nandgudeDroughtPredictionComprehensive2023].
+Drought prediction has moved from simple baselines such as logistic regression and gradient-boosted trees (see e.g. @marusov2024) toward machine and deep learning [@nandgude2023].
 The task is both temporal, inferring a future drought from past conditions, and spatial, since nearby locations are not independent. Approaches mainly differ in how they handle the two.
-Models from the LSTM family capture the temporal side well but treat space only through their inputs or not at all [@wangDroughtPredictionInsights2023; @chenSTATLSTMMultivariateSpatiotemporal2025], whereas graph-based and transformer models represent the spatial field more directly [@yuMultivariateSpatiotemporalModeling2023; @gaoEarthformerExploringSpaceTime2023; @pathakFourCastNetGlobalDatadriven2022; @nguyenClimaXFoundationModel2023], at the cost of model scale and compute, and without a guaranteed performance edge, since simple linear baselines can often rival transformer forecasters [@zengAreTransformersEffective2022].
+Models from the LSTM family capture the temporal side well but treat space only through their inputs or not at all [@wang2023; @chen2025], whereas graph-based and transformer models represent the spatial field more directly [@yu2023; @gao2023; @pathak2022; @nguyen2023], at the cost of model scale and compute, and without a guaranteed performance edge, since simple linear baselines can often rival transformer forecasters [@zeng2022].
 
 Across the named studies two factors stand out.
-First, they mostly forecast at a short, one-month lead [@wangDroughtPredictionInsights2023; @chenSTATLSTMMultivariateSpatiotemporal2025; @yuMultivariateSpatiotemporalModeling2023], the main exception treating long-lead drought as a binary classification [@marusovLongtermDroughtPrediction2024a].
+First, they mostly forecast at a short, one-month lead [@wang2023; @chen2025; @yu2023], the main exception treating long-lead drought as a binary classification [@marusov2024].
 Second, evaluation usually falls on one side of a divide, a continuous index scored by average error or discrete categories scored by classification metrics.
 The loss function and the handling of input features are usually fixed rather than compared accross different options.
 
@@ -83,34 +98,34 @@ This work directly predicts SPEI-1 at a twelve-month lead over the entire Alpine
 
 The study region is the Alpine region at a monthly resolution from 1971 to 2024 (648 months).
 The data is derived from the ERA5-Land data set, regridded to a 12kmx12km resolution.
-A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure \@ref(fig:al-topography).
+A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure \@ref(fig:dp-al-topography).
 
-```{r al-topography, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain.", out.width="70%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/raw/topography.svg")
+```{r dp-al-topography, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain.", out.width="70%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/raw/topography.svg")
 ```
 
 ### Variables
 
 The inputs fall into three groups.
 
-The *dynamic spatial* variables, which vary in both space and time. They include the SPEI (the target, also supplied as history, also seen in Figure \@ref(fig:spei-snapshots)), precipitation, near-surface temperature, surface pressure, and water balance.
+The *dynamic spatial* variables, which vary in both space and time. They include the SPEI (the target, also supplied as history, also seen in Figure \@ref(fig:dp-spei-snapshots)), precipitation, near-surface temperature, surface pressure, and water balance.
 
-The *dynamic global* variables, which vary in time only and capture the large-scale drivers of European moisture and its seasonality: the North Atlantic Oscillation index [@hurrellNao1995], grouped Mediterranean sea-surface temperatures (SST), and a cyclical month encoding.
-The fourteen Mediterranean basins are aggregated into three regional means [@millotCirculationMediterraneanSea2005; @lionelloMediterraneanClimateOverview2006] (Figure \@ref(fig:med-slt)).
+The *dynamic global* variables, which vary in time only and capture the large-scale drivers of European moisture and its seasonality: the North Atlantic Oscillation index [@hurrell1995], grouped Mediterranean sea-surface temperatures (SST), and a cyclical month encoding.
+The fourteen Mediterranean basins are aggregated into three regional means [@millot2005; @lionello2006] (Figure \@ref(fig:dp-med-slt)).
 
 And the *static spatial* input, which varies in space only: the topography, whose elevation strongly shapes Alpine precipitation and temperature.
 
-```{r spei-snapshots, echo=FALSE, fig.cap="SPEI over the Alpine domain across 1971.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/raw/al/spei.svg")
+```{r dp-spei-snapshots, echo=FALSE, fig.cap="SPEI over the Alpine domain across 1971.", out.width="100%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/raw/al/spei.svg")
 ```
 
-```{r med-slt, echo=FALSE, fig.cap="Mediterranean SST, 1971--2024, aggregated into three regional groups (western Mediterranean, eastern Mediterranean, Black Sea).", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/raw/slides/mediterranean_slt.svg")
+```{r dp-med-slt, echo=FALSE, fig.cap="Mediterranean SST, 1971--2024, aggregated into three regional groups (western Mediterranean, eastern Mediterranean, Black Sea).", out.width="100%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/raw/slides/mediterranean_slt.svg")
 ```
 
 ### Drought definition: SPEI
 
-The Standardized Precipitation Evapotranspiration Index (SPEI) [@vicente-serranoMultiscalarDroughtIndex2010] extends the precipitation-only Standardized Precipitation Index (SPI) [@mckeeRelationshipDroughtFrequency1993] by using the water balance, so that temperature enters through evapotranspiration, which can better account for rising temperatures under climate change.
+The Standardized Precipitation Evapotranspiration Index (SPEI) [@vicenteserrano2010] extends the precipitation-only Standardized Precipitation Index (SPI) [@mckee1993] by using the water balance, so that temperature enters through evapotranspiration, which can better account for rising temperatures under climate change.
 
 The SPEI is built on the water balance,
 
@@ -122,7 +137,7 @@ SPEI is defined at a chosen timescale $k$: the monthly water balance is summed o
 Common choices are 1, 3, 6, 12, and 24 months.
 Short timescales respond to rapid, month-to-month deficits and longer ones to slower, accumulated dryness.
 This work uses SPEI-1, so each value uses the water balance of one month expressed in standard deviations from the local mean.
-The index is computed as in @funk2026probabilisticdeeplearningdrought, with a three-parameter gamma fit calibrated over 1990 to 2019.
+The index is computed as in @funk2026, with a three-parameter gamma fit calibrated over 1990 to 2019.
 
 ### Preprocessing
 
@@ -134,10 +149,10 @@ Because SPEI is also the prediction target, this same training-period standardiz
 
 The data is split chronologically: training on 1971 to 2004, validation on 2005 to 2014, and testing on 2015 to 2024.
 Because the split is by time rather than at random, the periods differ in climate.
-The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is substancially drier than the training period, as shown in Figure \@ref(fig:drought-freq-severe).
+The average severe-drought frequency rises across them, from 0.53 to 0.62 to 1.04 events per cell per year, so the test period is substancially drier than the training period, as shown in Figure \@ref(fig:dp-drought-freq-severe).
 
-```{r drought-freq-severe, echo=FALSE, fig.cap="Severe-drought (SPEI $\\le -1.5$) frequency by split.", out.width="100%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/processed/exploratory/drought_frequency_severe.svg")
+```{r dp-drought-freq-severe, echo=FALSE, fig.cap="Severe-drought (SPEI $\\le -1.5$) frequency by split.", out.width="100%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/processed/exploratory/drought_frequency_severe.svg")
 ```
 
 ### Task & Model
@@ -146,12 +161,14 @@ The forecasting task is a continuous, per-cell regression of SPEI-1.
 Given thirty-six months of history, the model predicts a single SPEI-1 map at a twelve-month lead.
 It is a direct forecast, the horizon is predicted in one step rather than iterated month by month, avoiding recursive error accumulation.
 
-The forecasting model is a Convolutional LSTM (ConvLSTM), following the variant of @marusovLongtermDroughtPrediction2024a.
-It replaces the matrix products in the gates of a standard LSTM [@hochreiterLongShorttermMemory1997] with convolutions, so the input $x_t$, hidden state $h_t$, and cell state $c_t$ are three-dimensional feature maps rather than vectors, which preserves spatial structure.
-Figure \@ref(fig:convlstm-schematic) shows the resulting cell.
+The forecasting model is a Convolutional LSTM (ConvLSTM), following the variant of @marusov2024.
+It replaces the matrix products in the gates of a standard LSTM [@hochreiter1997] with convolutions, so the input $x_t$, hidden state $h_t$, and cell state $c_t$ are three-dimensional feature maps rather than vectors, which preserves spatial structure.
+Figure \@ref(fig:dp-convlstm-schematic) shows the resulting cell.
 
-```{r convlstm-schematic, echo=FALSE, fig.cap="ConvLSTM cell by @marusovLongtermDroughtPrediction2024a.", out.width="75%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM.svg")
+(ref:dp-convlstm-schematic-cap) ConvLSTM cell. The depiction is by @marusov2024.
+
+```{r dp-convlstm-schematic, echo=FALSE, fig.cap="(ref:dp-convlstm-schematic-cap)", out.width="75%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/architecture/ConvLSTM.svg")
 ```
 
 Each gate applies a convolution followed by batch normalization, whose affine shift replaces the additive bias,
@@ -184,23 +201,23 @@ Each of the three research questions is treated as one axis of variation, as def
 The loss sets how strongly errors on dry cells are weighted, and how hard the model is pushed to predict droughts.
 Three families are compared, each averaged over valid cells, with $y$ the observed and $\hat{y}$ the predicted SPEI.
 
-<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #3C3C3C; padding-left: 1em;">
-<div style="min-width: 0;">
+`r h('<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #3C3C3C; padding-left: 1em;">')`
+`r h('<div style="min-width: 0;">')`
 
 `r dphead("Mean squared error", col_mse)` is the symmetric baseline,
 
 $$\mathcal{L}_{\text{MSE}} = (\hat{y} - y)^2.$$
 
-</div>
-<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
-```{r mse-illustration, echo=FALSE, out.width="170px"}
-knitr::include_graphics("work/02-drought_prediction/reports/figures/mse.svg")
+`r h('</div>')`
+`r h('<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">')`
+```{r dp-mse-illustration, echo=FALSE, out.width=ow(170), fig.align=if (knitr::is_latex_output()) "center" else "default"}
+dp_img("work/02-drought_prediction/reports/figures/mse.svg")
 ```
-</div>
-</div>
+`r h('</div>')`
+`r h('</div>')`
 
-<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #286EA0; padding-left: 1em;">
-<div style="min-width: 0;">
+`r h('<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #286EA0; padding-left: 1em;">')`
+`r h('<div style="min-width: 0;">')`
 
 `r dphead("Hinge-weighted MSE", col_hin)` keeps the squared error but up-weights cells on the dry side of normal,
 
@@ -211,19 +228,19 @@ w &= 1 + \alpha \max(0, -y), \quad \alpha \in \{1, 5\},
 
 so a given error costs more the drier the observed cell.
 
-</div>
-<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
-```{r hinge-illustration, echo=FALSE, out.width=c("170px","170px"), fig.show="hold"}
-knitr::include_graphics(c(
+`r h('</div>')`
+`r h('<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">')`
+```{r dp-hinge-illustration, echo=FALSE, out.width=c(ow(170, 0.33), ow(170, 0.33)), fig.show="hold", fig.align=if (knitr::is_latex_output()) "center" else "default"}
+dp_img(c(
   "work/02-drought_prediction/reports/figures/hinge_weight.svg",
   "work/02-drought_prediction/reports/figures/hinge_loss.svg"
 ))
 ```
-</div>
-</div>
+`r h('</div>')`
+`r h('</div>')`
 
-<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #C6402A; padding-left: 1em;">
-<div style="min-width: 0;">
+`r h('<div style="display: grid; grid-template-columns: 1fr 400px; align-items: center; gap: 1.5em; border-left: 5px solid #C6402A; padding-left: 1em;">')`
+`r h('<div style="min-width: 0;">')`
 
 `r dphead("Pinball (quantile) loss", col_pin)` at $\tau = 0.20$ is asymmetric,
 
@@ -231,39 +248,43 @@ $$\mathcal{L}_{\text{pin}} = \begin{cases} \tau\,(y - \hat{y}) & \hat{y} \le y, 
 
 penalizing over-prediction (too wet, missing a drought) by a factor $\tfrac{1-\tau}{\tau}=4$ over under-prediction, biasing the model toward the dry tail.
 
-</div>
-<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">
-```{r pinball-illustration, echo=FALSE, out.width="170px"}
-knitr::include_graphics("work/02-drought_prediction/reports/figures/pinball.svg")
+`r h('</div>')`
+`r h('<div class="loss-fig" style="min-width: 0; width: 360px; text-align: right;">')`
+```{r dp-pinball-illustration, echo=FALSE, out.width=ow(170), fig.align=if (knitr::is_latex_output()) "center" else "default"}
+dp_img("work/02-drought_prediction/reports/figures/pinball.svg")
 ```
-</div>
-</div>
+`r h('</div>')`
+`r h('</div>')`
 
 ### RQ2: Dynamic global features
-Two ways of feeding the global features into the ConvLSTM are compared (Figure \@ref(fig:naive-vs-film)).
+Two ways of feeding the global features into the ConvLSTM are compared (Figure \@ref(fig:dp-naive-vs-film)).
 The naive baseline broadcasts each global scalar across the grid as an extra input channel.
 
-```{r naive-vs-film, echo=FALSE, fig.cap="Dynamic global feature injection strategies. Naive injection is on the left and FiLM on the right (The FiLM depiction is by @perezFiLMVisualReasoning2018).", out.width="90%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/architecture/Naive_vs_film.svg")
+(ref:dp-naive-vs-film-cap) Dynamic global feature injection strategies. Naive injection is on the left and FiLM on the right. The FiLM depiction is by @perez2018.
+
+```{r dp-naive-vs-film, echo=FALSE, fig.cap="(ref:dp-naive-vs-film-cap)", out.width="90%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/architecture/Naive_vs_film.svg")
 ```
 
-FiLM (feature-wise linear modulation) [@perezFiLMVisualReasoning2018] instead conditions the network by applying a per-channel affine transform to the feature maps,
+FiLM (feature-wise linear modulation) [@perez2018] instead conditions the network by applying a per-channel affine transform to the feature maps,
 
 $$\mathrm{FiLM}(F_c) = \gamma_c\, F_c + \beta_c, \qquad \gamma_c = f_c(x_t), \; \beta_c = h_c(x_t),$$
 
 where $F_c$ is the activation of channel $c$ and the scale $\gamma_c$ and shift $\beta_c$ are learned functions $f_c, h_c$ of the global features $x_t$, produced together by a small shared MLP.
-Rather than adding channels, FiLM lets the global state reshape the existing ones in an interaction-like manner. Figure \@ref(fig:convlstm-film) shows where this conditioning enters the ConvLSTM cell introduced above.
+Rather than adding channels, FiLM lets the global state reshape the existing ones in an interaction-like manner. Figure \@ref(fig:dp-convlstm-film) shows where this conditioning enters the ConvLSTM cell introduced above.
 
-```{r convlstm-film, echo=FALSE, fig.cap="Where FiLM sits inside the ConvLSTM cell: it conditions the embedded input feature map before the gate convolutions.", out.width="75%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM_FiLM.svg")
+(ref:dp-convlstm-film-cap) Where FiLM sits inside the ConvLSTM cell: it conditions the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by @marusov2024.
+
+```{r dp-convlstm-film, echo=FALSE, fig.cap="(ref:dp-convlstm-film-cap)", out.width="75%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/architecture/ConvLSTM_FiLM.svg")
 ```
 
 ### RQ3: Static spatial features
-Three ways of incorporating the static topography are compared, contrasted in Figure \@ref(fig:naive-vs-static-encoder).
+Three ways of incorporating the static topography are compared, contrasted in Figure \@ref(fig:dp-naive-vs-static-encoder).
 The naive baseline appends the raw static field repeatedly at each time step, treating it the same as a dynamic spatial feature.
 
-```{r naive-vs-static-encoder, echo=FALSE, fig.cap="Static spatial feature injection strategies. Naive injection is on the left and the learned encoder on the right (single and seasonal variants).", out.width="90%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/architecture/Naive_vs_single_seasonal.svg")
+```{r dp-naive-vs-static-encoder, echo=FALSE, fig.cap="Static spatial feature injection strategies. Naive injection is on the left and the learned encoder on the right (single and seasonal variants).", out.width="90%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/architecture/Naive_vs_single_seasonal.svg")
 ```
 
 The other two learn a seperate static encoding through a small convolutional network,
@@ -271,10 +292,12 @@ The other two learn a seperate static encoding through a small convolutional net
 $$E(S) = \mathrm{ReLU}(W_2 \ast \mathrm{ReLU}(W_1 \ast S)),$$
 
 with static features $S$ and convolutional kernels $W_1, W_2$ (each with batch normalization), whose output is concatenated to the embedding $x_t^{\text{emb}}$ at every timestep.
-The *single* variant uses one shared encoder, giving $[\,x_t^{\text{emb}}, E(S)\,]$, while the *seasonal* variant uses four encoders, one per meteorological season, selected by the season $s(m_t)$ of the target month, giving $[\,x_t^{\text{emb}}, E_{s(m_t)}(S)\,]$. Figure \@ref(fig:convlstm-static) shows where the resulting encoder output enters the cell.
+The *single* variant uses one shared encoder, giving $[\,x_t^{\text{emb}}, E(S)\,]$, while the *seasonal* variant uses four encoders, one per meteorological season, selected by the season $s(m_t)$ of the target month, giving $[\,x_t^{\text{emb}}, E_{s(m_t)}(S)\,]$. Figure \@ref(fig:dp-convlstm-static) shows where the resulting encoder output enters the cell.
 
-```{r convlstm-static, echo=FALSE, fig.cap="Where the static encoder sits inside the ConvLSTM cell: it concatenates its output to the embedded input feature map before the gate convolutions.", out.width="75%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/architecture/ConvLSTM_static.svg")
+(ref:dp-convlstm-static-cap) Where the static encoder sits inside the ConvLSTM cell: it concatenates its output to the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by @marusov2024.
+
+```{r dp-convlstm-static, echo=FALSE, fig.cap="(ref:dp-convlstm-static-cap)", out.width="75%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/architecture/ConvLSTM_static.svg")
 ```
 
 ### Experimental setup
@@ -301,13 +324,13 @@ $$\mathrm{TPR} = \frac{TP}{TP + FN}, \qquad \mathrm{F1} = \frac{2\,TP}{2\,TP + F
 
 ### Baselines
 
-Three reference forecasts are evaluated on the test period (2015--2024): persistence (the last observed SPEI carried forward twelve months), climatology (the training-period cell mean), and a per-cell linear trend extrapolated from the training years to the test years [@wilksStatistical2011; @jolliffeStephenson2003].
-They are evaluated in Table \@ref(tab:baselines).
+Three reference forecasts are evaluated on the test period (2015--2024): persistence (the last observed SPEI carried forward twelve months), climatology (the training-period cell mean), and a per-cell linear trend extrapolated from the training years to the test years [@wilks2011; @jolliffe2003].
+They are evaluated in Table \@ref(tab:dp-baselines).
 The trend gives the lowest baseline RMSE (1.065), just ahead of climatology (1.077), but neither ever predicts a severe drought, so both score zero on detection.
 Persistence is the only baseline that detects drought (F1 0.290, TPR 0.281), at a substantially higher RMSE (1.349).
 The trend therefore sets the bar to beat on RMSE, and persistence the bar to beat on detection.
 
-```{r baselines, echo=FALSE}
+```{r dp-baselines, echo=FALSE}
 b <- data.frame(
   Baseline = c("Persistence", "Climatology", "Trend"),
   Forecast = c("last SPEI carried forward 12 months",
@@ -319,23 +342,23 @@ b <- data.frame(
   check.names = FALSE)
 kbl(b, escape = FALSE, booktabs = TRUE, align = "llccc",
     caption = "Baseline performance on the test set.") |>
-  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = 13)
+  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = if (knitr::is_latex_output()) 9 else 13)
 ```
 
 ### RQ1: Loss functions
 
-Holding both static spatial feature injection and dynamic global feature injection at the naive strategy, the loss alone shapes a trade-off between accuracy and detection (Table \@ref(tab:loss-results)).
+Holding both static spatial feature injection and dynamic global feature injection at the naive strategy, the loss alone shapes a trade-off between accuracy and detection (Table \@ref(tab:dp-loss-results)).
 MSE and the $w=1$ hinge-weighted MSE loss attain the lowest RMSE (0.965 and 0.962), both beating the trend floor, but MSE's detection collapses to F1 0.115, far below persistence: minimizing squared error pulls predictions toward the mean and away from the dry tail.
 This mean-pulling is most pronounced for MSE and the $w=1$ hinge, which still closely resembles a plain MSE, although even that mild weighting already improves detection markedly, doubling or even tripling both detection metrics.
 Raising the hinge weight to $w=5$ buys some detection capability at the cost of RMSE (1.028), althoug it is only a slight improvement over $w=1$ in detection.
 Pinball performs best on both detection metrics and is the only loss to beat persistence on both F1 (0.384) and TPR (0.327), but it carries the highest RMSE (1.155), above the trend floor.
 Accuracy and detection thus generally move in opposite directions as the loss shifts from MSE to Pinball.
 
-```{r loss-results, echo=FALSE}
+```{r dp-loss-results, echo=FALSE}
 lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
 loss <- cell_spec(c("$\\mathrm{MSE}$", "$\\mathrm{hwMSE}_{w=1}$",
                     "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
-                  color = lc, bold = TRUE)
+                  color = lc, bold = TRUE, escape = FALSE)
 gap <- cell_spec(c("+0.100", "+0.103", "+0.037", "-0.090"),
                  color = c("#005028", "#005028", "#005028", "#781414"))
 d <- data.frame(
@@ -348,23 +371,23 @@ d <- data.frame(
 kbl(d, escape = FALSE, booktabs = TRUE, align = "lcccc",
     col.names = c("Loss", "F1", "TPR", "RMSE", "Trend RMSE $-$ model RMSE"),
     caption = "Loss function performance on the test set.") |>
-  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = 13)
+  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = if (knitr::is_latex_output()) 9 else 13)
 ```
 
 ### RQ2: Global features
 
-With the static features held at naive injection, naive injection and FiLM conditioning are compared for the global features (Table \@ref(tab:film-results)).
+With the static features held at naive injection, naive injection and FiLM conditioning are compared for the global features (Table \@ref(tab:dp-film-results)).
 The effect is again loss-dependent.
 Under MSE and the hinge-weighted MSE losses, FiLM reduces detection, sharply for the lighter losses (MSE and the $w=1$ hinge), while RMSE hardly moves.
 Only under Pinball does FiLM improve detection, raising F1 by 0.064 and TPR by 0.131.
 FiLM therefore does not help uniformly. It reshapes the accuracy-detection balance in a loss-dependent way, improving detection only under Pinball while barely changing accuracy.
 
-```{r film-results, echo=FALSE}
+```{r dp-film-results, echo=FALSE}
 lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
 grn <- "#005028"; red <- "#781414"
 loss <- cell_spec(c("$\\mathrm{MSE}$", "$\\mathrm{hwMSE}_{w=1}$",
                     "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
-                  color = lc, bold = TRUE)
+                  color = lc, bold = TRUE, escape = FALSE)
 d <- data.frame(
   Loss = loss,
   f1n = c("0.115","0.277","0.297","0.384"),
@@ -381,21 +404,21 @@ kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 9)),
     col.names = c("Loss","Naive","FiLM","$\\Delta$","Naive","FiLM","$\\Delta$","Naive","FiLM","$\\Delta$"),
     caption = "Global-feature injection performance on the test set. $\\Delta$ is FiLM minus naive.") |>
   add_header_above(c(" " = 1, "F1" = 3, "TPR" = 3, "RMSE" = 3)) |>
-  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 13)
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = if (knitr::is_latex_output()) 9 else 13)
 ```
 
-FiLM does not act uniformly across the SPEI range either, as Table \@ref(tab:film-stratified-main) shows.
+FiLM does not act uniformly across the SPEI range either, as Table \@ref(tab:dp-film-stratified-main) shows.
 Its benefit is largely concentrated in the two drought categories the $-1.5$ detection threshold covers, severe ($-2 <$ SPEI $\le -1.5$) and extreme (SPEI $\le -2$).
 FiLM lowers RMSE in both categories, and the reduction grows with drought severity and as the loss pushes harder toward the tail, reaching $-0.10$ in the extreme category under Pinball.
 Because the severe and extreme categories together cover under a tenth of the test distribution, these gains carry little weight in the pooled RMSE, which worsens by just $+0.005$ under Pinball.
 Under MSE, which weights the tail least, the reduction is negligible, $0.01$ or less in both categories.
 
-```{r film-stratified-main, echo=FALSE}
+```{r dp-film-stratified-main, echo=FALSE}
 lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
 grn <- "#005028"; neu <- "#777777"
 loss <- cell_spec(c("$\\mathrm{MSE}$", "$\\mathrm{hwMSE}_{w=1}$",
                     "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
-                  color = lc, bold = TRUE)
+                  color = lc, bold = TRUE, escape = FALSE)
 d <- data.frame(
   Loss = loss,
   sn = c("1.162", "0.915", "0.660", "0.519"),
@@ -411,23 +434,23 @@ kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 6)),
                      if (knitr::is_latex_output()) "<" else "\\lt",
                      "$ SPEI $\\le -1.5$ (18,572 cell-occurrences). Extreme: SPEI $\\le -2$ (5,221 cell-occurrences).")) |>
   add_header_above(c(" " = 1, "Severe" = 3, "Extreme" = 3)) |>
-  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = 13)
+  kable_styling(latex_options = "hold_position", full_width = FALSE, font_size = if (knitr::is_latex_output()) 9 else 13)
 ```
 
 ### RQ3: Static features
 
-With the global features held at naive injection, naive injection, a single encoder, and a seasonal encoder are compared for the static features (Tables \@ref(tab:single-results) and \@ref(tab:seasonal-results)).
+With the global features held at naive injection, naive injection, a single encoder, and a seasonal encoder are compared for the static features (Tables \@ref(tab:dp-single-results) and \@ref(tab:dp-seasonal-results)).
 Both encoders show the same loss-dependence and act mainly on detection, leaving RMSE broadly stable.
 The single encoder improves detection only under Pinball, where it lifts TPR by 0.214 and lowers RMSE slightly, but reduces detection under the hinge losses.
 The seasonal encoder also helps most under Pinball (TPR up 0.220) and, unlike the single encoder, under MSE too, yet it degrades sharply under the $w=5$ hinge (F1 down 0.220).
 Neither encoder consistently beats the other.
 
-```{r single-results, echo=FALSE}
+```{r dp-single-results, echo=FALSE}
 lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
 grn <- "#005028"; red <- "#781414"
 loss <- cell_spec(c("$\\mathrm{MSE}$", "$\\mathrm{hwMSE}_{w=1}$",
                     "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
-                  color = lc, bold = TRUE)
+                  color = lc, bold = TRUE, escape = FALSE)
 d <- data.frame(
   Loss = loss,
   f1n = c("0.115","0.277","0.297","0.384"),
@@ -444,15 +467,15 @@ kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 9)),
     col.names = c("Loss","Naive","Single","$\\Delta$","Naive","Single","$\\Delta$","Naive","Single","$\\Delta$"),
     caption = "Static-feature encoding performance on the test set. $\\Delta$ is the single encoder minus naive.") |>
   add_header_above(c(" " = 1, "F1" = 3, "TPR" = 3, "RMSE" = 3)) |>
-  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 13)
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = if (knitr::is_latex_output()) 9 else 13)
 ```
 
-```{r seasonal-results, echo=FALSE}
+```{r dp-seasonal-results, echo=FALSE}
 lc <- c("#3C3C3C", "#6EA5C8", "#286EA0", "#C6402A")
 grn <- "#005028"; red <- "#781414"
 loss <- cell_spec(c("$\\mathrm{MSE}$", "$\\mathrm{hwMSE}_{w=1}$",
                     "$\\mathrm{hwMSE}_{w=5}$", "$\\mathrm{Pinball}_{\\tau=0.2}$"),
-                  color = lc, bold = TRUE)
+                  color = lc, bold = TRUE, escape = FALSE)
 d <- data.frame(
   Loss = loss,
   f1n = c("0.115","0.277","0.297","0.384"),
@@ -469,17 +492,17 @@ kbl(d, escape = FALSE, booktabs = TRUE, align = c("l", rep("c", 9)),
     col.names = c("Loss","Naive","Seasonal","$\\Delta$","Naive","Seasonal","$\\Delta$","Naive","Seasonal","$\\Delta$"),
     caption = "Static-feature encoding performance on the test set. $\\Delta$ is the seasonal encoder minus naive.") |>
   add_header_above(c(" " = 1, "F1" = 3, "TPR" = 3, "RMSE" = 3)) |>
-  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 13)
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = if (knitr::is_latex_output()) 9 else 13)
 ```
 
 ### Overall
 
-Across the full grid, the 24 configurations trade accuracy against detection, and the best of them form a Pareto front (Figure \@ref(fig:frontier)).
+Across the full grid, the 24 configurations trade accuracy against detection, and the best of them form a Pareto front (Figure \@ref(fig:dp-frontier)).
 Where a model lands is set almost entirely by the loss, from MSE at low RMSE and near-zero detection to Pinball at high detection and high RMSE, with the hinge losses between.
 The feature-injection choices only make small, loss-specific differences, with no single configuration winning throughout, leaving the loss as the dominant control.
 
-```{r frontier, echo=FALSE, fig.cap="RMSE against drought detection, as TPR (left) and F1 (right), for all 24 configurations and the persistence and climatology baselines. The vertical line marks the linear-trend RMSE.", out.width="48%", fig.show="hold", fig.align="center"}
-knitr::include_graphics(c(
+```{r dp-frontier, echo=FALSE, fig.cap="RMSE against drought detection, as TPR (left) and F1 (right), for all 24 configurations and the persistence and climatology baselines. The vertical line marks the linear-trend RMSE.", out.width="48%", fig.show="hold", fig.align="center"}
+dp_img(c(
   "work/02-drought_prediction/figures/frontier_tpr_light.svg",
   "work/02-drought_prediction/figures/frontier_f1_light.svg"
 ))
@@ -532,7 +555,7 @@ All scientific content, methodological decisions, analyses, and interpretations 
 
 ## Appendix: SPEI drought classification {-}
 
-SPEI values map onto standard drought categories (Table \@ref(tab:spei-grades)).
+SPEI values map onto standard drought categories (Table \@ref(tab:dp-spei-grades)).
 The severe and extreme categories, at the $-1.5$ threshold and below, are the ones this work targets.
 
 | Grade | Category | SPEI range |
@@ -543,27 +566,27 @@ The severe and extreme categories, at the $-1.5$ threshold and below, are the on
 | 4 | Severe drought | $-2.0 < \text{SPEI} \le -1.5$ |
 | 5 | Extreme drought | $\text{SPEI} \le -2.0$ |
 
-Table: (\#tab:spei-grades) SPEI drought classification [@vicente-serranoMultiscalarDroughtIndex2010; @chenSTATLSTMMultivariateSpatiotemporal2025].
+Table: (\#tab:dp-spei-grades) SPEI drought classification [@vicenteserrano2010; @chen2025].
 
 ## Appendix: Feature importance {-}
 
-Each input was occluded in turn (set to its training mean) and the frozen Pinball model re-scored on the test set [@zeilerVisualizingUnderstandingConvolutional2013].
-Inputs are occluded rather than permuted because the driver fields are correlated [@hookerUnrestrictedPermutationForces2021].
+Each input was occluded in turn (set to its training mean) and the frozen Pinball model re-scored on the test set [@zeiler2013].
+Inputs are occluded rather than permuted because the driver fields are correlated [@hooker2021].
 
-The left panel of Figure \@ref(fig:feat-importance) shows that point accuracy is unmovable, as every bar sits near zero and no input shifts the pooled RMSE by more than 0.06 in any configuration.
+The left panel of Figure \@ref(fig:dp-feat-importance) shows that point accuracy is unmovable, as every bar sits near zero and no input shifts the pooled RMSE by more than 0.06 in any configuration.
 Detection (right panel) rests on a few inputs.
 The Mediterranean SST is the strongest driver where no static encoder is present (the grey bars).
 Adding a single or seasonal encoder raises the importance of near-surface temperature and lowers the SST's, though the two become comparable rather than temperature fully taking over.
 FiLM changes this less than the static encoder does, though without an encoder it slightly deepens reliance on the global drivers it conditions on, lengthening the Mediterranean SST and month bars (the darker shade in each pair).
 Topography is the one input whose removal raises TPR, and the remaining fields barely move it.
 
-```{r feat-importance, echo=FALSE, fig.cap="Occlusion feature importance for the Pinball models across all six architecture conditions. Change in pooled RMSE (left) and drought TPR (right) when each input is set to its training mean on the test set, configurations labelled static / global.", out.width="95%", fig.align="center"}
-knitr::include_graphics("work/02-drought_prediction/figures/interpretability/feature_importance_across_conditions.svg")
+```{r dp-feat-importance, echo=FALSE, fig.cap="Occlusion feature importance for the Pinball models across all six architecture conditions. Change in pooled RMSE (left) and drought TPR (right) when each input is set to its training mean on the test set, configurations labelled static / global.", out.width="95%", fig.align="center"}
+dp_img("work/02-drought_prediction/figures/interpretability/feature_importance_across_conditions.svg")
 ```
 
 ## Appendix: Implementation details {-}
 
-The two feature groups can either be appended to the input or routed through a learned pathway, which changes how many channels the ConvLSTM input $x$ carries (Table \@ref(tab:input-channels)).
+The two feature groups can either be appended to the input or routed through a learned pathway, which changes how many channels the ConvLSTM input $x$ carries (Table \@ref(tab:dp-input-channels)).
 
 | Static / global | $x$ channels | Injected |
 |:--|:--:|:--|
@@ -574,7 +597,7 @@ The two feature groups can either be appended to the input or routed through a l
 | single / FiLM | 5 | — |
 | seasonal / FiLM | 5 | — |
 
-Table: (\#tab:input-channels) Input channels per configuration, from a dynamic base of five gridded variables. Naive injection appends features as channels, while the learned encoders (static CNN, FiLM) route them into a dedicated pathway.
+Table: (\#tab:dp-input-channels) Input channels per configuration, from a dynamic base of five gridded variables. Naive injection appends features as channels, while the learned encoders (static CNN, FiLM) route them into a dedicated pathway.
 
 Beyond the protocol given in the main text, the initial embedding uses 16 channels and the ConvLSTM hidden state 32.
 Early stopping monitors the validation RMSE median with patience 5 and a minimum delta of 0.003, and the learning rate follows ReduceLROnPlateau with patience 3.
