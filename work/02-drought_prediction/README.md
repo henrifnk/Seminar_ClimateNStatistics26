@@ -97,9 +97,9 @@ drought_prediction/
 │   ├── trainer/default.yaml  # Max epochs, early stopping, LR scheduler
 │   └── logger/               # WandB and CSV logger configs
 ├── reports/
-│   ├── generate/             # HTML report + diagnostic generators (reports, trend baseline, loss figures)
+│   ├── generate/             # HTML intermediate-report + diagnostic generators (reports, trend baseline, loss figures)
 │   ├── interpretability/     # Feature-importance / FiLM-extremes CSVs
-│   ├── figures/              # Loss-concept figures used in the paper
+│   ├── figures/              # Loss-concept figures
 │   └── notes.md              # Research notes and findings
 ├── figures/
 │   ├── baselines/            # One subfolder per baseline (persistence/, climatology/, trend/)
