@@ -1,0 +1,332 @@
+gauge_id,country,region,dominant_share,second_region,second_share,foen_coverage,cross_region,assign_method
+2004,CH,Plateau,0.964,Alps North,0.036,1.0,no,overlay
+2007,CH,Jura,0.796,,0.0,0.796,yes,overlay
+2009,CH,Alps West,0.893,Alps North,0.098,0.991,no,overlay
+2011,CH,Alps West,0.991,Alps North,0.008,1.0,no,overlay
+2014,CH,Alps North,0.94,Plateau,0.06,1.0,no,overlay
+2016,CH,Plateau,0.452,Alps North,0.386,0.99,yes,overlay
+2017,CH,Plateau,0.675,Alps North,0.325,1.0,yes,overlay
+2018,CH,Alps North,0.747,Plateau,0.196,1.0,yes,overlay
+2019,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2020,CH,Alps South,0.98,Alps East,0.019,0.998,no,overlay
+2021,CH,Alps South,0.601,,0.0,0.601,yes,overlay
+2022,CH,Alps South,0.504,Alps East,0.004,0.509,yes,overlay
+2023,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2024,CH,Alps West,0.992,Alps North,0.008,1.0,no,overlay
+2025,CH,Alps North,0.809,Alps East,0.174,1.0,no,overlay
+2026,CH,Alps West,0.585,Plateau,0.116,0.847,yes,overlay
+2027,CH,Alps West,0.585,Plateau,0.116,0.847,yes,overlay
+2028,CH,Alps West,0.585,Plateau,0.116,0.847,yes,overlay
+2029,CH,Alps North,0.469,Plateau,0.352,0.986,yes,overlay
+2030,CH,Alps North,0.994,Plateau,0.006,1.0,no,overlay
+2031,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2032,CH,Alps East,0.41,Plateau,0.058,0.49,yes,overlay
+2033,CH,Alps East,0.982,Alps South,0.018,1.0,no,overlay
+2034,CH,Plateau,0.938,Alps North,0.062,1.0,no,overlay
+2041,CH,Alps East,0.728,Alps North,0.032,0.763,yes,overlay
+2043,CH,Alps East,0.389,Plateau,0.063,0.475,yes,overlay
+2044,CH,Plateau,0.542,Alps North,0.458,1.0,yes,overlay
+2053,CH,Alps West,1.0,,0.0,1.0,no,overlay
+2056,CH,Alps North,0.769,Alps East,0.211,1.0,yes,overlay
+2063,CH,Alps North,0.443,Plateau,0.399,0.989,yes,overlay
+2066,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2067,CH,Alps East,0.871,Alps South,0.0,0.871,no,overlay
+2068,CH,Alps South,0.981,Alps East,0.018,0.998,no,overlay
+2070,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2072,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2073,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2074,CH,Alps South,0.504,Alps East,0.004,0.509,yes,overlay
+2078,CH,Alps South,0.996,Alps East,0.0,0.996,no,overlay
+2079,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2081,CH,Plateau,1.0,Alps North,0.0,1.0,no,overlay
+2082,CH,Plateau,1.0,Alps North,0.0,1.0,no,overlay
+2084,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2085,CH,Alps North,0.752,Plateau,0.248,1.0,yes,overlay
+2086,CH,Alps South,1.0,Alps East,0.0,1.0,no,overlay
+2087,CH,Alps East,0.91,Alps South,0.09,1.0,no,overlay
+2088,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2091,CH,Plateau,0.287,Alps North,0.286,0.769,yes,overlay
+2093,CH,Alps North,0.997,Plateau,0.003,1.0,no,overlay
+2097,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2099,CH,Alps North,0.8,Plateau,0.2,1.0,yes,overlay
+2101,CH,Alps South,0.378,,0.0,0.378,yes,overlay
+2102,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2104,CH,Alps North,1.0,Alps East,0.0,1.0,no,overlay
+2105,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2106,CH,Jura,0.961,Plateau,0.018,0.978,no,overlay
+2109,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2110,CH,Alps North,0.843,Plateau,0.09,1.0,no,overlay
+2112,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2113,CH,Alps North,0.496,Plateau,0.386,0.994,yes,overlay
+2116,CH,Alps East,0.281,Plateau,0.184,0.542,yes,overlay
+2117,CH,Alps West,1.0,,0.0,1.0,no,overlay
+2118,CH,Alps North,1.0,Alps East,0.0,1.0,no,overlay
+2119,CH,Alps North,0.78,Plateau,0.22,1.0,yes,overlay
+2122,CH,Jura,1.0,,0.0,1.0,no,overlay
+2125,CH,Plateau,0.69,Alps North,0.31,1.0,yes,overlay
+2126,CH,Plateau,0.951,Alps North,0.049,1.0,no,overlay
+2130,CH,Alps North,0.289,Plateau,0.289,0.773,yes,overlay
+2132,CH,Plateau,0.837,Alps North,0.163,1.0,no,overlay
+2135,CH,Alps North,0.899,Plateau,0.101,1.0,no,overlay
+2137,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2139,CH,Plateau,0.771,Alps North,0.229,1.0,yes,overlay
+2141,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2143,CH,Alps East,0.304,Plateau,0.191,0.575,yes,overlay
+2150,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2151,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2152,CH,Alps North,0.904,Alps East,0.078,1.0,no,overlay
+2154,CH,Plateau,0.559,Jura,0.389,0.957,yes,overlay
+2155,CH,Alps North,0.632,Plateau,0.368,1.0,yes,overlay
+2157,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2159,CH,Plateau,0.544,Alps North,0.456,1.0,yes,overlay
+2160,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2161,CH,Alps West,1.0,Alps North,0.0,1.0,no,overlay
+2167,CH,Alps South,0.601,,0.0,0.601,yes,overlay
+2168,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2170,CH,Alps North,0.0,,0.0,0.0,no,nearest
+2174,CH,Alps West,0.454,Plateau,0.107,0.674,yes,overlay
+2176,CH,Alps North,0.731,Plateau,0.269,1.0,yes,overlay
+2179,CH,Alps North,0.589,Plateau,0.411,1.0,yes,overlay
+2181,CH,Alps North,0.714,Plateau,0.286,1.0,yes,overlay
+2185,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2187,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2199,CH,Plateau,0.0,,0.0,0.0,no,nearest
+2200,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2202,CH,Jura,1.0,,0.0,1.0,no,overlay
+2203,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2205,CH,Alps North,0.5,Plateau,0.381,0.993,yes,overlay
+2206,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2207,CH,Alps North,0.903,Alps East,0.078,1.0,no,overlay
+2208,CH,Alps North,0.47,Plateau,0.351,0.986,yes,overlay
+2209,CH,Alps North,0.816,Plateau,0.184,1.0,no,overlay
+2210,CH,Jura,0.306,,0.0,0.306,yes,overlay
+2215,CH,Alps North,0.644,Plateau,0.356,1.0,yes,overlay
+2217,CH,Alps West,0.449,Plateau,0.107,0.668,yes,overlay
+2219,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2232,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2239,CH,Alps East,0.0,,0.0,0.0,no,nearest
+2243,CH,Alps North,0.726,Plateau,0.274,1.0,yes,overlay
+2244,CH,Alps South,1.0,Alps West,0.0,1.0,no,overlay
+2247,CH,Jura,0.0,,0.0,0.0,no,nearest
+2251,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2252,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2256,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2262,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2263,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2265,CH,Alps East,0.843,Alps South,0.0,0.843,no,overlay
+2268,CH,Alps West,1.0,Alps East,0.0,1.0,no,overlay
+2269,CH,Alps West,1.0,Alps North,0.0,1.0,no,overlay
+2270,CH,Jura,0.0,,0.0,0.0,no,nearest
+2276,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2282,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2283,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2288,CH,Alps East,0.376,Plateau,0.073,0.478,yes,overlay
+2289,CH,Plateau,0.28,Alps North,0.275,0.775,yes,overlay
+2290,CH,Jura,0.941,,0.0,0.941,no,overlay
+2299,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2300,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2303,CH,Alps North,0.954,Plateau,0.046,1.0,no,overlay
+2304,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2305,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2307,CH,Jura,1.0,,0.0,1.0,no,overlay
+2308,CH,Plateau,1.0,Alps North,0.0,1.0,no,overlay
+2309,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2312,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2319,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2321,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2327,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2342,CH,Alps West,1.0,Alps South,0.0,1.0,no,overlay
+2343,CH,Plateau,1.0,Alps North,0.0,1.0,no,overlay
+2346,CH,Alps West,1.0,Alps South,0.0,1.0,no,overlay
+2347,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2349,CH,Alps South,0.677,,0.0,0.677,yes,overlay
+2351,CH,Alps West,1.0,Alps South,0.0,1.0,no,overlay
+2352,CH,Alps North,1.0,Alps East,0.0,1.0,no,overlay
+2355,CH,Alps East,1.0,,0.0,1.0,no,overlay
+2356,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2364,CH,Alps South,1.0,Alps East,0.0,1.0,no,overlay
+2366,CH,Alps South,1.0,Alps East,0.0,1.0,no,overlay
+2368,CH,Alps South,0.811,,0.0,0.811,no,overlay
+2369,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2370,CH,Jura,0.0,,0.0,0.0,no,nearest
+2371,CH,Jura,0.464,,0.0,0.464,yes,overlay
+2372,CH,Alps North,1.0,Alps East,0.0,1.0,no,overlay
+2374,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2378,CH,Jura,0.744,Plateau,0.0,0.744,yes,overlay
+2386,CH,Plateau,0.982,Alps North,0.018,1.0,no,overlay
+2387,CH,Alps East,0.967,Alps South,0.0,0.967,no,overlay
+2392,CH,Alps East,0.376,Plateau,0.074,0.479,yes,overlay
+2403,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2409,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2410,CH,Alps North,0.0,,0.0,0.0,no,nearest
+2412,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2414,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2415,CH,Plateau,1.0,Alps North,0.0,1.0,no,overlay
+2416,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2417,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2418,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2419,CH,Alps West,1.0,Alps South,0.0,1.0,no,overlay
+2420,CH,Alps South,0.935,Alps East,0.06,0.995,no,overlay
+2426,CH,Alps North,1.0,Alps East,0.0,1.0,no,overlay
+2430,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2432,CH,Plateau,0.567,Jura,0.433,1.0,yes,overlay
+2433,CH,Jura,0.75,Plateau,0.25,1.0,yes,overlay
+2434,CH,Jura,0.794,Plateau,0.206,1.0,yes,overlay
+2436,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2437,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2446,CH,Plateau,0.562,Jura,0.386,0.958,yes,overlay
+2447,CH,Plateau,0.964,Alps North,0.036,1.0,no,overlay
+2450,CH,Plateau,0.86,Alps North,0.14,1.0,no,overlay
+2457,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2458,CH,Jura,1.0,,0.0,1.0,no,overlay
+2461,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2462,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2463,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2467,CH,Alps North,0.637,Plateau,0.363,1.0,yes,overlay
+2468,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2469,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2471,CH,Plateau,1.0,Alps North,0.0,1.0,no,overlay
+2473,CH,Alps East,0.71,Alps North,0.032,0.744,yes,overlay
+2474,CH,Alps South,1.0,Alps East,0.0,1.0,no,overlay
+2475,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2477,CH,Plateau,0.52,Alps North,0.48,1.0,yes,overlay
+2478,CH,Jura,1.0,,0.0,1.0,no,overlay
+2480,CH,Jura,0.93,,0.0,0.93,no,overlay
+2481,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2484,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2485,CH,Jura,0.833,Plateau,0.125,0.958,no,overlay
+2486,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2487,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2488,CH,Alps North,1.0,Alps West,0.0,1.0,no,overlay
+2490,CH,Plateau,0.0,,0.0,0.0,no,nearest
+2491,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2493,CH,Jura,0.886,Plateau,0.114,1.0,no,overlay
+2494,CH,Alps South,1.0,Alps East,0.0,1.0,no,overlay
+2497,CH,Plateau,0.687,Alps North,0.313,1.0,yes,overlay
+2498,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2500,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2602,CH,Alps East,0.98,Alps South,0.004,0.984,no,overlay
+2603,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2604,CH,Alps North,1.0,Plateau,0.0,1.0,no,overlay
+2605,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2606,CH,Alps West,0.585,Plateau,0.117,0.847,yes,overlay
+2607,CH,Alps West,1.0,Alps South,0.0,1.0,no,overlay
+2608,CH,Plateau,1.0,,0.0,1.0,no,overlay
+2609,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2610,CH,Jura,1.0,,0.0,1.0,no,overlay
+2612,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2613,CH,Plateau,0.277,Alps North,0.27,0.766,yes,overlay
+2615,CH,Plateau,0.28,Alps North,0.274,0.775,yes,overlay
+2617,CH,Alps East,0.999,,0.0,0.999,no,overlay
+2620,CH,Alps South,1.0,Alps East,0.0,1.0,no,overlay
+2623,CH,Alps West,1.0,Alps East,0.0,1.0,no,overlay
+2629,CH,Alps South,1.0,,0.0,1.0,no,overlay
+2630,CH,Alps West,1.0,,0.0,1.0,no,overlay
+2631,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+2634,CH,Alps North,0.851,Plateau,0.149,1.0,no,overlay
+2635,CH,Alps North,1.0,,0.0,1.0,no,overlay
+2640,CH,Jura,1.0,,0.0,1.0,no,overlay
+2642,CH,Plateau,0.559,Jura,0.389,0.957,yes,overlay
+2644,CH,Alps East,1.0,Alps South,0.0,1.0,no,overlay
+3001,A,Alps East,0.961,Alps South,0.003,0.966,no,overlay
+3002,A,Alps North,0.0,,0.0,0.0,no,nearest
+3003,A,Alps East,0.0,,0.0,0.0,no,nearest
+3004,A,Alps North,0.0,,0.0,0.0,no,nearest
+3005,A,Alps North,0.0,,0.0,0.0,no,nearest
+3006,A,Alps East,0.71,Alps North,0.032,0.744,yes,overlay
+3007,A,Plateau,0.0,,0.0,0.0,no,nearest
+3008,A,Plateau,0.0,,0.0,0.0,no,nearest
+3009,A,Alps East,0.0,,0.0,0.0,no,nearest
+3010,A,Plateau,0.0,,0.0,0.0,no,nearest
+3011,A,Plateau,0.0,,0.0,0.0,no,nearest
+3012,A,Plateau,0.0,,0.0,0.0,no,nearest
+3013,A,Plateau,0.0,,0.0,0.0,no,nearest
+3014,A,Plateau,0.0,,0.0,0.0,no,nearest
+3015,A,Plateau,0.0,,0.0,0.0,no,nearest
+3016,A,Plateau,0.0,,0.0,0.0,no,nearest
+3017,A,Plateau,0.0,,0.0,0.0,no,nearest
+3018,A,Alps East,0.0,,0.0,0.0,no,nearest
+3019,A,Alps East,0.0,,0.0,0.0,no,nearest
+3020,A,Plateau,0.0,,0.0,0.0,no,nearest
+3021,A,Plateau,0.0,,0.0,0.0,no,nearest
+3022,A,Alps East,0.0,,0.0,0.0,no,nearest
+3023,A,Plateau,0.0,,0.0,0.0,no,nearest
+3024,A,Plateau,0.0,,0.0,0.0,no,nearest
+3025,A,Alps East,0.0,,0.0,0.0,no,nearest
+3026,A,Plateau,0.0,,0.0,0.0,no,nearest
+3027,A,Plateau,0.0,,0.0,0.0,no,nearest
+3028,A,Plateau,0.0,,0.0,0.0,no,nearest
+3029,A,Plateau,0.0,,0.0,0.0,no,nearest
+3030,A,Alps East,0.0,,0.0,0.0,no,nearest
+3031,A,Alps East,0.0,,0.0,0.0,no,nearest
+3032,A,Alps East,0.759,,0.0,0.759,yes,overlay
+3033,A,Alps East,0.831,Alps South,0.0,0.831,no,overlay
+4001,DE,Black Forest,0.0,,0.0,0.0,no,country
+4002,DE,Black Forest,0.0,,0.0,0.0,no,country
+4003,DE,Black Forest,0.0,,0.0,0.0,no,country
+4004,DE,Black Forest,0.0,,0.0,0.0,no,country
+4005,DE,Black Forest,0.0,,0.0,0.0,no,country
+4006,DE,Black Forest,0.0,,0.0,0.0,no,country
+4007,DE,Black Forest,0.0,,0.0,0.0,no,country
+4008,DE,Black Forest,0.0,,0.0,0.0,no,country
+4009,DE,Black Forest,0.0,,0.0,0.0,no,country
+4010,DE,Black Forest,0.41,Plateau,0.058,0.49,no,country
+4011,DE,Black Forest,0.0,,0.0,0.0,no,country
+4012,DE,Black Forest,0.0,,0.0,0.0,no,country
+4013,DE,Black Forest,0.0,,0.0,0.0,no,country
+4014,DE,Black Forest,0.0,,0.0,0.0,no,country
+4015,DE,Black Forest,0.0,,0.0,0.0,no,country
+4016,DE,Black Forest,0.0,,0.0,0.0,no,country
+4017,DE,Black Forest,0.0,,0.0,0.0,no,country
+4018,DE,Black Forest,0.0,,0.0,0.0,no,country
+4019,DE,Black Forest,0.0,,0.0,0.0,no,country
+4020,DE,Black Forest,0.0,,0.0,0.0,no,country
+4021,DE,Black Forest,0.0,,0.0,0.0,no,country
+4022,DE,Black Forest,0.0,,0.0,0.0,no,country
+4023,DE,Black Forest,0.0,,0.0,0.0,no,country
+4024,DE,Black Forest,0.0,,0.0,0.0,no,country
+4025,DE,Black Forest,0.0,,0.0,0.0,no,country
+4026,DE,Black Forest,0.0,,0.0,0.0,no,country
+5001,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5002,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5003,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5004,FR,Jura,0.403,,0.0,0.403,yes,overlay
+5005,FR,Jura,0.0,,0.0,0.0,no,nearest
+5006,FR,Jura,0.0,,0.0,0.0,no,nearest
+5007,FR,Jura,0.0,,0.0,0.0,no,nearest
+5008,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5009,FR,Jura,0.0,,0.0,0.0,no,nearest
+5010,FR,Jura,0.0,,0.0,0.0,no,nearest
+5011,FR,Jura,0.0,,0.0,0.0,no,nearest
+5012,FR,Jura,0.0,,0.0,0.0,no,nearest
+5013,FR,Jura,0.0,,0.0,0.0,no,nearest
+5014,FR,Jura,0.0,,0.0,0.0,no,nearest
+5015,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5016,FR,Jura,0.0,,0.0,0.0,no,nearest
+5017,FR,Alps North,0.0,,0.0,0.0,no,nearest
+5018,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5019,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5020,FR,Plateau,0.0,,0.0,0.0,no,nearest
+5021,FR,Jura,0.0,,0.0,0.0,no,nearest
+5022,FR,Alps North,0.0,,0.0,0.0,no,nearest
+5023,FR,Alps North,0.0,,0.0,0.0,no,nearest
+5024,FR,Jura,0.0,,0.0,0.0,no,nearest
+5025,FR,Alps West,0.0,,0.0,0.0,no,nearest
+5026,FR,Alps North,0.0,,0.0,0.0,no,nearest
+5027,FR,Alps West,0.0,,0.0,0.0,no,nearest
+5028,FR,Alps North,0.0,,0.0,0.0,no,nearest
+5029,FR,Alps North,0.0,,0.0,0.0,no,nearest
+5030,FR,Jura,0.0,,0.0,0.0,no,nearest
+5031,FR,Alps West,0.0,,0.0,0.0,no,nearest
+5032,FR,Jura,0.251,,0.0,0.251,yes,overlay
+6001,I,Alps West,0.0,,0.0,0.0,no,nearest
+6002,I,Alps West,0.0,,0.0,0.0,no,nearest
+6003,I,Alps South,0.0,,0.0,0.0,no,nearest
+6004,I,Alps South,0.0,,0.0,0.0,no,nearest
+6005,I,Alps West,0.0,,0.0,0.0,no,nearest
+6006,I,Alps West,0.0,,0.0,0.0,no,nearest
+6007,I,Alps South,0.0,,0.0,0.0,no,nearest
+6008,I,Alps West,0.0,,0.0,0.0,no,nearest
+6009,I,Alps South,0.0,,0.0,0.0,no,nearest
+6010,I,Alps South,0.0,,0.0,0.0,no,nearest
+6011,I,Alps South,0.502,Alps East,0.004,0.507,yes,overlay
