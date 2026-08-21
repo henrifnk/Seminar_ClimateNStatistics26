@@ -488,8 +488,7 @@ library(knitr)
 nh_force_no_data <- tolower(Sys.getenv("NH_NO_DATA_MODE", "false")) %in% c("1", "true", "yes")
 
 camels_topo_candidates <- c(
-  "work/04-neural_hyd/data/camels_topo.txt",
-  "C:/GitHub/climate-change/NeuralHydrology/data/CAMELS_US/camels_attributes_v2.0/camels_topo.txt"
+  "work/04-neural_hyd/results/camels_topo.txt"
 )
 camels_topo_path <- camels_topo_candidates[file.exists(camels_topo_candidates)][1]
 if (is.na(camels_topo_path) || length(camels_topo_path) == 0) {
