@@ -11,13 +11,13 @@ source("work/11-positive_tp/R/positive_tipping_analysis.R",local=knitr::knit_glo
 
 *Degree: Master*
 
-## Abstract
+## Abstract {-}
 
 Positive tipping points describe transitions where reinforcing feedbacks make desirable change increasingly self propelling. This chapter examines whether recent wind and solar trajectories in the three study countries show patterns consistent with such dynamics. Annual wind and solar generation shares from 2000 to 2025 are modelled using logistic S curves. Their fitted inflection years are then compared with changes in the fossil share.
 
 Monthly fossil-share data is used to calculate rolling autocorrelation and variance. Denmark and the United Kingdom provide historical benchmark cases. These are examples of transitions that are already further advanced. Spain has an estimated inflection around 2021 while Germany reaches its fitted inflection near the end of the observed period. Poland has a projected inflection around 2029. The fossil share declines in all three countries although the early warning evidence is more mixed.
 
-## Introduction
+## Introduction {-}
 
 Climate change mitigation requires a rapid transformation of energy systems. Cleaner electricity can reduce direct power sector emissions and support electrification in transport or heating. Energy systems are more than collections of technologies because firms and consumers influence how they develop. Infrastructure and policy also shape which options can expand.
 
@@ -25,7 +25,7 @@ It is easy to think of an electricity transition as a simple replacement of one 
 
 Transitions do not always continue at a constant speed. Greater deployment can reduce costs through learning and attract new investment. Users also become more familiar with a technology over time. Recent research uses national growth histories to study how wind and solar trajectories develop and differ [@jakhmola2026].
 
-## Positive tipping points and feedback loops
+## Positive tipping points and feedback loops {-}
 
 A tipping point is the threshold beyond which change becomes self propelling and moves the system into a meaningfully different state. Before that threshold balancing feedbacks help preserve the existing state. Reinforcing feedbacks instead amplify change. A positive tipping point occurs when the reinforcing processes become strong enough to overcome the balancing ones [@lenton2026].
 
@@ -65,7 +65,7 @@ knitr::kable(feedbackLoops,caption="Seven interacting socio technical feedback l
 
 The loops can develop in different sequences. Technological deployment may occur before major changes in political commitment while another transition may begin with policy change. Public opinion can also shift before large technical changes become visible. Positive tipping is therefore better understood as a period of interacting developments than as one perfectly observable moment [@geels2023].
 
-## Diffusion of innovation theory
+## Diffusion of innovation theory {-}
 
 Diffusion of innovation theory explains how a new technology spreads through a population or market. Adoption often begins with innovators and early adopters who accept more uncertainty and higher initial costs. Growth remains limited while the technology is unfamiliar or difficult to access. It accelerates when its advantages become easier to observe and a wider group becomes willing to adopt [@rogers2003].
 
@@ -73,7 +73,7 @@ The cumulative adoption path often resembles an S curve. Its lower section repre
 
 National electricity generation shares do not directly measure the adopter groups described by Rogers. The theory instead motivates the aggregate diffusion pattern used here. Because cumulative diffusion is commonly represented by an S curve, the logistic models apply this structure to national wind and solar shares. They estimate the shape and timing of each country's aggregate diffusion path. FTT Power is an example of a more detailed model of power sector change that includes induced technological development [@mercure2012].
 
-## Research questions
+## Research questions {-}
 
 RQ1. Do wind and solar generation shares in the three study countries follow S shaped diffusion paths and when do their fitted inflection points occur?
 
@@ -83,7 +83,7 @@ RQ3. How do rolling autocorrelation and variance in monthly fossil-share residua
 
 At first glance wind and solar growth may seem enough to describe the transition. However renewable generation could expand without reducing the fossil share if electricity demand also rises. The first question examines renewable diffusion and the second connects it with the incumbent system. The third considers whether short term fossil-share fluctuations change during the same period.
 
-## Benchmark transition cases
+## Benchmark transition cases {-}
 
 Denmark and the United Kingdom are used as benchmark cases. Here a benchmark is an example that helps interpret less mature transitions rather than a formal control group. Denmark represents long renewable expansion while the United Kingdom shows rapid incumbent decline. The annual electricity data comes from Ember [@ember2026yearly].
 
@@ -91,15 +91,15 @@ Denmark and the United Kingdom are used as benchmark cases. Here a benchmark is 
 historical_context_benchmark_plot
 ```
 
-### Denmark
+### Denmark {-}
 
 Denmark's combined wind and solar share increased from around 12 percent in 2000 to more than 70 percent in 2025. The aggregate fossil share declined to around 10 percent. Growth was gradual during the early years and became stronger after 2010. Wind and solar later became the dominant part of the electricity mix. Denmark therefore represents a transition that has moved far beyond the early diffusion stage.
 
-### United Kingdom
+### United Kingdom {-}
 
 Wind and solar generation in the United Kingdom was close to zero in 2000 and increased rapidly after 2010. Coal is used separately for the British benchmark because the aggregate fossil category hides its unusually rapid disappearance. The clearest transition concerns coal which generated more than 30 percent of British electricity during much of the early sample. Its share declined rapidly after 2012 and reached almost zero by 2025. Carbon pricing weakened the economic position of coal and contributed to falling profitability. Plant closures then made a return to earlier coal generation levels less likely [@sharpe2021].
 
-## Policy context
+## Policy context {-}
 
 The countries entered the transition with different policy ambitions.
 
@@ -113,7 +113,7 @@ The countries entered the transition with different policy ambitions.
 
 Table: (\#tab:ptp-policycontext) Official 2030 electricity targets used as policy context.
 
-## Data and country context
+## Data and country context {-}
 
 The analysis uses yearly and monthly electricity data from Ember [@ember2026yearly; @ember2026monthly]. The yearly dataset covers 2000 to 2025 and the main variable is the combined wind and solar share of national electricity generation. Aggregate fossil shares describe the incumbent electricity system.
 
@@ -125,9 +125,9 @@ historical_context_main_plot
 
 Spain shows the earliest convergence and the wind and solar share exceeds the fossil share near the end of the sample. Germany also approaches parity. Poland experiences rapid recent renewable growth although the fossil share remains dominant.
 
-## Statistical methods
+## Statistical methods {-}
 
-### Logistic diffusion model
+### Logistic diffusion model {-}
 
 The wind and solar share is represented using a logistic curve for each country.
 
@@ -159,15 +159,15 @@ RMSE =
 
 Here \(n\) is the number of annual observations and \(\hat{y}_t\) is the fitted share. Alternative curves use saturation levels of 50 percent and 70 percent with an 80 percent curve included as well. They show how the assumed long run limit affects the projection.
 
-### Bootstrap bands
+### Bootstrap bands {-}
 
 A residual bootstrap represents uncertainty around the selected curve. A residual is the observed value minus the fitted value. Residuals are sampled with replacement and added to the curve. For each bootstrap sample, \(r\) and \(t_0\) are re-estimated while the selected saturation level \(K\) remains fixed. The procedure produces 200 projected paths through 2035 whose 2.5th and 97.5th percentiles form the displayed band.
 
-### Fossil displacement
+### Fossil displacement {-}
 
 Fossil displacement refers here to a decline in the fossil share while the wind and solar share expands. The fitted renewable inflection years are placed on national fossil-share plots. This allows the timing of renewable acceleration to be compared with the development of the incumbent electricity system. A decline around the estimated inflection provides additional descriptive evidence of wider system change.
 
-### Early warning indicators
+### Early warning indicators {-}
 
 A critical transition is a large shift between system states. Systems approaching one may recover more slowly from disturbances, a process called critical slowing down. Greater persistence may appear as rising lag one autocorrelation while larger fluctuations may appear as rising variance [@scheffer2009]. Autocorrelation relates current and earlier residuals whereas variance measures their spread.
 
@@ -199,9 +199,9 @@ Here \(n\) is the number of months in the rolling window and \(\bar{x}\) is the 
 
 Monthly fossil shares are separated into seasonal, trend and residual components using robust seasonal trend decomposition. The residual contains the short term fluctuations left after seasonality and trend are removed. AR(1) and variance are estimated within rolling windows of 36 months. Similar indicators have been applied to technological transitions to examine whether an incumbent technology is losing stability [@mercure2026].
 
-## Results
+## Results {-}
 
-### Wind and solar diffusion
+### Wind and solar diffusion {-}
 
 ```{r ptp-selectedmodels}
 modelDisplay <- selected_model_table[c("Country","K","r","t0","RMSE")]
@@ -213,7 +213,7 @@ Spain has a selected saturation level of 67 percent. Its estimated diffusion rat
 
 Poland has the fastest estimated diffusion rate at 0.200. Its fitted inflection occurs around 2029.3 and the selected saturation level reaches the imposed maximum of 90 percent. This upper boundary becomes important when interpreting the later part of the Polish projection.
 
-### Spain
+### Spain {-}
 
 ```{r ptp-spainscurve, fig.cap="Observed and fitted wind and solar electricity shares in Spain. The shaded area is the residual bootstrap band. Dashed curves use alternative saturation assumptions.", fig.width=10, fig.height=6}
 spain_scurve_plot
@@ -221,7 +221,7 @@ spain_scurve_plot
 
 Spain shows gradual early growth followed by stronger expansion after 2010. The selected model estimates the inflection around 2020.8, which lies within the observed period, so Spain represents an observed inflection case. Similar historical fits can therefore produce different long run projections.
 
-### Germany
+### Germany {-}
 
 ```{r ptp-germanyscurve, fig.cap="Observed and fitted wind and solar electricity shares in Germany. The fitted inflection occurs near the end of the observed period.", fig.width=10, fig.height=6}
 germany_scurve_plot
@@ -229,7 +229,7 @@ germany_scurve_plot
 
 Germany follows the selected logistic trajectory closely. The estimated inflection year is 2024.6 and lies near the final observed year. Germany therefore represents a near term inflection case although only a short part of the trajectory after the fitted inflection is observed.
 
-### Poland
+### Poland {-}
 
 ```{r ptp-polandscurve, fig.cap="Observed and fitted wind and solar electricity shares in Poland. The fitted inflection occurs after the observed period.", fig.width=10, fig.height=6}
 poland_scurve_plot
@@ -237,7 +237,7 @@ poland_scurve_plot
 
 Poland begins with almost no wind and solar generation. Growth becomes visible after 2010 and accelerates after 2020. The projected inflection around 2029 lies outside the observed period. Its selected saturation level also reaches the maximum considered value so the later projection is especially sensitive to the assumed upper limit.
 
-### Fossil displacement
+### Fossil displacement {-}
 
 ```{r ptp-fossilcontext, fig.cap="Aggregate fossil electricity shares and fitted wind and solar inflection years in Spain, Germany and Poland.", fig.width=10, fig.height=8}
 fossil_context_plot
@@ -247,9 +247,9 @@ Spain's fossil share falls from around 60 percent to below 30 percent and its re
 
 The projected Polish renewable inflection occurs after the observed fossil series. All three countries therefore show renewable growth alongside fossil decline but they remain at different stages of the transition.
 
-### Early warning signals
+### Early warning signals {-}
 
-#### Autocorrelation
+#### Autocorrelation {-}
 
 ```{r ptp-ewsar, fig.cap="Rolling lag one autocorrelation of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
 ews_ar_plot
@@ -257,7 +257,7 @@ ews_ar_plot
 
 Spain does not show a sustained rise in autocorrelation, and its final value of 0.151 is below the valid-window mean of 0.298. Germany shows a recent increase and ends at 0.266 compared with a period mean of minus 0.052. Poland shows the highest final autocorrelation at 0.638 while its period mean is 0.271.
 
-#### Variance
+#### Variance {-}
 
 ```{r ptp-ewsvariance, fig.cap="Rolling variance of monthly fossil-share residuals. Vertical blue lines indicate the fitted wind and solar inflection dates.", fig.width=10, fig.height=8}
 ews_variance_plot
@@ -273,7 +273,7 @@ knitr::kable(ewsDisplay,caption="Summary of rolling early warning indicators.")
 
 The Polish series shows the clearest joint increase in autocorrelation and variance. Germany shows a smaller change while Spain remains comparatively stable.
 
-## Discussion
+## Discussion {-}
 
 The three countries show S shaped wind and solar paths at different stages. Spain appears to have passed its fitted inflection, Germany reaches it near the end of the sample and Poland remains before its projected inflection. The results therefore do not suggest one common European transition date.
 
@@ -281,7 +281,7 @@ The fossil share declines as the wind and solar share expands, including a rapid
 
 Uncertainty remains. Poland reaches the upper limit of the saturation grid and each annual series contains only 26 observations. The bootstrap bands cover uncertainty within the selected logistic model, not alternative model families. Denmark and the United Kingdom are contextual benchmarks rather than a formal comparison group.
 
-## Conclusion
+## Conclusion {-}
 
 Denmark and the United Kingdom illustrate two advanced transition paths: long renewable expansion in Denmark and rapid coal decline in the United Kingdom. Both show how a new system can grow while the incumbent weakens.
 
