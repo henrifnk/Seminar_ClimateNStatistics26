@@ -1,0 +1,31 @@
+# Resolved from the DROUGHT_DATA_DIR env var if set, else <project folder>/data/processed.
+# Independent of the launching process's cwd -- see code/utils/paths.py.
+processed_dir: ${processed_data_dir:}
+
+history_length: 36      # months of input history fed to the model
+lead_time: 12            # how many months ahead to predict (direct single-horizon forecast)
+periods_forward: 1      # output channels in the model head — keep at 1 for direct forecasting
+
+# Out-of-time split — defined by the first year of each held-out period
+val_from_year: 2005
+test_from_year: 2015
+
+batch_size: 32
+num_workers: 8   # persistent_workers=True (train.py) keeps them alive across epochs
+pin_memory: true   # set to true on CUDA cluster to speed up host→GPU transfers
+
+# Dynamic grid variables used as model input (SPEI is always included as the target channel)
+dynamic_vars:
+  - wb
+  - pr
+  - ps
+  - tas
+
+# Set to true to load NAO index + Mediterranean SST as global scalar inputs
+# (automatically enabled when model.global_encoder: film)
+use_global_scalars: false
+
+# Mediterranean SST aggregation before FiLM conditioning:
+#   grouped — 3 regional means (Western / Eastern / Black Sea) + NAO + month sin/cos = 6 scalars
+#   none    — all 14 raw basin variables + NAO + month sin/cos = 17 scalars
+med_sst_agg: grouped
