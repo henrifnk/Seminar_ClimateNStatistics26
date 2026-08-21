@@ -1,0 +1,7 @@
+"Country","Indicator","selected_K","selected_t0","mean_indicator","last_indicator"
+"Spain","Rolling AR(1)",67,2020.76,0.298,0.151
+"Spain","Rolling variance",67,2020.76,16.208,17.467
+"Germany","Rolling AR(1)",88,2024.63,-0.052,0.266
+"Germany","Rolling variance",88,2024.63,12.946,13.463
+"Poland","Rolling AR(1)",90,2029.34,0.271,0.638
+"Poland","Rolling variance",90,2029.34,7.501,31.914
