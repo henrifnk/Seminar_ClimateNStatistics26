@@ -1,0 +1,57 @@
+embedding_size: 16
+hidden_state_size: 32
+kernel_size: 3
+groups: 1
+dilation: 1
+
+# Linked to data config so they stay consistent
+history_length: ${data.history_length}
+periods_forward: ${data.periods_forward}  # 1 for direct single-horizon forecasting
+batch_size: ${data.batch_size}
+
+# Must match len(data.dynamic_vars). In standard mode global scalars and static
+# features are NOT part of x; in naive injection mode they are appended as
+# constant spatial channels. train.py always sets this from the dataset.
+num_of_additional_features: 4
+n_cells_hor: 43                 # rlat
+n_cells_ver: 98                 # rlon
+
+values_range: 10      # ScaledTanh output scale
+
+drought_threshold: -1.5   # SPEI <= this → severe drought (used for binary metrics)
+
+# Loss function
+# Options: mse | pinball | weighted_mse
+loss_fn: mse
+
+# Pinball / quantile loss
+# q < 0.5 penalises missing droughts (under-predicting negative SPEI) more than false alarms
+# Drought SPEI categories: < -1 moderate, < -1.5 severe, < -2 extreme
+pinball_quantile: 0.2     # target quantile; 0.1 focuses on the lower 10th-percentile tail
+
+# Weighted MSE loss (hinge weighting only — the only mode used in the final grid):
+#   weight = 1 + drought_weight * max(0, -SPEI); asymmetric, dry-tail only.
+#   Two other weighting modes (threshold, absolute) were explored but are not part
+#   of the final 24-config grid; see README.
+drought_weight: 5.0
+
+# Static spatial encoder (topography + mask → feature map appended to hidden state)
+# none:     disabled
+# single:   one shared CNN applied at every timestep
+# seasonal: four CNNs, one per season (DJF/MAM/JJA/SON), selected by target month
+# naive:    raw static features appended as 2 constant channels in x (injection baseline)
+static_encoder: none
+static_emb_size: 16   # output channels of the static encoder CNN(s)
+
+# Global scalar conditioning
+# none:  disabled (global scalars not used)
+# film:  FiLM — MLP(scalars at last input timestep) → γ, β applied to embedding output
+# naive: scalars broadcast to (H,W) and appended as extra channels in x (injection baseline)
+# film and naive both require use_global_scalars: true (set automatically by train.py)
+global_encoder: none
+film_hidden_size: 64  # hidden units in the FiLM generator MLP
+
+dropout: 0.2
+lr: 3e-3
+weight_decay: 0.1
+lr_scheduler_patience: ${trainer.lr_scheduler_patience}

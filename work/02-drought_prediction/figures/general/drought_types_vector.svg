@@ -1,0 +1,40 @@
+<svg viewBox="0 0 1240 240" xmlns="http://www.w3.org/2000/svg" role="img" font-family="Helvetica, Arial, sans-serif">
+  <title>Drought types as a propagating cascade</title>
+  <desc>Four stages: meteorological, agricultural, hydrological, and socio-economic drought, each with its characteristics, connected by arrows.</desc>
+
+  <rect x="15" y="16" width="215" height="84" rx="12" fill="#E07B39"/>
+  <text x="31" y="46" font-size="21" font-weight="bold" fill="#ffffff">Meteorological</text>
+  <text x="31" y="72" font-size="21" font-weight="bold" fill="#ffffff">Drought</text>
+  <rect x="41" y="88" width="245" height="130" rx="12" fill="#ffffff" stroke="#E07B39" stroke-width="1.5"/>
+  <text x="57" y="124" font-size="16" fill="#333">&#8226; Less precipitation</text>
+  <text x="57" y="151" font-size="16" fill="#333">&#8226; High temperature</text>
+
+  <rect x="320" y="16" width="215" height="84" rx="12" fill="#8D8D8D"/>
+  <text x="336" y="46" font-size="21" font-weight="bold" fill="#ffffff">Agricultural</text>
+  <text x="336" y="72" font-size="21" font-weight="bold" fill="#ffffff">Drought</text>
+  <rect x="346" y="88" width="245" height="130" rx="12" fill="#ffffff" stroke="#A9A9A9" stroke-width="1.5"/>
+  <text x="362" y="124" font-size="16" fill="#333">&#8226; Temperature rise</text>
+  <text x="362" y="151" font-size="16" fill="#333">&#8226; Soil moisture reduction</text>
+  <text x="362" y="178" font-size="16" fill="#333">&#8226; Increased evapo-</text>
+  <text x="374" y="199" font-size="16" fill="#333">transpiration rate</text>
+
+  <rect x="625" y="16" width="215" height="84" rx="12" fill="#E5B53C"/>
+  <text x="641" y="46" font-size="21" font-weight="bold" fill="#ffffff">Hydrological</text>
+  <text x="641" y="72" font-size="21" font-weight="bold" fill="#ffffff">Drought</text>
+  <rect x="651" y="88" width="245" height="130" rx="12" fill="#ffffff" stroke="#E5B53C" stroke-width="1.5"/>
+  <text x="667" y="124" font-size="16" fill="#333">&#8226; Stream flow declination</text>
+  <text x="667" y="151" font-size="16" fill="#333">&#8226; Low water levels in</text>
+  <text x="679" y="172" font-size="16" fill="#333">water bodies</text>
+
+  <rect x="930" y="16" width="215" height="84" rx="12" fill="#5A8CC0"/>
+  <text x="946" y="46" font-size="21" font-weight="bold" fill="#ffffff">Socio-Economic</text>
+  <text x="946" y="72" font-size="21" font-weight="bold" fill="#ffffff">Drought</text>
+  <rect x="956" y="88" width="245" height="130" rx="12" fill="#ffffff" stroke="#5A8CC0" stroke-width="1.5"/>
+  <text x="972" y="124" font-size="16" fill="#333">&#8226; Food insecurity</text>
+  <text x="972" y="151" font-size="16" fill="#333">&#8226; Water scarcity</text>
+  <text x="972" y="178" font-size="16" fill="#333">&#8226; Health issues</text>
+
+  <path d="M256,52 L280,52 L280,46 L294,58 L280,70 L280,64 L256,64 Z" fill="#E07B39"/>
+  <path d="M561,52 L585,52 L585,46 L599,58 L585,70 L585,64 L561,64 Z" fill="#8D8D8D"/>
+  <path d="M866,52 L890,52 L890,46 L904,58 L890,70 L890,64 L866,64 Z" fill="#E5B53C"/>
+</svg>
