@@ -11,7 +11,7 @@ jobs:
     name: Render-Book
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: r-lib/actions/setup-r@v2
       - name: Install system dependencies
         run: |
@@ -22,32 +22,41 @@ jobs:
         run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "svglite", "tinytex", "kableExtra", "ggpubr", "tidyverse", "zoo", "latex2exp")); tinytex::install_tinytex(force = TRUE);tinytex::tlmgr_install(c("bibtex", "graphics"))'
       - name: Render Book
         run: make
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: _book
           path: _book/
-  
+          include-hidden-files: true
+
 # Need to first create an empty gh-pages branch
 # see https://pkgdown.r-lib.org/reference/deploy_site_github.html
-# and also add secrets for a GH_PAT and EMAIL to the repository
-# gh-action from Cecilapp/GitHub-Pages-deploy
+# Publishes _book/ to gh-pages using the built-in GITHUB_TOKEN (no PAT secret needed).
   checkout-and-deploy:
    runs-on: ubuntu-latest
    needs: bookdown
+   permissions:
+     contents: write
    steps:
-     - name: Checkout
-       uses: actions/checkout@v4
      - name: Download artifact
-       uses: actions/download-artifact@v4
+       uses: actions/download-artifact@v5
        with:
          # Artifact name
          name: _book # optional
          # Destination path
          path: _book # optional
      - name: Deploy to GitHub Pages
-       uses: Cecilapp/GitHub-Pages-deploy@v3
        env:
-          GITHUB_TOKEN: ${{ secrets.ACTION_ACCESS }}
-       with: 
-          email: Henri.Funk@stat.uni-muenchen.de
-          build_dir: _book/
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       run: |
+         set -euo pipefail
+         test -n "$(ls -A _book)" || { echo "_book is empty, nothing to deploy"; exit 1; }
+         cd _book
+         touch .nojekyll
+         git init -q -b gh-pages
+         git config user.name "Henri"
+         git config user.email "Henri.Funk@stat.uni-muenchen.de"
+         git add -A
+         git commit -q -m "Deploy book from ${GITHUB_SHA} [ci skip]"
+         git push -q --force \
+           "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+           gh-pages
