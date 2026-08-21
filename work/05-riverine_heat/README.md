@@ -13,7 +13,7 @@ This repository includes:
 
 - **data**  
   Includes the raw data from the Main dataset. This dataset includes measurements of water temperature and other static 
-  and dynamic features of rivers at 14 gauges along the Main river system
+  and dynamic features of rivers at 14 gauges along the Main river system.
   The data are available in CSV format. Each station has its own file, while the static features of all stations are 
   provided in a separate CSV file.
 
@@ -29,6 +29,7 @@ This repository includes:
   Includes the analysis scripts:
 
   - `load_and_process_data.R`
+    - Run before the other R scripts
     - Aggregates sub-daily measurements to daily mean temperatures
     - Calculates heatwave thresholds
     - Detects heatwave events
@@ -45,8 +46,10 @@ This repository includes:
     - Fits statistical models for temporal trends
     - Examines relationships with river kilometer
     
+    
 -  **figures** 
-  Includes the figures used in the corresponding paper.
+
+   Includes the figures used in the corresponding paper.
     
     
     
