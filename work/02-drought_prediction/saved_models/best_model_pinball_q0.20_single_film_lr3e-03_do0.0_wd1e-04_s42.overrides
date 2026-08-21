@@ -1,0 +1,8 @@
+model.loss_fn=pinball
+model.pinball_quantile=0.2
+model.lr=0.003
+model.dropout=0.0
+model.weight_decay=0.0001
+model.static_encoder=single
+model.global_encoder=film
+seed=42

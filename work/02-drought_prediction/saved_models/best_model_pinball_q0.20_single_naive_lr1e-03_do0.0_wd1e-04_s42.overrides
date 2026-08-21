@@ -1,0 +1,8 @@
+model.loss_fn=pinball
+model.pinball_quantile=0.2
+model.lr=0.001
+model.dropout=0.0
+model.weight_decay=0.0001
+model.static_encoder=single
+model.global_encoder=naive
+seed=42
