@@ -98,9 +98,9 @@ This work directly predicts SPEI-1 at a twelve-month lead over the entire Alpine
 
 The study region is the Alpine region at a monthly resolution from 1971 to 2024 (648 months).
 The data is derived from the ERA5-Land data set, regridded to a 12kmx12km resolution.
-A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure \@ref(fig:dp-al-topography).
+A fixed mask marks the valid Alpine cells, shown outlined against the surrounding European topography in Figure `r if (knitr::is_latex_output()) "\\@ref(fig:dp-al-topography-latex)" else "\\@ref(fig:dp-al-topography-html)"`.
 
-```{r dp-al-topography, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain.", out.width="70%", fig.align="center"}
+```{r dp-al-topography-html, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain.", out.width="70%", fig.align="center", eval=knitr::is_html_output()}
 dp_img("work/02-drought_prediction/figures/raw/topography.svg")
 ```
 
@@ -113,14 +113,29 @@ The *dynamic spatial* variables, which vary in both space and time. They include
 The *dynamic global* variables, which vary in time only and capture the large-scale drivers of European moisture and its seasonality: the North Atlantic Oscillation index [@hurrell1995], grouped Mediterranean sea-surface temperatures (SST), and a cyclical month encoding.
 The fourteen Mediterranean basins are aggregated into three regional means [@millot2005; @lionello2006] (Figure \@ref(fig:dp-med-slt)).
 
-And the *static spatial* input, which varies in space only: the topography, whose elevation strongly shapes Alpine precipitation and temperature.
+```{r dp-static-spatial-html, echo=FALSE, results='asis'}
+if (knitr::is_html_output()) cat("And the *static spatial* input, which varies in space only: the topography, whose elevation strongly shapes Alpine precipitation and temperature.\n")
+```
 
-```{r dp-spei-snapshots, echo=FALSE, fig.cap="SPEI over the Alpine domain across 1971.", out.width="100%", fig.align="center"}
+```{=latex}
+\clearpage
+And the \emph{static spatial} input, which varies in space only: the topography, whose elevation strongly shapes Alpine precipitation and temperature.
+```
+
+```{r dp-al-topography-latex, echo=FALSE, fig.cap="Topography over Europe. The red outline marks the Alpine study domain.", out.width="70%", fig.align="center", fig.pos="htbp", eval=knitr::is_latex_output()}
+dp_img("work/02-drought_prediction/figures/raw/topography.svg")
+```
+
+```{r dp-spei-snapshots, echo=FALSE, fig.cap="SPEI over the Alpine domain across 1971.", out.width="100%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/raw/al/spei.svg")
 ```
 
-```{r dp-med-slt, echo=FALSE, fig.cap="Mediterranean SST, 1971--2024, aggregated into three regional groups (western Mediterranean, eastern Mediterranean, Black Sea).", out.width="100%", fig.align="center"}
+```{r dp-med-slt, echo=FALSE, fig.cap="Mediterranean SST, 1971--2024, aggregated into three regional groups (western Mediterranean, eastern Mediterranean, Black Sea).", out.width="100%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/raw/slides/mediterranean_slt.svg")
+```
+
+```{=latex}
+\clearpage
 ```
 
 ### Drought definition: SPEI
@@ -167,7 +182,7 @@ Figure \@ref(fig:dp-convlstm-schematic) shows the resulting cell.
 
 (ref:dp-convlstm-schematic-cap) ConvLSTM cell. The depiction is by @marusov2024.
 
-```{r dp-convlstm-schematic, echo=FALSE, fig.cap="(ref:dp-convlstm-schematic-cap)", out.width="75%", fig.align="center"}
+```{r dp-convlstm-schematic, echo=FALSE, fig.cap="(ref:dp-convlstm-schematic-cap)", out.width="75%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/architecture/ConvLSTM.svg")
 ```
 
@@ -262,7 +277,7 @@ The naive baseline broadcasts each global scalar across the grid as an extra inp
 
 (ref:dp-naive-vs-film-cap) Dynamic global feature injection strategies. Naive injection is on the left and FiLM on the right. The FiLM depiction is by @perez2018.
 
-```{r dp-naive-vs-film, echo=FALSE, fig.cap="(ref:dp-naive-vs-film-cap)", out.width="90%", fig.align="center"}
+```{r dp-naive-vs-film, echo=FALSE, fig.cap="(ref:dp-naive-vs-film-cap)", out.width=if (knitr::is_latex_output()) "60%" else "90%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/architecture/Naive_vs_film.svg")
 ```
 
@@ -275,15 +290,19 @@ Rather than adding channels, FiLM lets the global state reshape the existing one
 
 (ref:dp-convlstm-film-cap) Where FiLM sits inside the ConvLSTM cell: it conditions the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by @marusov2024.
 
-```{r dp-convlstm-film, echo=FALSE, fig.cap="(ref:dp-convlstm-film-cap)", out.width="75%", fig.align="center"}
+```{r dp-convlstm-film, echo=FALSE, fig.cap="(ref:dp-convlstm-film-cap)", out.width="75%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/architecture/ConvLSTM_FiLM.svg")
+```
+
+```{=latex}
+\clearpage
 ```
 
 ### RQ3: Static spatial features
 Three ways of incorporating the static topography are compared, contrasted in Figure \@ref(fig:dp-naive-vs-static-encoder).
 The naive baseline appends the raw static field repeatedly at each time step, treating it the same as a dynamic spatial feature.
 
-```{r dp-naive-vs-static-encoder, echo=FALSE, fig.cap="Static spatial feature injection strategies. Naive injection is on the left and the learned encoder on the right (single and seasonal variants).", out.width="90%", fig.align="center"}
+```{r dp-naive-vs-static-encoder, echo=FALSE, fig.cap="Static spatial feature injection strategies. Naive injection is on the left and the learned encoder on the right (single and seasonal variants).", out.width=if (knitr::is_latex_output()) "60%" else "90%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/architecture/Naive_vs_single_seasonal.svg")
 ```
 
@@ -296,8 +315,12 @@ The *single* variant uses one shared encoder, giving $[\,x_t^{\text{emb}}, E(S)\
 
 (ref:dp-convlstm-static-cap) Where the static encoder sits inside the ConvLSTM cell: it concatenates its output to the embedded input feature map before the gate convolutions. The ConvLSTM cell depiction is by @marusov2024.
 
-```{r dp-convlstm-static, echo=FALSE, fig.cap="(ref:dp-convlstm-static-cap)", out.width="75%", fig.align="center"}
+```{r dp-convlstm-static, echo=FALSE, fig.cap="(ref:dp-convlstm-static-cap)", out.width="75%", fig.align="center", fig.pos="htbp"}
 dp_img("work/02-drought_prediction/figures/architecture/ConvLSTM_static.svg")
+```
+
+```{=latex}
+\clearpage
 ```
 
 ### Experimental setup
