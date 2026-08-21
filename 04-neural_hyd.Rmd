@@ -38,7 +38,7 @@ is one of the oldest and most consequential tasks in hydrology. Accurate forecas
 critical for flood early-warning systems, reservoir operation, drought monitoring, and
 hydropower planning. Under climate change, this task becomes harder because forcing
 regimes are increasingly non-stationary: precipitation intensity distributions,
-temperature seasonality, and snowmelt timing all shift over time [@nh-ipcc2021].
+temperature seasonality, and snowmelt timing all shift over time [@ipcc2021].
 
 This chapter reviews the emergence of deep learning as the leading paradigm for
 data-driven streamflow modelling, introduces the **NeuralHydrology** Python library,
@@ -89,7 +89,7 @@ However, they suffer from three fundamental limitations:
 2. **Spatial heterogeneity**  -  parameter sets calibrated for one catchment cannot be
    directly transferred to ungauged basins.
 3. **Non-stationarity**  -  parameters calibrated under historical climate conditions may
-  not hold under future climate forcing [@nh-milly2008].
+  not hold under future climate forcing [@milly2008].
 
 ### Process-Based Formulation and Structural Error
 
@@ -123,9 +123,9 @@ prescribe low-dimensional process forms a priori.
 
 ### The Deep Learning Breakthrough
 
-The pivotal step came in 2018 when @nh-kratzert2018 demonstrated that a standard
+The pivotal step came in 2018 when @kratzert2018 demonstrated that a standard
 Long Short-Term Memory (LSTM) network, trained on the
-**CAMELS-US** dataset [@nh-addor2017] of 241 catchments, outperformed all
+**CAMELS-US** dataset [@addor2017] of 241 catchments, outperformed all
 individually calibrated conceptual models - without any catchment-specific calibration.
 The LSTM's ability to learn temporal dependencies, coupled with its capacity to exploit
 information from hundreds of basins simultaneously, created a step change in the field.
@@ -136,7 +136,7 @@ information from hundreds of basins simultaneously, created a step change in the
 
 ### The LSTM Architecture {#nh-lstm-arch}
 
-The LSTM [@nh-hochreiter1997] maintains a **cell state** $\mathbf{c}_t$ as an internal
+The LSTM [@hochreiter1997] maintains a **cell state** $\mathbf{c}_t$ as an internal
 memory and uses three gating mechanisms to regulate information flow:
 
 $$\mathbf{i}_t = \sigma(\mathbf{W}_i [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i)$$
@@ -180,7 +180,7 @@ daily rainfall-runoff tasks.
 
 ### From Single-Basin to Multi-Basin: EA-LSTM {#nh-ea-lstm}
 
-@nh-kratzert2019 extended the single-basin LSTM to **simultaneous multi-basin training**
+@kratzert2019 extended the single-basin LSTM to **simultaneous multi-basin training**
 using the Entity-Aware LSTM (EA-LSTM). The key modification is that the **input gate**
 is conditioned on *static* catchment attributes $\mathbf{x}_s$ (soil type, terrain
 slope, land cover, climate indices) rather than the dynamic sequence:
@@ -241,7 +241,7 @@ separate timing, variability, and bias effects.
 
 ## NeuralHydrology: A Python Library for Deep Learning in Hydrology {#nh-lib}
 
-**NeuralHydrology** [@nh-kratzert2022joss] is an open-source Python library developed at
+**NeuralHydrology** [@kratzert2022joss] is an open-source Python library developed at
 the Institute for Machine Learning, Johannes Kepler University Linz, built on top of
 PyTorch. Its design philosophy emphasises *modularity*: new datasets, model
 architectures, loss functions, and training strategies can be added without modifying
@@ -267,13 +267,13 @@ freedom during iterative experimentation.
 | Model | Architecture | Key Idea |
 |-------|-------------|----------|
 | **CudaLSTM** | Standard LSTM | Baseline; uses CUDA-optimised PyTorch implementation |
-| **EA-LSTM** | Entity-Aware LSTM | Static features condition input gate [@nh-kratzert2019] |
-| **MC-LSTM** | Mass-Conserving LSTM | Precipitation mass budget enforced [@nh-hoedt2021] |
-| **MTS-LSTM** | Multi-Timescale LSTM | Joint training at daily and hourly resolution [@nh-gauch2021] |
+| **EA-LSTM** | Entity-Aware LSTM | Static features condition input gate [@kratzert2019] |
+| **MC-LSTM** | Mass-Conserving LSTM | Precipitation mass budget enforced [@hoedt2021] |
+| **MTS-LSTM** | Multi-Timescale LSTM | Joint training at daily and hourly resolution [@gauch2021] |
 | **ODE-LSTM** | ODE-based LSTM | Continuous-time dynamics for irregular sampling |
 | **Transformer** | Self-attention | Captures global temporal dependencies |
-| **Mamba** | State-space model | Linear-time sequence modelling [@nh-gu2023] |
-| **xLSTM** | Extended LSTM | Exponential gating [@nh-beck2024] |
+| **Mamba** | State-space model | Linear-time sequence modelling [@gu2023] |
+| **xLSTM** | Extended LSTM | Exponential gating [@beck2024] |
 | **HybridModel** | LSTM + conceptual | Neural parameterisation of process models |
 
 A minimal training configuration looks as follows:
@@ -322,7 +322,7 @@ these reduce procedural variance when comparing architectures or transfer settin
 Under climate change, hydrological systems are subject to **non-stationarity**: the
 statistical relationship between climate forcing and streamflow may shift due to
 changing land cover, permafrost thaw, or altered precipitation seasonality
-[@nh-milly2008]. A model trained on historical data may fail under future conditions if it
+[@milly2008]. A model trained on historical data may fail under future conditions if it
 has over-fitted to the historical distribution.
 
 Transfer learning offers a principled solution: pre-train a model on a large, diverse
@@ -347,7 +347,7 @@ This yields a practical bias-variance trade-off:
 ### Pre-Train on Large-Sample Data {#nh-pretrain}
 
 The first step is training on the full CAMELS dataset (531 basins across the
-continental United States, or multi-country datasets like Caravan [@nh-kratzert2023caravan]
+continental United States, or multi-country datasets like Caravan [@kratzert2023caravan]
 with >6000 basins). This exposes the model to a wide range of climates, soils, and
 land covers, building a general-purpose hydrological encoder.
 
@@ -374,7 +374,7 @@ can overwrite globally useful runoff representations. Layer-wise schedules and r
 fine-tuning rates are therefore not just engineering heuristics, but stability controls
 for representation retention.
 
-@nh-frame2022 showed that LSTMs pre-trained on multi-basin data and fine-tuned on a single
+@frame2022 showed that LSTMs pre-trained on multi-basin data and fine-tuned on a single
 target basin significantly outperform models trained from scratch on the target basin
 alone, even when the target basin lies in a climate zone absent from pre-training data.
 
@@ -386,7 +386,7 @@ historical forcing before feeding into the pre-trained neural model. The key cha
 is that the model may extrapolate poorly to precipitation intensities or temperature
 regimes outside its training distribution.
 
-@nh-hoedt2021 argue that **physically consistent architectures** (such as MC-LSTM) are
+@hoedt2021 argue that **physically consistent architectures** (such as MC-LSTM) are
 inherently more robust to distributional shift, because the mass conservation
 constraint prevents unphysical predictions even under novel forcing conditions.
 
