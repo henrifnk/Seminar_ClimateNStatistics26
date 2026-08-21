@@ -1,0 +1,19 @@
+# Regional finetune on all 01* basins with same schedule as local baseline
+experiment_name: rq3_finetuned_region01
+
+train_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_local_01.txt
+validation_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_local_01.txt
+test_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_local_01.txt
+
+learning_rate:
+  0: 5e-4
+  2: 5e-5
+epochs: 10
+
+seed: 1001
+
+finetune_modules:
+  - head
+  - lstm
+
+# base_run_dir injected by runner script

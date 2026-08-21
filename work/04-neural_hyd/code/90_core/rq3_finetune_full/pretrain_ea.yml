@@ -1,0 +1,106 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# RQ3 — Pretrain a small "global" base model (multi-basin) using EA-LSTM
+# Minimal/fast demo config: daymet forcing only, small LSTM, few epochs.
+# Scale up (more basins / epochs / hidden_size / ensemble) for paper-level quality.
+# ──────────────────────────────────────────────────────────────────────────────
+
+experiment_name: rq3_base_global_ea
+
+# Basin lists (relative to this config file)
+# GLOBAL model = trained on ALL basins. The target basin is included here, so its
+# information is "diluted" among the full large-sample set.
+train_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_global.txt
+validation_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_global.txt
+# Test on the target basin (in-sample but diluted) for the three-way comparison.
+test_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_finetune.txt
+
+# Periods (CAMELS standard Kratzert et al. split)
+train_start_date: "01/10/1999"
+train_end_date: "30/09/2008"
+validation_start_date: "01/10/1980"
+validation_end_date: "30/09/1989"
+test_start_date: "01/10/1989"
+test_end_date: "30/09/1999"
+
+# Hardware ("cpu" is safe; switch to "cuda:0" if a CUDA-enabled torch is installed)
+device: cpu
+
+# Validation
+validate_every: 3
+validate_n_random_basins: 10
+metrics:
+  - NSE
+  - KGE
+
+# ─── Model ────────────────────────────────────────────────────────────────────
+model: ealstm
+head: regression
+output_activation: linear
+hidden_size: 64
+initial_forget_bias: 3
+output_dropout: 0.4
+
+# ─── Training ─────────────────────────────────────────────────────────────────
+optimizer: Adam
+loss: NSE
+learning_rate:
+  0: 1e-3
+  2: 5e-4
+batch_size: 256
+epochs: 3
+clip_gradient_norm: 1
+predict_last_n: 1
+seq_length: 365
+num_workers: 0
+log_interval: 5
+log_tensorboard: false
+save_weights_every: 1
+save_validation_results: true
+
+# ─── Data ─────────────────────────────────────────────────────────────────────
+dataset: camels_us
+data_dir: C:/GitHub/climate-change/NeuralHydrology/data/CAMELS_US
+
+forcings:
+  - daymet
+
+dynamic_inputs:
+  - prcp(mm/day)
+  - srad(W/m2)
+  - tmax(C)
+  - tmin(C)
+  - vp(Pa)
+
+static_attributes:
+  - elev_mean
+  - slope_mean
+  - area_gages2
+  - frac_forest
+  - lai_max
+  - lai_diff
+  - gvf_max
+  - gvf_diff
+  - soil_depth_pelletier
+  - soil_depth_statsgo
+  - soil_porosity
+  - soil_conductivity
+  - max_water_content
+  - sand_frac
+  - silt_frac
+  - clay_frac
+  - carbonate_rocks_frac
+  - geol_permeability
+  - p_mean
+  - pet_mean
+  - aridity
+  - frac_snow
+  - high_prec_freq
+  - high_prec_dur
+  - low_prec_freq
+  - low_prec_dur
+
+target_variables:
+  - QObs(mm/d)
+
+clip_targets_to_zero:
+  - QObs(mm/d)

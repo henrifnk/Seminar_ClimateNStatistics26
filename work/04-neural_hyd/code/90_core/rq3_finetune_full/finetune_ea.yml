@@ -1,0 +1,31 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# RQ3 — Finetune the pretrained EA-LSTM base model on a single target basin.
+#
+# Only a few keys are needed here. Everything not specified is inherited from the
+# pretrained model's config. `base_run_dir` is appended automatically by the
+# runner script (run_finetune.py) so it always points at the latest base run.
+#
+# You CANNOT change architecture keys here (model, hidden_size, ...) because the
+# pretrained weights must fit the initialized model.
+# ──────────────────────────────────────────────────────────────────────────────
+
+experiment_name: rq3_finetuned_ea
+
+# Train / validate / test on the single target basin
+train_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_finetune.txt
+validation_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_finetune.txt
+test_basin_file: C:/GitHub/climate-change/NeuralHydrology/rq3_finetune/basins_finetune.txt
+
+# Lower LR + few epochs is typical for finetuning
+learning_rate:
+  0: 5e-4
+  2: 5e-5
+epochs: 10
+
+# Which parts of the pretrained network to adapt.
+# 'head' only = lightest; add 'lstm' to adapt the recurrent body too.
+finetune_modules:
+  - head
+  - lstm
+
+# base_run_dir is added automatically by run_finetune.py
