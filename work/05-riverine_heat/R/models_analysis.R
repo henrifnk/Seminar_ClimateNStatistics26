@@ -2,10 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(lubridate)
 library(purrr)
-library(Matrix)
-library(lme4)
 library(tidyr)
-library(MASS)
 
 # ANALYSIS
 
