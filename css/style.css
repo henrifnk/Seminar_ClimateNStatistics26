@@ -2,12 +2,6 @@ p.caption {
   color: #777;
   margin-top: 10px;
 }
-table caption {
-  caption-side: bottom;
-  color: #777;
-  margin-top: 10px;
-  text-align: center;
-}
 p code {
   white-space: inherit;
 }
@@ -26,10 +20,4 @@ blockquote > p:last-child {
 }
 blockquote > p:first-child {
   text-align: inherit;
-}
-/* Chapter 13 (diffusion downscaling): justified body text */
-#ddm p:not(.caption):not(.flushright) {
-  text-align: justify;
-  -webkit-hyphens: auto;
-  hyphens: auto;
 }
