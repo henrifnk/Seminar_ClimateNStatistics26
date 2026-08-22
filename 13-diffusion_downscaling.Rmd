@@ -4,7 +4,7 @@ output:
   html_document: default
 ---
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r ddm-setup, message=FALSE, warning=FALSE, include=FALSE}
 library(bookdown)
 library(svglite)
 library(kableExtra)
