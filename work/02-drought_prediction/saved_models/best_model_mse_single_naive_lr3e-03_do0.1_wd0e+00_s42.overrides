@@ -1,0 +1,7 @@
+model.loss_fn=mse
+model.lr=0.003
+model.dropout=0.1
+model.weight_decay=0.0
+model.static_encoder=single
+model.global_encoder=naive
+seed=42

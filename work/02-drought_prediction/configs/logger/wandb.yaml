@@ -1,0 +1,9 @@
+name: wandb
+
+project: drought-prediction
+entity: null        # your W&B username or team — null lets W&B auto-detect
+run_name: null      # null = W&B auto-generates a name
+group: arch-v2-corrected
+tags:
+  - arch:v2-corrected
+log_model: false    # set true to upload checkpoints as W&B artifacts

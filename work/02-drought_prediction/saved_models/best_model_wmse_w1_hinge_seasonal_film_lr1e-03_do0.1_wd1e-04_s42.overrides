@@ -1,0 +1,8 @@
+model.loss_fn=weighted_mse
+model.drought_weight=1.0
+model.lr=0.001
+model.dropout=0.1
+model.weight_decay=0.0001
+model.static_encoder=seasonal
+model.global_encoder=film
+seed=42

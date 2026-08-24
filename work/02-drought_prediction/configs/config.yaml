@@ -1,0 +1,21 @@
+defaults:
+  - data: default
+  - model: default
+  - trainer: default
+  - logger: wandb   # switch to CSV with: logger=csv
+  - _self_
+
+seed: 42
+# Resolved from this project folder (code/utils/paths.py), independent of the
+# launching process's cwd -- so the same commands work from the GitBook repo
+# root or from this folder directly.
+checkpoints_dir: ${project_root:}/checkpoints
+saved_models_dir: ${project_root:}/saved_models
+figures_dir: ${project_root:}/figures/models
+# Optional: set to override the auto-generated model filename (without .ckpt extension).
+# If empty, a name is derived from the model config (e.g. best_model_pinball_q0.10).
+run_name: ""
+
+# Evaluation-only mode: skip training, load checkpoint, run test + save figures.
+eval_only: false
+eval_checkpoint: ""
