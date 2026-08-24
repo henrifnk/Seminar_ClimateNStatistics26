@@ -18,5 +18,10 @@ work/.DS_Store
 
 # --- 06-interpretable_heat ---
 # Raw and processed data
-work/06-interpretable_heat/data/
+work/06-interpretable_heat/data/raw
+work/06-interpretable_heat/data/processed/attributes
+work/06-interpretable_heat/data/processed/time_series
+work/06-interpretable_heat/data/intermediate
+work/06-interpretable_heat/data/results
+
 

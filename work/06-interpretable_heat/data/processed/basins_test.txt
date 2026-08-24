@@ -1,0 +1,13 @@
+Main_Kemmern
+Main_Kleinheubach
+Main_Schweinfurt
+Main_Wuerzburg
+Main_Schwuerbitz
+Regnitz_Pettstadt
+Main_Steinbach
+Main_Frankfurt_Osthafen
+Fraenkische_Saale_Wolfsmuenster
+Wern_Sachsenheim
+Fraenkische_Saale_Salz
+Itz_Schenkenau
+Main_Mainleus
