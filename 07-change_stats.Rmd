@@ -2,7 +2,7 @@
 output:
   pdf_document: default
   html_document: default
-bibliography: [cs-bib.bib, packages.bib]
+bibliography: [cs_bib.bib, packages.bib]
 ---
 
 ```{r cs-setup, message=FALSE, warning=FALSE, include=FALSE}
@@ -10,11 +10,9 @@ library(bookdown)
 library(svglite)
 library(kableExtra)
 
-# Prefer PNG for HTML (bookdown gitbook); PDF for LaTeX/PDF builds.
+# SVG for HTML; knitr auto_pdf uses the identically named PDF in LaTeX.
 cs_fig <- function(name) {
-  base <- "work/07-change_stats/figures"
-  ext <- if (knitr::is_html_output()) "png" else "pdf"
-  file.path(base, paste0(name, ".", ext))
+  file.path("work/07-change_stats/figures", paste0(name, ".svg"))
 }
 ```
 
@@ -43,7 +41,7 @@ Classical CPD methods rely on an explicit cost function or likelihood and yield 
 
 Deep CPD should not be misunderstood as a climate-specific methodology in its own right. As emphasized by [@xu2025], much of the literature concerns representation learning for sequential data, whereas only a smaller part is CPD-specific postprocessing that converts continuous scores into discrete change times. Statistical analysis remains necessary to assess whether a detected pattern is credible and scientifically meaningful.
 
-The primary objective of this report is to summarize and illustrate the framework for deep-learning-based CPD reviewed by [@xu2025], rather than to develop or comprehensively benchmark a new detection algorithm. To make the reviewed concepts concrete, the report implements a self-supervised pipeline for a univariate climate series, consisting of wavelet preprocessing, a convolutional encoder, contrastive training, and statistical postprocessing. The method is applied to the Berkeley Earth global land temperature anomaly series [@berkeleyearth] and compared with PELT based on an L2 mean-shift cost [@killick2012]. The goal is not to declare a winner between methods, but to examine what each procedure identifies and how their outputs relate.
+The primary objective of this report is to summarize and illustrate the framework for deep-learning-based CPD reviewed by [@xu2025], rather than to develop or comprehensively benchmark a new detection algorithm. To make the reviewed concepts concrete, the report implements a self-supervised pipeline for a univariate climate series, consisting of wavelet preprocessing, a convolutional encoder, contrastive training, and statistical postprocessing. The method is applied to the Berkeley Earth global land temperature anomaly series [@berkeleyearth2024] and compared with PELT based on an L2 mean-shift cost [@killick2012]. The goal is not to declare a winner between methods, but to examine what each procedure identifies and how their outputs relate.
 
 The remainder of the report is organized as follows. Section 3 formalizes CPD and reviews classical and deep-learning approaches. Section 4 presents the illustrative pipeline and its application. Section 5 compares the neural candidates with PELT. Sections 6 and 7 discuss the findings and conclude.
 
@@ -173,7 +171,7 @@ To illustrate the reviewed methodology, the implemented pipeline maps a univaria
 
 ### Data
 
-Let \(X=(x_1,\ldots,x_T)\) denote monthly global land temperature anomalies from Berkeley Earth [@berkeleyearth]. After removing missing observations, the remaining series is standardized globally,
+Let \(X=(x_1,\ldots,x_T)\) denote monthly global land temperature anomalies from Berkeley Earth [@berkeleyearth2024]. After removing missing observations, the remaining series is standardized globally,
 
 \[
 \tilde x_t=\frac{x_t-\bar x}{s_x}.
@@ -261,14 +259,14 @@ These settings were chosen empirically to suppress minor score fluctuations and 
 
 ### Application to Berkeley Earth Temperature Data
 
-The Berkeley Earth data contain monthly global land temperature anomalies from 1750 onward [@berkeleyearth]. Because anomalies are defined relative to a reference climatology, the seasonal cycle has already been removed and no additional seasonal adjustment is applied. Exploratory analysis indicates a long-run increase in the mean, substantially greater variability in the early part of the record, and pronounced temporal dependence. Early observations are particularly unstable and may reflect changes in measurement quality or data coverage in addition to climate variability.
+The Berkeley Earth data contain monthly global land temperature anomalies from 1750 onward [@berkeleyearth2024]. Because anomalies are defined relative to a reference climatology, the seasonal cycle has already been removed and no additional seasonal adjustment is applied. Exploratory analysis indicates a long-run increase in the mean, substantially greater variability in the early part of the record, and pronounced temporal dependence. Early observations are particularly unstable and may reflect changes in measurement quality or data coverage in addition to climate variability.
 
 ```{r cs-full-series, echo=FALSE, out.width='100%', fig.cap='Berkeley Earth monthly land temperature anomalies (1753--2023). The blue curve shows the monthly anomaly series, while the orange curve represents a 12-month rolling mean that emphasizes lower-frequency variation. The early part of the record displays substantially greater variability, whereas the late twentieth and early twenty-first centuries are characterized by a pronounced increase in the anomaly level.'}
-knitr::include_graphics(cs_fig("full_time_series"))
+knitr::include_graphics(cs_fig("full_time_series"), auto_pdf = TRUE)
 ```
 
 ```{r cs-postprocessing-score, echo=FALSE, out.width='100%', fig.cap='Postprocessing of the raw Wavelet--CNN transition score. Gaussian smoothing with $\\sigma=4$ suppresses short-scale fluctuations while retaining broad maxima (top). Applying a minimum height of 0.6 removes weaker peaks (middle). Non-maximum suppression with a minimum temporal separation of 120 months then reduces clusters of nearby peaks to ten final change-point candidates (bottom).'}
-knitr::include_graphics(cs_fig("postprocessing_steps"))
+knitr::include_graphics(cs_fig("postprocessing_steps"), auto_pdf = TRUE)
 ```
 
 The ten final candidates and their normalized scores are reported in Table \@ref(tab:cs-deep-cp-results).
@@ -295,7 +293,7 @@ The largest normalized score occurs in 1988, while comparatively strong peaks al
 Because verified labels are unavailable, the candidates are interpreted descriptively using the rolling mean, rolling standard deviation, local linear slope, and lag-one autocorrelation. All four statistics are computed using the same 144-month window length as the encoder.
 
 ```{r cs-rolling-features, echo=FALSE, out.width='100%', fig.cap='Rolling statistical summaries of the temperature anomaly series. From top to bottom, the panels show the 144-month rolling mean, rolling standard deviation, rolling linear trend, and lag-1 autocorrelation. Red dashed lines mark the final Wavelet--CNN candidates. The candidate dates coincide with different combinations of changes in level, variability, trend, and temporal dependence, rather than with a single common statistical feature.'}
-knitr::include_graphics(cs_fig("rolling_features"))
+knitr::include_graphics(cs_fig("rolling_features"), auto_pdf = TRUE)
 ```
 
 The candidates do not align uniformly with any single rolling statistic.
@@ -315,7 +313,7 @@ Taken together, the results are consistent with sensitivity to several forms of 
 Using an L2 cost, a minimum segment length of 120 months, and penalty multiplier \(c=3\), PELT detects seven change points in 1788, 1808, 1818, 1863, 1921, 1979, and 2001.
 
 ```{r cs-comparison-cnn-pelt, echo=FALSE, out.width='100%', fig.cap='Change-point candidates identified by the Wavelet--CNN and PELT procedures. Red dashed lines mark Wavelet--CNN candidates, while blue dotted lines mark PELT estimates. Several detections occur in similar periods, whereas others are specific to one procedure, reflecting differences in temporal resolution, model assumptions, and tuning choices.'}
-knitr::include_graphics(cs_fig("comparison_cnn_pelt"))
+knitr::include_graphics(cs_fig("comparison_cnn_pelt"), auto_pdf = TRUE)
 ```
 
 To compare candidate locations, an optimal one-to-one matching is computed with the Hungarian algorithm using a tolerance of 72 months, corresponding to half the CNN window length. Three pairs fall within this tolerance (Table \@ref(tab:cs-match-table)).
@@ -338,7 +336,7 @@ knitr::kable(
 The remaining CNN candidates, including the strongest peak in 1988, and the remaining PELT dates in 1788, 1863, 1921, and 1979 are unmatched under the selected tolerance.
 
 ```{r cs-matched-unmatched, echo=FALSE, out.width='100%', fig.cap='Matched and unmatched change-point candidates from the Wavelet--CNN and PELT procedures using a temporal tolerance of $\\pm72$ months. Dark red and dark blue lines denote detections assigned to matched pairs, whereas lighter lines indicate candidates identified by only one procedure. The partial overlap highlights transitions that are salient under both approaches while also showing substantial method-specific variation.'}
-knitr::include_graphics(cs_fig("matched_and_unmatched_change_points"))
+knitr::include_graphics(cs_fig("matched_and_unmatched_change_points"), auto_pdf = TRUE)
 ```
 
 These results should not be interpreted as a ranking of correctness. No labelled change points are available for the series, and no statistical hypothesis test of agreement is performed. The matching procedure evaluates only temporal proximity between the two candidate sets.
@@ -359,6 +357,6 @@ Relative to classical segmentation, unsupervised deep CPD is best regarded as a 
 
 ## Conclusion
 
-This report reviewed deep-learning approaches to change-point detection following [@xu2025] and illustrated the reviewed framework through a self-supervised Wavelet--CNN application to Berkeley Earth monthly land temperature anomalies [@berkeleyearth]. Ten candidates derived from contrastive embedding distances were compared with seven PELT change points based on an L2 cost [@killick2012]. Three pairs were matched within a tolerance of 72 months. Given the absence of ground-truth labels, this partial overlap represents differences and similarities between the procedures' inductive assumptions rather than evidence that one method is more accurate.
+This report reviewed deep-learning approaches to change-point detection following [@xu2025] and illustrated the reviewed framework through a self-supervised Wavelet--CNN application to Berkeley Earth monthly land temperature anomalies [@berkeleyearth2024]. Ten candidates derived from contrastive embedding distances were compared with seven PELT change points based on an L2 cost [@killick2012]. Three pairs were matched within a tolerance of 72 months. Given the absence of ground-truth labels, this partial overlap represents differences and similarities between the procedures' inductive assumptions rather than evidence that one method is more accurate.
 
 The application supports the modular view of deep CPD emphasized by [@xu2025]: neural networks learn representations of local temporal structure, whereas CPD-specific scoring and postprocessing convert those representations into candidate change times. Deep learning can thereby complement classical statistical procedures, particularly when several properties of a process may change simultaneously. It does not replace statistical modelling, validation, or physical interpretation. Future work could assess robustness more systematically, extend the approach to multivariate or spatially resolved climate fields, and combine detected candidates with substantive knowledge of the underlying climate processes.
