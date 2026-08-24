@@ -15,3 +15,8 @@ packages.bib
 .DS_Store
 work/.DS_Store
 .positai
+
+# --- 06-interpretable_heat ---
+# Raw and processed data
+work/06-interpretable_heat/data/
+

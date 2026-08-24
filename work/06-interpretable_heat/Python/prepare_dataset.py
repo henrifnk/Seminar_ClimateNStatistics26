@@ -51,6 +51,9 @@ def process_static_features(station_ids: set[str]) -> None:
     Filters the static station attributes down to the given station_ids
     and writes the results to out_dir_attributes with 'Station' as index.
 
+    Also renames the column "Gesamtlänge Fluss" to "Gesamtlaenge_Fluss"
+    and drops the "Kommentar" column before saving.
+
     Parameters
     ----------
     station_ids : set[str]
@@ -62,6 +65,9 @@ def process_static_features(station_ids: set[str]) -> None:
     df_static = filter_static_features(str(path_static_features), station_ids)
 
     df_static = df_static.set_index("Station")
+
+    df_static = df_static.rename(columns={"Gesamtlänge Fluss": "Gesamtlaenge_Fluss"})
+    df_static = df_static.drop(columns=["Kommentar"])
 
     out_path = out_dir_attributes / "attributes.csv"
 

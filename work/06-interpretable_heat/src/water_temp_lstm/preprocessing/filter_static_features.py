@@ -36,4 +36,4 @@ def filter_static_features(static_path: str, station_ids: set[str]) -> pd.DataFr
               f"have no time series data and will be dropped: "
               f"{sorted(missing_in_timeseries)}")
         
-    return df[df["Station"].astype(str).isin(static_ids)]
+    return df[df["Station"].astype(str).isin(station_ids)]
