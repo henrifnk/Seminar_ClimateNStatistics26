@@ -96,11 +96,12 @@ plot_partial_dependence <- function(df_feature, feature_title, unit_label,
 # Save a plot for a feature.
 save_pdp_plot <- function(plot, dir_figures, feature, filetype = "svg") {
   dir.create(dir_figures, recursive = TRUE, showWarnings = FALSE)
+  extra <- if (!is.null(feature)) paste0("_", feature) else ""
   ggsave(
-    filename = file.path(dir_figures, paste0("int_pdp_", feature, ".", filetype)),
+    filename = file.path(dir_figures, paste0("int_pdp", extra, ".", filetype)),
     plot = plot,
-    width = 6,
-    height = 4,
+    width = 9.5,
+    height = 4.7,
     units = "in"
   )
 }
@@ -111,6 +112,8 @@ save_pdp_plot <- function(plot, dir_figures, feature, filetype = "svg") {
 # ----------------------------------------------------------------------
 df_all <- load_pdp_data(DIR_RESULTS, RESULTS_CSV_NAME)
 
+pdp_plots <- list()
+
 for (feat in FEATURES_TO_PLOT) {
   df_feature <- df_all %>% filter(feature == feat)
   
@@ -120,5 +123,16 @@ for (feat in FEATURES_TO_PLOT) {
   p <- plot_partial_dependence(df_feature, feature_title, unit_label,
                                pdp_color, ice_color, N_ICE_LINES)
   
-  save_pdp_plot(p, DIR_FIGURES, feat)
+  pdp_plots[[feat]] <- p
+  
+  # save_pdp_plot(p, DIR_FIGURES, feat, "svg")
+  # save_pdp_plot(p, DIR_FIGURES, feat, "pdf")
 }
+
+p_pdp_combined <- wrap_plots(pdp_plots, ncol = 2) +
+  plot_layout(axis_titles = "collect", guides = "collect") &
+  theme(legend.position = "bottom")
+
+save_pdp_plot(p_pdp_combined, DIR_FIGURES, NULL, "pdf")
+save_pdp_plot(p_pdp_combined, DIR_FIGURES, NULL, "svg")
+

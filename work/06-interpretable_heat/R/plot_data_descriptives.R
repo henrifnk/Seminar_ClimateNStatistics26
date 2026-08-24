@@ -11,12 +11,8 @@ library(ggcorrplot)
 library(patchwork)
 source("R/settings.R")
 
-relabel <- function(x) {
-  ifelse(x %in% names(all_labels), all_labels[x], x)
-}
-
-relabel_station <- function(x) {
-  ifelse(x %in% names(station_labels), station_labels[x], x)
+relabel <- function(x, labels) {
+  ifelse(x %in% names(labels), labels[x], x)
 }
 
 # ------------------------------------------------------------------
@@ -71,7 +67,7 @@ write.csv(dat, file = file.path(path_intermediate, "data_processed.csv"), row.na
 # ------------------------------------------------------------------
 val_start <- as.Date("2016/12/01")
 test_start <- as.Date("2018/12/01")
-dir_descr_plots <- "work/06-interpretable_heat/figures"
+dir_descr_plots <- "figures"
 target <- "wt"
 dynamic_features <- c("Ta_C", "P_mm", "wind_ms", "rad_whm2", "relhum", "Q")
 static_features <- c("DEM", "Slope", "Fraction_Forest",
@@ -88,7 +84,7 @@ station_periods <- dat %>%
     end_date = max(date),
     n_years = as.numeric((max(date) - min(date)) / 365.25)
   ) %>%
-  mutate(Station_label = relabel_station(Station))
+  mutate(Station_label = relabel(Station, labels_station))
 
 plot_station_periods <- station_periods %>%
   ggplot(aes(y = reorder(Station_label, start_date))) +
@@ -104,9 +100,10 @@ plot_station_periods <- station_periods %>%
   ) +
   labs(x = NULL, y = "Station")
 
-# ggsave(filename = file.path(dir_descr_plots, "stations_periods.pdf"), plot_station_periods)
 ggsave(filename = file.path(dir_descr_plots, "stations_periods.svg"), plot_station_periods, 
-       width = 8, height = 4)
+       width = 9, height = 4)
+ggsave(filename = file.path(dir_descr_plots, "stations_periods.pdf"), plot_station_periods, 
+       width = 9, height = 4)
 
 
 ## Part 2: Missing Values -------------------------------------------
@@ -116,8 +113,8 @@ df_na <- dat %>%
                names_to = "variable",
                values_to = "value") %>%
   mutate(status = ifelse(is.na(value), "missing", "available"),
-         Station_label = relabel_station(Station),
-         variable_label = relabel(variable))
+         Station_label = relabel(Station, labels_station),
+         variable_label = relabel(variable, labels_all_vars))
 
 ### Overview Heatmap: % missing per station/ variable
 summary_na <- df_na %>%
@@ -168,10 +165,12 @@ dat_long_reduced <- df_na %>%
   mutate(variable_group = var_to_group[variable]) %>%
   distinct(Station, date, variable_group, status) %>%
   rename(variable = variable_group) %>%
-  mutate(Station_label = relabel_station(Station))
+  mutate(Station_label = relabel(Station, labels_station))
 
 ### Detailed plot: one separate file per variable-group panel
 panel_groups <- unique(dat_long_reduced$variable)
+n_panel_groups <- length(panel_groups)
+p_missings_list <- list()
 
 for (grp in panel_groups) {
   dat_panel <- dat_long_reduced %>% filter(variable == grp)
@@ -180,7 +179,7 @@ for (grp in panel_groups) {
   # relabel each individual variable inside the group string,
   # e.g. "Ta_C, wt" -> "Air Temperature, Water Temperature"
   grp_vars <- str_split(grp, ",\\s*")[[1]]
-  grp_label <- paste(relabel(grp_vars), collapse = ", ")
+  grp_label <- paste(relabel(grp_vars, labels_all_vars), collapse = ", ")
 
   p_detail <- ggplot(dat_panel, aes(x = date, y = Station_label, fill = status)) +
     geom_tile() +
@@ -195,18 +194,30 @@ for (grp in panel_groups) {
       title = element_text(size = 15)
     )
   
+  p_missings_list[[grp]] <- p_detail
+  
   safe_name <- str_replace_all(grp, "[^A-Za-z0-9]+", "_")
   fig_height = (n_stations + 3) * 0.4
-  ggsave(file.path(dir_descr_plots, paste0("stations_missings_", safe_name, ".svg")), p_detail,
-         width = 2 * fig_height, height = fig_height)
+  # ggsave(file.path(dir_descr_plots, paste0("stations_missings_", safe_name, ".svg")), p_detail,
+  #        width = 2 * fig_height, height = fig_height)
+  # ggsave(file.path(dir_descr_plots, paste0("stations_missings_", safe_name, ".pdf")), p_detail,
+  #        width = 2 * fig_height, height = fig_height)
 }
 
+p_missings_combined <- wrap_plots(p_missings_list, ncol = 1) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 15))
 
+ggsave(file.path(dir_descr_plots, "stations_missings.svg"), p_missings_combined,
+       width = 1.8 * fig_height, height = 0.6 * n_panel_groups * fig_height)
+ggsave(file.path(dir_descr_plots, "stations_missings.pdf"), p_missings_combined,
+       width = 1.8 * fig_height, height = 0.6 * n_panel_groups * fig_height)
 
 ## Part 3: Correlation -----------------------------------------------
 cor_mat <- dat %>%
   select(all_of(vars_all)) %>%
-  rename_with(relabel) %>%
+  rename_with(relabel, labels = labels_all_vars) %>%
   cor(use = "pairwise.complete.obs", method = "pearson")
 
 cor_all <- ggcorrplot(cor_mat,
@@ -216,3 +227,4 @@ cor_all <- ggcorrplot(cor_mat,
                       colors = c("#2166AC", "white", "#B2182B"))
 
 ggsave(file.path(dir_descr_plots, "corr_vars_heatmap.svg"), cor_all, width = 8, height = 7)
+ggsave(file.path(dir_descr_plots, "corr_vars_heatmap.pdf"), cor_all, width = 8, height = 7)

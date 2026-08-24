@@ -73,10 +73,10 @@ plot_pdp_2d_heatmap <- function(df, feature_j_title, feature_k_title,
 }
 
 #' Save the heatmap as SVG.
-save_pdp_2d_plot <- function(plot, dir_figures, feature_j, feature_k) {
+save_pdp_2d_plot <- function(plot, dir_figures, feature_j, feature_k, filetype = "svg") {
   dir.create(dir_figures, recursive = TRUE, showWarnings = FALSE)
   ggsave(
-    filename = file.path(dir_figures, paste0("int_pdp2d_", feature_j, "_", feature_k, ".svg")),
+    filename = file.path(dir_figures, paste0("int_pdp2d_", feature_j, "_", feature_k, ".", filetype)),
     plot = plot,
     width = 8,
     height = 6,
@@ -97,4 +97,5 @@ feature_k_title <- unique(df$feature_k_title)
 
 p <- plot_pdp_2d_heatmap(df, "Air Temperature", "Solar Radiation", FILL_LOW, FILL_MID, FILL_HIGH)
 
-save_pdp_2d_plot(p, DIR_FIGURES, feature_j, feature_k)
+save_pdp_2d_plot(p, DIR_FIGURES, feature_j, feature_k, "svg")
+save_pdp_2d_plot(p, DIR_FIGURES, feature_j, feature_k, "pdf")

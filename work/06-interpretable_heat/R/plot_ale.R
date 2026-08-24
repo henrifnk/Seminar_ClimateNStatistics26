@@ -9,6 +9,7 @@
 library(ggplot2)
 library(dplyr)
 library(readr)
+library(patchwork)
 source("R/settings.R")
 
 # ----------------------------------------------------------------------
@@ -109,17 +110,18 @@ plot_ale_feature <- function(df_curves_feature, df_rug_feature, feature_title,
       values = c("Overall" = overall_color, season_colors),
       breaks = c("Overall", season_order)
     ) +
-    labs(x = unit_label, y = "ALE [\u00B0C]", title = paste("Accumulated Local Effects:", feature_title)) +
+    labs(x = unit_label, y = "ALE [\u00B0C]", title = paste0(feature_title, " (ALE)")) +
     theme(legend.position = "bottom")
 }
 
 #' Save a plot for a feature.
 save_ale_plot <- function(plot, dir_figures, feature, filetype = "svg") {
   dir.create(dir_figures, recursive = TRUE, showWarnings = FALSE)
+  extra <- if (!is.null(feature)) paste0("_", feature) else ""
   ggsave(
-    filename = file.path(dir_figures, paste0("int_ale_", feature, ".", filetype)),
+    filename = file.path(dir_figures, paste0("int_ale", extra, ".", filetype)),
     plot = plot,
-    width = 8,
+    width = 11,
     height = 5.5,
     units = "in"
   )
@@ -131,6 +133,8 @@ save_ale_plot <- function(plot, dir_figures, feature, filetype = "svg") {
 # ----------------------------------------------------------------------
 data <- load_ale_data(DIR_RESULTS, CURVES_CSV_NAME, RUG_CSV_NAME)
 
+ale_plots <- list()
+
 for (feat in FEATURES_TO_PLOT) {
   df_curves_feature <- data$curves %>% filter(feature == feat)
   df_rug_feature <- data$rug %>% filter(feature == feat)
@@ -141,5 +145,17 @@ for (feat in FEATURES_TO_PLOT) {
   p <- plot_ale_feature(df_curves_feature, df_rug_feature, feature_title, unit_label,
                         overall_color, season_colors, season_order)
   
-  save_ale_plot(p, DIR_FIGURES, feat)
+  ale_plots[[feat]] <- p
+  
+  # save_ale_plot(p, DIR_FIGURES, feat, "svg")
+  # save_ale_plot(p, DIR_FIGURES, feat, "pdf")
 }
+
+p_ale_combined <- wrap_plots(ale_plots, ncol = 2) +
+  plot_layout(axis_titles = "collect",
+              guides = "collect") &
+  theme(legend.position = "bottom")
+
+save_ale_plot(p_ale_combined, DIR_FIGURES, NULL, "pdf")
+save_ale_plot(p_ale_combined, DIR_FIGURES, NULL, "svg")
+

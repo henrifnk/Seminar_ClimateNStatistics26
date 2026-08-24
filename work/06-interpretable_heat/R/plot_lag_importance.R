@@ -9,6 +9,7 @@
 library(ggplot2)
 library(dplyr)
 library(readr)
+library(patchwork)
 source("R/settings.R")
 
 # ----------------------------------------------------------------------
@@ -45,7 +46,7 @@ plot_lag_importance <- function(df_feature, feature_title, curve_color, fill_alp
   ggplot(df_feature, aes(x = lag, y = importance)) +
     geom_area(fill = curve_color, alpha = fill_alpha) +
     geom_line(color = curve_color, linewidth = 1) +
-    geom_point(color = curve_color, size = 1.6) +
+    geom_point(color = curve_color, size = 1.2) +
     scale_x_reverse() +
     scale_y_continuous(limits = c(0, NA)) +
     labs(
@@ -56,13 +57,14 @@ plot_lag_importance <- function(df_feature, feature_title, curve_color, fill_alp
 }
 
 # Save a plot for a feature as SVG.
-save_lag_importance_plot <- function(plot, dir_figures, feature) {
+save_lag_importance_plot <- function(plot, dir_figures, feature, filetype = "svg") {
   dir.create(dir_figures, recursive = TRUE, showWarnings = FALSE)
+  extra <- if (!is.null(feature)) paste0("_", feature) else ""
   ggsave(
-    filename = file.path(dir_figures, paste0("int_lag_importance_", feature, ".svg")),
+    filename = file.path(dir_figures, paste0("int_lag_importance", extra, ".", filetype)),
     plot = plot,
-    width = 8,
-    height = 4.5,
+    width = 10.5,
+    height = 3.5,
     units = "in"
   )
 }
@@ -73,11 +75,22 @@ save_lag_importance_plot <- function(plot, dir_figures, feature) {
 # ----------------------------------------------------------------------
 df_all <- load_lag_importance_data(DIR_RESULTS, RESULTS_CSV_NAME)
 
+lag_importance_plots <- list()
+
 for (feat in FEATURES_TO_PLOT) {
   df_feature <- df_all %>% filter(feature == feat)
   feature_title <- unique(df_feature$feature_title)
   
   p <- plot_lag_importance(df_feature, feature_title, curve_color, fill_alpha)
   
-  save_lag_importance_plot(p, DIR_FIGURES, feat)
+  lag_importance_plots[[feat]] <- p
+  
+  # save_lag_importance_plot(p, DIR_FIGURES, feat, "svg")
+  # save_lag_importance_plot(p, DIR_FIGURES, feat, "pdf")
 }
+
+p_lag_imp_combined <- wrap_plots(lag_importance_plots, ncol = 2) +
+  plot_layout(axis_titles = "collect")
+
+save_lag_importance_plot(p_lag_imp_combined, DIR_FIGURES, NULL, "svg")
+save_lag_importance_plot(p_lag_imp_combined, DIR_FIGURES, NULL, "pdf")

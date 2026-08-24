@@ -9,6 +9,7 @@ library(ggplot2)
 library(dplyr)
 library(readr)
 library(forcats)
+library(patchwork)
 
 # ----------------------------------------------------------------------
 # Configuration
@@ -87,8 +88,8 @@ save_importance_plot <- function(plot, dir_figures, filename, n_features) {
   ggsave(
     filename = file.path(dir_figures, filename),
     plot = plot,
-    width = 7,
-    height = 0.45 * n_features + 1,
+    width = 8,
+    height = 0.35 * n_features + 1,
     units = "in"
   )
 }
@@ -102,6 +103,10 @@ df_all <- load_importance_data(DIR_RESULTS, RESULTS_CSV_NAME)
 df_dynamic <- df_all %>% filter(feature_type == "dynamic")
 df_static <- df_all %>% filter(feature_type == "static")
 
+n_features <- nrow(df_all)
+n_features_dynamic <- nrow(df_dynamic)
+n_features_static <- nrow(df_static)
+
 plot_dynamic <- barplot_importance(
   df_dynamic, dynamic_feature_titles, colors$dynamic,
   "Permutation Importance: Dynamic Features"
@@ -111,5 +116,20 @@ plot_static <- barplot_importance(
   "Permutation Importance: Static Features"
 )
 
-save_importance_plot(plot_dynamic, DIR_FIGURES, "int_perm_importance_dynamic.svg", nrow(df_dynamic))
-save_importance_plot(plot_static, DIR_FIGURES, "int_perm_importance_static.svg", nrow(df_static))
+importance_plots <- list(
+  plot_static + labs(title = "Static Features"), 
+  plot_dynamic + labs(title = "Dynamic Features"))
+
+p_imp_combined <- wrap_plots(importance_plots, ncol = 1) +
+  plot_layout(heights = c(n_features_static / n_features, n_features_dynamic / n_features))
+
+# save_importance_plot(plot_dynamic, DIR_FIGURES, "int_perm_importance_dynamic.svg", nrow(df_dynamic))
+# save_importance_plot(plot_dynamic, DIR_FIGURES, "int_perm_importance_dynamic.pdf", nrow(df_dynamic))
+# save_importance_plot(plot_static, DIR_FIGURES, "int_perm_importance_static.svg", nrow(df_static))
+# save_importance_plot(plot_static, DIR_FIGURES, "int_perm_importance_static.pdf", nrow(df_static))
+
+save_importance_plot(p_imp_combined, DIR_FIGURES, "int_perm_importance.svg", 
+                     n_features)
+save_importance_plot(p_imp_combined, DIR_FIGURES, "int_perm_importance.pdf", 
+                     n_features)
+
