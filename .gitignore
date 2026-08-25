@@ -8,13 +8,14 @@ _bookdown_files
 _main.Rmd
 book_files
 book.Rmd
+book.knit.md
 build_pdf.R
 *.log
 *.Rproj
 ./*.html
 book.tex
 *.html
-packages.bib
+bib/packages.bib
 .DS_Store
 work/.DS_Store
 .positai
@@ -50,3 +51,9 @@ work/06-interpretable_heat/data/processed/attributes
 work/06-interpretable_heat/data/processed/time_series
 work/06-interpretable_heat/data/intermediate
 work/06-interpretable_heat/data/results
+book.idx
+book.ilg
+book.ind
+book.aux
+book.blg
+book.bbl

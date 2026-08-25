@@ -222,7 +222,6 @@ so that both are processed jointly. $\mathbf{Z}^{(t)}$ is then passed through fo
 
 For each gate, $\mathbf{Z}^{(t)}$ is transformed using a weight matrix $\mathbf{W} \in \mathbb{R}^{(d + h) \times h}$ and a bias vector $\mathbf{b} \in \mathbb{R}^h$ (broadcast row-wise across the batch), followed by an element-wise sigmoid ($\sigma$) or hyperbolic tangent ($\tanh$) activation:
 
-$$
 \begin{alignat*}{3}
 \text{Forget Gate:} \qquad & \mathbf{F}^{(t)} & \enspace = \enspace &
   \sigma \left(\mathbf{Z}^{(t)} \mathbf{W}_f + \mathbf{b}_f\right) \in (0, 1)^{n \times h} \\
@@ -233,17 +232,14 @@ $$
 \text{Output Gate:} \qquad & \mathbf{O}^{(t)} & \enspace = \enspace & 
   \sigma \left(\mathbf{Z}^{(t)} \mathbf{W}_o + \mathbf{b}_o\right) \in (0, 1)^{n \times h}
 \end{alignat*}
-$$
 
 The cell and hidden state are then updated in sequence:
 
-$$
 \begin{align*}
   \mathbf{C}^{(t)} &= \mathbf{C}^{(t-1)} \odot \mathbf{F}^{(t)} + \mathbf{I}^{(t)} \odot \tilde{\mathbf{C}}^{(t)} \\
   \\
   \mathbf{H}^{(t)} &= \tanh\left(\mathbf{C}^{(t)}\right) \odot \mathbf{O}^{(t)}
 \end{align*}
-$$
 where $\odot$ denotes element-wise multiplication.
 
 Intuitively, the forget gate controls how much of the previous cell state's information is retained. The input gate determines how much new information provided by the input node is added. And the output gate, together with the updated cell state, determines the new hidden state. 

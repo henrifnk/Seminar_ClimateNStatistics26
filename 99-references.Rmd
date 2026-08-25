@@ -4,6 +4,6 @@
 # generate a BibTeX database automatically for some R packages
 knitr::write_bib(c(
   .packages()[-1], 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+), 'bib/packages.bib')
 ```
 

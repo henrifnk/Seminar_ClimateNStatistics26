@@ -2,7 +2,6 @@
 output:
   pdf_document: default
   html_document: default
-bibliography: [cs_bib.bib, packages.bib]
 ---
 
 ```{r cs-setup, message=FALSE, warning=FALSE, include=FALSE}
