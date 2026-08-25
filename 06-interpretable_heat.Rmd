@@ -37,7 +37,7 @@ This study examines how riverine water temperatures can be modelled using a Long
 
 ## Introduction
 
-Riverine heatwaves are an increasingly concerning problem, with impacts on both ecological and socioeconomic systems: They cause elevated thermal stress for aquatic animals, reduce the thermal cooling efficiency of power plants and degrade drinking water quality [@vanHamel2025]. To understand which environmental factors drive riverine water temperatures, we model the water temperature of the Main River using an LSTM and several environmental features. Specifically, we address the following research questions:
+Riverine heatwaves are an increasingly concerning problem, with impacts on both ecological and socioeconomic systems: They cause elevated thermal stress for aquatic animals, reduce the thermal cooling efficiency of power plants and degrade drinking water quality [@vanhamel2025]. To understand which environmental factors drive riverine water temperatures, we model the water temperature of the Main River using an LSTM and several environmental features. Specifically, we address the following research questions:
 
 1. How does an LSTM model perform in this context?
 2. What are the most influential features?
