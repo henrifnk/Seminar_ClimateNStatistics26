@@ -12,14 +12,1113 @@ library(kableExtra)
 
 # Melting Perspectives on Uncertainty in Climate {#unc}
 
-*Author: *
+*Author: Shuangying Xu*
 
 *Supervisor: Henri Funk*
 
-*Degree: Bachelor/Master*
+*Degree: Bachelor*
 
 ## Abstract
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Regional climate projections contain uncertainty from both internal variability and differences among climate-model responses, and these sources can affect how projected warming is interpreted. This seminar work examines fixed-scenario uncertainty in 20-year mean regional JJA warming across Northern Europe, Western and Central Europe, and the Mediterranean using five MMLEAv2 large-ensemble models with 166 ensemble members under SSP3-7.0. Internal variability is estimated from within-model member spread, while model uncertainty is estimated from differences among model-specific ensemble-mean responses using equal model weighting. The analysis further uses prediction ranges, signal-to-noise ratios, threshold exceedance probabilities, hierarchical bootstrap, and balanced-member sensitivity tests. Regional summer warming increases across the century in all three regions, while model-specific responses become increasingly separated. Internal variability in the 20-year warming target remains comparatively stable, whereas model uncertainty grows and becomes the dominant contributor to total fixed-scenario uncertainty. Projection ranges also widen with lead time, with Northern Europe showing particularly large spread despite lower central warming than the other regions. The warming signal is clear relative to internal variability, but disagreement among models reduces confidence in its exact magnitude. Robustness analyses support these qualitative patterns. Overall, the results show that uncertainty attribution depends not only on the model ensemble but also on the definition and temporal averaging of the prediction target.
 
 ## Introduction
+
+Uncertainty is a central feature of climate projections and can arise from different sources, providing multiple perspectives on how future climate should be interpreted [@Hawkins2009]. Understanding these different dimensions of uncertainty is important because projected climate change cannot be fully described by a single expected value. This seminar work examines these issues in the context of projected regional summer temperature change.
+
+### Background and Motivation: Uncertainty in Regional Climate Projections
+
+At regional scales, climate projections are better understood as a range of possible outcomes than as a single estimate of future change. Different simulations can follow different climate trajectories, while different climate models can also produce different responses to external forcing. Ensemble projections therefore provide information not only about the expected climate response, but also about the spread around that response [@Tebaldi2007; @Hawkins2009].
+
+This spread is particularly relevant for regional climate change. The importance of different sources of uncertainty depends on the region, projection horizon, and spatial and temporal averaging scale [@Hawkins2009]. Natural climate variability is generally more visible at regional and shorter time scales and may temporarily strengthen or weaken the underlying climate-change signal [@Deser2020; @Gruber2026]. Temporal averaging can reduce the influence of shorter-term fluctuations, so the magnitude of uncertainty also depends on how the projection target is defined [@Hawkins2009].
+
+Regional summer temperature is especially relevant for climate-impact assessment. In Europe, increasing temperature and extreme heat are associated with risks to human health, agricultural production, ecosystems, infrastructure, and energy demand, while the severity of these impacts differs across regions [@BednarFriedl2022]. Regional June--July--August (JJA) temperature therefore provides a useful indicator for examining both the magnitude of future warming and the uncertainty surrounding it.
+
+A multi-model mean alone cannot fully describe these different perspectives on a projection. It does not show the variation among simulations, the disagreement among model responses, or the overall width of the projected warming distribution. A distribution-based interpretation can therefore complement the mean by describing both the magnitude and structure of projection uncertainty. These considerations motivate examining regional warming in terms of how large the projected change is, how uncertain it is, where that uncertainty comes from, and how the resulting distribution can be interpreted. To address these questions consistently, the next section introduces the statistical concepts of uncertainty and connects them to the structure of climate-model ensembles.
+
+### Conceptual and Literature Framework
+
+The sources of projection uncertainty can be viewed through both statistical and climate-specific perspectives [@Gruber2025; @Hawkins2009]. These perspectives are related, but their correspondence is interpretive rather than exact, especially when applied to complex climate-model ensembles. This section develops that connection and uses it to organize the large-ensemble, fixed-scenario, and distribution-based framework adopted in the analysis.
+
+#### Statistical Concepts of Uncertainty
+
+A common statistical distinction is between aleatoric and epistemic uncertainty.
+
+**Aleatoric uncertainty** refers to stochastic variation that remains under a given information set. In probabilistic terms, it can be represented by the conditional distribution of an outcome $Y$ given available information $X=x$, with its magnitude often summarized by the conditional variance,
+
+$$
+\operatorname{Var}(Y \mid X=x).
+$$
+
+If this conditional distribution is not concentrated at a single value, the outcome cannot be predicted exactly even when the underlying relationship is known [@Gruber2025].
+
+**Epistemic uncertainty**, in contrast, arises from incomplete knowledge about the process being represented. It may reflect imperfect model structure, missing information, omitted processes, or simplifying assumptions, and may in principle be reduced as knowledge, observations, or models improve [@Gruber2025]. The distinction between aleatoric and epistemic uncertainty is nevertheless context-dependent. Variation that appears irreducible under one information set may become partly explainable when additional information is available. The classification therefore depends on the model, the data, and the information being conditioned on.
+
+The aleatoric--epistemic distinction is useful for organizing sources of uncertainty, but it does not imply that all sources can be separated cleanly or combined through a general additive decomposition [@Gruber2025]. More generally, uncertainty can be represented through probability distributions and summarized using measures such as variance, standard deviation, intervals, and probabilities. The following section relates these statistical concepts to the main uncertainty sources in climate projections.
+
+#### Climate-Specific Uncertainty and Its Statistical Interpretation
+
+Climate projections are commonly affected by three broad sources of uncertainty: internal variability, model uncertainty, and scenario uncertainty [@Hawkins2009]. These sources arise from different parts of the climate-projection process and can be related, with appropriate qualifications, to the statistical concepts introduced above.
+
+**Internal variability** refers to fluctuations generated by the inherently chaotic dynamics of the climate system. Under the same model structure and external forcing, small differences in initial conditions can lead to different climate trajectories. In a single-model initial-condition large ensemble, the resulting spread among ensemble members therefore represents variability that remains when model structure and forcing are held fixed [@Gruber2026]. In this conditional sense, internal variability has an aleatoric-like interpretation because it represents stochastic variation within the modeled climate system. This interpretation is not exact, however, because it depends on how well the climate model represents the underlying stochastic dynamics of the real climate system [@Gruber2026]. The magnitude of this member-to-member variability also depends on the spatial and temporal scale of the climate quantity being analyzed [@Hawkins2009].
+
+**Model uncertainty** describes differences in the simulated forced response across climate models exposed to comparable external forcing [@Hawkins2009]. These differences may arise from model structure, parameterizations, representations of physical processes, and climate feedbacks. From a statistical perspective, model uncertainty has an epistemic-like interpretation because it reflects incomplete knowledge about how the climate system should be represented [@Gruber2025]. In a multi-model large ensemble, differences among model-specific responses can therefore provide an empirical representation of model uncertainty. However, the spread among a finite set of climate models should not be interpreted as the full epistemic uncertainty associated with the real climate system.
+
+**Scenario uncertainty** arises from differences among possible future forcing pathways. Future emissions, land use, and other external drivers are not known in advance, and alternative pathways can therefore produce different climate responses [@Hawkins2009]. Unlike internal variability, scenario uncertainty does not describe stochastic variation among realizations under the same forcing. It is more appropriately interpreted as uncertainty associated with alternative conditioning pathways. Because the present analysis later conditions on a single forcing pathway, scenario uncertainty is outside the empirical decomposition considered in this study.
+
+The relationship between statistical and climate-specific uncertainty can therefore be summarized as follows:
+
+| Climate uncertainty source | Statistical interpretation | Role in this study            |
+|:----------------------|:----------------------|:-------------------------|
+| Internal variability       | Aleatoric-like             | Within-model member variation |
+| Model uncertainty          | Epistemic-like             | Spread among model responses  |
+| Scenario uncertainty       | Conditional pathway        | Held fixed in the analysis    |
+
+: (#tab:unc-uncertainty-category) Conceptual relationship between climate-specific and statistical uncertainty.
+
+These correspondences provide a useful framework for organizing the analysis, but they should not be treated as strict identities. Whether a source is interpreted as aleatoric or epistemic depends on the model, available information, and conditioning assumptions [@Gruber2025]. The next section translates these concepts into the hierarchical structure of multi-model large ensembles and defines the climate quantity to which the uncertainty is attached.
+
+#### Hierarchical Large-Ensemble Framework
+
+The structure of a multi-model large ensemble provides a natural way to distinguish within-model from between-model variation. For regional summer warming, this structure can be represented conceptually as
+
+```{=tex}
+\begin{equation}
+Y_{m,r,R,P}
+=
+\mu_{R,P}
++
+a_{m,R,P}
++
+\varepsilon_{m,r,R,P},
+(\#eq:unc-hierarchical-framework)
+\end{equation}
+```
+where $Y_{m,r,R,P}$ denotes period-mean regional JJA warming for model $m$, ensemble member $r$, region $R$, and future period $P$. The term $\mu_{R,P}$ represents the multi-model mean forced response, $a_{m,R,P}$ represents the model-specific deviation from this mean, and $\varepsilon_{m,r,R,P}$ represents the member-specific deviation associated with internal variability. Equation \@ref(eq:unc-hierarchical-framework) therefore separates variation across model responses from variation among members of the same model.
+
+Within a single-model initial-condition large ensemble, members share the same model formulation and external forcing but follow different trajectories because of small differences in initial conditions. Member-to-member variation can therefore be used to characterize internal variability, while averaging across members reduces the influence of individual internal fluctuations and provides an estimate of the model-specific forced response [@Gruber2026; @Deser2020]. Because the ensemble is finite, the ensemble mean remains an estimate rather than the exact forced response.
+
+Extending this structure across several climate models introduces a second level of variation. Differences among model-specific ensemble means represent differences in simulated forced responses, while variation around each model mean represents within-model internal variability. Multiple large ensembles therefore separate these two levels more clearly than collections of single realizations, where internal fluctuations and differences in forced responses can be difficult to distinguish [@Lehner2020].
+
+Because the models contain different numbers of ensemble members, model-level and member-level information should be treated separately rather than pooling all members with equal influence across models. The equal-model weighting design is described in Section 2.4, while the corresponding estimators are introduced in the Methods section.
+
+#### Fixed-Scenario and Distributional Interpretation
+
+When the analysis is conditioned on a single future forcing pathway, differences among alternative scenarios fall outside the quantities being estimated. The resulting uncertainty should therefore be interpreted as conditional on that pathway rather than as the complete uncertainty associated with future climate projections [@Hawkins2009].
+
+Within this conditional setting, the analysis focuses on two sources of variation identified above: internal variability within climate models and differences in forced responses across models. The variance decomposition used later provides an operational way to quantify the magnitude and relative contribution of these components. It is specific to the climate-ensemble framework adopted in this study and should not be interpreted as a general additive decomposition of aleatoric and epistemic uncertainty.
+
+Variance decomposition alone, however, does not fully describe the projected warming distribution. A distributional perspective complements source-based decomposition by considering both the location and spread of possible warming outcomes [@Tebaldi2007]. Prediction ranges describe the absolute spread of the distribution, signal-to-noise ratios compare the warming signal with uncertainty, and threshold exceedance probabilities describe the position of the distribution relative to specified warming levels [@Hawkins2009].
+
+These diagnostics provide complementary views of the same regional warming distribution: how uncertain it is, how clearly the warming signal emerges relative to that uncertainty, and where the projected outcomes lie relative to selected thresholds. Their specific definitions and estimators are introduced in the Methods section.
+
+### Study Aim and Research Questions
+
+Building on the conceptual framework above, this section defines the focus of the seminar work and translates it into research questions on regional summer warming and its uncertainty.
+
+**Study Aim**
+
+This seminar work aims to quantify, decompose, and interpret fixed-scenario uncertainty in projected regional JJA temperature change across selected European IPCC AR6 reference regions. The study applies established large-ensemble methods to distinguish internal variability from differences among model responses and to interpret the resulting warming distribution.
+
+**Study Scope**
+
+The study uses monthly near-surface air temperature (`tas`) from five CMIP6 large-ensemble models in MMLEAv2, comprising 166 ensemble members under SSP370. The analysis covers Northern Europe (NEU), Western and Central Europe (WCE), and the Mediterranean (MED), with warming calculated relative to the 1995--2014 baseline for three 20-year future periods: 2021--2040, 2041--2060, and 2081--2100. The analysis focuses on internal variability and model uncertainty and complements their decomposition with prediction ranges, internal and total signal-to-noise ratios, and exceedance probabilities for $2^\circ\mathrm{C}$ and $3^\circ\mathrm{C}$ warming.
+
+**Research Questions**
+
+The study is guided by three research questions:
+
+**RQ1: Warming magnitude.** How much does regional JJA temperature increase relative to the 1995--2014 baseline across the selected regions and future periods?
+
+**RQ2: Uncertainty magnitude and source.** How large are internal variability, model uncertainty, and total fixed-scenario projection uncertainty in 20-year mean warming, and how do their relative contributions vary across regions and periods?
+
+**RQ3: Interpretation of projection uncertainty.** How can the projected regional warming distribution be interpreted through prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities?
+
+**Analytical Approach**
+
+The analysis follows a consistent workflow from climate-model output to uncertainty interpretation. Monthly gridded `tas` is first aggregated to regional annual JJA temperature and then expressed as future-period warming relative to the 1995--2014 baseline. Ensemble information is used to distinguish model-specific forced responses, within-model internal variability, and between-model differences in forced responses. Multi-model quantities are constructed with equal model influence, while the resulting warming distribution is interpreted using prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities. Robustness is assessed through hierarchical bootstrap and balanced 20-member subsampling.
+
+## Data and Study Design
+
+This chapter describes the data and study design used to define the regional climate projections analyzed in this work. It introduces the ensemble dataset, model and member selection, spatial and temporal domains, and the conditioning and weighting choices that determine the scope of the subsequent uncertainty analysis.
+
+### MMLEAv2 Dataset and Climate Variable
+
+The analysis uses the Multi-Model Large Ensemble Archive Version 2 (MMLEAv2), an updated collection of initial-condition large ensembles designed to facilitate comparison across climate models [@Maher2025]. The archive contains multiple climate models and ensemble members on a common $2.5^\circ \times 2.5^\circ$ horizontal grid and provides a range of monthly climate variables [@Maher2025]. The variable used in this study is monthly near-surface air temperature (`tas`).
+
+For the selected model ensemble, historical simulations are used to establish the reference-period climate, while SSP370 simulations provide the data for the future periods. The original gridded data are organized hierarchically by climate model, ensemble member, year, month, and grid cell. This structure preserves both repeated realizations within individual models and differences across models.
+
+MMLEAv2 is therefore well suited to the uncertainty framework developed in Section 1.2. Multiple members within the same model provide information on within-model variability, whereas the availability of multiple large ensembles allows differences among model responses to be examined [@Maher2025]. The statistical inference in this study is conditional on the selected subset of MMLEAv2 models and simulations, which is described in the following section.
+
+### Model and Ensemble-Member Selection
+
+Five CMIP6 large ensembles from MMLEAv2 were selected for the main analysis, giving a total of 166 ensemble members. The selected models and ensemble sizes are summarized in Table \@ref(tab:unc-model-members).
+
+| Model         | Members used |
+|:--------------|:-------------|
+| ACCESS-ESM1-5 | 40           |
+| CanESM5       | 25           |
+| CESM2 (CMIP6) | 50           |
+| E3SMv2        | 21           |
+| MPI-ESM1-2-LR | 30           |
+
+: (#tab:unc-model-members) Selected climate models and ensemble-member counts used in the main analysis.
+
+Thus,
+
+$$
+M=5,
+\qquad
+N=166.
+$$
+
+Member selection was based on the availability of the historical and SSP370 simulations required for the analysis, with additional consistency rules for CESM2 and CanESM5. For CESM2, the large ensemble contains two groups of 50 members that differ in their treatment of biomass-burning forcing. The present study uses the 50 members following the original CMIP6 biomass-burning forcing protocol, thereby avoiding the combination of the two forcing configurations within a single model ensemble [@Rodgers2021]. For CanESM5, one consistent group of 25 `p1` members is used. The `p1` and `p2` ensembles differ in the remapping of wind-stress fields, so restricting the analysis to one variant avoids treating this configuration difference as internal variability [@Swart2019]. For ACCESS-ESM1-5, E3SMv2, and MPI-ESM1-2-LR, the available members with the required historical and SSP370 data are retained.
+
+The ensemble sizes therefore differ considerably across models. Directly pooling all 166 members with equal member weight would give greater influence to models with larger ensembles, particularly CESM2 and ACCESS-ESM1-5. Multi-model quantities are instead constructed so that each climate model receives the same total analytical weight. The formal weighting scheme is described in Section 2.4.
+
+### Study Regions and Time Periods
+
+The analysis focuses on three European reference regions from the IPCC AR6 regional framework: Northern Europe (NEU), Western and Central Europe (WCE), and the Mediterranean (MED) [@Iturbide2020]. These standardized regions provide a consistent basis for comparing regional climate-model output and allow differences in projected warming and uncertainty to be examined across northern, central, and southern Europe. The spatial extent of the three study regions is shown in Figure \@ref(fig:unc-study-region-map).
+
+```{r unc-study-region-map, echo=FALSE, fig.cap="Study regions used in the analysis: NEU, WCE, and MED.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig01_study_region_map.png")
+```
+
+The baseline period is defined as
+
+$$
+P_0 = 1995\text{--}2014.
+$$
+
+Projected warming is evaluated for three 20-year future periods,
+
+$$
+P_1 = 2021\text{--}2040,
+\qquad
+P_2 = 2041\text{--}2060,
+\qquad
+P_3 = 2081\text{--}2100.
+$$
+
+These periods represent the near-term, mid-term, and late-century projection windows used in this study and are consistent with the time-slice framework used in the IPCC AR6 assessment [@IPCC2021]. All temperature changes are calculated relative to the 1995--2014 baseline.
+
+The $2^\circ\mathrm{C}$ and $3^\circ\mathrm{C}$ thresholds considered later in the analysis refer specifically to regional JJA warming relative to 1995--2014. They should therefore not be interpreted as global warming levels relative to the pre-industrial period.
+
+### Fixed-Scenario Design and Equal Model Weighting
+
+All future simulations in this study follow the SSP3-7.0 forcing pathway, identified as `ssp370` in CMIP6. SSP3-7.0 is part of the ScenarioMIP design for CMIP6 and represents a relatively high-forcing future pathway [@ONeill2016]. Because only one forcing pathway is considered, differences among alternative future scenarios are not sampled in the present analysis. Scenario uncertainty is therefore outside the uncertainty decomposition used in this study [@Hawkins2009].
+
+The resulting uncertainty estimates are interpreted as **total fixed-scenario projection uncertainty**. They describe uncertainty associated with internal variability and differences among the selected model responses under the same forcing pathway, rather than the full uncertainty across alternative future scenarios. The formal variance decomposition is introduced later in the Methods section.
+
+Because the five models contain different numbers of ensemble members, the analysis gives each model equal total influence in multi-model summaries rather than pooling all members with equal weight across models. Model-level information is therefore combined using equal model weighting, while members within each model contribute within that model's share. This prevents models with larger ensembles from receiving greater influence solely because they contain more members, but it does not imply that the five models are equally accurate [@Tebaldi2007].
+
+The resulting inference is conditional on the SSP3-7.0 pathway, the five selected climate models, JJA temperature, and the three European study regions. Together with the spatial and temporal domains defined above, these conditions specify the scope within which the subsequent uncertainty estimates and distributional diagnostics are interpreted.
+
+## Methods
+
+Building on the data and study design described above, this chapter defines the statistical procedures used to construct the regional JJA warming indicator and quantify its uncertainty. The analysis proceeds from temperature aggregation and warming calculation to forced-response estimation, uncertainty decomposition, distribution-based diagnostics, and robustness assessment.
+
+### Analytical Framework and Statistical Targets
+
+The analysis is organized around the hierarchical structure of the multi-model large ensemble. Let $m$ denote the climate model, $r$ the ensemble member, $R$ the study region, and $P$ the future period. The indices $y$ and $g$ are used below for year and grid cell, respectively.
+
+The core response variable is
+
+$$
+Y_{m,r,R,P},
+$$
+
+which represents the 20-year mean regional JJA warming for model $m$, member $r$, region $R$, and period $P$, relative to the 1995--2014 baseline. The detailed construction of this quantity from monthly gridded `tas` is given in Section 3.2. Importantly, the uncertainty analyzed below therefore concerns member-to-member variation in 20-year mean warming rather than year-to-year JJA temperature variability.
+
+The main statistical targets are the model-specific forced response $\overline{Y}_{m,R,P}$, the equal-model-weighted multi-model response $\overline{Y}_{\cdot,R,P}$, and the internal, model, and total fixed-scenario uncertainty components $U_{\mathrm{internal},R,P}$, $U_{\mathrm{model},R,P}$, and $U_{\mathrm{total},R,P}$. Their relative contributions are evaluated using variance contribution rates. The same model-member warming values are then used to characterize the projection distribution through prediction quantiles, signal-to-noise ratios, and threshold exceedance probabilities.
+
+The overall analytical workflow is summarized in Figure \@ref(fig:unc-workflow).
+
+```{r unc-workflow, echo=FALSE, fig.cap="Analytical Sequence", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/workflow.png")
+```
+
+### Construction of the Regional Summer Warming Indicator
+
+The core response variable is constructed from monthly gridded `tas` in two stages. First, monthly temperature is aggregated to annual regional JJA mean temperature using seasonal and spatial weighting; second, temperature anomalies relative to the 1995--2014 baseline are averaged over each 20-year future period. These steps produce a consistent regional warming indicator for each model and ensemble member.
+
+#### JJA and Spatial Aggregation
+
+Monthly `tas` values were first converted from kelvin to degrees Celsius where necessary,
+
+$$
+T(^\circ\mathrm{C})
+=
+T(\mathrm{K})-273.15.
+$$
+
+Because temperature differences have the same numerical magnitude in kelvin and degrees Celsius, this conversion does not affect the later warming anomalies.
+
+For each model, ensemble member, year, and grid cell, summer temperature was calculated from June, July, and August using the number of days in each month. Under the JJA weighting used in this analysis,
+
+$$
+T^{\mathrm{JJA}}_{m,r,y,g}
+=
+\frac{
+30T_{m,r,y,6,g}
++
+31T_{m,r,y,7,g}
++
+31T_{m,r,y,8,g}
+}{92},
+$$
+
+where $T_{m,r,y,k,g}$ denotes the monthly mean temperature for month $k$ at grid cell $g$.
+
+The gridded JJA values were then aggregated to the study regions using cosine-latitude weights. For grid cell $g$ in region $R$, the normalized spatial weight is
+
+$$
+w_g
+=
+\frac{\cos(\phi_g)}
+{\sum_{h\in R}\cos(\phi_h)},
+$$
+
+where $\phi_g$ is the latitude of the grid-cell center and the weights satisfy
+
+$$
+\sum_{g\in R} w_g = 1.
+$$
+
+The annual regional JJA mean temperature is therefore
+
+$$
+I_{m,r,y,R}
+=
+\sum_{g\in R}
+w_g T^{\mathrm{JJA}}_{m,r,y,g}.
+$$
+
+This procedure produces one regional JJA mean temperature for each model, ensemble member, year, and study region. These annual regional values are used in the next step to calculate baseline-relative anomalies and 20-year period-mean warming.
+
+#### Baseline Anomalies and Period Means
+
+For each model, ensemble member, and region, the reference climate is defined as the mean regional JJA temperature over the 1995--2014 baseline period $P_0$,
+
+$$
+I_{m,r,P_0,R}
+=
+\frac{1}{|P_0|}
+\sum_{y\in P_0}
+I_{m,r,y,R},
+$$
+
+where $|P_0|=20$. Calculating the baseline separately for each model and ensemble member allows the analysis to focus on simulated temperature change rather than differences in absolute climatology.
+
+Annual JJA temperature anomalies are then calculated relative to the corresponding baseline,
+
+$$
+\Delta I_{m,r,y,R}
+=
+I_{m,r,y,R}
+-
+I_{m,r,P_0,R}.
+$$
+
+For each future period $P$, the core response variable is defined as the mean anomaly over the 20 years in that period:
+
+```{=tex}
+\begin{equation}
+Y_{m,r,R,P}
+=
+\frac{1}{|P|}
+\sum_{y\in P}
+\Delta I_{m,r,y,R},
+\qquad |P|=20.
+(\#eq:unc-period-mean-warming)
+\end{equation}
+```
+Thus, $Y_{m,r,R,P}$ represents the 20-year mean regional JJA warming for one model and ensemble member relative to 1995--2014. All subsequent forced-response estimates, uncertainty components, and distributional diagnostics are calculated from these period-mean warming values.
+
+### Estimation of Forced Responses and Uncertainty Components
+
+Using the 20-year mean warming values $Y_{m,r,R,P}$, the analysis next separates the projected response into model-specific forced responses and uncertainty components. Ensemble means are used to estimate forced warming, while within-model member variation and between-model differences are used to quantify internal variability and model uncertainty. These components are then combined to characterize total fixed-scenario uncertainty and their relative contributions.
+
+#### Model-Specific and Multi-Model Forced Responses
+
+For each climate model, the model-specific forced response is estimated by averaging the 20-year mean warming values across its ensemble members,
+
+```{=tex}
+\begin{equation}
+\overline{Y}_{m,R,P}
+=
+\frac{1}{n_m}
+\sum_{r=1}^{n_m}
+Y_{m,r,R,P},
+(\#eq:unc-model-forced-response)
+\end{equation}
+```
+where (n_m) is the number of ensemble members available for model (m). Because members of the same model share the same model formulation and external forcing, averaging across members reduces the influence of member-specific internal fluctuations. The resulting ensemble mean is therefore interpreted as an estimate of that model's forced warming response [@Deser2020; @Lehner2020]. Internal variability is not assumed to be completely removed, because the ensemble contains a finite number of members.
+
+The multi-model mean forced response is then calculated from the model-specific ensemble means,
+
+```{=tex}
+\begin{equation}
+\overline{Y}_{\cdot,R,P}
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+\overline{Y}_{m,R,P},
+(\#eq:unc-multimodel-forced-response)
+\end{equation}
+```
+where (M=5) is the number of climate models. Equation \@ref(eq:unc-multimodel-forced-response) gives each model the same total weight, regardless of its ensemble size. The calculation therefore averages within models first and then across models, rather than pooling all 166 ensemble members with equal weight.
+
+The resulting multi-model mean provides an equal-model-weighted summary of the forced warming responses represented by the selected models. Differences between the individual model-specific responses and this multi-model mean form the basis for estimating between-model uncertainty in the following section.
+
+#### Within-Model and Between-Model Variance
+
+Internal variability is estimated from the spread of ensemble members around the model-specific forced response. For each model, region, and future period, the within-model variance is calculated as
+
+```{=tex}
+\begin{equation}
+s^2_{\mathrm{internal},m,R,P}
+=
+\frac{1}{n_m-1}
+\sum_{r=1}^{n_m}
+\left(
+Y_{m,r,R,P}
+-
+\overline{Y}_{m,R,P}
+\right)^2.
+(\#eq:unc-within-model-variance)
+\end{equation}
+```
+Because $Y_{m,r,R,P}$ represents 20-year mean warming, Equation \@ref(eq:unc-within-model-variance) measures member-to-member variability in the 20-year warming response within model $m$, rather than year-to-year temperature variability. This within-model spread provides the operational measure of internal variability used in the analysis [@Deser2020; @Lehner2020].
+
+To prevent models with larger ensembles from contributing more strongly to the multi-model estimate, the model-specific variances are averaged with equal model weight,
+
+```{=tex}
+\begin{equation}
+U_{\mathrm{internal},R,P}
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+s^2_{\mathrm{internal},m,R,P}.
+(\#eq:unc-internal-variance)
+\end{equation}
+```
+The corresponding internal standard deviation is
+
+$$
+\sigma_{\mathrm{internal},R,P}
+=
+\sqrt{U_{\mathrm{internal},R,P}}.
+$$
+
+Model uncertainty is estimated at the second level of the ensemble hierarchy. It is defined from the spread of the model-specific forced-response estimates around the equal-model-weighted multi-model mean,
+
+```{=tex}
+\begin{equation}
+U_{\mathrm{model},R,P}
+=
+\frac{1}{M-1}
+\sum_{m=1}^{M}
+\left(
+\overline{Y}_{m,R,P}
+-
+\overline{Y}_{\cdot,R,P}
+\right)^2.
+(\#eq:unc-model-variance)
+\end{equation}
+```
+with the corresponding standard deviation
+
+$$
+\sigma_{\mathrm{model},R,P}
+=
+\sqrt{U_{\mathrm{model},R,P}}.
+$$
+
+The two quantities therefore describe different levels of variation in the ensemble: $U_{\mathrm{internal},R,P}$ summarizes within-model member variation, whereas $U_{\mathrm{model},R,P}$ summarizes differences among the forced responses of the selected models. Variances are retained for the subsequent uncertainty decomposition, while the corresponding standard deviations express uncertainty magnitude in the same temperature units as the warming response.
+
+#### Total Uncertainty and Contribution Rates
+
+Under the fixed-scenario framework, total projection uncertainty is defined as the sum of the internal and model variance components,
+
+```{=tex}
+\begin{equation}
+U_{\mathrm{total},R,P}
+=
+U_{\mathrm{internal},R,P}
++
+U_{\mathrm{model},R,P}.
+(\#eq:unc-total-variance)
+\end{equation}
+```
+This quantity represents the total variance considered in the present analysis and is therefore conditional on the SSP3-7.0 pathway and the selected climate-model ensemble. The corresponding total standard deviation is
+
+```{=tex}
+\begin{equation}
+\sigma_{\mathrm{total},R,P}
+=
+\sqrt{
+U_{\mathrm{internal},R,P}
++
+U_{\mathrm{model},R,P}
+}.
+(\#eq:unc-total-standard-deviation)
+\end{equation}
+```
+Thus, the two variance components are added before taking the square root. Internal and model standard deviations are not added directly.
+
+To describe the relative importance of the two uncertainty sources, their contributions to total variance are calculated as
+
+```{=tex}
+\begin{equation}
+C_{\mathrm{internal},R,P}
+=
+\frac{
+U_{\mathrm{internal},R,P}
+}{
+U_{\mathrm{total},R,P}
+}.
+(\#eq:unc-internal-contribution)
+\end{equation}
+```
+and
+
+```{=tex}
+\begin{equation}
+C_{\mathrm{model},R,P}
+=
+\frac{
+U_{\mathrm{model},R,P}
+}{
+U_{\mathrm{total},R,P}
+}.
+(\#eq:unc-model-contribution)
+\end{equation}
+```
+By construction,
+
+$$
+C_{\mathrm{internal},R,P}
++
+C_{\mathrm{model},R,P}
+=
+1.
+$$
+
+The contribution rates are relative measures and therefore depend on both variance components. A change in the internal contribution, for example, does not necessarily imply a corresponding change in the absolute magnitude of internal variability. The variance decomposition describes the magnitude and source of fixed-scenario uncertainty; the following section complements it with distribution-based measures of projection spread and interpretation.
+
+### Distribution-Based Interpretation of Projection Uncertainty
+
+Variance decomposition describes the magnitude and sources of projection uncertainty, but it does not fully characterize the distribution of possible warming outcomes. The analysis therefore complements the variance-based measures with prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities, which describe the distributional spread, the clarity of the warming signal, and the position of projected warming relative to specified thresholds.
+
+#### Equal-Model-Weighted Prediction Ranges
+
+To describe the distribution of projected warming directly, the model-member warming values are combined into an equal-model-weighted empirical distribution. For region $R$ and future period $P$, the empirical cumulative distribution function is defined as
+
+```{=tex}
+\begin{equation}
+F_{R,P}(y)
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+\frac{1}{n_m}
+\sum_{r=1}^{n_m}
+\mathbf{1}
+\left(
+Y_{m,r,R,P}\le y
+\right),
+(\#eq:unc-empirical-mixture)
+\end{equation}
+```
+where $\mathbf{1}(\cdot)$ is the indicator function. This construction assigns each model a total weight of $1/M$, while the members within model $m$ share that weight equally. It therefore preserves equal model influence despite differences in ensemble size.
+
+Weighted quantiles are obtained from Equation \@ref(eq:unc-empirical-mixture) as
+
+$$
+Q_{q,R,P}
+=
+F^{-1}_{R,P}(q),
+\qquad
+q\in\{0.05,0.50,0.95\}.
+$$
+
+Here, $Q_{0.50,R,P}$ is the weighted median, while the 5th and 95th percentiles define the central 90% prediction range,
+
+$$
+\mathrm{PI}_{90,R,P}
+=
+\left[
+Q_{0.05,R,P},
+Q_{0.95,R,P}
+\right].
+$$
+
+The width of this range is
+
+$$
+W_{90,R,P}
+=
+Q_{0.95,R,P}
+-
+Q_{0.05,R,P}.
+$$
+
+Because the empirical distribution contains members from all selected models, the prediction range reflects both within-model member variation and differences among model responses. The range and its width are expressed directly in degrees Celsius and provide an absolute measure of projection spread. They are interpreted as descriptive ensemble-based ranges conditional on SSP3-7.0 and the selected model ensemble, rather than as confidence intervals for an unknown population parameter [@Tebaldi2007].
+
+#### Signal-to-Noise Ratios
+
+Signal-to-noise ratios are used to compare the magnitude of projected warming with the uncertainty surrounding that response. For each region and future period, the signal is defined as the absolute equal-model-weighted multi-model mean warming,
+
+$$
+\mathrm{Signal}_{R,P}
+=
+\left|
+\overline{Y}_{\cdot,R,P}
+\right|.
+$$
+
+Two noise scales are considered. The internal signal-to-noise ratio compares the warming signal with the standard deviation associated with within-model internal variability,
+
+```{=tex}
+\begin{equation}
+\mathrm{SNR}^{\mathrm{internal}}_{R,P}
+=
+\frac{
+\left|
+\overline{Y}_{\cdot,R,P}
+\right|
+}{
+\sigma_{\mathrm{internal},R,P}
+}.
+(\#eq:unc-internal-snr)
+\end{equation}
+```
+Equation \@ref(eq:unc-internal-snr) therefore measures how large the projected 20-year mean warming is relative to member-to-member variability within the climate models. A larger value indicates that the warming signal is more clearly separated from this internal variability.
+
+The total signal-to-noise ratio additionally incorporates differences among model forced responses by using the total fixed-scenario standard deviation,
+
+```{=tex}
+\begin{equation}
+\mathrm{SNR}^{\mathrm{total}}_{R,P}
+=
+\frac{
+\left|
+\overline{Y}_{\cdot,R,P}
+\right|
+}{
+\sigma_{\mathrm{total},R,P}
+}.
+(\#eq:unc-total-snr)
+\end{equation}
+```
+Equation \@ref(eq:unc-total-snr) measures signal clarity relative to the combined internal and model uncertainty considered in this study. Comparing the two ratios therefore distinguishes signal clarity relative to internal variability from signal clarity after between-model disagreement is also included.
+
+The ratios are interpreted descriptively: values below one indicate that the selected uncertainty scale is larger than the signal, values near one indicate similar magnitudes, and values above one indicate that the signal is larger than the selected uncertainty scale. An SNR greater than one is not a formal significance criterion or hypothesis test.
+
+The definitions used here are standard-deviation-based SNR measures, consistent with large-ensemble applications that compare the magnitude of an ensemble-mean signal with ensemble spread [@McKinnon2018; @McKinnon2021]. They differ from the 90%-uncertainty scaling used in the SNR formulation of Hawkins and Sutton, so numerical SNR values should be interpreted according to the definition applied here [@Hawkins2009].
+
+#### Threshold Exceedance Probabilities
+
+Threshold exceedance probabilities are used to describe the position of the projected warming distribution relative to selected warming levels. The thresholds considered in this analysis are
+
+$$
+\theta
+\in
+\left\{
+2^\circ\mathrm{C},
+3^\circ\mathrm{C}
+\right\}.
+$$
+
+As defined in Section 2.3, these thresholds refer to 20-year mean regional JJA warming relative to the 1995--2014 baseline.
+
+For each model, the exceedance probability is estimated as the proportion of ensemble members whose period-mean warming exceeds threshold $\theta$,
+
+```{=tex}
+\begin{equation}
+p_{m,R,P}(\theta)
+=
+\frac{1}{n_m}
+\sum_{r=1}^{n_m}
+\mathbf{1}
+\left(
+Y_{m,r,R,P}>\theta
+\right),
+(\#eq:unc-model-threshold-probability)
+\end{equation}
+```
+where $\mathbf{1}(\cdot)$ is the indicator function. The multi-model exceedance probability is then obtained by averaging the model-level probabilities with equal model weight,
+
+```{=tex}
+\begin{equation}
+p_{R,P}(\theta)
+=
+\frac{1}{M}
+\sum_{m=1}^{M}
+p_{m,R,P}(\theta).
+(\#eq:unc-weighted-threshold-probability)
+\end{equation}
+```
+Equation \@ref(eq:unc-weighted-threshold-probability) ensures that each climate model contributes equally to the final probability, regardless of its number of ensemble members. The resulting value can be interpreted as the fraction of the equal-model-weighted warming distribution lying above the specified threshold.
+
+Threshold exceedance probability depends on both the location and the spread of the warming distribution. It therefore complements the prediction ranges and signal-to-noise ratios by describing how much of the projected distribution lies beyond a specified warming level. These probabilities are empirical, ensemble-based quantities conditional on SSP3-7.0 and the selected five-model ensemble.
+
+### Robustness and Sensitivity Assessment
+
+Two complementary analyses are used to assess the robustness of the main statistical results. A hierarchical bootstrap evaluates the stability of the estimated quantities under resampling of models and ensemble members, while a balanced-member sensitivity analysis examines whether unequal ensemble sizes materially affect the results. Together, these analyses assess whether the main findings are sensitive to the finite model-member sample and the ensemble-size structure of the dataset.
+
+#### Hierarchical Bootstrap
+
+A hierarchical bootstrap is used to assess the stability of the estimated uncertainty measures and distributional diagnostics under the finite model-member sample. The resampling procedure follows the two-level structure of the multi-model large ensemble by treating climate models as the first level and ensemble members within each model as the second level [@Saravanan2020].
+
+For bootstrap replicate $b$, $M=5$ models are first sampled with replacement from the five models used in the main analysis,
+
+$$
+m^{*(b)}_1,
+m^{*(b)}_2,
+\ldots,
+m^{*(b)}_M.
+$$
+
+For each selected model occurrence, ensemble members are then sampled with replacement from that model using its original ensemble size $n_m$. If the same model is selected more than once at the model level, each occurrence is treated as a separate bootstrap draw and its members are resampled independently.
+
+For each bootstrap replicate, the analysis recalculates the internal, model, and total uncertainty components, their contribution rates, the internal and total signal-to-noise ratios, and the threshold exceedance probabilities. This produces bootstrap replicates of each target statistic,
+
+$$
+Q^{*(1)},Q^{*(2)},\ldots,Q^{*(B)},
+$$
+
+with
+
+$$
+B=1000.
+$$
+
+For any target statistic $Q$, a 95% bootstrap percentile interval is obtained from the 2.5th and 97.5th percentiles of its bootstrap distribution [@Efron1993],
+
+$$
+\mathrm{CI}_{95\%}(Q)
+=
+\left[
+Q^*_{2.5\%},
+Q^*_{97.5\%}
+\right].
+$$
+
+These intervals are used to evaluate whether the main estimates and qualitative patterns remain stable when models and ensemble members are resampled. They are interpreted as resampling-based measures conditional on the selected five-model ensemble and do not represent uncertainty across all possible climate-model structures or forcing scenarios.
+
+#### Balanced-Member Sensitivity Analysis
+
+A balanced-member sensitivity analysis is used to examine whether differences in ensemble size across the five climate models affect the main uncertainty estimates. The full analysis uses 40, 25, 50, 21, and 30 members across the five models, respectively. Although equal model weighting prevents models with larger ensembles from receiving greater total weight, the precision of within-model estimates can still vary with the number of available members. Repeated subsampling therefore provides an additional check on sensitivity to ensemble-size imbalance [@Milinski2020; @Lehner2020].
+
+For each subsampling run, 20 ensemble members are randomly selected without replacement from each model,
+
+$$
+n_m^{\mathrm{sub}}=20.
+$$
+
+Because all five models contain at least 21 selected members, the same subsample size can be applied to every model. Each balanced run therefore contains
+
+$$
+N^{\mathrm{sub}}
+=
+5\times20
+=
+100
+$$
+
+ensemble members.
+
+The subsampling procedure is repeated
+
+$$
+s=1,2,\ldots,S,
+\qquad
+S=100.
+$$
+
+For each run, the same estimators as in the main analysis are recalculated for each region and future period, including
+
+$$
+U_{\mathrm{internal},R,P}^{(s)},
+\qquad
+U_{\mathrm{model},R,P}^{(s)},
+\qquad
+U_{\mathrm{total},R,P}^{(s)},
+$$
+
+$$
+C_{\mathrm{internal},R,P}^{(s)},
+\qquad
+C_{\mathrm{model},R,P}^{(s)},
+$$
+
+and
+
+$$
+\mathrm{SNR}^{\mathrm{internal},(s)}_{R,P},
+\qquad
+\mathrm{SNR}^{\mathrm{total},(s)}_{R,P}.
+$$
+
+For each statistic $Q$, the balanced-member estimate is summarized by the mean across the 100 subsampling runs,
+
+$$
+\overline{Q}^{\mathrm{sub}}
+=
+\frac{1}{S}
+\sum_{s=1}^{S}
+Q^{(s)}.
+$$
+
+These balanced-member estimates are compared with the corresponding estimates from the full-member analysis. Absolute differences and full-versus-balanced comparisons are used to assess whether the main results are materially affected by the unequal original ensemble sizes. This analysis is intended specifically as a sensitivity check for ensemble-member imbalance; it does not assess uncertainty associated with model selection, model dependence, or forcing scenarios.
+
+## Results
+
+The results are presented from projected warming magnitude to the structure and consequences of projection uncertainty. The analysis first compares regional and model-specific warming responses, then examines internal, model, and total uncertainty, followed by distribution-based diagnostics and robustness assessments.
+
+### Projected Warming and Divergence among Model Responses
+
+Regional JJA warming increases across all three future periods and study regions (Figure \@ref(fig:unc-regional-jja-warming)). The equal-model-weighted multi-model mean is positive throughout and rises steadily from the near term to the late century.
+
+```{r unc-regional-jja-warming, echo=FALSE, fig.cap="Regional JJA warming across the three future periods. Gray lines show model-specific forced responses, while the highlighted line shows the equal-model-weighted multi-model mean.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig02_regional_jja_warming_timeseries.png")
+```
+
+The regional ranking is consistent across the three periods: WCE shows the largest multi-model mean warming, followed by MED and NEU. By 2081--2100, mean warming ranges from about $4.0^\circ\mathrm{C}$ in NEU to about $5.4^\circ\mathrm{C}$ in WCE, showing substantial but spatially uneven regional summer warming.
+
+The multi-model mean does not show how strongly the individual model responses differ. Figure \@ref(fig:unc-model-forced-response) therefore compares the model-specific forced responses directly. All five models project increasing warming, but their responses separate more clearly with projection lead time.
+
+```{r unc-model-forced-response, echo=FALSE, fig.cap="Model-specific forced regional JJA warming responses across the three study regions and future periods.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig03_model_forced_response.png")
+```
+
+The divergence is strongest toward the late century and is particularly pronounced in NEU, where the model-specific responses span roughly $2.2$--$6.1^\circ\mathrm{C}$. Thus, the selected models consistently project substantial regional summer warming under SSP3-7.0, while differing considerably in its magnitude. This increasing separation among model-specific forced responses provides the empirical basis for the model-uncertainty results examined in the following section.
+
+### Changing Structure of Projection Uncertainty
+
+The uncertainty components show different temporal patterns. Internal variability remains relatively stable across the three future periods, while model uncertainty increases substantially with projection lead time. As a result, total fixed-scenario uncertainty also increases over time and becomes increasingly dominated by differences among model responses.
+
+Internal standard deviation varies more across regions than across future periods. MED consistently shows the lowest internal variability, while NEU and WCE show somewhat larger within-model spread (Figure \@ref(fig:unc-internal-variability)). Despite these regional differences, there is little evidence of a strong temporal increase in internal variability.
+
+```{r unc-internal-variability, echo=FALSE, fig.cap="Internal variability in 20-year mean regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig04_internal_variability.png")
+```
+
+Model uncertainty shows a much clearer temporal increase (Figure \@ref(fig:unc-model-uncertainty)). The spread among model-specific forced responses becomes wider from the near term to the late century in all regions, with the strongest increase in NEU. Regional contrasts in model uncertainty therefore become more pronounced toward the end of the century.
+
+```{r unc-model-uncertainty, echo=FALSE, fig.cap="Model uncertainty in regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig05_model_uncertainty.png")
+```
+
+The contribution rates confirm that model uncertainty is the larger variance component throughout the analysis (Figure \@ref(fig:unc-uncertainty-decomposition)). Its contribution increases with projection lead time, while the relative contribution of internal variability declines. By the late century, model uncertainty accounts for more than 90% of total variance in all three regions. This change is mainly driven by the growth of model variance rather than by a strong decline in the absolute magnitude of internal variability.
+
+```{r unc-uncertainty-decomposition, echo=FALSE, fig.cap="Relative contributions of internal variability and model uncertainty to total fixed-scenario projection variance.", out.width="80%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig06_uncertainty_decomposition.png")
+```
+
+Total uncertainty increases across the century in all regions and follows the temporal pattern of model uncertainty closely (Figure \@ref(fig:unc-total-uncertainty)). NEU has the highest total uncertainty across the three periods and also shows the strongest late-century spread. Overall, the results indicate that internal variability remains comparatively stable, whereas growing differences among model responses increasingly determine the width of the fixed-scenario projection uncertainty.
+
+```{r unc-total-uncertainty, echo=FALSE, fig.cap="Total fixed-scenario projection uncertainty, expressed as standard deviation, across regions and future periods.", out.width="50%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig07_total_uncertainty_heatmap.png")
+```
+
+### Consequences of Uncertainty for Projection Interpretation
+
+To examine what the changing uncertainty structure means for regional climate projections, the analysis next considers the warming distributions beyond their variance components alone. The results are evaluated through prediction ranges, signal-to-noise ratios, and threshold exceedance probabilities, which describe projection spread, signal clarity, and the position of projected warming relative to selected thresholds.
+
+#### Widening Projection Ranges and Regional Contrasts
+
+The equal-model-weighted warming distributions widen from the near term to the late century in all three regions (Figure \@ref(fig:unc-prediction-ranges)). The increase is most pronounced in NEU, while MED consistently shows the narrowest distribution and WCE remains intermediate.
+
+```{r unc-prediction-ranges, echo=FALSE, fig.cap="Equal-model-weighted distributions of 20-year mean regional JJA warming and central 90% prediction ranges across regions and future periods.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig08_warming_distribution_prediction_ranges.png")
+```
+
+Regional contrasts become clearest in the late-century period. NEU has the widest central 90% prediction range, reaching a width of about $4.3^\circ\mathrm{C}$, even though its multi-model mean warming is lower than in MED and WCE. WCE, by contrast, shows the highest mean warming but not the widest projection range. This demonstrates that the magnitude of projected warming and the spread of projected outcomes do not necessarily change together.
+
+The weighted medians remain broadly close to the corresponding multi-model mean warming values across regions and periods. This indicates that the centers of the empirical distributions are generally similar under the two summaries, without implying that the distributions are normally distributed. Overall, the results show a clear widening of projection ranges over time together with persistent regional differences in both central warming and distributional spread.
+
+#### Signal Emergence and Total Signal Clarity
+
+The signal-to-noise ratios show that the projected warming signal is larger than the selected uncertainty scale in all regions and future periods. Total SNR is greater than one for every region-period combination, indicating that mean regional warming exceeds total fixed-scenario uncertainty as measured by the total standard deviation (Figure \@ref(fig:unc-total-snr)).
+
+```{r unc-total-snr, echo=FALSE, fig.cap="Total signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig09_total_snr.png")
+```
+
+Clear regional differences remain after both internal and model uncertainty are included. NEU has the lowest total SNR across the three periods, whereas MED and WCE show substantially clearer signals by the late century. Thus, warming is evident relative to total fixed-scenario uncertainty in all three regions, but the clarity of its projected magnitude differs regionally.
+
+Internal SNR is much higher than total SNR in all regions, particularly in the later periods (Figure \@ref(fig:unc-internal-snr)). This indicates that the warming signal is large relative to member-to-member variability in 20-year mean warming.
+
+```{r unc-internal-snr, echo=FALSE, fig.cap="Internal signal-to-noise ratios for regional JJA warming across regions and future periods.", out.width="65%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig10_internal_snr.png")
+```
+
+The contrast between the two SNR measures is consistent across the regional projections. Internal variability alone produces relatively little ambiguity about the direction of warming, while the inclusion of differences among model responses substantially lowers total signal clarity. The warming signal therefore emerges clearly from internal variability, even though uncertainty in its exact magnitude remains larger when model disagreement is included.
+
+#### Distributional Spread and Threshold Risk
+
+Threshold exceedance probabilities increase strongly as the regional warming distributions shift toward higher temperatures (Figure \@ref(fig:unc-threshold-exceedance)). In the near-term period, exceedance of $2^\circ\mathrm{C}$ is uncommon in all three regions, while no ensemble members exceed $3^\circ\mathrm{C}$. By mid-century, the regional contrast becomes clearer: exceedance of $2^\circ\mathrm{C}$ is more likely than not in WCE and MED, but remains below one half in NEU. Exceedance of $3^\circ\mathrm{C}$ is still substantially less likely in all three regions.
+
+```{r unc-threshold-exceedance, echo=FALSE, fig.cap="Equal-model-weighted probabilities that regional 20-year mean JJA warming exceeds 2°C and 3°C relative to the 1995--2014 baseline.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig11_threshold_exceedance_probability.png")
+```
+
+The mid-century distributions help explain these regional differences (Figure \@ref(fig:unc-mid-century-threshold-distributions)). In NEU, much of the model-member distribution remains below the $2^\circ\mathrm{C}$ threshold, whereas larger shares of the WCE and MED distributions lie above it. The $3^\circ\mathrm{C}$ threshold remains in the upper part of all three distributions. Mid-century therefore provides a clear example of how the position of a threshold relative to both the center and spread of a distribution affects exceedance probability.
+
+```{r unc-mid-century-threshold-distributions, echo=FALSE, fig.cap="Mid-century model-member distributions of regional 20-year mean JJA warming relative to the 2°C and 3°C thresholds.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig15b_mid_century_warming_distribution_thresholds.png")
+```
+
+By 2081--2100, both thresholds are exceeded by all ensemble members in MED and WCE. NEU also shows a high probability of exceeding $2^\circ\mathrm{C}$, but its $3^\circ\mathrm{C}$ exceedance probability remains lower, at approximately 60.6%. Its wider warming distribution therefore leaves a substantial share of projected outcomes below the higher threshold even in the late-century period.
+
+Together, the probability estimates and mid-century distributions show that threshold exceedance cannot be inferred from mean warming alone. The resulting probability depends on where the threshold lies within the projected distribution as well as on the distributional spread. These probabilities refer to 20-year mean regional JJA warming relative to 1995--2014 and should therefore be interpreted as conditional, ensemble-based risk-style diagnostics rather than probabilities for individual summers.
+
+### Robustness of the Main Findings
+
+The robustness analyses support the main qualitative patterns identified in the full-member analysis. The hierarchical bootstrap shows that internal-variability estimates are comparatively stable, whereas intervals for model-related quantities, total uncertainty, and contribution rates are wider (Figure \@ref(fig:unc-bootstrap-uncertainty)). This greater spread is most visible for quantities that depend strongly on differences among the five model responses.
+
+```{r unc-bootstrap-uncertainty, echo=FALSE, fig.cap="Hierarchical-bootstrap point estimates and 95% percentile intervals for selected uncertainty metrics across regions and future periods.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig16_bootstrap_ci_uncertainty_metrics.png")
+```
+
+The bootstrap results for the distributional diagnostics lead to the same overall interpretation (Figure \@ref(fig:unc-bootstrap-diagnostics)). Signal-to-noise results continue to indicate clear warming relative to the analyzed uncertainty scales. Threshold probabilities are less stable when the threshold lies within the central part of the warming distribution, particularly during the mid-century transition, while probabilities already close to zero or one are more stable. These intervals do not change the main temporal and regional patterns reported above.
+
+```{r unc-bootstrap-diagnostics, echo=FALSE, fig.cap="Hierarchical-bootstrap point estimates and 95% percentile intervals for signal-to-noise ratios and threshold exceedance probabilities.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig17_bootstrap_ci_snr_threshold_probability.png")
+```
+
+The balanced-member sensitivity analysis provides a complementary check on the unequal original ensemble sizes. Estimates obtained from repeated 20-member-per-model subsamples remain close to the corresponding full-member estimates, with most comparisons lying near the 1:1 line (Figure \@ref(fig:unc-balanced-member-sensitivity)). The regional rankings, temporal increase in model and total uncertainty, and the dominance of model uncertainty are retained. Differences in total standard deviation and total signal-to-noise ratio are also small relative to the main regional and temporal contrasts.
+
+```{r unc-balanced-member-sensitivity, echo=FALSE, fig.cap="Comparison of full-member estimates with estimates from the balanced 20-member-per-model sensitivity analysis. The diagonal represents exact agreement.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig18_balanced_20_member_sensitivity.png")
+```
+
+Overall, both robustness checks support the central conclusions of the analysis. Unequal ensemble sizes do not appear to drive the main findings, while the bootstrap confirms that estimates based on between-model differences are less tightly constrained than estimates of within-model variability. The exact magnitude of model uncertainty and its contribution nevertheless remains conditional on the selected five-model ensemble.
+
+## Discussion
+
+The results show that the interpretation of projection uncertainty depends not only on its magnitude, but also on how the projection target is defined. The discussion therefore focuses on the role of 20-year temporal averaging in the uncertainty decomposition, the distinction between signal emergence and model agreement, and how the findings should be interpreted in relation to previous work and the conditional scope of the analysis.
+
+### Temporal Averaging and the Dominance of Model Uncertainty
+
+The strong contribution of model uncertainty should be interpreted in relation to the temporal scale of the prediction target. The uncertainty decomposition is applied to 20-year mean regional JJA warming, as defined in Equation \@ref(eq:unc-period-mean-warming), rather than to annual temperature anomalies. Internal variability therefore describes differences among ensemble members in their 20-year mean warming. Averaging over a longer period allows positive and negative short-term deviations to partly cancel, reducing the member-to-member spread of the period means [@Hawkins2009].
+
+A simple statistical approximation illustrates this effect. For a temporally varying quantity $X$,
+
+$$
+\operatorname{Var}(\overline{X})
+\approx
+\frac{\sigma^2}{n_{\mathrm{eff}}},
+$$
+
+where $\sigma^2$ is the variance at the shorter time scale and $n_{\mathrm{eff}}$ is the effective number of independent observations contributing to the mean. Because climate values can be autocorrelated, $n_{\mathrm{eff}}$ may be smaller than the 20 years contained in each period. Nevertheless, averaging still suppresses part of the short-term variability that would be more visible in annual or shorter-period indicators.
+
+This helps explain the uncertainty pattern found in the analysis. Internal standard deviation changes relatively little across the future periods, while the spread among model-specific forced responses grows substantially. Temporal averaging reduces the influence of member-specific fluctuations on the 20-year target, but persistent differences among model responses are not removed in the same way. As these between-model differences increase with projection lead time, they account for an increasing share of total fixed-scenario variance (Figure \@ref(fig:unc-uncertainty-decomposition)).
+
+The resulting decline in the internal contribution should therefore not be interpreted as evidence that internal variability is generally unimportant. It means that internal variability contributes relatively little to the specific quantity analyzed here: 20-year mean regional summer warming. A different prediction target, such as annual temperature, a shorter averaging period, or a smaller spatial scale, could retain more internal variability and produce a different uncertainty balance.
+
+This scale dependence is consistent with Hawkins and Sutton, who explicitly considered the effect of temporal averaging in their uncertainty framework and mainly analyzed decadal mean temperature projections [@Hawkins2009]. Their results also show that the relative importance of internal and model uncertainty changes with prediction horizon and averaging scale. The particularly high model contribution found here is therefore plausibly influenced by the use of 20-year means, but temporal averaging should not be treated as the only explanation. The selected models, regional and seasonal aggregation, fixed forcing pathway, weighting scheme, and variance estimators can also affect the estimated contribution rates.
+
+### Signal Emergence, Model Disagreement, and Risk Interpretation
+
+The signal-to-noise results distinguish two related but different questions: whether regional warming is large relative to internal variability, and whether models agree closely on the magnitude of that warming. The high internal SNR values indicate that the warming signal is clearly separated from member-to-member variability in 20-year mean warming (Figure \@ref(fig:unc-internal-snr)). This interpretation is consistent with the use of internal variability as the noise component in climate signal-to-noise analysis [@Hawkins2009; @Gruber2026]. It does not imply that internal variability is negligible at shorter temporal scales or for other climate indicators.
+
+The lower total SNR values show that this clear emergence from internal variability does not translate into equally precise agreement among model projections (Figure \@ref(fig:unc-total-snr)). Once differences among model-specific forced responses are included, the uncertainty surrounding the magnitude of warming becomes substantially larger. The selected models therefore agree more strongly on the direction of regional warming than on its exact magnitude. In this sense, **signal emergence does not imply precise projection agreement**.
+
+The distribution-based diagnostics further show why warming magnitude and uncertainty must be considered jointly. NEU provides the clearest example: although its central warming estimate is lower than in WCE and MED, it has the widest late-century prediction range and the lowest total signal clarity. WCE, by contrast, combines stronger central warming with a narrower distribution than NEU. These differences show that a larger mean response does not necessarily imply greater projection uncertainty, and a smaller mean response does not necessarily imply greater confidence (Figure \@ref(fig:unc-prediction-ranges)).
+
+The same distinction is important for interpreting threshold exceedance. Exceedance probability depends on where a threshold lies relative to both the center and the spread of the warming distribution. When most of the distribution has moved beyond a threshold, exceedance becomes consistently high; when the threshold cuts through a wider distribution, substantial uncertainty remains even when the mean warming is above that level (Figure \@ref(fig:unc-threshold-exceedance)). This is particularly relevant for NEU at the higher threshold, where the wider distribution produces less certain exceedance than in the other regions.
+
+These threshold probabilities should nevertheless be interpreted narrowly. They are conditional, ensemble-based diagnostics for 20-year mean regional JJA warming relative to the 1995--2014 baseline, rather than complete measures of climate risk. They do not represent the probability of an individual hot summer, nor do the $2^\circ\mathrm{C}$ and $3^\circ\mathrm{C}$ thresholds correspond to global warming levels relative to the pre-industrial period. More broadly, the results illustrate the value of interpreting multi-model projections as distributions rather than relying on the ensemble mean alone [@Tebaldi2007].
+
+### Relation to Previous Work and Overall Interpretation
+
+The main findings are broadly consistent with previous work on uncertainty in climate-model ensembles. Initial-condition large ensembles provide a way to separate member-to-member internal variability from the model-specific forced response, while multiple large ensembles extend this framework to differences among model responses [@Deser2020; @Lehner2020]. The increasing importance of model uncertainty with projection lead time is also consistent with established climate-projection uncertainty frameworks [@Hawkins2009; @Lehner2020]. However, the relative contribution of each uncertainty source is not a universal property of climate projections. It depends on the prediction horizon, spatial and temporal scale, climate indicator, model sample, scenario design, and statistical treatment. The contribution rates found here should therefore be interpreted for the specific 20-year regional summer-warming target used in this study rather than compared directly with values obtained for annual or differently aggregated projections.
+
+The analysis also supports the value of combining source-based and distribution-based views of uncertainty. The variance decomposition identifies whether spread arises mainly within models or among model responses, whereas prediction ranges, signal-to-noise ratios, and threshold probabilities describe how that spread affects the interpretation of projected warming. This complements the multi-model distributional perspective emphasized in previous work, where the ensemble mean alone is not sufficient to describe projection uncertainty [@Tebaldi2007]. In the present analysis, these different summaries lead to a consistent interpretation: the warming signal is clear, but uncertainty in its exact regional magnitude remains strongly influenced by disagreement among model responses.
+
+The robustness analyses strengthen this qualitative interpretation without removing the dependence on the available model sample. The balanced-member analysis indicates that the dominance of model uncertainty is not simply a consequence of unequal ensemble sizes. At the same time, the hierarchical bootstrap shows that quantities based on between-model differences are less tightly constrained than within-model estimates. This is expected when model uncertainty is estimated from only five model-specific responses. The robustness results therefore support the main regional and temporal patterns, while suggesting more caution in interpreting the exact magnitude of model variance and its contribution rate.
+
+The scope of these conclusions is deliberately conditional. The analysis considers SSP3-7.0 only, five selected large-ensemble models with equal model weight, JJA mean temperature, three European regions, and 20-year warming relative to 1995--2014. Scenario uncertainty is not included, and the $2^\circ\mathrm{C}$ and $3^\circ\mathrm{C}$ thresholds refer to regional baseline-relative summer warming rather than global warming levels. Moreover, the spread among the selected models is an empirical representation of model disagreement, not a complete measure of real-world epistemic uncertainty [@Gruber2025].
+
+Overall, the results reinforce a central statistical point: uncertainty attribution depends on both the ensemble being analyzed and the definition of the prediction target. For 20-year mean regional summer warming under a fixed forcing pathway, temporal aggregation limits the relative contribution of within-model variability, while persistent differences among model forced responses become the dominant source of projection spread. Considering uncertainty from several complementary perspectives therefore provides a more informative interpretation than reporting the multi-model mean alone.
+
+## Conclusion
+
+This seminar work examined fixed-scenario uncertainty in projected 20-year mean regional JJA warming across NEU, WCE, and MED using five large-ensemble climate models under SSP3-7.0. All regions show increasing summer warming across the century, while the model-specific forced responses become more widely separated with projection lead time. Internal variability in the 20-year warming target remains comparatively stable, whereas model uncertainty increases and becomes the main contributor to total fixed-scenario projection uncertainty.
+
+The distribution-based diagnostics lead to the same overall interpretation from a different perspective. The warming signal is clear relative to internal variability, but agreement on its exact magnitude is reduced when differences among model responses are included. Prediction ranges and threshold exceedance probabilities further show that central warming and projection spread must be considered together: regions with similar or even lower mean warming can still differ substantially in the range and threshold behavior of projected outcomes.
+
+The robustness analyses support these qualitative findings and indicate that unequal ensemble sizes do not drive the main uncertainty pattern. At the same time, the results remain conditional on the selected five-model ensemble, SSP3-7.0, the regional JJA temperature target, and the use of 20-year means. In particular, the relatively small contribution of internal variability should be understood as a property of this temporally averaged prediction target rather than as a general statement about climate variability. Overall, the analysis shows that the interpretation of climate-projection uncertainty depends both on the source of variation and on how the prediction target is defined.
+
+## Appendices
+
+The appendices provide complete numerical summaries and supplementary diagnostics that support the main text. To reduce repetition, the model/member-count table and the complete model-specific forced-response table are omitted because the same information is already presented in the Data and Results sections. The uncertainty-magnitude table is retained in a reduced form so that the complete internal and model uncertainty estimates remain available without repeating total uncertainty already reported in the master summary.
+
+All numerical tables are read directly from the analysis outputs in `work/01-climate_uncertainty/results/`.
+
+```{r appendix-results-setup, include=FALSE}
+results_dir <- "work/01-climate_uncertainty/results"
+
+read_result_csv <- function(filename) {
+  read.csv(
+    file.path(results_dir, filename),
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  )
+}
+
+appendix_table <- function(data, digits = 3, font_size = 10) {
+  tab <- knitr::kable(
+    data,
+    digits = digits,
+    booktabs = TRUE,
+    caption = NULL
+  )
+
+  if (knitr::is_latex_output()) {
+    kableExtra::kable_styling(
+      tab,
+      font_size = font_size,
+      position = "center",
+      latex_options = c("hold_position", "scale_down")
+    )
+  } else {
+    kableExtra::kable_styling(
+      tab,
+      font_size = font_size,
+      position = "center",
+      full_width = TRUE
+    )
+  }
+}
+```
+
+### Appendix A. Complete Result Tables
+
+**Table A.1. Regional and Temporal Master Summary**
+
+```{r appendix-master-summary, echo=FALSE}
+master_summary <- read_result_csv(
+  "merged_regional_period_summary.csv"
+)
+
+master_summary <- master_summary[, c(
+  "region",
+  "period",
+  "Mean warming (°C)",
+  "Total SD (°C)",
+  "Internal contribution",
+  "Model contribution",
+  "Total SNR",
+  "P(ΔT > 2°C)",
+  "P(ΔT > 3°C)"
+)]
+
+appendix_table(
+  master_summary,
+  digits = 3
+)
+```
+
+**Table A.2. Internal and model uncertainty magnitudes across regions and future periods.**
+
+```{r appendix-uncertainty-magnitudes, echo=FALSE}
+uncertainty_magnitudes <- read_result_csv(
+  "merged_regional_period_summary.csv"
+)
+
+uncertainty_magnitudes <- uncertainty_magnitudes[, c(
+  "region",
+  "period",
+  "Internal variance (°C²)",
+  "Internal SD (°C)",
+  "Model variance (°C²)",
+  "Model SD (°C)",
+  "Total variance (°C²)",
+  "Total SD (°C)"
+)]
+
+appendix_table(
+  uncertainty_magnitudes,
+  digits = 3
+)
+```
+
+**Table A.3. Equal-model-weighted prediction quantiles and central 90% prediction-range widths across regions and future periods.**
+
+```{r appendix-prediction-ranges, echo=FALSE}
+prediction_ranges <- read_result_csv(
+  "merged_regional_period_summary.csv"
+)
+
+prediction_ranges <- prediction_ranges[, c(
+  "region",
+  "period",
+  "Mean warming (°C)",
+  "Q05 (°C)",
+  "Q50 (°C)",
+  "Q95 (°C)",
+  "90% width (°C)"
+)]
+
+appendix_table(
+  prediction_ranges,
+  digits = 3
+)
+```
+
+### Appendix B. Supplementary Figures
+
+The following figures provide alternative regional-temporal views of the main uncertainty and projection diagnostics. They complement the figures used in the main Results section without introducing additional statistical quantities.
+
+```{r unc-appendix-internal-sd, echo=FALSE, fig.cap="Regional and temporal comparison of internal standard deviation in 20-year mean JJA warming.", out.width="70%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig12_regional_temporal_internal_sd.png")
+```
+
+```{r unc-appendix-total-sd, echo=FALSE, fig.cap="Regional and temporal comparison of total fixed-scenario projection standard deviation.", out.width="70%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig13_regional_temporal_total_sd.png")
+```
+
+```{r unc-appendix-snr-threshold, echo=FALSE, fig.cap="Relationship between Total SNR and Threshold Exceedance Probability.", out.width="100%", fig.align="center"}
+knitr::include_graphics("work/01-climate_uncertainty/figures/fig15a_threshold_centered_snr_exceedance_probability.png")
+```
+
+### Appendix C. Robustness Diagnostics
+
+**Table C.1. Average width of the 95% hierarchical-bootstrap percentile interval by metric.**
+
+```{r appendix-bootstrap-widths, echo=FALSE}
+bootstrap_widths <- read_result_csv(
+  "average_bootstrap_ci_width_by_metric.csv"
+)
+
+appendix_table(
+  bootstrap_widths,
+  digits = 3
+)
+```
+
+**Table C.2. Comparison of full-member and balanced 20-member-per-model estimates for total standard deviation and total signal-to-noise ratio.**
+
+```{r appendix-balanced-comparison, echo=FALSE}
+balanced_comparison <- read_result_csv(
+  "merged_regional_period_summary.csv"
+)
+
+balanced_comparison <- balanced_comparison[, c(
+  "region",
+  "period",
+  "Full total SD",
+  "Balanced total SD",
+  "Full total SNR",
+  "Balanced total SNR"
+)]
+
+appendix_table(
+  balanced_comparison,
+  digits = 3
+)
+```
