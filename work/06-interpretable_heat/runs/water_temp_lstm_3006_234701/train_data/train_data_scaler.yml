@@ -1,0 +1,88 @@
+attribute_means:
+  DEM: 389.6493
+  Flusskilometer: 159.14416666666665
+  Fraction_Forest: 35.404237124999995
+  Gesamtlaenge_Fluss: 388.095
+  Imperv_1000m: 21.993952863833332
+  Imperv_2000m: 17.397274210416665
+  Imperv_3000m: 14.278264220750003
+  Imperv_500m: 19.941323947666667
+  Slope: 2.7861004166666667
+  upstream_km: 228.95083333333335
+attribute_stds:
+  DEM: 47.11100266343889
+  Flusskilometer: 159.5229846909121
+  Fraction_Forest: 6.708693477219284
+  Gesamtlaenge_Fluss: 230.58195452928544
+  Imperv_1000m: 24.11641927500471
+  Imperv_2000m: 18.552506184624285
+  Imperv_3000m: 15.136229624821746
+  Imperv_500m: 24.3552612621254
+  Slope: 0.4340268617396139
+  upstream_km: 158.6203910689883
+xarray_feature_scale:
+  coords: {}
+  attrs: {}
+  dims: {}
+  data_vars:
+    P_mm:
+      dims: []
+      attrs: {}
+      data: 4.014581203460693
+    Q:
+      dims: []
+      attrs: {}
+      data: 108.05280303955078
+    Ta_C:
+      dims: []
+      attrs: {}
+      data: 7.524725914001465
+    rad_whm2:
+      dims: []
+      attrs: {}
+      data: 2224.068603515625
+    relhum:
+      dims: []
+      attrs: {}
+      data: 0.1155826523900032
+    wind_ms:
+      dims: []
+      attrs: {}
+      data: 1.1530282497406006
+    wt:
+      dims: []
+      attrs: {}
+      data: 6.49403715133667
+xarray_feature_center:
+  coords: {}
+  attrs: {}
+  dims: {}
+  data_vars:
+    P_mm:
+      dims: []
+      attrs: {}
+      data: 2.0148656368255615
+    Q:
+      dims: []
+      attrs: {}
+      data: 89.13785552978516
+    Ta_C:
+      dims: []
+      attrs: {}
+      data: 9.296520233154297
+    rad_whm2:
+      dims: []
+      attrs: {}
+      data: 3018.25732421875
+    relhum:
+      dims: []
+      attrs: {}
+      data: 0.7944618463516235
+    wind_ms:
+      dims: []
+      attrs: {}
+      data: 2.2092177867889404
+    wt:
+      dims: []
+      attrs: {}
+      data: 11.618130683898926
