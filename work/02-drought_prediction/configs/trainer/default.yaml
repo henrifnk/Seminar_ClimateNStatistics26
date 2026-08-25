@@ -1,0 +1,22 @@
+max_epochs: 50
+log_every_n_steps: 1
+# deterministic=true raises on CUDA for ops without deterministic kernels.
+# Use "warn" on the cluster so those ops fall back and log a warning instead.
+deterministic: true
+early_stopping_patience: 5
+# Monitor val/rmse_median (not val/loss) so min_delta is in RMSE units and
+# comparable across all loss functions (mse, pinball, weighted_mse have
+# different loss scales; RMSE is always RMSE).
+early_stopping_monitor: val/rmse_median
+early_stopping_min_delta: 0.003   # ignore improvements smaller than 0.003 RMSE
+lr_scheduler_patience: 3      # epochs without val/loss improvement before halving lr
+
+# Device / precision (all passed directly to pytorch_lightning.Trainer)
+accelerator: auto   # auto → MPS on Mac, CUDA on cluster; override: accelerator=cpu
+devices: auto       # auto → all visible GPUs; set to 1 for a single-GPU cluster job
+
+# 32-true is safe everywhere. On Ampere+ cluster GPUs, prefer bf16-mixed:
+# it halves activation memory for the 36-step unroll and avoids the fp16 underflow
+# problem that backprop through 36 stacked tanh gates produces. Do NOT use fp16-mixed.
+# On MPS, set PYTORCH_ENABLE_MPS_FALLBACK=1 for ops not yet covered by MPS kernels.
+precision: "32-true"
