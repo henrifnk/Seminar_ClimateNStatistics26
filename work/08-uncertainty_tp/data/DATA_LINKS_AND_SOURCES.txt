@@ -1,0 +1,51 @@
+Data links and sources
+
+Raw climate data used for the real-data application:
+
+NOAA Physical Sciences Laboratory ERSST v5
+Dataset page:
+https://www.psl.noaa.gov/data/gridded/data.noaa.ersst.v5.html
+
+HTTP download directory:
+https://downloads.psl.noaa.gov/Datasets/noaa.ersst.v5/
+
+Direct NetCDF file used by the R script:
+https://downloads.psl.noaa.gov/Datasets/noaa.ersst.v5/sst.mnmean.nc
+
+Dataset description:
+NOAA Extended Reconstructed Sea Surface Temperature Version 5 is a global
+monthly sea-surface temperature dataset. NOAA PSL describes it as monthly SST
+on a 2 degree latitude by 2 degree longitude global grid, derived from ICOADS
+with missing values filled using statistical methods.
+
+Region extracted in the code:
+45-60N, 60-10W
+
+Why this region:
+This North Atlantic region is used as an AMOC-related SST proxy region. It is
+not a direct AMOC strength measurement.
+
+Derived data included in this package:
+
+results_real_data/north_atlantic_sst_annual.csv
+  Annual area-weighted North Atlantic SST anomaly series.
+
+results_real_data/north_atlantic_sst_ews.csv
+  Rolling variance and rolling lag-1 autocorrelation calculated from the
+  detrended annual SST anomaly.
+
+results_real_data/north_atlantic_sst_summary.csv
+  Summary of Kendall tau trends for the real-data proxy application.
+
+Important note:
+The raw NetCDF file sst.mnmean.nc is not included in this package because it is
+large. The R script downloads it automatically from NOAA if it is not already
+present.
+
+Core literature cited in the presentation:
+
+Scheffer et al. (2009). Early-warning signals for critical transitions. Nature.
+Dakos et al. (2012). Methods for detecting early warnings of critical transitions. PLoS ONE.
+Lenton et al. (2008). Tipping elements in the Earth's climate system. PNAS.
+Boers (2021). Observation-based early-warning signals for a collapse of the AMOC. Nature Climate Change.
+McKay et al. (2022). Exceeding 1.5C global warming could trigger multiple climate tipping points. Science.
