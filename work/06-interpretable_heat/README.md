@@ -5,10 +5,12 @@ Modelling and interpretation of riverine water temperatures at the river Main us
 ## Setup
 
 Requires Python >= 3.11 and [uv](https://docs.astral.sh/uv/).
+Requires R >= 4.5 and [renv](https://rstudio.github.io/renv/).
 
 ```bash
 cd work/06-interpretable_heat
-uv sync   # creates a virtual environment (.venv) with all required packages
+uv sync                       # creates a virtual environment (.venv) with all required Python packages
+Rscript -e 'renv::restore()'  # installs all required R packages
 ```
 
 `nh-run`, used below to train and evaluate the model, is provided by the `neuralhydrology` package and is installed automatically as part of `uv sync`.
@@ -46,6 +48,8 @@ uv sync   # creates a virtual environment (.venv) with all required packages
 ├── pyproject.toml
 ├── .python-version
 ├── uv.lock
+├── renv.lock
+├── .Rprofile
 └── README.md
 ```
 
@@ -63,9 +67,9 @@ uv sync   # creates a virtual environment (.venv) with all required packages
    uv run nh-run train --config-file configs/config.yml
    ```
    Results are stored in `runs/water_temp_lstm_<date>/`.
-4. Evaluate the model:
+4. Evaluate the model for epoch n:
    ```bash
-   uv run nh-run evaluate --run-dir runs/water_temp_lstm_<date>
+   uv run nh-run evaluate --run-dir runs/water_temp_lstm_<date> --epoch <n>
    ```
    Results are stored in `runs/water_temp_lstm_<date>/test/`.
 
@@ -73,6 +77,18 @@ uv sync   # creates a virtual environment (.venv) with all required packages
 
 1. Run all scripts in `Python/` starting with `compute_` to generate the data frames needed for the plots (saved to `data/results/`):
    ```bash
-   uv run python Python/compute_<name>.py
+   uv run python Python/compute_permutation_importance.py
+   uv run python Python/compute_pdp.py
+   uv run python Python/compute_ale.py
+   uv run python Python/compute_lag_importance.py
+   uv run python Python/compute_pdp_2d.py
    ```
 2. Source all scripts in `R/` starting with `plot_` to generate the figures using ggplot2 (saved to `figures/`).
+   ```bash
+   Rscript R/plot_data_descriptives.R
+   Rscript R/plot_permutation_importance.R
+   Rscript R/plot_pdp.R
+   Rscript R/plot_ale.R
+   Rscript R/plot_lag_importance.R
+   Rscript R/plot_pdp_2d.R
+   ```
