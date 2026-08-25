@@ -1,0 +1,31 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Model checkpoints (binaries only — CSV is tracked)
+checkpoints/
+
+# wandb and training logs
+wandb/
+lightning_logs/
+logs/
+
+# Data (large files, tracked separately)
+data/raw
+data/processed
+
+# Generated outputs and figures
+outputs/
+
+# macOS
+.DS_Store
+
+# Tests / dev utilities
+code/verify_*

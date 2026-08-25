@@ -1,0 +1,4 @@
+"Country","Role","K","r","t0","RMSE"
+"Spain","Observed inflection case",67,0.123,2020.76,2.618
+"Germany","Near-term inflection case",88,0.146,2024.63,1.38
+"Poland","Future inflection case",90,0.2,2029.34,1.16

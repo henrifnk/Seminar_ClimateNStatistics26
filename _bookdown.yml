@@ -1,7 +1,22 @@
 book_filename: book
 repo: https://github.com/henrifnk/Seminar_ClimateNStatistics26/
 output_dir: _book
-clean: [packages.bib, bookdown.bbl]
+rmd_files: [
+  index.Rmd,
+  02-drought_prediction.Rmd,
+  13-diffusion_downscaling.Rmd,
+  03-hydrology_cc.Rmd,
+  04-neural_hyd.Rmd,
+  05-riverine_heat.Rmd,
+  06-interpretable_heat.Rmd,
+  01-climate_uncertainty.Rmd,
+  07-change_stats.Rmd,
+  09-tp-overview.Rmd,
+  08-uncertainty_tp.Rmd,
+  11-positive_tp.Rmd,
+  99-references.Rmd
+]
+clean: [bib/packages.bib, bookdown.bbl]
 delete_merged_file: true
 language:
   label:
