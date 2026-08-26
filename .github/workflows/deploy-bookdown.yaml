@@ -22,7 +22,7 @@ jobs:
         run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "svglite", "tinytex", "kableExtra", "ggpubr", "tidyverse", "zoo", "latex2exp")); tinytex::install_tinytex(force = TRUE);tinytex::tlmgr_install(c("bibtex", "graphics"))'
       - name: Render Book
         run: make
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: _book
           path: _book/
@@ -38,7 +38,7 @@ jobs:
      contents: write
    steps:
      - name: Download artifact
-       uses: actions/download-artifact@v5
+       uses: actions/download-artifact@v7
        with:
          # Artifact name
          name: _book # optional
