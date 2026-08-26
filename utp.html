@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Uncertainty of tipping points in climate research | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Uncertainty of tipping points in climate research | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Uncertainty of tipping points in climate research | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tp-overview.html"/>
+<link rel="next" href="ptp.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>1</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="dp.html"><a href="dp.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>1.2</b> Related Work</a></li>
+<li class="chapter" data-level="1.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>1.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>1.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="1.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>1.3.2</b> Variables</a></li>
+<li class="chapter" data-level="1.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>1.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="1.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>1.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="1.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>1.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="1.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>1.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="dp.html"><a href="dp.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>1.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>1.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="1.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>1.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="1.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>1.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="1.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>1.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="dp.html"><a href="dp.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>1.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="1.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>1.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="1.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>1.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="1.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>1.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="1.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>1.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="dp.html"><a href="dp.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a></li>
+<li class="chapter" data-level="1.7" data-path="dp.html"><a href="dp.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ddm.html"><a href="ddm.html"><i class="fa fa-check"></i><b>2</b> Climate downscaling using diffusion models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ddm.html"><a href="ddm.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="ddm.html"><a href="ddm.html#ddm-theory"><i class="fa fa-check"></i><b>2.2</b> Diffusion models for image generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ddm.html"><a href="ddm.html#training-the-model"><i class="fa fa-check"></i><b>2.2.1</b> Training the model</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ddm.html"><a href="ddm.html#generation-of-samples"><i class="fa fa-check"></i><b>2.2.2</b> Generation of samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ddm.html"><a href="ddm.html#data-and-methods"><i class="fa fa-check"></i><b>2.3</b> Data and methods</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ddm.html"><a href="ddm.html#climate-variables"><i class="fa fa-check"></i><b>2.3.1</b> Climate variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ddm.html"><a href="ddm.html#ddm-dataset-information"><i class="fa fa-check"></i><b>2.3.2</b> Dataset information</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ddm.html"><a href="ddm.html#ddm-modeling-setup"><i class="fa fa-check"></i><b>2.3.3</b> Modeling setup</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ddm.html"><a href="ddm.html#ddm-training-inference-setup"><i class="fa fa-check"></i><b>2.3.4</b> Training and inference setup</a></li>
+<li class="chapter" data-level="2.3.5" data-path="ddm.html"><a href="ddm.html#ddm-evaluation-metrics"><i class="fa fa-check"></i><b>2.3.5</b> Evaluation metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ddm.html"><a href="ddm.html#results-1"><i class="fa fa-check"></i><b>2.4</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="ddm.html"><a href="ddm.html#ddm-calibration-assessment"><i class="fa fa-check"></i><b>2.4.1</b> Calibration assessment</a></li>
+<li class="chapter" data-level="2.4.2" data-path="ddm.html"><a href="ddm.html#ddm-signal-preservation"><i class="fa fa-check"></i><b>2.4.2</b> Signal preservation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ddm.html"><a href="ddm.html#ddm-discussion"><i class="fa fa-check"></i><b>2.5</b> Discussion</a></li>
+<li class="chapter" data-level="2.6" data-path="ddm.html"><a href="ddm.html#conclusion-1"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="ddm.html"><a href="ddm.html#note-on-the-dataset"><i class="fa fa-check"></i><b>2.6.1</b> Note on the dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ddm.html"><a href="ddm.html#appendix"><i class="fa fa-check"></i><b>2.7</b> Appendix</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="ddm.html"><a href="ddm.html#ddm-appendix-a"><i class="fa fa-check"></i><b>2.7.1</b> Appendix A - More information on reverse diffusion process</a></li>
+<li class="chapter" data-level="2.7.2" data-path="ddm.html"><a href="ddm.html#ddm-appendix-b"><i class="fa fa-check"></i><b>2.7.2</b> Appendix B - Distributional shift of the climate variables across global warming levels</a></li>
+<li class="chapter" data-level="2.7.3" data-path="ddm.html"><a href="ddm.html#ddm-appendix-c"><i class="fa fa-check"></i><b>2.7.3</b> Appendix C - Mean downscaling correction</a></li>
+<li class="chapter" data-level="2.7.4" data-path="ddm.html"><a href="ddm.html#ddm-appendix-d"><i class="fa fa-check"></i><b>2.7.4</b> Appendix D - Ensemble spread over projection period</a></li>
+<li class="chapter" data-level="2.7.5" data-path="ddm.html"><a href="ddm.html#ddm-appendix-e"><i class="fa fa-check"></i><b>2.7.5</b> Appendix E - Compute time</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="ddm.html"><a href="ddm.html#usage-of-ai-tools"><i class="fa fa-check"></i><b>2.8</b> Usage of AI tools</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-1"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-1"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-2"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-1"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-2"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+<li class="chapter" data-level="6.3" data-path="irh.html"><a href="irh.html#data-2"><i class="fa fa-check"></i><b>6.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="irh.html"><a href="irh.html#origin"><i class="fa fa-check"></i><b>6.3.1</b> Origin</a></li>
+<li class="chapter" data-level="6.3.2" data-path="irh.html"><a href="irh.html#preprocessing-1"><i class="fa fa-check"></i><b>6.3.2</b> Preprocessing</a></li>
+<li class="chapter" data-level="6.3.3" data-path="irh.html"><a href="irh.html#sec-corr"><i class="fa fa-check"></i><b>6.3.3</b> Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="irh.html"><a href="irh.html#modelling"><i class="fa fa-check"></i><b>6.4</b> Modelling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="irh.html"><a href="irh.html#model-explanation"><i class="fa fa-check"></i><b>6.4.1</b> Model Explanation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="irh.html"><a href="irh.html#sec-model-impl"><i class="fa fa-check"></i><b>6.4.2</b> Implementation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="irh.html"><a href="irh.html#evaluation-1"><i class="fa fa-check"></i><b>6.4.3</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="irh.html"><a href="irh.html#interpretability"><i class="fa fa-check"></i><b>6.5</b> Interpretability</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="irh.html"><a href="irh.html#permutation-feature-importance"><i class="fa fa-check"></i><b>6.5.1</b> Permutation Feature Importance</a></li>
+<li class="chapter" data-level="6.5.2" data-path="irh.html"><a href="irh.html#partial-dependence-plots-for-dynamic-features"><i class="fa fa-check"></i><b>6.5.2</b> Partial Dependence Plots (for dynamic features)</a></li>
+<li class="chapter" data-level="6.5.3" data-path="irh.html"><a href="irh.html#accumulated-local-effects"><i class="fa fa-check"></i><b>6.5.3</b> Accumulated Local Effects</a></li>
+<li class="chapter" data-level="6.5.4" data-path="irh.html"><a href="irh.html#lag-importance-using-ale"><i class="fa fa-check"></i><b>6.5.4</b> Lag Importance using ALE</a></li>
+<li class="chapter" data-level="6.5.5" data-path="irh.html"><a href="irh.html#d-partial-dependence-plot"><i class="fa fa-check"></i><b>6.5.5</b> 2D Partial Dependence Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="irh.html"><a href="irh.html#results-4"><i class="fa fa-check"></i><b>6.6</b> Results</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="irh.html"><a href="irh.html#model-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Model Evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="irh.html"><a href="irh.html#permutation-feature-importance-1"><i class="fa fa-check"></i><b>6.6.2</b> Permutation Feature Importance</a></li>
+<li class="chapter" data-level="6.6.3" data-path="irh.html"><a href="irh.html#partial-dependence-plots-pdp"><i class="fa fa-check"></i><b>6.6.3</b> Partial Dependence Plots (PDP)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="irh.html"><a href="irh.html#ale-curves-for-the-most-recent-day-lag-0"><i class="fa fa-check"></i><b>6.6.4</b> ALE Curves for the Most Recent Day (Lag 0)</a></li>
+<li class="chapter" data-level="6.6.5" data-path="irh.html"><a href="irh.html#lag-importance-ale"><i class="fa fa-check"></i><b>6.6.5</b> Lag Importance (ALE)</a></li>
+<li class="chapter" data-level="6.6.6" data-path="irh.html"><a href="irh.html#d-partial-dependence-plot-1"><i class="fa fa-check"></i><b>6.6.6</b> 2D Partial Dependence Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="irh.html"><a href="irh.html#conclusion-3"><i class="fa fa-check"></i><b>6.7</b> Conclusion</a></li>
+<li class="chapter" data-level="6.8" data-path="irh.html"><a href="irh.html#outlook"><i class="fa fa-check"></i><b>6.8</b> Outlook</a></li>
+<li class="chapter" data-level="6.9" data-path="irh.html"><a href="irh.html#appendix-ai-declaration-1"><i class="fa fa-check"></i><b>6.9</b> Appendix: AI Declaration</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>7</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="unc.html"><a href="unc.html#abstract-3"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="unc.html"><a href="unc.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>7.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="7.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>7.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="7.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>7.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>7.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>7.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="7.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>7.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="7.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>7.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="7.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>7.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="unc.html"><a href="unc.html#methods-3"><i class="fa fa-check"></i><b>7.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>7.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="7.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>7.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="7.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>7.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="7.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>7.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="7.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>7.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="unc.html"><a href="unc.html#results-5"><i class="fa fa-check"></i><b>7.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>7.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="7.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>7.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="7.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>7.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="7.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>7.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="unc.html"><a href="unc.html#discussion-2"><i class="fa fa-check"></i><b>7.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>7.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="7.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>7.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>7.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="unc.html"><a href="unc.html#conclusion-4"><i class="fa fa-check"></i><b>7.7</b> Conclusion</a></li>
+<li class="chapter" data-level="7.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>7.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>7.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="7.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>7.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="7.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>7.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>8</b> Deep Learning for Change-Point Detection in Climate Time Series</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="cs.html"><a href="cs.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.3" data-path="cs.html"><a href="cs.html#change-point-detection"><i class="fa fa-check"></i><b>8.3</b> Change Point Detection</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="cs.html"><a href="cs.html#problem-formulation"><i class="fa fa-check"></i><b>8.3.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.3.2" data-path="cs.html"><a href="cs.html#classical-methods-cost-functions-and-pelt"><i class="fa fa-check"></i><b>8.3.2</b> Classical methods: cost functions and PELT</a></li>
+<li class="chapter" data-level="8.3.3" data-path="cs.html"><a href="cs.html#deep-learning-methods"><i class="fa fa-check"></i><b>8.3.3</b> Deep learning methods</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="cs.html"><a href="cs.html#deep-learning-approach"><i class="fa fa-check"></i><b>8.4</b> Deep Learning Approach</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="cs.html"><a href="cs.html#data-3"><i class="fa fa-check"></i><b>8.4.1</b> Data</a></li>
+<li class="chapter" data-level="8.4.2" data-path="cs.html"><a href="cs.html#wavelet-preprocessing"><i class="fa fa-check"></i><b>8.4.2</b> Wavelet preprocessing</a></li>
+<li class="chapter" data-level="8.4.3" data-path="cs.html"><a href="cs.html#cnn-architecture"><i class="fa fa-check"></i><b>8.4.3</b> CNN architecture</a></li>
+<li class="chapter" data-level="8.4.4" data-path="cs.html"><a href="cs.html#contrastive-training"><i class="fa fa-check"></i><b>8.4.4</b> Contrastive training</a></li>
+<li class="chapter" data-level="8.4.5" data-path="cs.html"><a href="cs.html#postprocessing"><i class="fa fa-check"></i><b>8.4.5</b> Postprocessing</a></li>
+<li class="chapter" data-level="8.4.6" data-path="cs.html"><a href="cs.html#application-to-berkeley-earth-temperature-data"><i class="fa fa-check"></i><b>8.4.6</b> Application to Berkeley Earth Temperature Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="cs.html"><a href="cs.html#comparison-of-changepoint-candidates-with-pelt"><i class="fa fa-check"></i><b>8.5</b> Comparison of Changepoint Candidates with PELT</a></li>
+<li class="chapter" data-level="8.6" data-path="cs.html"><a href="cs.html#discussion-3"><i class="fa fa-check"></i><b>8.6</b> Discussion</a></li>
+<li class="chapter" data-level="8.7" data-path="cs.html"><a href="cs.html#conclusion-5"><i class="fa fa-check"></i><b>8.7</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-5"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods-1"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-6"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-6"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>10</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="utp.html"><a href="utp.html#abstract-6"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="utp.html"><a href="utp.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+<li class="chapter" data-level="10.3" data-path="utp.html"><a href="utp.html#early-warning-signals-and-critical-slowing-down"><i class="fa fa-check"></i><b>10.3</b> Early-Warning Signals and Critical Slowing Down</a></li>
+<li class="chapter" data-level="10.4" data-path="utp.html"><a href="utp.html#simulation-benchmark"><i class="fa fa-check"></i><b>10.4</b> Simulation Benchmark</a></li>
+<li class="chapter" data-level="10.5" data-path="utp.html"><a href="utp.html#simulation-results"><i class="fa fa-check"></i><b>10.5</b> Simulation Results</a></li>
+<li class="chapter" data-level="10.6" data-path="utp.html"><a href="utp.html#bayesian-interpretation-of-early-warning-signals"><i class="fa fa-check"></i><b>10.6</b> Bayesian Interpretation of Early-Warning Signals</a></li>
+<li class="chapter" data-level="10.7" data-path="utp.html"><a href="utp.html#north-atlantic-sst-application"><i class="fa fa-check"></i><b>10.7</b> North Atlantic SST Application</a></li>
+<li class="chapter" data-level="10.8" data-path="utp.html"><a href="utp.html#discussion-and-conclusion"><i class="fa fa-check"></i><b>10.8</b> Discussion and Conclusion</a></li>
+<li class="chapter" data-level="10.9" data-path="utp.html"><a href="utp.html#declaration-of-ai-use"><i class="fa fa-check"></i><b>10.9</b> Declaration of AI Use</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-7"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-7"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-4"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-7"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="utp" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Uncertainty of tipping points in climate research<a href="utp.html#utp" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Jihao Li</em></p>
+<p><em>Supervisor: Helmut Küchenhoff</em></p>
+<p><em>Degree: Master</em></p>
+<div id="abstract-6" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Abstract<a href="utp.html#abstract-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Climate tipping points may be preceded by early-warning signals (EWS) associated with critical slowing down, particularly increasing variance and lag-1 autocorrelation. However, similar statistical patterns can also arise from non-tipping mechanisms, making their interpretation uncertain. This study investigates the reliability of these indicators using a simulation benchmark that compares an approaching fold bifurcation with stable, seasonal, increasing-noise, and sparse-sampling scenarios. Rolling variance and lag-1 autocorrelation are evaluated using trend statistics and receiver operating characteristic (ROC) analysis. In the simulations, lag-1 autocorrelation provides the strongest discrimination, with an area under the ROC curve (AUC) of 0.840, while increasing noise demonstrates how warning-like signals can occur without an approaching tipping point. A Bayesian interpretation further shows how the meaning of an observed EWS depends on the assumed prior tipping risk. Finally, the framework is illustrated using a North Atlantic sea-surface-temperature proxy related to the Atlantic Meridional Overturning Circulation. The empirical application shows no clear and consistent early-warning signal. Overall, EWS provide useful probabilistic evidence of declining stability, but should not be interpreted as standalone proof of an approaching climate tipping point.</p>
+</div>
+<div id="introduction-8" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Introduction<a href="utp.html#introduction-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Climate tipping points are critical thresholds at which relatively small changes in external forcing can lead to large and potentially irreversible changes in the state of the climate system. Several major components of the Earth system, including the Atlantic Meridional Overturning Circulation (AMOC), polar ice sheets, and large-scale ecosystems, have been identified as potential tipping elements <span class="citation">(<a href="#ref-lenton2008">Lenton et al. 2008</a>)</span>. Assessing whether such systems are approaching critical thresholds is therefore important for climate-risk assessment. However, tipping points are inherently difficult to predict because the underlying mechanisms are only partially observed, relevant time series are often short, and the critical thresholds themselves are uncertain <span class="citation">(<a href="#ref-mckay2022">Armstrong McKay, Staal, Abrams, Winkelmann, Sakschewski, Loriani, Fetzer, Cornell, Rockstrom, et al. 2022</a>)</span>.</p>
+<p>A widely studied approach for detecting an approaching critical transition is based on critical slowing down. As a dynamical system loses stability near certain types of bifurcations, its recovery from small perturbations becomes progressively slower. This theoretical mechanism can generate observable statistical changes, most notably increases in variance and lag-1 autocorrelation (AC1) <span class="citation">(<a href="#ref-scheffer2009">Scheffer et al. 2009</a>)</span>. These quantities have therefore been proposed as early-warning signals (EWS) and have been applied to a variety of ecological and climate systems <span class="citation">(<a href="#ref-dakos2012">Dakos et al. 2012</a>)</span>. For example, observation-based studies have investigated whether changes in statistical indicators derived from sea-surface-temperature data provide evidence of declining AMOC stability <span class="citation">(<a href="#ref-boers2021">Boers and Rypdal 2021</a>)</span>.</p>
+<p>The interpretation of EWS is nevertheless challenging. An increasing indicator is not uniquely associated with an approaching tipping point. Changes in noise intensity, seasonality, sampling frequency, external forcing, or other non-stationary processes may produce similar statistical patterns. Consequently, an observed EWS should not automatically be interpreted as evidence that a system is approaching a critical transition. This creates an important statistical problem: how reliably can commonly used EWS discriminate between genuine loss of stability and alternative non-tipping mechanisms?</p>
+<p>This chapter investigates this question using a controlled simulation benchmark combined with a probabilistic interpretation of EWS. Two commonly used indicators, rolling variance and rolling AC1, are evaluated across five scenarios representing an approaching fold bifurcation, a stable control, seasonal variation, increasing noise without tipping, and sparse observations of an approaching tipping point. Their discriminatory performance is assessed using Kendall’s rank correlation and receiver operating characteristic (ROC) analysis. The resulting sensitivity and false-positive rates are then incorporated into a Bayesian framework to illustrate how an observed warning signal updates the probability of tipping under different prior assumptions. Finally, the approach is illustrated using a North Atlantic sea-surface-temperature (SST) proxy related to the AMOC. The aim is not to diagnose an imminent AMOC collapse, but to demonstrate how early-warning indicators can be interpreted cautiously when both the signal and the underlying tipping risk are uncertain.</p>
+</div>
+<div id="early-warning-signals-and-critical-slowing-down" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Early-Warning Signals and Critical Slowing Down<a href="utp.html#early-warning-signals-and-critical-slowing-down" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many early-warning signals of critical transitions are motivated by the concept of <strong>critical slowing down</strong>. Consider a dynamical system whose state <span class="math inline">\(x\)</span> evolves under a slowly changing control parameter. A simple representation of an approaching fold bifurcation is the stochastic differential equation</p>
+<p><span class="math display">\[
+dx_t = (a_t - x_t^2)\,dt + \sigma\,dW_t,
+\]</span></p>
+<p>where <span class="math inline">\(a_t\)</span> is a slowly varying control parameter, <span class="math inline">\(\sigma\)</span> represents the intensity of stochastic perturbations, and <span class="math inline">\(W_t\)</span> denotes a Wiener process. As the system approaches the critical threshold, the stable equilibrium moves closer to the unstable equilibrium and eventually disappears at the bifurcation point. Before this transition occurs, the local stability of the system decreases and perturbations take increasingly longer to decay. This phenomenon is known as critical slowing down <span class="citation">(<a href="#ref-scheffer2009">Scheffer et al. 2009</a>)</span>.</p>
+<p>The statistical consequences can be understood by considering the dynamics locally around a stable equilibrium. After linearisation, deviations <span class="math inline">\(y_t\)</span> from equilibrium can approximately be represented as</p>
+<p><span class="math display">\[
+dy_t = -\lambda y_t\,dt + \sigma\,dW_t,
+\]</span></p>
+<p>where <span class="math inline">\(\lambda&gt;0\)</span> describes the local recovery rate. When the system approaches a fold bifurcation, <span class="math inline">\(\lambda\)</span> decreases towards zero. The lag-1 autocorrelation of discretely observed states can then be approximated by</p>
+<p><span class="math display">\[
+\rho_1 \approx \exp(-\lambda \Delta t).
+\]</span></p>
+<p>Consequently, as <span class="math inline">\(\lambda \rightarrow 0\)</span>, <span class="math inline">\(\rho_1\)</span> approaches one: consecutive observations become increasingly similar because the system recovers more slowly from perturbations. Under the same local approximation, the stationary variance is</p>
+<p><span class="math display">\[
+\mathrm{Var}(Y) \approx \frac{\sigma^2}{2\lambda}.
+\]</span></p>
+<p>A declining recovery rate therefore also tends to increase variance. Rising <strong>lag-1 autocorrelation (AC1)</strong> and <strong>variance</strong> are consequently two of the most widely used statistical indicators of critical slowing down <span class="citation">(<a href="#ref-scheffer2009">Scheffer et al. 2009</a>; <a href="#ref-dakos2012">Dakos et al. 2012</a>)</span>.</p>
+<p>In practice, these indicators are commonly estimated over rolling windows rather than from the entire time series. To quantify whether an indicator systematically increases over time, this study uses <strong>Kendall’s rank correlation coefficient <span class="math inline">\(\tau\)</span></strong> between the indicator and time. A positive value of <span class="math inline">\(\tau\)</span> indicates an increasing tendency, while values near zero indicate little evidence of a monotonic trend. This provides a simple non-parametric summary of the development of each early-warning indicator.</p>
+<p>However, increases in variance or AC1 are not unique signatures of an approaching bifurcation. Changes in noise intensity, seasonal structure, sampling frequency, and other forms of non-stationarity may generate similar statistical patterns. Early-warning signals should therefore be interpreted as evidence of changing system stability rather than deterministic proof of an approaching tipping point. This ambiguity motivates the simulation benchmark in the following section, where the behaviour of variance and AC1 is compared across both tipping and non-tipping scenarios.</p>
+</div>
+<div id="simulation-benchmark" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Simulation Benchmark<a href="utp.html#simulation-benchmark" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To evaluate the reliability of early-warning signals under controlled conditions, a simulation benchmark was constructed containing both tipping and non-tipping scenarios. The main objective is to determine whether increasing variance and lag-1 autocorrelation (AC1) can reliably distinguish an approaching loss of stability from alternative mechanisms that may generate similar statistical patterns. Five scenarios were considered, with 500 independent simulations generated for each scenario.</p>
+<p>The first scenario represents an <strong>approaching tipping point</strong>. The control parameter of the stochastic fold model changes gradually over time, moving the system towards its bifurcation threshold. As the recovery rate decreases, critical slowing down is expected to emerge, and both variance and AC1 may increase before the transition. This scenario therefore provides the positive benchmark against which the performance of the early-warning indicators can be evaluated.</p>
+<p>The second scenario is a <strong>stable control</strong>. Here, the system remains away from the critical threshold and does not experience a systematic loss of stability. Any increasing early-warning indicator observed in this scenario therefore represents variation that occurs despite the absence of an approaching tipping point.</p>
+<p>Three additional scenarios were used to examine important sources of ambiguity. The <strong>seasonal non-tipping scenario</strong> introduces periodic variation without moving the underlying system towards a bifurcation. The <strong>increasing-noise scenario</strong> maintains a stable underlying system while the magnitude of stochastic perturbations increases over time. This provides an important counterexample because increasing noise can produce rising variance even when the recovery dynamics of the system have not weakened. Finally, the <strong>sparse-sampling tipping scenario</strong> represents an approaching tipping process observed at a lower temporal resolution. It is intended to illustrate how limited sampling can affect the statistical evidence available for detecting critical slowing down.</p>
+<div class="float" id="fig:utp-example-time-series">
+<img src="work/08-uncertainty_tp/figures/01_example_time_series.png" alt="Example time series from the five simulation scenarios." />
+<div class="figcaption">Example time series from the five simulation scenarios.</div>
+</div>
+<p>For each simulated time series, two early-warning indicators were calculated over rolling windows: <strong>variance</strong> and <strong>lag-1 autocorrelation</strong>. Variance measures the magnitude of fluctuations around the local state of the system, whereas AC1 measures the persistence between consecutive observations. Under critical slowing down, both quantities are theoretically expected to increase as the system approaches a fold bifurcation.</p>
+<p>To summarize the temporal development of each indicator, <strong>Kendall’s rank correlation coefficient <span class="math inline">\(\tau\)</span></strong> was calculated between the rolling indicator and time. Positive values of <span class="math inline">\(\tau\)</span> indicate that the indicator tends to increase over the observation period, while values close to zero indicate little evidence of a monotonic trend. Each simulation therefore produces a trend statistic for variance and AC1 that can be compared across the five scenarios.</p>
+<p>The benchmark is designed to assess both the ability of an indicator to detect genuine loss of stability and its tendency to generate warning-like behaviour under alternative conditions. In particular, a useful early-warning indicator should show increasing trends frequently in the tipping scenario while avoiding similar signals in the non-tipping scenarios. The distributions of the resulting trend statistics are subsequently used to evaluate discrimination between tipping and non-tipping simulations using receiver operating characteristic (ROC) analysis.</p>
+</div>
+<div id="simulation-results" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> Simulation Results<a href="utp.html#simulation-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The simulation benchmark reveals substantial differences in the behaviour of the early-warning indicators across scenarios. In the approaching-tipping simulations, both rolling variance and lag-1 autocorrelation (AC1) tend to increase as the system moves towards the bifurcation. This is consistent with the theoretical expectation from critical slowing down. However, the simulations also demonstrate that increasing indicators are not unique to genuine loss of stability.</p>
+<div class="float" id="fig:utp-rolling-indicators">
+<img src="work/08-uncertainty_tp/figures/02_rolling_indicators.png" alt="Rolling early-warning indicators across the simulation scenarios." />
+<div class="figcaption">Rolling early-warning indicators across the simulation scenarios.</div>
+</div>
+<p>The comparison across scenarios highlights an important source of ambiguity. In particular, the increasing-noise scenario can generate warning-like behaviour even though the underlying system is not approaching a bifurcation. Increasing stochastic variability can directly raise the observed variance and may therefore resemble one of the expected signatures of critical slowing down. Seasonal variation and changes in sampling also affect the observed indicators, illustrating that the statistical properties of a time series depend not only on the underlying stability of the system but also on the observation process and external variability.</p>
+<p>To quantify how well the indicators distinguish tipping from non-tipping simulations, their performance was evaluated using receiver operating characteristic (ROC) curves. The ROC curve compares the true-positive rate, or sensitivity, with the false-positive rate across different decision thresholds. The area under the ROC curve (AUC) provides a threshold-independent summary of discriminatory performance, with a value of 0.5 corresponding to random classification and larger values indicating better discrimination.</p>
+<div class="float" id="fig:utp-roc-auc">
+<img src="work/08-uncertainty_tp/figures/03_roc_auc.png" alt="ROC curves for variance, AC1, and the combined early-warning indicator." />
+<div class="figcaption">ROC curves for variance, AC1, and the combined early-warning indicator.</div>
+</div>
+<p>Among the evaluated indicators, <strong>AC1 shows the strongest discriminatory performance, with an AUC of 0.840</strong>. The combined early-warning measure reaches an AUC of <strong>0.779</strong>, whereas variance alone produces a lower AUC of <strong>0.672</strong>. Thus, combining the indicators does not outperform AC1 in this benchmark. These results suggest that increasing persistence contains more useful information about the approaching fold bifurcation than increasing variability alone.</p>
+<p>At the selected decision threshold, the empirical sensitivity of the warning signal is <strong>0.589</strong>, meaning that approximately 58.9% of tipping simulations generate a positive signal. At the same time, the false-positive rate is <strong>0.217</strong>, so warning signals also occur in approximately 21.7% of non-tipping simulations. These values illustrate the central uncertainty associated with EWS: observing a warning signal increases the evidence for an approaching transition, but the signal is neither necessary nor sufficient for tipping.</p>
+<div class="float" id="fig:utp-signal-rate">
+<img src="work/08-uncertainty_tp/figures/04_signal_rates_by_scenario.png" alt="Frequency of detected warning signals across simulation scenarios." />
+<div class="figcaption">Frequency of detected warning signals across simulation scenarios.</div>
+</div>
+<p>The simulation results therefore support a probabilistic rather than deterministic interpretation of early-warning indicators. AC1 performs relatively well at separating the simulated tipping and non-tipping conditions, but false positives and missed detections remain unavoidable. Consequently, the presence of an EWS should not by itself be interpreted as proof that a critical transition is approaching. The next section formalizes this interpretation using Bayes’ rule, combining the empirical sensitivity and false-positive rate with an assumed prior probability of tipping.</p>
+</div>
+<div id="bayesian-interpretation-of-early-warning-signals" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> Bayesian Interpretation of Early-Warning Signals<a href="utp.html#bayesian-interpretation-of-early-warning-signals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The simulation results show that an early-warning signal is informative but imperfect. A positive signal occurs more frequently in tipping simulations than in non-tipping simulations, but false positives remain substantial. Therefore, observing an EWS cannot be interpreted as direct proof of an approaching tipping point. A Bayesian perspective provides a natural framework for expressing this uncertainty explicitly.</p>
+<p>Let <span class="math inline">\(T\)</span> denote the event that the system is approaching a tipping point and <span class="math inline">\(S\)</span> the event that a positive early-warning signal is observed. From the simulation benchmark, the empirical sensitivity is</p>
+<p><span class="math display">\[
+P(S \mid T) = 0.589,
+\]</span></p>
+<p>while the empirical false-positive rate is</p>
+<p><span class="math display">\[
+P(S \mid \neg T) = 0.217.
+\]</span></p>
+<p>Bayes’ rule can then be used to update a prior probability of tipping after observing a warning signal:</p>
+<p><span class="math display">\[
+P(T \mid S)
+=
+\frac{P(S \mid T)P(T)}
+{P(S \mid T)P(T)+P(S \mid \neg T)P(\neg T)}.
+\]</span></p>
+<p>For example, suppose that the prior probability of an approaching tipping point is <span class="math inline">\(P(T)=0.10\)</span>. Substituting the empirical rates from the simulation gives</p>
+<p><span class="math display">\[
+P(T \mid S)
+=
+\frac{0.589 \times 0.10}
+{0.589 \times 0.10 + 0.217 \times 0.90}
+\approx 0.231.
+\]</span></p>
+<p>Thus, observing a positive EWS increases the estimated tipping probability from <strong>10% to approximately 23.1%</strong>. The signal therefore contains relevant information, but the posterior probability remains far below certainty. This illustrates why a warning signal should be interpreted as probabilistic evidence rather than as a deterministic diagnosis.</p>
+<div class="float" id="fig:utp-bayesian-posterior">
+<img src="work/08-uncertainty_tp/figures/05_bayesian_posterior.png" alt="Posterior tipping probability after observing an early-warning signal under different prior probabilities." />
+<div class="figcaption">Posterior tipping probability after observing an early-warning signal under different prior probabilities.</div>
+</div>
+<p>An important consequence of this formulation is that the interpretation of the same statistical signal depends on the prior probability of tipping. If the prior risk is low, even a relatively informative EWS may result in a moderate posterior probability. Conversely, when independent physical or observational evidence already suggests a high prior risk, the same signal can lead to a substantially higher posterior probability. Bayesian updating therefore makes an assumption that is often implicit in EWS interpretation explicit: the meaning of a warning signal depends not only on its statistical properties, but also on what was believed about the underlying system before the signal was observed.</p>
+<p>The probabilities used here are empirical quantities derived from the controlled simulation benchmark and should not be interpreted as calibrated probabilities of an actual climate tipping event. Rather, the Bayesian calculation serves as an illustration of how uncertainty in EWS can be communicated transparently. In real climate applications, both the prior probability and the sensitivity and false-positive rate of an indicator are themselves uncertain, which further reinforces the need for cautious interpretation.</p>
+</div>
+<div id="north-atlantic-sst-application" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> North Atlantic SST Application<a href="utp.html#north-atlantic-sst-application" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>After evaluating early-warning indicators under controlled simulation conditions, the framework was applied to an empirical climate time series. The purpose of this application is not to provide a direct diagnosis of the Atlantic Meridional Overturning Circulation (AMOC), but to illustrate how the same early-warning methodology behaves when applied to real-world climate data.</p>
+<p>The AMOC is a major component of the climate system and has been discussed as a potential tipping element <span class="citation">(<a href="#ref-lenton2008">Lenton et al. 2008</a>)</span>. Because sufficiently long direct observations of AMOC strength are not available, previous studies have used sea-surface-temperature (SST) patterns in the North Atlantic as indirect indicators of changes in AMOC stability <span class="citation">(<a href="#ref-boers2021">Boers and Rypdal 2021</a>)</span>. Following this general motivation, an SST-based proxy is used here as an illustrative application rather than as a direct measurement of the circulation itself.</p>
+<p>The analysis uses annual detrended SST anomalies for the North Atlantic region bounded by <strong>45–60°N and 60–10°W</strong>, derived from the NOAA Extended Reconstructed Sea Surface Temperature Version 5 (ERSST v5) data set. The early-warning indicators are calculated using a <strong>20-year rolling window</strong>, applying the same two principal statistics considered in the simulation benchmark: rolling variance and rolling lag-1 autocorrelation (AC1).</p>
+<p>The empirical results do not show a clear and consistent early-warning pattern. Rolling variance exhibits only a weak increasing tendency, with a Kendall rank correlation of</p>
+<p><span class="math display">\[
+\tau_{\mathrm{variance}} = 0.123.
+\]</span></p>
+<p>In contrast, rolling AC1 does not increase over time and has a Kendall correlation of</p>
+<p><span class="math display">\[
+\tau_{\mathrm{AC1}} = -0.032.
+\]</span></p>
+<p>This distinction is particularly relevant in light of the simulation benchmark, where AC1 provided the strongest discriminatory performance. The absence of an increasing AC1 trend therefore means that the two indicators do not provide mutually consistent evidence of critical slowing down in this empirical example.</p>
+<p>Several factors may contribute to this ambiguous result. Real climate records are considerably more complex than the controlled stochastic system used in the simulations. The available record is relatively short compared with the potentially long timescales of AMOC dynamics, while anthropogenic forcing and other forms of non-stationarity may influence the observed SST signal. In addition, an SST-based index is only a proxy for AMOC behaviour and therefore introduces additional uncertainty into the interpretation.</p>
+<p>Consequently, the results should not be interpreted as evidence that the AMOC is approaching a tipping point. Instead, the application demonstrates an important limitation of empirical early-warning analysis: indicators that behave clearly under controlled simulations may become weak, inconsistent, or ambiguous when applied to real climate observations. The North Atlantic SST example therefore reinforces the central argument of this chapter that EWS should be treated as uncertain evidence of changing stability rather than as standalone proof of an approaching climate tipping point.</p>
+</div>
+<div id="discussion-and-conclusion" class="section level2 hasAnchor" number="10.8">
+<h2><span class="header-section-number">10.8</span> Discussion and Conclusion<a href="utp.html#discussion-and-conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This study examined the uncertainty associated with early-warning signals (EWS) of climate tipping points by combining theoretical arguments, controlled simulations, probabilistic interpretation, and an empirical climate illustration. The simulation results show that indicators associated with critical slowing down can contain useful information about declining system stability, but their interpretation is not straightforward. Among the evaluated indicators, lag-1 autocorrelation (AC1) achieved the strongest discrimination between tipping and non-tipping simulations, with an AUC of 0.840, whereas variance alone was less informative. Importantly, non-tipping mechanisms such as increasing noise could also generate warning-like behaviour, demonstrating that an increasing EWS is not unique to an approaching bifurcation.</p>
+<p>The Bayesian analysis further illustrates why EWS should be interpreted probabilistically. With an empirical sensitivity of 0.589 and a false-positive rate of 0.217, a positive signal increased an illustrative prior tipping probability of 10% to a posterior probability of 23.1%. Thus, the same warning signal can have very different implications depending on the prior risk assigned to the system.</p>
+<p>The North Atlantic SST application highlights additional difficulties in real climate data. The weak increase in variance (<span class="math inline">\(\tau=0.123\)</span>) and absence of an increasing AC1 trend (<span class="math inline">\(\tau=-0.032\)</span>) do not provide consistent evidence of critical slowing down. Short observational records, non-stationary forcing, proxy uncertainty, and differences between simplified models and the real climate system further limit interpretation.</p>
+<p>Overall, EWS are best regarded as indicators of changing stability rather than deterministic predictions of tipping. Their value lies in contributing probabilistic evidence that can be combined with physical understanding, observations, and other sources of information. Future work should therefore focus not only on developing more sensitive indicators, but also on quantifying their uncertainty and robustness under realistic climate conditions.</p>
+</div>
+<div id="declaration-of-ai-use" class="section level2 hasAnchor" number="10.9">
+<h2><span class="header-section-number">10.9</span> Declaration of AI Use<a href="utp.html#declaration-of-ai-use" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Generative AI tools, including ChatGPT, were used to support the preparation of this chapter, including assistance with language refinement, code development, debugging, and the organization of selected analyses. All AI-assisted outputs were critically reviewed, adapted, and verified by the author. The author takes full responsibility for the final content, analyses, interpretations, and conclusions presented in this chapter.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-mckay2022" class="csl-entry">
+Armstrong McKay, David I., Arie Staal, Jesse F. Abrams, Ricarda Winkelmann, Boris Sakschewski, Sina Loriani, Ingo Fetzer, Sarah E. Cornell, Johan Rockstrom, et al. 2022. <span>“Exceeding 1.5°c Global Warming Could Trigger Multiple Climate Tipping Points.”</span> <em>Science</em> 377 (6611): eabn7950. <a href="https://doi.org/10.1126/science.abn7950">https://doi.org/10.1126/science.abn7950</a>.
+</div>
+<div id="ref-boers2021" class="csl-entry">
+Boers, Niklas, and Martin Rypdal. 2021. <span>“Critical Slowing down Suggests That the Western Greenland Ice Sheet Is Close to a Tipping Point.”</span> <em>Proceedings of the National Academy of Sciences</em> 118 (21): e2024192118. <a href="https://doi.org/10.1073/pnas.2024192118">https://doi.org/10.1073/pnas.2024192118</a>.
+</div>
+<div id="ref-dakos2012" class="csl-entry">
+Dakos, Vasilis, Stephen R. Carpenter, William A. Brock, et al. 2012. <span>“Methods for Detecting Early Warnings of Critical Transitions in Time Series Illustrated Using Simulated Ecological Data.”</span> <em>PLoS ONE</em> 7 (7): e41010. <a href="https://doi.org/10.1371/journal.pone.0041010">https://doi.org/10.1371/journal.pone.0041010</a>.
+</div>
+<div id="ref-lenton2008" class="csl-entry">
+Lenton, Timothy M., Hermann Held, Elmar Kriegler, et al. 2008. <span>“Tipping Elements in the Earth’s Climate System.”</span> <em>Proceedings of the National Academy of Sciences</em> 105 (6): 1786–93. <a href="https://doi.org/10.1073/pnas.0705414105">https://doi.org/10.1073/pnas.0705414105</a>.
+</div>
+<div id="ref-scheffer2009" class="csl-entry">
+Scheffer, Marten, Jordi Bascompte, William A. Brock, et al. 2009. <span>“Early-Warning Signals for Critical Transitions.”</span> <em>Nature</em> 461 (7260): 53–59. <a href="https://doi.org/10.1038/nature08227">https://doi.org/10.1038/nature08227</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tp-overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ptp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Climate downscaling using diffusion models | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Climate downscaling using diffusion models | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Climate downscaling using diffusion models | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dp.html"/>
+<link rel="next" href="hyd.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>1</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="dp.html"><a href="dp.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>1.2</b> Related Work</a></li>
+<li class="chapter" data-level="1.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>1.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>1.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="1.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>1.3.2</b> Variables</a></li>
+<li class="chapter" data-level="1.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>1.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="1.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>1.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="1.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>1.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="1.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>1.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="dp.html"><a href="dp.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>1.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>1.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="1.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>1.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="1.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>1.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="1.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>1.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="dp.html"><a href="dp.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>1.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="1.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>1.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="1.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>1.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="1.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>1.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="1.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>1.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="dp.html"><a href="dp.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a></li>
+<li class="chapter" data-level="1.7" data-path="dp.html"><a href="dp.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ddm.html"><a href="ddm.html"><i class="fa fa-check"></i><b>2</b> Climate downscaling using diffusion models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ddm.html"><a href="ddm.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="ddm.html"><a href="ddm.html#ddm-theory"><i class="fa fa-check"></i><b>2.2</b> Diffusion models for image generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ddm.html"><a href="ddm.html#training-the-model"><i class="fa fa-check"></i><b>2.2.1</b> Training the model</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ddm.html"><a href="ddm.html#generation-of-samples"><i class="fa fa-check"></i><b>2.2.2</b> Generation of samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ddm.html"><a href="ddm.html#data-and-methods"><i class="fa fa-check"></i><b>2.3</b> Data and methods</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ddm.html"><a href="ddm.html#climate-variables"><i class="fa fa-check"></i><b>2.3.1</b> Climate variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ddm.html"><a href="ddm.html#ddm-dataset-information"><i class="fa fa-check"></i><b>2.3.2</b> Dataset information</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ddm.html"><a href="ddm.html#ddm-modeling-setup"><i class="fa fa-check"></i><b>2.3.3</b> Modeling setup</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ddm.html"><a href="ddm.html#ddm-training-inference-setup"><i class="fa fa-check"></i><b>2.3.4</b> Training and inference setup</a></li>
+<li class="chapter" data-level="2.3.5" data-path="ddm.html"><a href="ddm.html#ddm-evaluation-metrics"><i class="fa fa-check"></i><b>2.3.5</b> Evaluation metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ddm.html"><a href="ddm.html#results-1"><i class="fa fa-check"></i><b>2.4</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="ddm.html"><a href="ddm.html#ddm-calibration-assessment"><i class="fa fa-check"></i><b>2.4.1</b> Calibration assessment</a></li>
+<li class="chapter" data-level="2.4.2" data-path="ddm.html"><a href="ddm.html#ddm-signal-preservation"><i class="fa fa-check"></i><b>2.4.2</b> Signal preservation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ddm.html"><a href="ddm.html#ddm-discussion"><i class="fa fa-check"></i><b>2.5</b> Discussion</a></li>
+<li class="chapter" data-level="2.6" data-path="ddm.html"><a href="ddm.html#conclusion-1"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="ddm.html"><a href="ddm.html#note-on-the-dataset"><i class="fa fa-check"></i><b>2.6.1</b> Note on the dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ddm.html"><a href="ddm.html#appendix"><i class="fa fa-check"></i><b>2.7</b> Appendix</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="ddm.html"><a href="ddm.html#ddm-appendix-a"><i class="fa fa-check"></i><b>2.7.1</b> Appendix A - More information on reverse diffusion process</a></li>
+<li class="chapter" data-level="2.7.2" data-path="ddm.html"><a href="ddm.html#ddm-appendix-b"><i class="fa fa-check"></i><b>2.7.2</b> Appendix B - Distributional shift of the climate variables across global warming levels</a></li>
+<li class="chapter" data-level="2.7.3" data-path="ddm.html"><a href="ddm.html#ddm-appendix-c"><i class="fa fa-check"></i><b>2.7.3</b> Appendix C - Mean downscaling correction</a></li>
+<li class="chapter" data-level="2.7.4" data-path="ddm.html"><a href="ddm.html#ddm-appendix-d"><i class="fa fa-check"></i><b>2.7.4</b> Appendix D - Ensemble spread over projection period</a></li>
+<li class="chapter" data-level="2.7.5" data-path="ddm.html"><a href="ddm.html#ddm-appendix-e"><i class="fa fa-check"></i><b>2.7.5</b> Appendix E - Compute time</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="ddm.html"><a href="ddm.html#usage-of-ai-tools"><i class="fa fa-check"></i><b>2.8</b> Usage of AI tools</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-1"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-1"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-2"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-1"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-2"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+<li class="chapter" data-level="6.3" data-path="irh.html"><a href="irh.html#data-2"><i class="fa fa-check"></i><b>6.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="irh.html"><a href="irh.html#origin"><i class="fa fa-check"></i><b>6.3.1</b> Origin</a></li>
+<li class="chapter" data-level="6.3.2" data-path="irh.html"><a href="irh.html#preprocessing-1"><i class="fa fa-check"></i><b>6.3.2</b> Preprocessing</a></li>
+<li class="chapter" data-level="6.3.3" data-path="irh.html"><a href="irh.html#sec-corr"><i class="fa fa-check"></i><b>6.3.3</b> Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="irh.html"><a href="irh.html#modelling"><i class="fa fa-check"></i><b>6.4</b> Modelling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="irh.html"><a href="irh.html#model-explanation"><i class="fa fa-check"></i><b>6.4.1</b> Model Explanation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="irh.html"><a href="irh.html#sec-model-impl"><i class="fa fa-check"></i><b>6.4.2</b> Implementation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="irh.html"><a href="irh.html#evaluation-1"><i class="fa fa-check"></i><b>6.4.3</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="irh.html"><a href="irh.html#interpretability"><i class="fa fa-check"></i><b>6.5</b> Interpretability</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="irh.html"><a href="irh.html#permutation-feature-importance"><i class="fa fa-check"></i><b>6.5.1</b> Permutation Feature Importance</a></li>
+<li class="chapter" data-level="6.5.2" data-path="irh.html"><a href="irh.html#partial-dependence-plots-for-dynamic-features"><i class="fa fa-check"></i><b>6.5.2</b> Partial Dependence Plots (for dynamic features)</a></li>
+<li class="chapter" data-level="6.5.3" data-path="irh.html"><a href="irh.html#accumulated-local-effects"><i class="fa fa-check"></i><b>6.5.3</b> Accumulated Local Effects</a></li>
+<li class="chapter" data-level="6.5.4" data-path="irh.html"><a href="irh.html#lag-importance-using-ale"><i class="fa fa-check"></i><b>6.5.4</b> Lag Importance using ALE</a></li>
+<li class="chapter" data-level="6.5.5" data-path="irh.html"><a href="irh.html#d-partial-dependence-plot"><i class="fa fa-check"></i><b>6.5.5</b> 2D Partial Dependence Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="irh.html"><a href="irh.html#results-4"><i class="fa fa-check"></i><b>6.6</b> Results</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="irh.html"><a href="irh.html#model-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Model Evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="irh.html"><a href="irh.html#permutation-feature-importance-1"><i class="fa fa-check"></i><b>6.6.2</b> Permutation Feature Importance</a></li>
+<li class="chapter" data-level="6.6.3" data-path="irh.html"><a href="irh.html#partial-dependence-plots-pdp"><i class="fa fa-check"></i><b>6.6.3</b> Partial Dependence Plots (PDP)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="irh.html"><a href="irh.html#ale-curves-for-the-most-recent-day-lag-0"><i class="fa fa-check"></i><b>6.6.4</b> ALE Curves for the Most Recent Day (Lag 0)</a></li>
+<li class="chapter" data-level="6.6.5" data-path="irh.html"><a href="irh.html#lag-importance-ale"><i class="fa fa-check"></i><b>6.6.5</b> Lag Importance (ALE)</a></li>
+<li class="chapter" data-level="6.6.6" data-path="irh.html"><a href="irh.html#d-partial-dependence-plot-1"><i class="fa fa-check"></i><b>6.6.6</b> 2D Partial Dependence Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="irh.html"><a href="irh.html#conclusion-3"><i class="fa fa-check"></i><b>6.7</b> Conclusion</a></li>
+<li class="chapter" data-level="6.8" data-path="irh.html"><a href="irh.html#outlook"><i class="fa fa-check"></i><b>6.8</b> Outlook</a></li>
+<li class="chapter" data-level="6.9" data-path="irh.html"><a href="irh.html#appendix-ai-declaration-1"><i class="fa fa-check"></i><b>6.9</b> Appendix: AI Declaration</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>7</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="unc.html"><a href="unc.html#abstract-3"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="unc.html"><a href="unc.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>7.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="7.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>7.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="7.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>7.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>7.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>7.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="7.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>7.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="7.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>7.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="7.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>7.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="unc.html"><a href="unc.html#methods-3"><i class="fa fa-check"></i><b>7.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>7.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="7.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>7.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="7.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>7.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="7.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>7.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="7.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>7.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="unc.html"><a href="unc.html#results-5"><i class="fa fa-check"></i><b>7.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>7.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="7.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>7.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="7.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>7.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="7.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>7.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="unc.html"><a href="unc.html#discussion-2"><i class="fa fa-check"></i><b>7.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>7.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="7.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>7.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>7.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="unc.html"><a href="unc.html#conclusion-4"><i class="fa fa-check"></i><b>7.7</b> Conclusion</a></li>
+<li class="chapter" data-level="7.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>7.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>7.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="7.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>7.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="7.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>7.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>8</b> Deep Learning for Change-Point Detection in Climate Time Series</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="cs.html"><a href="cs.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.3" data-path="cs.html"><a href="cs.html#change-point-detection"><i class="fa fa-check"></i><b>8.3</b> Change Point Detection</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="cs.html"><a href="cs.html#problem-formulation"><i class="fa fa-check"></i><b>8.3.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.3.2" data-path="cs.html"><a href="cs.html#classical-methods-cost-functions-and-pelt"><i class="fa fa-check"></i><b>8.3.2</b> Classical methods: cost functions and PELT</a></li>
+<li class="chapter" data-level="8.3.3" data-path="cs.html"><a href="cs.html#deep-learning-methods"><i class="fa fa-check"></i><b>8.3.3</b> Deep learning methods</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="cs.html"><a href="cs.html#deep-learning-approach"><i class="fa fa-check"></i><b>8.4</b> Deep Learning Approach</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="cs.html"><a href="cs.html#data-3"><i class="fa fa-check"></i><b>8.4.1</b> Data</a></li>
+<li class="chapter" data-level="8.4.2" data-path="cs.html"><a href="cs.html#wavelet-preprocessing"><i class="fa fa-check"></i><b>8.4.2</b> Wavelet preprocessing</a></li>
+<li class="chapter" data-level="8.4.3" data-path="cs.html"><a href="cs.html#cnn-architecture"><i class="fa fa-check"></i><b>8.4.3</b> CNN architecture</a></li>
+<li class="chapter" data-level="8.4.4" data-path="cs.html"><a href="cs.html#contrastive-training"><i class="fa fa-check"></i><b>8.4.4</b> Contrastive training</a></li>
+<li class="chapter" data-level="8.4.5" data-path="cs.html"><a href="cs.html#postprocessing"><i class="fa fa-check"></i><b>8.4.5</b> Postprocessing</a></li>
+<li class="chapter" data-level="8.4.6" data-path="cs.html"><a href="cs.html#application-to-berkeley-earth-temperature-data"><i class="fa fa-check"></i><b>8.4.6</b> Application to Berkeley Earth Temperature Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="cs.html"><a href="cs.html#comparison-of-changepoint-candidates-with-pelt"><i class="fa fa-check"></i><b>8.5</b> Comparison of Changepoint Candidates with PELT</a></li>
+<li class="chapter" data-level="8.6" data-path="cs.html"><a href="cs.html#discussion-3"><i class="fa fa-check"></i><b>8.6</b> Discussion</a></li>
+<li class="chapter" data-level="8.7" data-path="cs.html"><a href="cs.html#conclusion-5"><i class="fa fa-check"></i><b>8.7</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-5"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods-1"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-6"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-6"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>10</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="utp.html"><a href="utp.html#abstract-6"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="utp.html"><a href="utp.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+<li class="chapter" data-level="10.3" data-path="utp.html"><a href="utp.html#early-warning-signals-and-critical-slowing-down"><i class="fa fa-check"></i><b>10.3</b> Early-Warning Signals and Critical Slowing Down</a></li>
+<li class="chapter" data-level="10.4" data-path="utp.html"><a href="utp.html#simulation-benchmark"><i class="fa fa-check"></i><b>10.4</b> Simulation Benchmark</a></li>
+<li class="chapter" data-level="10.5" data-path="utp.html"><a href="utp.html#simulation-results"><i class="fa fa-check"></i><b>10.5</b> Simulation Results</a></li>
+<li class="chapter" data-level="10.6" data-path="utp.html"><a href="utp.html#bayesian-interpretation-of-early-warning-signals"><i class="fa fa-check"></i><b>10.6</b> Bayesian Interpretation of Early-Warning Signals</a></li>
+<li class="chapter" data-level="10.7" data-path="utp.html"><a href="utp.html#north-atlantic-sst-application"><i class="fa fa-check"></i><b>10.7</b> North Atlantic SST Application</a></li>
+<li class="chapter" data-level="10.8" data-path="utp.html"><a href="utp.html#discussion-and-conclusion"><i class="fa fa-check"></i><b>10.8</b> Discussion and Conclusion</a></li>
+<li class="chapter" data-level="10.9" data-path="utp.html"><a href="utp.html#declaration-of-ai-use"><i class="fa fa-check"></i><b>10.9</b> Declaration of AI Use</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-7"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-7"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-4"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-7"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ddm" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Climate downscaling using diffusion models<a href="ddm.html#ddm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Alexander Winterstetter</em></p>
+<p><em>Supervisor: Henri Funk</em></p>
+<p><em>Degree: Master</em></p>
+<div id="introduction-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="ddm.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Climate downscaling, the transformation of a coarse-resolution climate field into a more granular high-resolution climate field, has gained significance under a changing and increasingly extreme climate, because
+climate models are typically run at resolutions too coarse to represent the local-scale processes on which adaptation and risk-management decisions depend <span class="citation">(<a href="#ref-ling2024">Ling et al. 2024</a>; <a href="#ref-merizzi2024">Merizzi et al. 2024</a>)</span>.</p>
+<p>Downscaling is performed either dynamically, utilizing regional climate models, or statistically, by learning a relationship between coarse and fine climate fields <span class="citation">(<a href="#ref-ling2024">Ling et al. 2024</a>)</span>.
+For statistical downscaling, the application of deep learning methods has gained traction in recent years, drawing on the similarity between downscaling
+and super-resolution of natural images <span class="citation">(<a href="#ref-addison2022">Addison et al. 2022</a>; <a href="#ref-merizzi2024">Merizzi et al. 2024</a>)</span>. In particular, the use of diffusion models is an active area of research <span class="citation">(<a href="#ref-springenberg2026">Springenberg et al. 2026</a>)</span>.
+Rather than returning a single deterministic estimate, diffusion models sample an ensemble from the distribution of high-resolution fields conditioned on the coarse input.
+Downscaling thereby becomes a probabilistic task, in which the ensemble spread quantifies the uncertainty of the coarse-to-fine mapping <span class="citation">(<a href="#ref-watt2024">Watt and Mansfield 2024</a>; <a href="#ref-springenberg2026">Springenberg et al. 2026</a>)</span>.</p>
+<p>Implementations differ mainly in what the diffusion model produces. Some studies generate the residual between the interpolated coarse field and the high-resolution field <span class="citation">(<a href="#ref-watt2024">Watt and Mansfield 2024</a>; <a href="#ref-lopezgomez2025">López-Gómez et al. 2025</a>)</span>,
+and add it back to the interpolated field. Alternatively, the residual is taken with respect to a separate regression model <span class="citation">(<a href="#ref-mardani2025">Mardani et al. 2025</a>; <a href="#ref-tomasi2025">Tomasi et al. 2025</a>)</span>,
+or the model outputs the full field directly using the coarse field as context alone <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>; <a href="#ref-merizzi2024">Merizzi et al. 2024</a>)</span>.
+Previous research predominantly evaluated diffusion models for downscaling in an idealized setting. The target climate field is degraded to a coarse resolution, and the analysis focuses on the diffusion model
+recovering the original resolution <span class="citation">(<a href="#ref-merizzi2024">Merizzi et al. 2024</a>; <a href="#ref-watt2024">Watt and Mansfield 2024</a>)</span>. A smaller number of studies utilize the trained model to generate climate projections and assess how well the climate change signal is preserved in them <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>; <a href="#ref-aich2026">Aich et al. 2026</a>)</span>.</p>
+<p>This work adopts the interpolation-residual approach, because it only requires a single model and restricts the learning task to the fine-scale correction.
+It addresses both research areas, calibration assessment of the generated fields and projection-signal preservation.
+For <strong>calibration assessment</strong>, it evaluates whether the <span class="citation">Watt and Mansfield (<a href="#ref-watt2024">2024</a>)</span> architecture generates accurate and calibrated ensembles over the complex topography of the Alps, downscaling reanalysis fields from 12 km to a target resolution of 3.4 km.
+Then for <strong>signal preservation</strong>, the trained model is assessed on how well it preserves the climate change signal when applied to future climate projections.</p>
+</div>
+<div id="ddm-theory" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Diffusion models for image generation<a href="ddm.html#ddm-theory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the context of climate downscaling or super-resolution, the diffusion model samples from the conditional probability density <span class="math inline">\(p(\boldsymbol{x}_0 \mid \boldsymbol{y})\)</span>. <span class="math inline">\(\boldsymbol{x}_0\)</span> is the target field the model generates and <span class="math inline">\(\boldsymbol{y}\)</span> is the context given to the model,
+e.g., a coarse version of the target image. The underlying diffusion-model framework was established by <span class="citation">Song et al. (<a href="#ref-song2021">2021</a>)</span> and refined by <span class="citation">Karras et al. (<a href="#ref-karras2022">2022</a>)</span> into the EDM-formulation, which is used in several downscaling papers
+<span class="citation">(<a href="#ref-watt2024">Watt and Mansfield 2024</a>; <a href="#ref-mardani2025">Mardani et al. 2025</a>; <a href="#ref-lopezgomez2025">López-Gómez et al. 2025</a>)</span> and is adopted in this work.</p>
+<div id="training-the-model" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Training the model<a href="ddm.html#training-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Conceptually, the idea of diffusion models is to generate a high-quality image by iteratively denoising a Gaussian noise sample <span class="citation">(<a href="#ref-song2021">Song et al. 2021</a>)</span>. During training, each clean target field <span class="math inline">\(\boldsymbol{x}_0\)</span> is corrupted with Gaussian noise <span class="math inline">\(\boldsymbol{\epsilon}\)</span>
+at a noise level <span class="math inline">\(\sigma\)</span> randomly drawn from a log-normal distribution <span class="citation">(<a href="#ref-karras2022">Karras et al. 2022</a>)</span>:</p>
+<p><span class="math display">\[
+\sigma \sim \operatorname{LogN}(\alpha, \beta^2), \qquad
+\boldsymbol{\epsilon} \sim \mathcal{N}(\boldsymbol{0},\, \sigma^2 \mathbf{I}), \qquad
+\boldsymbol{x}_\sigma = \boldsymbol{x}_0 + \boldsymbol{\epsilon}
+\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are the mean and standard deviation of <span class="math inline">\(\ln \sigma\)</span>.
+The target of the model is the original clean field <span class="math inline">\(\boldsymbol{x}_0\)</span>, and the input is the corrupted version <span class="math inline">\(\boldsymbol{x}_\sigma\)</span> combined with the contextual input <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
+<p><span class="math display">\[
+\theta^\star = \operatorname*{arg\,min}_{\theta}\;
+\mathbb{E}_{(\boldsymbol{x}_0,\, \boldsymbol{y}) \sim p_{\text{data}}}\;
+\mathbb{E}_{\sigma \sim p(\sigma)}\;
+\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(\boldsymbol{0},\, \sigma^2 \mathbf{I})}
+\left[\, \lambda(\sigma)\, \left\lVert D_\theta(\boldsymbol{x}_0 + \boldsymbol{\epsilon};\, \sigma,\, \boldsymbol{y}) - \boldsymbol{x}_0 \right\rVert_2^2 \right]
+\]</span></p>
+<p>The model <span class="math inline">\(D_\theta(\boldsymbol{x}_\sigma;\, \sigma,\, \boldsymbol{y})\)</span> is a U-Net <span class="citation">(<a href="#ref-ronneberger2015">Ronneberger et al. 2015</a>)</span>, trained to estimate the noise-free image from a corrupted image, denoted as
+<span class="math inline">\(\hat{\boldsymbol{x}}_0 = D_\theta(\boldsymbol{x}_0 + \boldsymbol{\epsilon};\, \sigma,\, \boldsymbol{y})\)</span>. Formally, the network parameters are obtained by minimizing the expected denoising error over the data distribution,
+the noise-level distribution, and the injected noise, where <span class="math inline">\(\lambda(\sigma)\)</span> weights the contribution of each noise level so that all levels contribute comparably to the loss <span class="citation">(<a href="#ref-karras2022">Karras et al. 2022</a>)</span>.</p>
+</div>
+<div id="generation-of-samples" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Generation of samples<a href="ddm.html#generation-of-samples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>After training, the model generates images by starting from pure Gaussian noise at the highest noise level, <span class="math inline">\(\boldsymbol{x}_{\sigma_0} \sim \mathcal{N}(\boldsymbol{0},\, \sigma_0^2\mathbf{I})\)</span>,
+and descending a decreasing noise schedule <span class="math inline">\(\sigma_0 &gt; \sigma_1 &gt; \dots &gt; \sigma_N = 0\)</span>. At each step, the sample is replaced by a combination of itself and its clean estimate,
+weighted by the ratio of the next to the current noise level. Simplified, it can be expressed as <span class="citation">(<a href="#ref-karras2022">Karras et al. 2022</a>)</span>:</p>
+<p><span class="math display">\[
+\boldsymbol{x}_{\sigma_{i+1}} = \frac{\sigma_{i+1}}{\sigma_i}\, \boldsymbol{x}_{\sigma_i} + \left(1 - \frac{\sigma_{i+1}}{\sigma_i}\right) D_\theta\left(\boldsymbol{x}_{\sigma_i};\, \sigma_i,\, \boldsymbol{y}\right)
+\]</span></p>
+<p>The generation process is stochastic rather than deterministic, enabling the generation of high-resolution image ensembles. Each run starts from an independent Gaussian noise draw. In addition, the stochastic EDM sampler employed here re-injects Gaussian noise before each denoising step
+and applies a second-order correction to the update, both omitted above for readability <span class="citation">(<a href="#ref-karras2022">Karras et al. 2022</a>)</span>.
+An extensive visualization of the generation process can be found in <a href="ddm.html#ddm-appendix-a">Appendix A</a>.</p>
+</div>
+</div>
+<div id="data-and-methods" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Data and methods<a href="ddm.html#data-and-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="climate-variables" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Climate variables<a href="ddm.html#climate-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The climate variables subject to downscaling are near-surface air temperature (from here on called temperature) and precipitation.
+Temperature varies smoothly and its fine-scale structure is strongly tied to terrain elevation <span class="citation">(<a href="#ref-tomasi2025">Tomasi et al. 2025</a>)</span>. Precipitation is intermittent, non-negative and right-skewed.
+Additionally, the coarse-scale state does not uniquely determine the fine-scale field <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>)</span>.
+Both variables were initially available on a 3-hour basis and were subsequently aggregated to the daily mean for temperature and the daily sum for precipitation.</p>
+</div>
+<div id="ddm-dataset-information" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Dataset information<a href="ddm.html#ddm-dataset-information" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The dataset consists of reanalysis and climate projection data and was provided by the <a href="https://www.alpine-space.eu/project/a-drop/">Alpine DROught Prediction (A-DROP)</a> project covering the Alpine domain.
+<strong>Reanalysis data</strong> is a gridded reconstruction of past weather states and is provided in this work at a resolution of 500 m (1749 × 2198 pixels over the Alpine domain), downscaled from the native CERRA reanalysis.
+These 500 m fields were coarsened to 3.4 km due to compute constraints, corresponding to a 256 × 320 grid. Therefore, 3.4 km is the target resolution of the downscaling task throughout this work.</p>
+<p><strong>Projection data</strong> encompasses a simulated trajectory of how Alpine climate might develop over the current century. This work assigns the years to specific Global Warming Levels (GWL) as outlined in Table <a href="ddm.html#tab:ddm-gwl-periods">2.1</a>.
+Projection data from the PRESENT period covers the same years as the reanalysis data, including the years the model was trained on, but contains simulated climate states.
+The data was bias-corrected against the reanalysis data utilizing the MBCn-algorithm <span class="citation">(<a href="#ref-cannon2018">Cannon 2018</a>)</span> and is only available at a resolution of 12 km (77 × 91 pixels), considerably coarser than the reanalysis data.
+The reanalysis grid does not cover its full rectangular pixel array, so the projection data is clipped to the smaller reanalysis-covered area throughout the analysis.</p>
+<p>The distributional shift between the reanalysis data and the four projection periods is visualized in Figure <a href="ddm.html#fig:ddm-distribution-shift">2.1</a>.
+A more detailed breakdown of the shift can be found in <a href="ddm.html#ddm-appendix-b">Appendix B</a>.</p>
+<table class="table table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:ddm-gwl-periods">TABLE 2.1: </span>Global warming levels for the projection assessment, defined as non-overlapping 20-year windows approximately following IPCC AR6 WGI Ch. 4. Mean warming is relative to the pre-industrial baseline (1850–1900).
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+GWL period
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+Mean warming in period (°C)
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+Years
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+PRESENT
+</td>
+<td style="text-align:center;">
++1.20
+</td>
+<td style="text-align:center;">
+2001–2020
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+GWL2
+</td>
+<td style="text-align:center;">
++2.05
+</td>
+<td style="text-align:center;">
+2021–2040
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+GWL3
+</td>
+<td style="text-align:center;">
++3.02
+</td>
+<td style="text-align:center;">
+2041–2060
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+GWL4
+</td>
+<td style="text-align:center;">
++4.09
+</td>
+<td style="text-align:center;">
+2061–2080
+</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-distribution-shift"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_3_distribution_periods.svg" alt="Domain-wide distributions of daily temperature and precipitation, for the reanalysis data and the four projection periods." width="100%" />
+<p class="caption">
+FIGURE 2.1: Domain-wide distributions of daily temperature and precipitation, for the reanalysis data and the four projection periods.
+</p>
+</div>
+<p>Additionally, a field with static information on the topography and the geographic location of lakes and seas was acquired from CERRA, natively available at a resolution of 5.5 km and interpolated to the
+target resolution of 3.4 km.</p>
+</div>
+<div id="ddm-modeling-setup" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Modeling setup<a href="ddm.html#ddm-modeling-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The diffusion model technique is applied to the climate downscaling context following <span class="citation">Watt and Mansfield (<a href="#ref-watt2024">2024</a>)</span>.
+The pipeline is outlined in Figure <a href="ddm.html#fig:ddm-downscaling-workflow">2.2</a>. In a first step, the original coarse 12 km climate field is linearly interpolated to a smoothed version at the target resolution.
+The target of the image generation task (<span class="math inline">\(\boldsymbol{x}_0\)</span> of Section <a href="ddm.html#ddm-theory">2.2</a>) is the residual climate field between the ground truth and the interpolated field.
+The contextual information <span class="math inline">\(\boldsymbol{y}\)</span> is composed of the interpolated climate field, the static fields and the date.
+After its generation, the residual field is added on top of the interpolated field to retrieve the downscaled field.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-downscaling-workflow"></span>
+<img src="work/13-diffusion_downscaling/figures/training/ddm_model_structure.svg" alt="Residual downscaling workflow. The coarse field is linearly interpolated, the diffusion model generates the residual, and their sum yields the downscaled field." width="100%" />
+<p class="caption">
+FIGURE 2.2: Residual downscaling workflow. The coarse field is linearly interpolated, the diffusion model generates the residual, and their sum yields the downscaled field.
+</p>
+</div>
+</div>
+<div id="ddm-training-inference-setup" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Training and inference setup<a href="ddm.html#ddm-training-inference-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The training procedure follows established approaches for diffusion-based downscaling <span class="citation">(<a href="#ref-watt2024">Watt and Mansfield 2024</a>; <a href="#ref-addison2026">Addison et al. 2026</a>)</span>.
+Training pairs are constructed by coarsening the high-resolution field from the reanalysis data to the resolution of the projection data. The diffusion model’s objective is then to recover the
+original fine-scale field given the coarse input. The model is trained on the years 2001–2016 and validated on 2017–2018.
+Following training, the model is applied to the climate projection data.</p>
+<p>This model paradigm assumes that the mapping learned between the coarse and high-resolution reanalysis fields transfers
+to the projection data. The distribution shift decomposes into a data-source (reanalysis to projection data) and a temporal (climate change signal) component.
+The data-source shift is partially addressed by the projection data being bias-corrected against the reanalysis data.
+Whether the diffusion model is also able to handle the temporal shift induced by climate change is assessed in Section <a href="ddm.html#ddm-signal-preservation">2.4.2</a>.</p>
+<p>The model was trained for a fixed budget of 20 epochs, by which point the validation loss had largely flattened.
+Further information on the compute time can be found in <a href="ddm.html#ddm-appendix-e">Appendix E</a>.
+The reanalysis test set consists of every 7th day in the years 2019–2020, totaling 105 days. For every date an ensemble of 12 members was generated.
+In the projection dataset every 12th day was selected and the ensemble comprised 4 members. Both design choices were made to keep compute time reasonable.</p>
+</div>
+<div id="ddm-evaluation-metrics" class="section level3 hasAnchor" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Evaluation metrics<a href="ddm.html#ddm-evaluation-metrics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The accuracy of a generated ensemble with regard to an observation can be measured using the continuous ranked probability score (CRPS), rewarding both accuracy of the individual members and appropriate spread between them <span class="citation">(<a href="#ref-gneiting2007">Gneiting and Raftery 2007</a>)</span>.
+For a predictive distribution <span class="math inline">\(F\)</span>, which the ensemble approximates, and a corresponding observation <span class="math inline">\(y\)</span>, it can be written as</p>
+<p><span class="math display">\[
+\mathrm{CRPS}(F, y) = \mathbb{E}\lvert X - y \rvert \;-\; \tfrac{1}{2}\, \mathbb{E}\lvert X - X&#39; \rvert
+\]</span></p>
+<p>where <span class="math inline">\(X\)</span> and <span class="math inline">\(X&#39;\)</span> are independent random variables distributed according to <span class="math inline">\(F\)</span>.
+The first term penalizes the distance of the forecast from the observation and the second rewards spread <span class="citation">(<a href="#ref-gneiting2007">Gneiting and Raftery 2007</a>)</span>.
+An unbiased estimator of the CRPS was applied to account for the bias introduced by the finite ensemble, following practice from other works <span class="citation">(<a href="#ref-mardani2025">Mardani et al. 2025</a>; <a href="#ref-addison2026">Addison et al. 2026</a>)</span>.
+For the deterministic interpolation baseline the CRPS reduces to the absolute error, so ensemble CRPS and baseline MAE are directly comparable.</p>
+<p>Related works assess the amount of spatial variability in a field using the radially averaged power spectral density (RAPSD), which quantifies the amount of variability a field contains at each spatial scale <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>; <a href="#ref-tomasi2025">Tomasi et al. 2025</a>)</span>.
+However, the RAPSD captures only the amount of the variability, not whether it is placed at the correct locations.</p>
+<p>Following <span class="citation">Mardani et al. (<a href="#ref-mardani2025">2025</a>)</span> and <span class="citation">Addison et al. (<a href="#ref-addison2026">2026</a>)</span>, calibration is assessed using the spread–skill relationship, with the ensemble spread corrected for the finite ensemble size. In a calibrated ensemble, the spread of the ensemble members matches the error of the ensemble mean on average. A spread–skill ratio below one indicates an underdispersed ensemble,
+whose members vary less than their actual error would justify.</p>
+</div>
+</div>
+<div id="results-1" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Results<a href="ddm.html#results-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ddm-calibration-assessment" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Calibration assessment<a href="ddm.html#ddm-calibration-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Table <a href="ddm.html#tab:ddm-crps-skill">2.2</a> shows the MAE for the baseline interpolation model and the CRPS for the diffusion model for temperature and precipitation,
+averaged over all grid cells and selected days of the held-out test set. The diffusion model fields are closer to the ground truth than the
+smoothed baseline fields by a wide margin, especially for temperature.
+The spatial location of the error between the ensemble mean and the ground truth is visualized in Figure <a href="ddm.html#fig:ddm-error-prone-areas">2.3</a>, which indicates that the errors are concentrated along the Alpine ridge.
+<a href="ddm.html#ddm-appendix-c">Appendix C</a> gives further information on where the model applies the largest correction to the interpolated field.
+Figure <a href="ddm.html#fig:ddm-power-spectrum">2.4</a> assesses how well the generated fields capture the spatial variability of the ground truth beyond the evaluation metrics.
+The generated fields for both variables carry more variance on fine scales than the interpolated field. For temperature the field carries approximately the same variance on fine scales as the ground truth.
+For precipitation the variance at the finest scales exceeds that of the ground truth, so the model does not merely restore the fine-scale structure that the smoothed interpolation field lacks,
+but overshoots it. The generated precipitation fields are therefore variance-inflated at fine scales, which is the central shortcoming of the architecture for this variable.</p>
+<table class="table table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:ddm-crps-skill">TABLE 2.2: </span>Comparison of ensemble CRPS to the interpolation baseline MAE for temperature and precipitation.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+Metric
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+Model
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+Temperature (°C)
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;">
+Precipitation (kg/m²)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MAE
+</td>
+<td style="text-align:left;">
+Interpolation model
+</td>
+<td style="text-align:center;">
+0.650
+</td>
+<td style="text-align:center;">
+0.280
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRPS
+</td>
+<td style="text-align:left;">
+Diffusion model
+</td>
+<td style="text-align:center;">
+0.078
+</td>
+<td style="text-align:center;">
+0.089
+</td>
+</tr>
+</tbody>
+</table>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-error-prone-areas"></span>
+<img src="work/13-diffusion_downscaling/figures/calibration/ddm_3_mae_spatial.svg" alt="Mean absolute error of the ensemble mean over the Alpine domain, in °C and kg/m²." width="100%" />
+<p class="caption">
+FIGURE 2.3: Mean absolute error of the ensemble mean over the Alpine domain, in °C and kg/m².
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-power-spectrum"></span>
+<img src="work/13-diffusion_downscaling/figures/calibration/ddm_1_power_spectrum.svg" alt="Radially averaged power spectral density for temperature and precipitation" width="100%" />
+<p class="caption">
+FIGURE 2.4: Radially averaged power spectral density for temperature and precipitation
+</p>
+</div>
+<p>Figure <a href="ddm.html#fig:ddm-spread-skill">2.5</a> addresses the calibration of the ensemble by grouping the pixels into 30 equal-count bins by ensemble spread and calculating the RMSE of the ensemble mean within each bin.
+The points lie below the diagonal throughout, indicating an underdispersed ensemble, with a spread–skill ratio of 0.71 for temperature and 0.52 for precipitation.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-spread-skill"></span>
+<img src="work/13-diffusion_downscaling/figures/calibration/ddm_2_spread_skill.svg" alt="Spread–skill relationship of the diffusion ensemble. A calibrated ensemble follows the one-to-one line." width="100%" />
+<p class="caption">
+FIGURE 2.5: Spread–skill relationship of the diffusion ensemble. A calibrated ensemble follows the one-to-one line.
+</p>
+</div>
+</div>
+<div id="ddm-signal-preservation" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Signal preservation<a href="ddm.html#ddm-signal-preservation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For climate projection data there is no high-resolution field available against which a downscaled climate field can be validated.
+Therefore, the projection assessment is limited to a consistency check between the interpolated climate field and the downscaled high-resolution climate field
+produced by the diffusion model, indicating how the downscaling step affects the characteristics of the climate field.</p>
+<p>Figure <a href="ddm.html#fig:ddm-proj-period-means">2.6</a> compares the average temperature and precipitation mass between the interpolated climate field and the downscaled climate field.
+The downscaled fields are consistently about 0.02 % cooler and carry between 0.83 % and 0.88 % more precipitation mass than the interpolation reference,
+a difference that is approximately constant across all periods. The effect of the downscaling step therefore does not vary systematically across periods.
+The surplus may follow from the fine-scale variance inflation reported in Section <a href="ddm.html#ddm-calibration-assessment">2.4.1</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-proj-period-means"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_2_period_means.svg" alt="Effect of the downscaling step per global warming level, in percent relative to the interpolated field." width="100%" />
+<p class="caption">
+FIGURE 2.6: Effect of the downscaling step per global warming level, in percent relative to the interpolated field.
+</p>
+</div>
+<p>Figure <a href="ddm.html#fig:ddm-proj-delta-gwl4">2.7</a> provides a spatial assessment of how the climate change signal is preserved for GWL4, the period containing the largest distributional shift from the distribution of the reanalysis dataset.
+The third column shows the difference between the two change signals and thus isolates any spatial reorganization introduced by the diffusion model.
+The figure shows that the differences are small in magnitude and show no coherent spatial structure.
+Averaged over the whole domain, the temperature change signal compared to the PRESENT period is essentially unaltered (below 0.01 °C in magnitude) and the precipitation change signal increases only slightly (+0.08 Gt/yr).
+Thus, the model transfers the change signal to the fine grid without systematically relocating it spatially.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-proj-delta-gwl4"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_1_delta/ddm_gwl4.svg" alt="Spatial climate change signal at GWL4 relative to PRESENT. Rows: temperature, total precipitation mass. Columns: interpolated field, downscaled ensemble mean, their difference." width="100%" />
+<p class="caption">
+FIGURE 2.7: Spatial climate change signal at GWL4 relative to PRESENT. Rows: temperature, total precipitation mass. Columns: interpolated field, downscaled ensemble mean, their difference.
+</p>
+</div>
+<p>Figures <a href="ddm.html#fig:ddm-max-temp-day">2.8</a> and <a href="ddm.html#fig:ddm-max-precip-day">2.9</a> present the day with the highest domain-mean temperature and the day with the highest precipitation mass
+in the projection data. The corresponding numbers on how the statistics of the field are affected by the models are given in Table <a href="ddm.html#tab:ddm-max-day-stats">2.3</a>.
+On the hottest day the domain mean decreases only slightly from the interpolated to the downscaled field, while the maximum
+pixel temperature in the field increases (+1.28 °C).
+A more interesting pattern emerges for the day with the highest precipitation mass. While the domain mean is preserved,
+the maximum pixel value increases substantially relative to the interpolated field by +28.69 mm/day. The interpolation had removed part of that peak
+beforehand (-7.08 mm/day). Thus, part of the increase only restores the peak that the smoothing had removed. The downscaled maximum is still 11.7 % above the native 12 km maximum.
+This may be due to the inflated fine-scale variance reported in Section <a href="ddm.html#ddm-calibration-assessment">2.4.1</a>, which is also evident in the granular speckle that neither the coarse nor the interpolated field shows.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-max-temp-day"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_6_highest_mean_temperature_day_2080-08-13.svg" alt="Day with the highest domain-mean temperature. Left to right: native 12 km grid, interpolation, downscaled ensemble mean." width="100%" />
+<p class="caption">
+FIGURE 2.8: Day with the highest domain-mean temperature. Left to right: native 12 km grid, interpolation, downscaled ensemble mean.
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-max-precip-day"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_6_highest_precipitation_mass_day_2056-09-10.svg" alt="Day with the highest precipitation mass. Panels as in Figure 2.8." width="100%" />
+<p class="caption">
+FIGURE 2.9: Day with the highest precipitation mass. Panels as in Figure <a href="ddm.html#fig:ddm-max-temp-day">2.8</a>.
+</p>
+</div>
+<table class="table table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:ddm-max-day-stats">TABLE 2.3: </span>Field statistics for the hottest day (2080-08-13, temperature in °C) and the wettest day (2056-09-10, precipitation in mm/day). Interpolation is the effect of the linear interpolation (interpolated minus native), Model the diffusion residual (downscaled minus interpolated).
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; color: white !important;padding-right: 4px; padding-left: 4px; background-color: rgba(63, 63, 63, 1) !important;" colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Field value
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; font-weight: bold; color: white !important;padding-right: 4px; padding-left: 4px; background-color: rgba(63, 63, 63, 1) !important;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Effect
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;white-space: nowrap;">
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;white-space: nowrap;">
+Native (12 km)
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;white-space: nowrap;">
+Interpolated
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;white-space: nowrap;">
+Downscaled
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;white-space: nowrap;">
+Interpolation
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(63, 63, 63, 1) !important;white-space: nowrap;">
+Model
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;white-space: nowrap;">
+Temp: domain mean
+</td>
+<td style="text-align:right;">
+31.90
+</td>
+<td style="text-align:right;">
+31.90
+</td>
+<td style="text-align:right;">
+31.83
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-bottom: 1px solid;white-space: nowrap;">
+Temp: max pixel
+</td>
+<td style="text-align:right;border-bottom: 1px solid;">
+39.77
+</td>
+<td style="text-align:right;border-bottom: 1px solid;">
+39.79
+</td>
+<td style="text-align:right;border-bottom: 1px solid;">
+41.07
+</td>
+<td style="text-align:right;border-bottom: 1px solid;">
++0.02
+</td>
+<td style="text-align:right;border-bottom: 1px solid;">
++1.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;white-space: nowrap;">
+Prec: domain mean
+</td>
+<td style="text-align:right;">
+30.22
+</td>
+<td style="text-align:right;">
+30.22
+</td>
+<td style="text-align:right;">
+30.25
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
++0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;white-space: nowrap;">
+Prec: max pixel
+</td>
+<td style="text-align:right;">
+184.90
+</td>
+<td style="text-align:right;">
+177.82
+</td>
+<td style="text-align:right;">
+206.51
+</td>
+<td style="text-align:right;">
+-7.08
+</td>
+<td style="text-align:right;">
++28.69
+</td>
+</tr>
+</tbody>
+</table>
+<p>A short analysis of whether the spread of the generated ensembles is affected by the distributional shift can be found in <a href="ddm.html#ddm-appendix-d">Appendix D</a>.</p>
+</div>
+</div>
+<div id="ddm-discussion" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Discussion<a href="ddm.html#ddm-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The diagnostic findings line up with previous work.
+<span class="citation">Mardani et al. (<a href="#ref-mardani2025">2025</a>)</span> note that temperature downscaling is largely driven by sub-grid topography, which is learnable deterministically from static inputs.
+The interpolation-residual setup used in this work targets this deterministic fine-scale correction. This might explain the strong performance for temperature.
+In contrast, they also report for their intermittent channel (radar reflectivity) that the variance is overestimated at small scales.
+<span class="citation">Mardani et al. (<a href="#ref-mardani2025">2025</a>)</span> and <span class="citation">López-Gómez et al. (<a href="#ref-lopezgomez2025">2025</a>)</span> both report underdispersed ensembles, while other work focusing on generating the full field instead of only the residual field reports well-calibrated spread <span class="citation">(<a href="#ref-aich2026">Aich et al. 2026</a>; <a href="#ref-addison2026">Addison et al. 2026</a>)</span>.</p>
+<p>The projection results are consistent with <span class="citation">Aich et al. (<a href="#ref-aich2026">2026</a>)</span>, who find the change signal preserved under a high-emission scenario. This work shows that the downscaling step does not distort the signal it is given,
+either in the domain mean or spatially. The large-scale signal is, however, already present in the interpolated field to which the generated residual is added, so its preservation is partly by construction.
+The model learned from the reanalysis training pairs how fine-scale structure follows from a coarse field. Under warming the same coarse field may imply different fine-scale structure.
+<span class="citation">Addison et al. (<a href="#ref-addison2026">2026</a>)</span> have projection data at both resolutions and can therefore compare their downscaled change signal against a fine-scale reference.
+They report a bias in the magnitude of the projected change, which a consistency check of this kind would not reveal.</p>
+<p>The work has its limitations. Due to constrained resources, the model was trained for a fixed budget without hyperparameter optimization.
+The orography field was only available at 5.5 km, which may explain the error concentration along the Alpine ridge reported in Section <a href="ddm.html#ddm-calibration-assessment">2.4.1</a>.
+The evaluation sample also limits the precision of the reported metrics. This matters most for the
+spread–skill relationship, where the spread is estimated from 12 ensemble members per date.
+Most fundamentally, no high-resolution ground truth exists for the projection period, so the fine-scale climate change signal itself cannot be validated.</p>
+</div>
+<div id="conclusion-1" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Conclusion<a href="ddm.html#conclusion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For temperature the diffusion model approximates the ground truth better than the interpolation baseline and restores fine-scale variability, shown by the CRPS and the power spectrum.
+For precipitation it adds more fine-scale variability than the ground truth contains, so the fields are less realistic at the finest scales.
+The likely reasons are the variable’s right-skewed distribution and the fact that the coarse field and the orography do not determine its fine-scale structure.
+For both variables the ensemble is underdispersed.</p>
+<p>With regard to the climate change signal, the offset relative to the interpolation baseline is constant across all periods and the spatial difference between the two change signals shows no coherent structure.
+Both are consistent with the change signal being transferred to the fine grid without systematic distortion.</p>
+<p>Several directions follow from this work. Multiple options exist to improve the model’s capability in downscaling precipitation. One is to transform the variable before training, for example with a log or square-root mapping, which reduces its skew <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>; <a href="#ref-aich2026">Aich et al. 2026</a>)</span>.
+<span class="citation">López-Gómez et al. (<a href="#ref-lopezgomez2025">2025</a>)</span> gave the model additional context, e.g. information on surface pressure, for downscaling precipitation.
+Another is to change the architecture to the regression-residual approach, so that a conditional regression first brings the coarse field to the target resolution and the diffusion model only has to handle the stochastic component <span class="citation">(<a href="#ref-mardani2025">Mardani et al. 2025</a>; <a href="#ref-tomasi2025">Tomasi et al. 2025</a>)</span> or to have the model generate the full climate field <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>; <a href="#ref-aich2026">Aich et al. 2026</a>)</span>.
+Both might also address the underdispersion, most directly full-field generation, where no interpolated baseline anchors the ensemble’s variance.
+Checkpoint selection could also be introduced, based on validation loss as well as accuracy of the generated ensemble on the validation set <span class="citation">(<a href="#ref-addison2026">Addison et al. 2026</a>)</span>.
+Finally, a feature importance analysis on the contextual information could show how much the orography, the date and the coarse input field each contribute <span class="citation">(<a href="#ref-lopezgomez2025">López-Gómez et al. 2025</a>)</span>.</p>
+<div id="note-on-the-dataset" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Note on the dataset<a href="ddm.html#note-on-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The reanalysis and climate projection datasets were provided by Max Kagerbauer from the Alpine DROught Prediction (A-DROP) project.
+Further information on the A-DROP project can be found at the following link: <a href="https://www.alpine-space.eu/project/a-drop/" class="uri">https://www.alpine-space.eu/project/a-drop/</a></p>
+</div>
+</div>
+<div id="appendix" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Appendix<a href="ddm.html#appendix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ddm-appendix-a" class="section level3 hasAnchor" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Appendix A - More information on reverse diffusion process<a href="ddm.html#ddm-appendix-a" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A visualization of how the diffusion model generates images can be found below. Every fifth step was visualized. At the beginning, the estimate for the clean field does not resemble the true climate field.
+Thus, the image (a tensor in practice) takes only a small step in the direction of that estimated target image to reduce the noise level. With subsequent steps the estimated image starts to resemble a realistic climate field, and after 40 steps a clean image is estimated.</p>
+<p>Figures <a href="ddm.html#fig:ddm-filmstrip-tas">2.10</a> and <a href="ddm.html#fig:ddm-filmstrip-pr">2.11</a> show this process for the temperature and the precipitation residual field.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-filmstrip-tas"></span>
+<img src="work/13-diffusion_downscaling/figures/diagnostics/denoiser_estimate_2016-06-23_seed42/ddm_filmstrip_tas_residual.svg" alt="Reverse diffusion process for the temperature residual field." width="100%" />
+<p class="caption">
+FIGURE 2.10: Reverse diffusion process for the temperature residual field.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-filmstrip-pr"></span>
+<img src="work/13-diffusion_downscaling/figures/diagnostics/denoiser_estimate_2016-06-23_seed42/ddm_filmstrip_pr_residual.svg" alt="Reverse diffusion process for the precipitation residual field." width="100%" />
+<p class="caption">
+FIGURE 2.11: Reverse diffusion process for the precipitation residual field.
+</p>
+</div>
+</div>
+<div id="ddm-appendix-b" class="section level3 hasAnchor" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Appendix B - Distributional shift of the climate variables across global warming levels<a href="ddm.html#ddm-appendix-b" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The ridgeline visualization of Figure <a href="ddm.html#fig:ddm-distribution-shift">2.1</a> is supplemented by the percentile plot in Figure <a href="ddm.html#fig:ddm-quantile-delta">2.12</a>, which shows how far each percentile of the
+domain-wide distribution moves relative to the PRESENT period.
+For temperature the whole distribution is shifted upwards, with the upper percentiles moving the most.
+For precipitation only the tail of the distribution is affected. Up to roughly the 80th percentile the values stay unchanged. From the 90th percentile they increase to about
++1.4 mm/day at GWL2 and about +6 mm/day at GWL3 and GWL4. Therefore, the shift the model has to extrapolate to is concentrated in the extreme tail of the precipitation distribution.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-quantile-delta"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_4_quantile_delta.svg" alt="Distribution shift relative to PRESENT, by percentile and global warming level. The dashed line marks no change." width="100%" />
+<p class="caption">
+FIGURE 2.12: Distribution shift relative to PRESENT, by percentile and global warming level. The dashed line marks no change.
+</p>
+</div>
+</div>
+<div id="ddm-appendix-c" class="section level3 hasAnchor" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> Appendix C - Mean downscaling correction<a href="ddm.html#ddm-appendix-c" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Figure <a href="ddm.html#fig:ddm-downscaling-correction">2.13</a> shows the correction the diffusion model applies to the interpolated field, averaged over all evaluated days.
+Thus, it shows where the model adds information relative to the interpolation baseline. The figure indicates that most information is added along the Alpine ridge for both variables.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-downscaling-correction"></span>
+<img src="work/13-diffusion_downscaling/figures/calibration/ddm_4_downscaling_correction.svg" alt="Mean correction added by the diffusion model to the interpolated field, averaged over the evaluated days of the reanalysis test set. Left: temperature, right: precipitation." width="100%" />
+<p class="caption">
+FIGURE 2.13: Mean correction added by the diffusion model to the interpolated field, averaged over the evaluated days of the reanalysis test set. Left: temperature, right: precipitation.
+</p>
+</div>
+</div>
+<div id="ddm-appendix-d" class="section level3 hasAnchor" number="2.7.4">
+<h3><span class="header-section-number">2.7.4</span> Appendix D - Ensemble spread over projection period<a href="ddm.html#ddm-appendix-d" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Figure <a href="ddm.html#fig:ddm-spread-persistence">2.14</a> shows the distribution of the daily ensemble spread of the four-member ensemble over the evaluated days of each global warming level.
+The distributions overlap almost completely and are not ordered by warming level, so a systematic difference in the spread between the periods is not visible, although a more extensive study
+containing more ensemble members might give more reliable numbers.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ddm-spread-persistence"></span>
+<img src="work/13-diffusion_downscaling/figures/projection/ddm_5_spread_persistence.svg" alt="Daily ensemble spread of the projection ensembles, per global warming level. Each row is the histogram over the evaluated days of one period." width="100%" />
+<p class="caption">
+FIGURE 2.14: Daily ensemble spread of the projection ensembles, per global warming level. Each row is the histogram over the evaluated days of one period.
+</p>
+</div>
+</div>
+<div id="ddm-appendix-e" class="section level3 hasAnchor" number="2.7.5">
+<h3><span class="header-section-number">2.7.5</span> Appendix E - Compute time<a href="ddm.html#ddm-appendix-e" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The training of the model for 20 epochs took 28 hours on a single GPU.
+The inference on the test set for the calibration period took about 2 hours.
+The inference on the selected days for the projection period took 16 hours.</p>
+</div>
+</div>
+<div id="usage-of-ai-tools" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Usage of AI tools<a href="ddm.html#usage-of-ai-tools" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I hereby declare that this seminar work was written by myself. All sources that were used directly or indirectly are acknowledged in the references.
+Generative AI tools were utilized as an aid for researching and understanding relevant literature and concepts, for improving spelling and grammar, and for adapting the code used for the analyses and models.
+Their outputs have been critically reviewed and verified by me. I take full responsibility for the content of this seminar work.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-addison2026" class="csl-entry">
+Addison, Henry J., Elizabeth J. Kendon, Suman Ravuri, Laurence Aitchison, and Peter A. G. Watson. 2026. <span>“Machine Learning Emulation of Precipitation from Km-Scale <span>UK</span> Regional Climate Simulations Using a Diffusion Model.”</span> <em>Journal of Advances in Modeling Earth Systems</em> 18 (3): e2025MS005140. <a href="https://doi.org/10.1029/2025MS005140">https://doi.org/10.1029/2025MS005140</a>.
+</div>
+<div id="ref-addison2022" class="csl-entry">
+Addison, Henry, Elizabeth Kendon, Suman Ravuri, Laurence Aitchison, and Peter A. G. Watson. 2022. <span>“Machine Learning Emulation of a Local-Scale <span>UK</span> Climate Model.”</span> <em>Tackling Climate Change with Machine Learning Workshop, <span>NeurIPS</span> 2022</em>. <a href="https://arxiv.org/abs/2211.16116">https://arxiv.org/abs/2211.16116</a>.
+</div>
+<div id="ref-aich2026" class="csl-entry">
+Aich, Michael, Philipp Hess, Baoxiang Pan, Sebastian Bathiany, Yu Huang, and Niklas Boers. 2026. <span>“Conditional Diffusion Models for Downscaling and Bias Correction of <span>Earth</span> System Model Precipitation.”</span> <em>Geoscientific Model Development</em> 19 (4): 1791–808. <a href="https://doi.org/10.5194/gmd-19-1791-2026">https://doi.org/10.5194/gmd-19-1791-2026</a>.
+</div>
+<div id="ref-cannon2018" class="csl-entry">
+Cannon, Alex J. 2018. <span>“Multivariate Quantile Mapping Bias Correction: An <span>N</span>-Dimensional Probability Density Function Transform for Climate Model Simulations of Multiple Variables.”</span> <em>Climate Dynamics</em> 50 (1–2): 31–49. <a href="https://doi.org/10.1007/s00382-017-3580-6">https://doi.org/10.1007/s00382-017-3580-6</a>.
+</div>
+<div id="ref-gneiting2007" class="csl-entry">
+Gneiting, Tilmann, and Adrian E. Raftery. 2007. <span>“Strictly Proper Scoring Rules, Prediction, and Estimation.”</span> <em>Journal of the American Statistical Association</em> 102 (477): 359–78. <a href="https://doi.org/10.1198/016214506000001437">https://doi.org/10.1198/016214506000001437</a>.
+</div>
+<div id="ref-karras2022" class="csl-entry">
+Karras, Tero, Miika Aittala, Timo Aila, and Samuli Laine. 2022. <span>“Elucidating the Design Space of Diffusion-Based Generative Models.”</span> <em>Advances in Neural Information Processing Systems</em> 35: 26565–77. <a href="https://arxiv.org/abs/2206.00364">https://arxiv.org/abs/2206.00364</a>.
+</div>
+<div id="ref-ling2024" class="csl-entry">
+Ling, Fenghua, Zeyu Lu, Jing-Jia Luo, et al. 2024. <span>“Diffusion Model-Based Probabilistic Downscaling for 180-Year <span>East Asian</span> Climate Reconstruction.”</span> <em>Npj Climate and Atmospheric Science</em> 7 (1): 131. <a href="https://doi.org/10.1038/s41612-024-00679-1">https://doi.org/10.1038/s41612-024-00679-1</a>.
+</div>
+<div id="ref-lopezgomez2025" class="csl-entry">
+López-Gómez, Ignacio, Zhong Yi Wan, Leonardo Zepeda-Núñez, Tapio Schneider, John Anderson, and Fei Sha. 2025. <span>“Dynamical-Generative Downscaling of Climate Model Ensembles.”</span> <em>Proceedings of the National Academy of Sciences</em> 122 (17): e2420288122. <a href="https://doi.org/10.1073/pnas.2420288122">https://doi.org/10.1073/pnas.2420288122</a>.
+</div>
+<div id="ref-mardani2025" class="csl-entry">
+Mardani, Morteza, Noah Brenowitz, Yair Cohen, et al. 2025. <span>“Residual Corrective Diffusion Modeling for Km-Scale Atmospheric Downscaling.”</span> <em>Communications Earth &amp; Environment</em> 6 (1): 124. <a href="https://doi.org/10.1038/s43247-025-02042-5">https://doi.org/10.1038/s43247-025-02042-5</a>.
+</div>
+<div id="ref-merizzi2024" class="csl-entry">
+Merizzi, Fabio, Andrea Asperti, and Stefano Colamonaco. 2024. <span>“Wind Speed Super-Resolution and Validation: From <span>ERA5</span> to <span>CERRA</span> via Diffusion Models.”</span> <em>Neural Computing and Applications</em> 36 (34): 21899–921. <a href="https://doi.org/10.1007/s00521-024-10139-9">https://doi.org/10.1007/s00521-024-10139-9</a>.
+</div>
+<div id="ref-ronneberger2015" class="csl-entry">
+Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. 2015. <span>“<span>U-Net</span>: Convolutional Networks for Biomedical Image Segmentation.”</span> <em>Medical Image Computing and Computer-Assisted Intervention – <span>MICCAI</span> 2015</em> (Cham), Lecture notes in computer science, vol. 9351: 234–41. <a href="https://doi.org/10.1007/978-3-319-24574-4_28">https://doi.org/10.1007/978-3-319-24574-4_28</a>.
+</div>
+<div id="ref-song2021" class="csl-entry">
+Song, Yang, Jascha Sohl-Dickstein, Diederik P. Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. 2021. <span>“Score-Based Generative Modeling Through Stochastic Differential Equations.”</span> <em>International Conference on Learning Representations (<span>ICLR</span>)</em>. <a href="https://arxiv.org/abs/2011.13456">https://arxiv.org/abs/2011.13456</a>.
+</div>
+<div id="ref-springenberg2026" class="csl-entry">
+Springenberg, Maximilian, Noelia Otero, Yuxin Xue, and Jackie Ma. 2026. <span>“<span>DiffScale</span>: Continuous Downscaling and Bias Correction of Subseasonal Wind Speed Forecasts Using Diffusion Models.”</span> <em>Journal of Advances in Modeling Earth Systems</em> 18 (3): e2025MS005282. <a href="https://doi.org/10.1029/2025MS005282">https://doi.org/10.1029/2025MS005282</a>.
+</div>
+<div id="ref-tomasi2025" class="csl-entry">
+Tomasi, Elena, Gabriele Franch, and Marco Cristoforetti. 2025. <span>“Can <span>AI</span> Be Enabled to Perform Dynamical Downscaling? <span>A</span> Latent Diffusion Model to Mimic Kilometer-Scale <span>COSMO5.0_CLM9</span> Simulations.”</span> <em>Geoscientific Model Development</em> 18 (6): 2051–78. <a href="https://doi.org/10.5194/gmd-18-2051-2025">https://doi.org/10.5194/gmd-18-2051-2025</a>.
+</div>
+<div id="ref-watt2024" class="csl-entry">
+Watt, Robbie A., and Laura A. Mansfield. 2024. <em>Generative Diffusion-Based Downscaling for Climate</em>. <a href="https://arxiv.org/abs/2404.17752">https://arxiv.org/abs/2404.17752</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hyd.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

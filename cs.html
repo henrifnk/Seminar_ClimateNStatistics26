@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Deep Learning for Change-Point Detection in Climate Time Series | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS26." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Deep Learning for Change-Point Detection in Climate Time Series | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Deep Learning for Change-Point Detection in Climate Time Series | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS26." />
+  
+
+<meta name="author" content="Henri Funk, Helmut Küchenhoff" />
+
+
+<meta name="date" content="2026-08-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="unc.html"/>
+<link rel="next" href="tp-overview.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics III</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="dp.html"><a href="dp.html"><i class="fa fa-check"></i><b>1</b> Long-term drought prediction using deep neural networks based on geospatial weather data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="dp.html"><a href="dp.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="dp.html"><a href="dp.html#related-work"><i class="fa fa-check"></i><b>1.2</b> Related Work</a></li>
+<li class="chapter" data-level="1.3" data-path="dp.html"><a href="dp.html#data-and-task"><i class="fa fa-check"></i><b>1.3</b> Data and Task</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="dp.html"><a href="dp.html#domain-and-source"><i class="fa fa-check"></i><b>1.3.1</b> Domain and source</a></li>
+<li class="chapter" data-level="1.3.2" data-path="dp.html"><a href="dp.html#variables"><i class="fa fa-check"></i><b>1.3.2</b> Variables</a></li>
+<li class="chapter" data-level="1.3.3" data-path="dp.html"><a href="dp.html#drought-definition-spei"><i class="fa fa-check"></i><b>1.3.3</b> Drought definition: SPEI</a></li>
+<li class="chapter" data-level="1.3.4" data-path="dp.html"><a href="dp.html#preprocessing"><i class="fa fa-check"></i><b>1.3.4</b> Preprocessing</a></li>
+<li class="chapter" data-level="1.3.5" data-path="dp.html"><a href="dp.html#split-and-nonstationarity"><i class="fa fa-check"></i><b>1.3.5</b> Split and nonstationarity</a></li>
+<li class="chapter" data-level="1.3.6" data-path="dp.html"><a href="dp.html#task-model"><i class="fa fa-check"></i><b>1.3.6</b> Task &amp; Model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="dp.html"><a href="dp.html#methods"><i class="fa fa-check"></i><b>1.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="dp.html"><a href="dp.html#rq1-loss-functions"><i class="fa fa-check"></i><b>1.4.1</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="1.4.2" data-path="dp.html"><a href="dp.html#rq2-dynamic-global-features"><i class="fa fa-check"></i><b>1.4.2</b> RQ2: Dynamic global features</a></li>
+<li class="chapter" data-level="1.4.3" data-path="dp.html"><a href="dp.html#rq3-static-spatial-features"><i class="fa fa-check"></i><b>1.4.3</b> RQ3: Static spatial features</a></li>
+<li class="chapter" data-level="1.4.4" data-path="dp.html"><a href="dp.html#experimental-setup"><i class="fa fa-check"></i><b>1.4.4</b> Experimental setup</a></li>
+<li class="chapter" data-level="1.4.5" data-path="dp.html"><a href="dp.html#evaluation"><i class="fa fa-check"></i><b>1.4.5</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="dp.html"><a href="dp.html#results"><i class="fa fa-check"></i><b>1.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="dp.html"><a href="dp.html#baselines"><i class="fa fa-check"></i><b>1.5.1</b> Baselines</a></li>
+<li class="chapter" data-level="1.5.2" data-path="dp.html"><a href="dp.html#rq1-loss-functions-1"><i class="fa fa-check"></i><b>1.5.2</b> RQ1: Loss functions</a></li>
+<li class="chapter" data-level="1.5.3" data-path="dp.html"><a href="dp.html#rq2-global-features"><i class="fa fa-check"></i><b>1.5.3</b> RQ2: Global features</a></li>
+<li class="chapter" data-level="1.5.4" data-path="dp.html"><a href="dp.html#rq3-static-features"><i class="fa fa-check"></i><b>1.5.4</b> RQ3: Static features</a></li>
+<li class="chapter" data-level="1.5.5" data-path="dp.html"><a href="dp.html#overall"><i class="fa fa-check"></i><b>1.5.5</b> Overall</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="dp.html"><a href="dp.html#discussion"><i class="fa fa-check"></i><b>1.6</b> Discussion</a></li>
+<li class="chapter" data-level="1.7" data-path="dp.html"><a href="dp.html#conclusion"><i class="fa fa-check"></i><b>1.7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-ai-declaration"><i class="fa fa-check"></i>Appendix: AI Declaration</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-spei-drought-classification"><i class="fa fa-check"></i>Appendix: SPEI drought classification</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-feature-importance"><i class="fa fa-check"></i>Appendix: Feature importance</a></li>
+<li class="chapter" data-level="" data-path="dp.html"><a href="dp.html#appendix-implementation-details"><i class="fa fa-check"></i>Appendix: Implementation details</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ddm.html"><a href="ddm.html"><i class="fa fa-check"></i><b>2</b> Climate downscaling using diffusion models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ddm.html"><a href="ddm.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="ddm.html"><a href="ddm.html#ddm-theory"><i class="fa fa-check"></i><b>2.2</b> Diffusion models for image generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ddm.html"><a href="ddm.html#training-the-model"><i class="fa fa-check"></i><b>2.2.1</b> Training the model</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ddm.html"><a href="ddm.html#generation-of-samples"><i class="fa fa-check"></i><b>2.2.2</b> Generation of samples</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ddm.html"><a href="ddm.html#data-and-methods"><i class="fa fa-check"></i><b>2.3</b> Data and methods</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ddm.html"><a href="ddm.html#climate-variables"><i class="fa fa-check"></i><b>2.3.1</b> Climate variables</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ddm.html"><a href="ddm.html#ddm-dataset-information"><i class="fa fa-check"></i><b>2.3.2</b> Dataset information</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ddm.html"><a href="ddm.html#ddm-modeling-setup"><i class="fa fa-check"></i><b>2.3.3</b> Modeling setup</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ddm.html"><a href="ddm.html#ddm-training-inference-setup"><i class="fa fa-check"></i><b>2.3.4</b> Training and inference setup</a></li>
+<li class="chapter" data-level="2.3.5" data-path="ddm.html"><a href="ddm.html#ddm-evaluation-metrics"><i class="fa fa-check"></i><b>2.3.5</b> Evaluation metrics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ddm.html"><a href="ddm.html#results-1"><i class="fa fa-check"></i><b>2.4</b> Results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="ddm.html"><a href="ddm.html#ddm-calibration-assessment"><i class="fa fa-check"></i><b>2.4.1</b> Calibration assessment</a></li>
+<li class="chapter" data-level="2.4.2" data-path="ddm.html"><a href="ddm.html#ddm-signal-preservation"><i class="fa fa-check"></i><b>2.4.2</b> Signal preservation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ddm.html"><a href="ddm.html#ddm-discussion"><i class="fa fa-check"></i><b>2.5</b> Discussion</a></li>
+<li class="chapter" data-level="2.6" data-path="ddm.html"><a href="ddm.html#conclusion-1"><i class="fa fa-check"></i><b>2.6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="ddm.html"><a href="ddm.html#note-on-the-dataset"><i class="fa fa-check"></i><b>2.6.1</b> Note on the dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="ddm.html"><a href="ddm.html#appendix"><i class="fa fa-check"></i><b>2.7</b> Appendix</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="ddm.html"><a href="ddm.html#ddm-appendix-a"><i class="fa fa-check"></i><b>2.7.1</b> Appendix A - More information on reverse diffusion process</a></li>
+<li class="chapter" data-level="2.7.2" data-path="ddm.html"><a href="ddm.html#ddm-appendix-b"><i class="fa fa-check"></i><b>2.7.2</b> Appendix B - Distributional shift of the climate variables across global warming levels</a></li>
+<li class="chapter" data-level="2.7.3" data-path="ddm.html"><a href="ddm.html#ddm-appendix-c"><i class="fa fa-check"></i><b>2.7.3</b> Appendix C - Mean downscaling correction</a></li>
+<li class="chapter" data-level="2.7.4" data-path="ddm.html"><a href="ddm.html#ddm-appendix-d"><i class="fa fa-check"></i><b>2.7.4</b> Appendix D - Ensemble spread over projection period</a></li>
+<li class="chapter" data-level="2.7.5" data-path="ddm.html"><a href="ddm.html#ddm-appendix-e"><i class="fa fa-check"></i><b>2.7.5</b> Appendix E - Compute time</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="ddm.html"><a href="ddm.html#usage-of-ai-tools"><i class="fa fa-check"></i><b>2.8</b> Usage of AI tools</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hyd.html"><a href="hyd.html"><i class="fa fa-check"></i><b>3</b> Hydrology under Climate Change</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="hyd.html"><a href="hyd.html#abstract"><i class="fa fa-check"></i><b>3.1</b> Abstract</a></li>
+<li class="chapter" data-level="3.2" data-path="hyd.html"><a href="hyd.html#introduction-2"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="hyd.html"><a href="hyd.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="hyd.html"><a href="hyd.html#the-camels-family"><i class="fa fa-check"></i><b>3.3.1</b> The CAMELS family</a></li>
+<li class="chapter" data-level="3.3.2" data-path="hyd.html"><a href="hyd.html#camels-ch-and-the-case-for-switzerland"><i class="fa fa-check"></i><b>3.3.2</b> CAMELS-CH and the case for Switzerland</a></li>
+<li class="chapter" data-level="3.3.3" data-path="hyd.html"><a href="hyd.html#regions-and-preprocessing"><i class="fa fa-check"></i><b>3.3.3</b> Regions and preprocessing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="hyd.html"><a href="hyd.html#methods-1"><i class="fa fa-check"></i><b>3.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="hyd.html"><a href="hyd.html#signal-versus-noise"><i class="fa fa-check"></i><b>3.4.1</b> Signal versus noise</a></li>
+<li class="chapter" data-level="3.4.2" data-path="hyd.html"><a href="hyd.html#stl-decomposition"><i class="fa fa-check"></i><b>3.4.2</b> STL decomposition</a></li>
+<li class="chapter" data-level="3.4.3" data-path="hyd.html"><a href="hyd.html#signal-noise-and-time-of-emergence"><i class="fa fa-check"></i><b>3.4.3</b> Signal, noise, and time of emergence</a></li>
+<li class="chapter" data-level="3.4.4" data-path="hyd.html"><a href="hyd.html#a-worked-example"><i class="fa fa-check"></i><b>3.4.4</b> A worked example</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="hyd.html"><a href="hyd.html#results-2"><i class="fa fa-check"></i><b>3.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="hyd.html"><a href="hyd.html#annual-emergence-and-threshold-sensitivity"><i class="fa fa-check"></i><b>3.5.1</b> Annual emergence and threshold sensitivity</a></li>
+<li class="chapter" data-level="3.5.2" data-path="hyd.html"><a href="hyd.html#regional-patterns-low-elevations-lead"><i class="fa fa-check"></i><b>3.5.2</b> Regional patterns: low elevations lead</a></li>
+<li class="chapter" data-level="3.5.3" data-path="hyd.html"><a href="hyd.html#seasonal-analysis-spring-and-summer-as-sentinels"><i class="fa fa-check"></i><b>3.5.3</b> Seasonal analysis: spring and summer as sentinels</a></li>
+<li class="chapter" data-level="3.5.4" data-path="hyd.html"><a href="hyd.html#direction-of-change-winter-up-summer-down"><i class="fa fa-check"></i><b>3.5.4</b> Direction of change: winter up, summer down</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="hyd.html"><a href="hyd.html#conclusion-2"><i class="fa fa-check"></i><b>3.6</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html"><i class="fa fa-check"></i><b>4</b> Neural Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-abstract"><i class="fa fa-check"></i><b>4.1</b> Abstract</a></li>
+<li class="chapter" data-level="4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-background"><i class="fa fa-check"></i><b>4.3</b> Background: From Process-Based to Data-Driven Models</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#traditional-process-based-models"><i class="fa fa-check"></i><b>4.3.1</b> Traditional Process-Based Models</a></li>
+<li class="chapter" data-level="4.3.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#process-based-formulation-and-structural-error"><i class="fa fa-check"></i><b>4.3.2</b> Process-Based Formulation and Structural Error</a></li>
+<li class="chapter" data-level="4.3.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#the-deep-learning-breakthrough"><i class="fa fa-check"></i><b>4.3.3</b> The Deep Learning Breakthrough</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-methods"><i class="fa fa-check"></i><b>4.4</b> LSTM-Based Methods for Streamflow Modelling</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lstm-arch"><i class="fa fa-check"></i><b>4.4.1</b> The LSTM Architecture</a></li>
+<li class="chapter" data-level="4.4.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#optimization-objective-and-gradient-flow"><i class="fa fa-check"></i><b>4.4.2</b> Optimization Objective and Gradient Flow</a></li>
+<li class="chapter" data-level="4.4.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-ea-lstm"><i class="fa fa-check"></i><b>4.4.3</b> From Single-Basin to Multi-Basin: EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#hierarchical-interpretation-of-ea-lstm"><i class="fa fa-check"></i><b>4.4.4</b> Hierarchical Interpretation of EA-LSTM</a></li>
+<li class="chapter" data-level="4.4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#evaluation-metrics-nse-and-kge"><i class="fa fa-check"></i><b>4.4.5</b> Evaluation Metrics: NSE and KGE</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-lib"><i class="fa fa-check"></i><b>4.5</b> NeuralHydrology: A Python Library for Deep Learning in Hydrology</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#key-features"><i class="fa fa-check"></i><b>4.5.1</b> Key Features</a></li>
+<li class="chapter" data-level="4.5.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-modelzoo"><i class="fa fa-check"></i><b>4.5.2</b> Model Zoo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-transfer"><i class="fa fa-check"></i><b>4.6</b> Transfer Learning in a Changing Climate</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#motivation"><i class="fa fa-check"></i><b>4.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.6.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#transfer-learning-as-risk-decomposition"><i class="fa fa-check"></i><b>4.6.2</b> Transfer Learning as Risk Decomposition</a></li>
+<li class="chapter" data-level="4.6.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-pretrain"><i class="fa fa-check"></i><b>4.6.3</b> Pre-Train on Large-Sample Data</a></li>
+<li class="chapter" data-level="4.6.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-finetune"><i class="fa fa-check"></i><b>4.6.4</b> Fine-Tuning Strategies</a></li>
+<li class="chapter" data-level="4.6.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-climate-scenarios"><i class="fa fa-check"></i><b>4.6.5</b> Climate Change Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-case-study"><i class="fa fa-check"></i><b>4.7</b> Empirical Study: Regional Transfer Learning Under Data Scarcity</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#study-design-and-data"><i class="fa fa-check"></i><b>4.7.1</b> Study Design and Data</a></li>
+<li class="chapter" data-level="4.7.2" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#statistical-framing-of-the-three-way-comparison"><i class="fa fa-check"></i><b>4.7.2</b> Statistical Framing of the Three-Way Comparison</a></li>
+<li class="chapter" data-level="4.7.3" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#reproducible-analysis-setup"><i class="fa fa-check"></i><b>4.7.3</b> Reproducible Analysis Setup</a></li>
+<li class="chapter" data-level="4.7.4" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#aggregate-performance"><i class="fa fa-check"></i><b>4.7.4</b> Aggregate Performance</a></li>
+<li class="chapter" data-level="4.7.5" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-wise-structure-of-improvement"><i class="fa fa-check"></i><b>4.7.5</b> Group-Wise Structure of Improvement</a></li>
+<li class="chapter" data-level="4.7.6" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#basin-level-distributional-evidence"><i class="fa fa-check"></i><b>4.7.6</b> Basin-Level Distributional Evidence</a></li>
+<li class="chapter" data-level="4.7.7" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#internal-validity-checks"><i class="fa fa-check"></i><b>4.7.7</b> Internal Validity Checks</a></li>
+<li class="chapter" data-level="4.7.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#interpretation-and-scientific-implications"><i class="fa fa-check"></i><b>4.7.8</b> Interpretation and Scientific Implications</a></li>
+<li class="chapter" data-level="4.7.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#spatial-coverage-and-group-heterogeneity"><i class="fa fa-check"></i><b>4.7.9</b> Spatial Coverage and Group Heterogeneity</a></li>
+<li class="chapter" data-level="4.7.10" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#additional-diagnostic-plots"><i class="fa fa-check"></i><b>4.7.10</b> Additional Diagnostic Plots</a></li>
+<li class="chapter" data-level="4.7.11" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#architecture-comparison-ea-lstm-vs-cudalstm"><i class="fa fa-check"></i><b>4.7.11</b> Architecture Comparison: EA-LSTM vs CudaLSTM</a></li>
+<li class="chapter" data-level="4.7.12" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#group-05-diagnostic-snapshot-ea-lstm"><i class="fa fa-check"></i><b>4.7.12</b> Group 05 Diagnostic Snapshot (EA-LSTM)</a></li>
+<li class="chapter" data-level="4.7.13" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#practical-synthesis"><i class="fa fa-check"></i><b>4.7.13</b> Practical Synthesis</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-discussion"><i class="fa fa-check"></i><b>4.8</b> Discussion and Outlook</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#toward-publication-grade-extensions"><i class="fa fa-check"></i><b>4.8.1</b> Toward Publication-Grade Extensions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="nh-neural-hydrology.html"><a href="nh-neural-hydrology.html#nh-summary"><i class="fa fa-check"></i><b>4.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="rh.html"><a href="rh.html"><i class="fa fa-check"></i><b>5</b> Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="rh.html"><a href="rh.html#abstract-1"><i class="fa fa-check"></i><b>5.1</b> Abstract</a></li>
+<li class="chapter" data-level="5.2" data-path="rh.html"><a href="rh.html#introduction-3"><i class="fa fa-check"></i><b>5.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="rh.html"><a href="rh.html#overview"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="rh.html"><a href="rh.html#definition"><i class="fa fa-check"></i><b>5.2.2</b> Definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="rh.html"><a href="rh.html#drivers"><i class="fa fa-check"></i><b>5.2.3</b> Drivers</a></li>
+<li class="chapter" data-level="5.2.4" data-path="rh.html"><a href="rh.html#impacts"><i class="fa fa-check"></i><b>5.2.4</b> Impacts</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="rh.html"><a href="rh.html#data-1"><i class="fa fa-check"></i><b>5.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="rh.html"><a href="rh.html#data-set"><i class="fa fa-check"></i><b>5.3.1</b> Data Set</a></li>
+<li class="chapter" data-level="5.3.2" data-path="rh.html"><a href="rh.html#locations"><i class="fa fa-check"></i><b>5.3.2</b> Locations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="rh.html"><a href="rh.html#methods-2"><i class="fa fa-check"></i><b>5.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="rh.html"><a href="rh.html#threshold"><i class="fa fa-check"></i><b>5.4.1</b> Threshold</a></li>
+<li class="chapter" data-level="5.4.2" data-path="rh.html"><a href="rh.html#threshold-example-main-data-kemmern-2018"><i class="fa fa-check"></i><b>5.4.2</b> Threshold example: Main data (Kemmern, 2018)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="rh.html"><a href="rh.html#metrics-used"><i class="fa fa-check"></i><b>5.4.3</b> Metrics used</a></li>
+<li class="chapter" data-level="5.4.4" data-path="rh.html"><a href="rh.html#research-question"><i class="fa fa-check"></i><b>5.4.4</b> Research Question</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="rh.html"><a href="rh.html#results-3"><i class="fa fa-check"></i><b>5.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="rh.html"><a href="rh.html#frequency"><i class="fa fa-check"></i><b>5.5.1</b> Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="rh.html"><a href="rh.html#duration"><i class="fa fa-check"></i><b>5.5.2</b> Duration</a></li>
+<li class="chapter" data-level="5.5.3" data-path="rh.html"><a href="rh.html#intensity"><i class="fa fa-check"></i><b>5.5.3</b> Intensity</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="rh.html"><a href="rh.html#discussion-1"><i class="fa fa-check"></i><b>5.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="rh.html"><a href="rh.html#overview-of-trends-common-models"><i class="fa fa-check"></i><b>5.6.1</b> Overview of trends common models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="irh.html"><a href="irh.html"><i class="fa fa-check"></i><b>6</b> Interpretable Riverine Heatwaves</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="irh.html"><a href="irh.html#abstract-2"><i class="fa fa-check"></i><b>6.1</b> Abstract</a></li>
+<li class="chapter" data-level="6.2" data-path="irh.html"><a href="irh.html#introduction-4"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
+<li class="chapter" data-level="6.3" data-path="irh.html"><a href="irh.html#data-2"><i class="fa fa-check"></i><b>6.3</b> Data</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="irh.html"><a href="irh.html#origin"><i class="fa fa-check"></i><b>6.3.1</b> Origin</a></li>
+<li class="chapter" data-level="6.3.2" data-path="irh.html"><a href="irh.html#preprocessing-1"><i class="fa fa-check"></i><b>6.3.2</b> Preprocessing</a></li>
+<li class="chapter" data-level="6.3.3" data-path="irh.html"><a href="irh.html#sec-corr"><i class="fa fa-check"></i><b>6.3.3</b> Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="irh.html"><a href="irh.html#modelling"><i class="fa fa-check"></i><b>6.4</b> Modelling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="irh.html"><a href="irh.html#model-explanation"><i class="fa fa-check"></i><b>6.4.1</b> Model Explanation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="irh.html"><a href="irh.html#sec-model-impl"><i class="fa fa-check"></i><b>6.4.2</b> Implementation</a></li>
+<li class="chapter" data-level="6.4.3" data-path="irh.html"><a href="irh.html#evaluation-1"><i class="fa fa-check"></i><b>6.4.3</b> Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="irh.html"><a href="irh.html#interpretability"><i class="fa fa-check"></i><b>6.5</b> Interpretability</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="irh.html"><a href="irh.html#permutation-feature-importance"><i class="fa fa-check"></i><b>6.5.1</b> Permutation Feature Importance</a></li>
+<li class="chapter" data-level="6.5.2" data-path="irh.html"><a href="irh.html#partial-dependence-plots-for-dynamic-features"><i class="fa fa-check"></i><b>6.5.2</b> Partial Dependence Plots (for dynamic features)</a></li>
+<li class="chapter" data-level="6.5.3" data-path="irh.html"><a href="irh.html#accumulated-local-effects"><i class="fa fa-check"></i><b>6.5.3</b> Accumulated Local Effects</a></li>
+<li class="chapter" data-level="6.5.4" data-path="irh.html"><a href="irh.html#lag-importance-using-ale"><i class="fa fa-check"></i><b>6.5.4</b> Lag Importance using ALE</a></li>
+<li class="chapter" data-level="6.5.5" data-path="irh.html"><a href="irh.html#d-partial-dependence-plot"><i class="fa fa-check"></i><b>6.5.5</b> 2D Partial Dependence Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="irh.html"><a href="irh.html#results-4"><i class="fa fa-check"></i><b>6.6</b> Results</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="irh.html"><a href="irh.html#model-evaluation"><i class="fa fa-check"></i><b>6.6.1</b> Model Evaluation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="irh.html"><a href="irh.html#permutation-feature-importance-1"><i class="fa fa-check"></i><b>6.6.2</b> Permutation Feature Importance</a></li>
+<li class="chapter" data-level="6.6.3" data-path="irh.html"><a href="irh.html#partial-dependence-plots-pdp"><i class="fa fa-check"></i><b>6.6.3</b> Partial Dependence Plots (PDP)</a></li>
+<li class="chapter" data-level="6.6.4" data-path="irh.html"><a href="irh.html#ale-curves-for-the-most-recent-day-lag-0"><i class="fa fa-check"></i><b>6.6.4</b> ALE Curves for the Most Recent Day (Lag 0)</a></li>
+<li class="chapter" data-level="6.6.5" data-path="irh.html"><a href="irh.html#lag-importance-ale"><i class="fa fa-check"></i><b>6.6.5</b> Lag Importance (ALE)</a></li>
+<li class="chapter" data-level="6.6.6" data-path="irh.html"><a href="irh.html#d-partial-dependence-plot-1"><i class="fa fa-check"></i><b>6.6.6</b> 2D Partial Dependence Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="irh.html"><a href="irh.html#conclusion-3"><i class="fa fa-check"></i><b>6.7</b> Conclusion</a></li>
+<li class="chapter" data-level="6.8" data-path="irh.html"><a href="irh.html#outlook"><i class="fa fa-check"></i><b>6.8</b> Outlook</a></li>
+<li class="chapter" data-level="6.9" data-path="irh.html"><a href="irh.html#appendix-ai-declaration-1"><i class="fa fa-check"></i><b>6.9</b> Appendix: AI Declaration</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="unc.html"><a href="unc.html"><i class="fa fa-check"></i><b>7</b> Melting Perspectives on Uncertainty in Climate</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="unc.html"><a href="unc.html#abstract-3"><i class="fa fa-check"></i><b>7.1</b> Abstract</a></li>
+<li class="chapter" data-level="7.2" data-path="unc.html"><a href="unc.html#introduction-5"><i class="fa fa-check"></i><b>7.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="unc.html"><a href="unc.html#background-and-motivation-uncertainty-in-regional-climate-projections"><i class="fa fa-check"></i><b>7.2.1</b> Background and Motivation: Uncertainty in Regional Climate Projections</a></li>
+<li class="chapter" data-level="7.2.2" data-path="unc.html"><a href="unc.html#conceptual-and-literature-framework"><i class="fa fa-check"></i><b>7.2.2</b> Conceptual and Literature Framework</a></li>
+<li class="chapter" data-level="7.2.3" data-path="unc.html"><a href="unc.html#study-aim-and-research-questions"><i class="fa fa-check"></i><b>7.2.3</b> Study Aim and Research Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="unc.html"><a href="unc.html#data-and-study-design"><i class="fa fa-check"></i><b>7.3</b> Data and Study Design</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="unc.html"><a href="unc.html#mmleav2-dataset-and-climate-variable"><i class="fa fa-check"></i><b>7.3.1</b> MMLEAv2 Dataset and Climate Variable</a></li>
+<li class="chapter" data-level="7.3.2" data-path="unc.html"><a href="unc.html#model-and-ensemble-member-selection"><i class="fa fa-check"></i><b>7.3.2</b> Model and Ensemble-Member Selection</a></li>
+<li class="chapter" data-level="7.3.3" data-path="unc.html"><a href="unc.html#study-regions-and-time-periods"><i class="fa fa-check"></i><b>7.3.3</b> Study Regions and Time Periods</a></li>
+<li class="chapter" data-level="7.3.4" data-path="unc.html"><a href="unc.html#fixed-scenario-design-and-equal-model-weighting"><i class="fa fa-check"></i><b>7.3.4</b> Fixed-Scenario Design and Equal Model Weighting</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="unc.html"><a href="unc.html#methods-3"><i class="fa fa-check"></i><b>7.4</b> Methods</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="unc.html"><a href="unc.html#analytical-framework-and-statistical-targets"><i class="fa fa-check"></i><b>7.4.1</b> Analytical Framework and Statistical Targets</a></li>
+<li class="chapter" data-level="7.4.2" data-path="unc.html"><a href="unc.html#construction-of-the-regional-summer-warming-indicator"><i class="fa fa-check"></i><b>7.4.2</b> Construction of the Regional Summer Warming Indicator</a></li>
+<li class="chapter" data-level="7.4.3" data-path="unc.html"><a href="unc.html#estimation-of-forced-responses-and-uncertainty-components"><i class="fa fa-check"></i><b>7.4.3</b> Estimation of Forced Responses and Uncertainty Components</a></li>
+<li class="chapter" data-level="7.4.4" data-path="unc.html"><a href="unc.html#distribution-based-interpretation-of-projection-uncertainty"><i class="fa fa-check"></i><b>7.4.4</b> Distribution-Based Interpretation of Projection Uncertainty</a></li>
+<li class="chapter" data-level="7.4.5" data-path="unc.html"><a href="unc.html#robustness-and-sensitivity-assessment"><i class="fa fa-check"></i><b>7.4.5</b> Robustness and Sensitivity Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="unc.html"><a href="unc.html#results-5"><i class="fa fa-check"></i><b>7.5</b> Results</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="unc.html"><a href="unc.html#projected-warming-and-divergence-among-model-responses"><i class="fa fa-check"></i><b>7.5.1</b> Projected Warming and Divergence among Model Responses</a></li>
+<li class="chapter" data-level="7.5.2" data-path="unc.html"><a href="unc.html#changing-structure-of-projection-uncertainty"><i class="fa fa-check"></i><b>7.5.2</b> Changing Structure of Projection Uncertainty</a></li>
+<li class="chapter" data-level="7.5.3" data-path="unc.html"><a href="unc.html#consequences-of-uncertainty-for-projection-interpretation"><i class="fa fa-check"></i><b>7.5.3</b> Consequences of Uncertainty for Projection Interpretation</a></li>
+<li class="chapter" data-level="7.5.4" data-path="unc.html"><a href="unc.html#robustness-of-the-main-findings"><i class="fa fa-check"></i><b>7.5.4</b> Robustness of the Main Findings</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="unc.html"><a href="unc.html#discussion-2"><i class="fa fa-check"></i><b>7.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="unc.html"><a href="unc.html#temporal-averaging-and-the-dominance-of-model-uncertainty"><i class="fa fa-check"></i><b>7.6.1</b> Temporal Averaging and the Dominance of Model Uncertainty</a></li>
+<li class="chapter" data-level="7.6.2" data-path="unc.html"><a href="unc.html#signal-emergence-model-disagreement-and-risk-interpretation"><i class="fa fa-check"></i><b>7.6.2</b> Signal Emergence, Model Disagreement, and Risk Interpretation</a></li>
+<li class="chapter" data-level="7.6.3" data-path="unc.html"><a href="unc.html#relation-to-previous-work-and-overall-interpretation"><i class="fa fa-check"></i><b>7.6.3</b> Relation to Previous Work and Overall Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="unc.html"><a href="unc.html#conclusion-4"><i class="fa fa-check"></i><b>7.7</b> Conclusion</a></li>
+<li class="chapter" data-level="7.8" data-path="unc.html"><a href="unc.html#appendices"><i class="fa fa-check"></i><b>7.8</b> Appendices</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="unc.html"><a href="unc.html#appendix-a.-complete-result-tables"><i class="fa fa-check"></i><b>7.8.1</b> Appendix A. Complete Result Tables</a></li>
+<li class="chapter" data-level="7.8.2" data-path="unc.html"><a href="unc.html#appendix-b.-supplementary-figures"><i class="fa fa-check"></i><b>7.8.2</b> Appendix B. Supplementary Figures</a></li>
+<li class="chapter" data-level="7.8.3" data-path="unc.html"><a href="unc.html#appendix-c.-robustness-diagnostics"><i class="fa fa-check"></i><b>7.8.3</b> Appendix C. Robustness Diagnostics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="cs.html"><a href="cs.html"><i class="fa fa-check"></i><b>8</b> Deep Learning for Change-Point Detection in Climate Time Series</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="cs.html"><a href="cs.html#abstract-4"><i class="fa fa-check"></i><b>8.1</b> Abstract</a></li>
+<li class="chapter" data-level="8.2" data-path="cs.html"><a href="cs.html#introduction-6"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.3" data-path="cs.html"><a href="cs.html#change-point-detection"><i class="fa fa-check"></i><b>8.3</b> Change Point Detection</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="cs.html"><a href="cs.html#problem-formulation"><i class="fa fa-check"></i><b>8.3.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.3.2" data-path="cs.html"><a href="cs.html#classical-methods-cost-functions-and-pelt"><i class="fa fa-check"></i><b>8.3.2</b> Classical methods: cost functions and PELT</a></li>
+<li class="chapter" data-level="8.3.3" data-path="cs.html"><a href="cs.html#deep-learning-methods"><i class="fa fa-check"></i><b>8.3.3</b> Deep learning methods</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="cs.html"><a href="cs.html#deep-learning-approach"><i class="fa fa-check"></i><b>8.4</b> Deep Learning Approach</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="cs.html"><a href="cs.html#data-3"><i class="fa fa-check"></i><b>8.4.1</b> Data</a></li>
+<li class="chapter" data-level="8.4.2" data-path="cs.html"><a href="cs.html#wavelet-preprocessing"><i class="fa fa-check"></i><b>8.4.2</b> Wavelet preprocessing</a></li>
+<li class="chapter" data-level="8.4.3" data-path="cs.html"><a href="cs.html#cnn-architecture"><i class="fa fa-check"></i><b>8.4.3</b> CNN architecture</a></li>
+<li class="chapter" data-level="8.4.4" data-path="cs.html"><a href="cs.html#contrastive-training"><i class="fa fa-check"></i><b>8.4.4</b> Contrastive training</a></li>
+<li class="chapter" data-level="8.4.5" data-path="cs.html"><a href="cs.html#postprocessing"><i class="fa fa-check"></i><b>8.4.5</b> Postprocessing</a></li>
+<li class="chapter" data-level="8.4.6" data-path="cs.html"><a href="cs.html#application-to-berkeley-earth-temperature-data"><i class="fa fa-check"></i><b>8.4.6</b> Application to Berkeley Earth Temperature Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="cs.html"><a href="cs.html#comparison-of-changepoint-candidates-with-pelt"><i class="fa fa-check"></i><b>8.5</b> Comparison of Changepoint Candidates with PELT</a></li>
+<li class="chapter" data-level="8.6" data-path="cs.html"><a href="cs.html#discussion-3"><i class="fa fa-check"></i><b>8.6</b> Discussion</a></li>
+<li class="chapter" data-level="8.7" data-path="cs.html"><a href="cs.html#conclusion-5"><i class="fa fa-check"></i><b>8.7</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="tp-overview.html"><a href="tp-overview.html"><i class="fa fa-check"></i><b>9</b> Tipping Points in Climate Research: An Overview</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="tp-overview.html"><a href="tp-overview.html#abstract-5"><i class="fa fa-check"></i><b>9.1</b> Abstract</a></li>
+<li class="chapter" data-level="9.2" data-path="tp-overview.html"><a href="tp-overview.html#introduction-7"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="tp-overview.html"><a href="tp-overview.html#tp-definition"><i class="fa fa-check"></i><b>9.3</b> Definition of a Climate Tipping Point</a></li>
+<li class="chapter" data-level="9.4" data-path="tp-overview.html"><a href="tp-overview.html#tp-elements"><i class="fa fa-check"></i><b>9.4</b> Overview of the 16 Tipping Elements</a></li>
+<li class="chapter" data-level="9.5" data-path="tp-overview.html"><a href="tp-overview.html#tp-thresholds"><i class="fa fa-check"></i><b>9.5</b> Threshold Estimation and Uncertainty</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="tp-overview.html"><a href="tp-overview.html#threshold-estimation"><i class="fa fa-check"></i><b>9.5.1</b> Threshold estimation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="tp-overview.html"><a href="tp-overview.html#sources-of-uncertainty"><i class="fa fa-check"></i><b>9.5.2</b> Sources of uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="tp-overview.html"><a href="tp-overview.html#tp-ews"><i class="fa fa-check"></i><b>9.6</b> Early Warning Signals (EWS)</a></li>
+<li class="chapter" data-level="9.7" data-path="tp-overview.html"><a href="tp-overview.html#tp-case"><i class="fa fa-check"></i><b>9.7</b> Case Study: Central-Western Greenland Ice Sheet</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="tp-overview.html"><a href="tp-overview.html#background"><i class="fa fa-check"></i><b>9.7.1</b> Background</a></li>
+<li class="chapter" data-level="9.7.2" data-path="tp-overview.html"><a href="tp-overview.html#data-and-methods-1"><i class="fa fa-check"></i><b>9.7.2</b> Data and Methods</a></li>
+<li class="chapter" data-level="9.7.3" data-path="tp-overview.html"><a href="tp-overview.html#results-6"><i class="fa fa-check"></i><b>9.7.3</b> Results</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="tp-overview.html"><a href="tp-overview.html#tp-limits"><i class="fa fa-check"></i><b>9.8</b> Limitations of Early Warning Signals</a></li>
+<li class="chapter" data-level="9.9" data-path="tp-overview.html"><a href="tp-overview.html#conclusion-6"><i class="fa fa-check"></i><b>9.9</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="tp-overview.html"><a href="tp-overview.html#use-of-ai-tools"><i class="fa fa-check"></i>Use of AI Tools</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="utp.html"><a href="utp.html"><i class="fa fa-check"></i><b>10</b> Uncertainty of tipping points in climate research</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="utp.html"><a href="utp.html#abstract-6"><i class="fa fa-check"></i><b>10.1</b> Abstract</a></li>
+<li class="chapter" data-level="10.2" data-path="utp.html"><a href="utp.html#introduction-8"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+<li class="chapter" data-level="10.3" data-path="utp.html"><a href="utp.html#early-warning-signals-and-critical-slowing-down"><i class="fa fa-check"></i><b>10.3</b> Early-Warning Signals and Critical Slowing Down</a></li>
+<li class="chapter" data-level="10.4" data-path="utp.html"><a href="utp.html#simulation-benchmark"><i class="fa fa-check"></i><b>10.4</b> Simulation Benchmark</a></li>
+<li class="chapter" data-level="10.5" data-path="utp.html"><a href="utp.html#simulation-results"><i class="fa fa-check"></i><b>10.5</b> Simulation Results</a></li>
+<li class="chapter" data-level="10.6" data-path="utp.html"><a href="utp.html#bayesian-interpretation-of-early-warning-signals"><i class="fa fa-check"></i><b>10.6</b> Bayesian Interpretation of Early-Warning Signals</a></li>
+<li class="chapter" data-level="10.7" data-path="utp.html"><a href="utp.html#north-atlantic-sst-application"><i class="fa fa-check"></i><b>10.7</b> North Atlantic SST Application</a></li>
+<li class="chapter" data-level="10.8" data-path="utp.html"><a href="utp.html#discussion-and-conclusion"><i class="fa fa-check"></i><b>10.8</b> Discussion and Conclusion</a></li>
+<li class="chapter" data-level="10.9" data-path="utp.html"><a href="utp.html#declaration-of-ai-use"><i class="fa fa-check"></i><b>10.9</b> Declaration of AI Use</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ptp.html"><a href="ptp.html"><i class="fa fa-check"></i><b>11</b> Positive tipping points</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#abstract-7"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#introduction-9"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#positive-tipping-points-and-feedback-loops"><i class="fa fa-check"></i>Positive tipping points and feedback loops</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#diffusion-of-innovation-theory"><i class="fa fa-check"></i>Diffusion of innovation theory</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#research-questions"><i class="fa fa-check"></i>Research questions</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#benchmark-transition-cases"><i class="fa fa-check"></i>Benchmark transition cases</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#denmark"><i class="fa fa-check"></i>Denmark</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#united-kingdom"><i class="fa fa-check"></i>United Kingdom</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#policy-context"><i class="fa fa-check"></i>Policy context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#data-and-country-context"><i class="fa fa-check"></i>Data and country context</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#statistical-methods"><i class="fa fa-check"></i>Statistical methods</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#logistic-diffusion-model"><i class="fa fa-check"></i>Logistic diffusion model</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#bootstrap-bands"><i class="fa fa-check"></i>Bootstrap bands</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-indicators"><i class="fa fa-check"></i>Early warning indicators</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#results-7"><i class="fa fa-check"></i>Results</a>
+<ul>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#wind-and-solar-diffusion"><i class="fa fa-check"></i>Wind and solar diffusion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#spain"><i class="fa fa-check"></i>Spain</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#germany"><i class="fa fa-check"></i>Germany</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#poland"><i class="fa fa-check"></i>Poland</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#fossil-displacement-1"><i class="fa fa-check"></i>Fossil displacement</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#early-warning-signals"><i class="fa fa-check"></i>Early warning signals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#discussion-4"><i class="fa fa-check"></i>Discussion</a></li>
+<li class="chapter" data-level="" data-path="ptp.html"><a href="ptp.html#conclusion-7"><i class="fa fa-check"></i>Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cs" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Deep Learning for Change-Point Detection in Climate Time Series<a href="cs.html#cs" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Maximilian Bur</em></p>
+<p><em>Supervisor: Helmut Küchenhoff</em></p>
+<p><em>Degree: Master</em></p>
+<div id="abstract-4" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Abstract<a href="cs.html#abstract-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Change-point detection aims to identify times at which the statistical properties of a process change. In climate time series, such changes may affect the mean, variance, trend, or temporal dependence. They are often gradual, noisy, and difficult to capture with a single predefined model. This report reviews how deep learning can be combined with statistical postprocessing to detect structural changes in long climate records.</p>
+<p>A self-supervised approach is applied to monthly global land temperature anomalies from Berkeley Earth. Overlapping 144-month windows are transformed into wavelet scalograms and mapped to low-dimensional embeddings by a two-dimensional convolutional neural network. The network is trained with a symmetric contrastive objective that encourages adjacent windows to have similar representations. Change-point candidates are then derived from distances between consecutive embeddings through smoothing, thresholding, and non-maximum suppression.</p>
+<p>Rolling estimates of the mean, standard deviation, local trend, and autocorrelation provide a descriptive interpretation of the resulting candidates. The candidates are also compared with those obtained from the classical PELT algorithm. Because no verified change-point labels are available, this comparison does not establish which detections are correct. The application illustrates the flexibility of representation-learning-based detection while emphasizing that neural change scores do not provide statistical significance or physical attribution on their own.</p>
+</div>
+<div id="introduction-6" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Introduction<a href="cs.html#introduction-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Climate change is often summarized as a gradual long-term warming trend. Many climate-related processes, however, also exhibit abrupt or accelerated structural changes, including shifts in variability, trend slope, or temporal dependence. Change-point detection (CPD) provides a statistical framework for asking whether and when such transitions occur <span class="citation">(<a href="#ref-killick2012">Killick et al. 2012</a>; <a href="#ref-truong2020">Truong et al. 2020</a>)</span>. In climate statistics, the problem is particularly demanding: series are non-stationary and autocorrelated, early instrumental records can be noisy or sparsely observed, and verified labels for historical regime shifts are typically unavailable.</p>
+<p>Classical CPD methods rely on an explicit cost function or likelihood and yield interpretable segmentations under clear model assumptions. Their strength is also their limitation: the practitioner must specify which property is expected to change. Deep-learning approaches take a complementary route. Rather than monitoring a single preselected statistic, they learn feature representations from the data and infer potential changes from those representations <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>. This is attractive when several statistical properties may change jointly or when a suitable parametric cost is difficult to specify in advance.</p>
+<p>Deep CPD should not be misunderstood as a climate-specific methodology in its own right. As emphasized by <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>, much of the literature concerns representation learning for sequential data, whereas only a smaller part is CPD-specific postprocessing that converts continuous scores into discrete change times. Statistical analysis remains necessary to assess whether a detected pattern is credible and scientifically meaningful.</p>
+<p>The primary objective of this report is to summarize and illustrate the framework for deep-learning-based CPD reviewed by <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>, rather than to develop or comprehensively benchmark a new detection algorithm. To make the reviewed concepts concrete, the report implements a self-supervised pipeline for a univariate climate series, consisting of wavelet preprocessing, a convolutional encoder, contrastive training, and statistical postprocessing. The method is applied to the Berkeley Earth global land temperature anomaly series <span class="citation">(<a href="#ref-berkeleyearth2024">Berkeley Earth 2024</a>)</span> and compared with PELT based on an L2 mean-shift cost <span class="citation">(<a href="#ref-killick2012">Killick et al. 2012</a>)</span>. The goal is not to declare a winner between methods, but to examine what each procedure identifies and how their outputs relate.</p>
+<p>The remainder of the report is organized as follows. Section 3 formalizes CPD and reviews classical and deep-learning approaches. Section 4 presents the illustrative pipeline and its application. Section 5 compares the neural candidates with PELT. Sections 6 and 7 discuss the findings and conclude.</p>
+</div>
+<div id="change-point-detection" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Change Point Detection<a href="cs.html#change-point-detection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Change-point detection seeks time points at which the data-generating mechanism of a sequence changes. Unlike outlier detection, which focuses on isolated anomalies, CPD targets persistent transitions that divide a series into regimes. Applications range from finance and manufacturing to medicine and climate science. In climate research, relevant changes include mean shifts, variance changes, trend breaks, and alterations of temporal dependence.</p>
+<div id="problem-formulation" class="section level3 hasAnchor" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Problem formulation<a href="cs.html#problem-formulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider a univariate series <span class="math inline">\(X=(x_1,\ldots,x_T)\)</span>. A single change point <span class="math inline">\(\tau\)</span> separates two regimes,</p>
+<p><span class="math display">\[
+x_1,\ldots,x_\tau \sim P_1,
+\qquad
+x_{\tau+1},\ldots,x_T \sim P_2,
+\]</span></p>
+<p>with <span class="math inline">\(P_1\neq P_2\)</span>. The distributions may differ in their mean, variance, trend, autocorrelation, or full probability law. The estimation target is <span class="math inline">\(\hat\tau\)</span>.</p>
+<p>Many classical procedures formulate the problem as cost minimization. Let <span class="math inline">\(C(a,b)\)</span> measure how well observations from <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span> fit a single homogeneous model. For one change point,</p>
+<p><span class="math display">\[
+\hat\tau
+=
+\arg\min_{\tau}
+\bigl[
+C(1,\tau)+C(\tau+1,T)
+\bigr].
+\]</span></p>
+<p>When a parametric model is available, an equivalent formulation is segmented maximum likelihood. For a normal mean shift with constant variance,</p>
+<p><span class="math display">\[
+x_t\sim
+\begin{cases}
+\mathcal{N}(\mu_1,\sigma^2), &amp; t\le\tau,\\
+\mathcal{N}(\mu_2,\sigma^2), &amp; t&gt;\tau,
+\end{cases}
+\]</span></p>
+<p>and <span class="math inline">\(\hat\tau\)</span> maximizes the corresponding segmented log-likelihood.</p>
+<p>For <span class="math inline">\(K\)</span> change points <span class="math inline">\(\tau_1&lt;\cdots&lt;\tau_K\)</span>, a standard objective is</p>
+<p><span class="math display">\[
+\min_{\tau_1,\ldots,\tau_K}
+\left[
+\sum_{k=0}^{K}
+C(\tau_k+1,\tau_{k+1})
++
+\beta K
+\right],
+\]</span></p>
+<p>where <span class="math inline">\(\tau_0=0\)</span>, <span class="math inline">\(\tau_{K+1}=T\)</span>, and <span class="math inline">\(\beta K\)</span> penalizes overly fine segmentations. Offline methods use the complete series, whereas online methods process observations sequentially and emphasize detection delay. The present analysis is offline and retrospective.</p>
+</div>
+<div id="classical-methods-cost-functions-and-pelt" class="section level3 hasAnchor" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Classical methods: cost functions and PELT<a href="cs.html#classical-methods-cost-functions-and-pelt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Classical methods do not learn feature representations. Instead, they optimize an explicitly chosen cost that encodes the intended notion of within-segment homogeneity. For changes in the mean, a common choice is the residual sum of squares,</p>
+<p><span class="math display">\[
+C(a,b)
+=
+\sum_{t=a}^{b}
+\bigl(x_t-\bar x_{a:b}\bigr)^2,
+\]</span></p>
+<p>where <span class="math inline">\(\bar x_{a:b}\)</span> is the segment mean. This cost is small when observations within a segment are close to a common level. A favourable change point therefore separates groups with different means. Related cost functions address changes in variance or other parametric families <span class="citation">(<a href="#ref-truong2020">Truong et al. 2020</a>)</span>. The penalty <span class="math inline">\(\beta\)</span> controls the number of estimated change points: smaller values yield denser segmentations, whereas larger values favour coarser partitions.</p>
+<p>An exhaustive search over all possible partitions is computationally expensive. The Pruned Exact Linear Time (PELT) algorithm solves the penalized multiple-change-point problem exactly by combining dynamic programming with a pruning rule <span class="citation">(<a href="#ref-killick2012">Killick et al. 2012</a>)</span>. During the recursion, candidate locations that cannot be optimal for any future solution are discarded. Under suitable conditions, the computational cost is linear in <span class="math inline">\(T\)</span>, making PELT practical for long climate records.</p>
+<p>In this report, PELT is applied to a standardized series using an L2 cost, a minimum segment length of 120 months, and the penalty <span class="math inline">\(\beta=c\log n\)</span> with <span class="math inline">\(c=3\)</span>. These settings were not selected through an extensive tuning procedure. Because the L2 formulation models piecewise-constant segment means, PELT is primarily sensitive to changes in level. It therefore provides an interpretable classical baseline, although changes dominated by variance, trend slope, or temporal dependence need not produce strong detections.</p>
+</div>
+<div id="deep-learning-methods" class="section level3 hasAnchor" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Deep learning methods<a href="cs.html#deep-learning-methods" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Following <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>, deep CPD replaces hand-crafted statistics with a learned map</p>
+<p><span class="math display">\[
+f_\theta:\mathcal{X}\to\mathcal{Z},
+\qquad
+z_i=f_\theta(W_i),
+\]</span></p>
+<p>from an input window <span class="math inline">\(W_i\)</span> to a latent representation <span class="math inline">\(z_i\)</span>. Rather than organizing the field around a single architecture, the review describes a modular pipeline:</p>
+<p><span class="math display">\[
+\text{raw data}
+\rightarrow
+\text{preprocessing}
+\rightarrow
+\text{neural representation}
+\rightarrow
+\text{postprocessing}.
+\]</span></p>
+<p>Deep CPD can therefore be viewed as representation learning followed by statistical detection. The neural network extracts features, and a subsequent procedure converts those features into estimated change times.</p>
+<p><strong>Preprocessing.</strong> Neural networks usually require inputs of fixed size. Windowing divides a long series into overlapping segments of length <span class="math inline">\(L\)</span> and step <span class="math inline">\(s\)</span>. Short windows increase temporal resolution but provide less context, whereas long windows capture slower structures at the cost of less precise localization. Transformations such as short-time Fourier transforms or wavelet transforms convert windows into time–frequency images that can be processed by two-dimensional convolutional networks. Denoising and data augmentation may further improve robustness when labelled change points are scarce.</p>
+<p><strong>Architectures.</strong> <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span> survey a broad range of sequence models. Convolutional networks extract local patterns and are a natural choice for scalogram inputs. Recurrent models accumulate temporal information through hidden states. Autoencoders learn compressed representations whose latent trajectories or reconstruction errors may indicate regime changes. Transformers use attention to represent longer-range dependencies. Graph neural networks become relevant when observations possess spatial or relational structure, as in climate fields or climate networks. Despite their architectural differences, these models serve a similar role in CPD: they produce features that may help distinguish temporal regimes.</p>
+<p><strong>Training paradigms.</strong> Supervised CPD uses labelled change times or regime labels and may optimize detection-related objectives directly, but such labels are rare in climate applications. Weak supervision relies on coarse or incomplete annotations. Self-supervised objectives instead construct training signals from the observed data. Contrastive learning is one such approach: temporally adjacent windows are treated as positive pairs and encouraged to have similar embeddings, while other windows in the batch act as negatives. If neighbouring windows generally belong to the same local regime, structural transitions may be associated with increased distances between consecutive embeddings.</p>
+<p><strong>From scores to change points.</strong> Learned embeddings are not change points by themselves. A time-indexed change score, such as <span class="math inline">\(s_i=D(z_i,z_{i+1})\)</span>, or a predicted change probability must first be constructed. Generic smoothing and normalization reduce score variability. CPD-specific postprocessing then applies height thresholds and non-maximum suppression to prevent a broad transition from being reported as several nearby detections. Consequently, the final candidate set depends not only on the neural representation but also on the postprocessing procedure.</p>
+<p>Deep methods are flexible and scale to complex or high-dimensional inputs. However, they tend to be less interpretable, rarely provide classical significance statements, and may be sensitive to design choices <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>. In low-dimensional settings with a clearly specified type of change, classical methods may remain simpler and more directly justified.</p>
+</div>
+</div>
+<div id="deep-learning-approach" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Deep Learning Approach<a href="cs.html#deep-learning-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To illustrate the reviewed methodology, the implemented pipeline maps a univariate series to change-point candidates through overlapping windows, wavelet scalograms, a shared convolutional encoder, contrastive training, and score postprocessing:</p>
+<p><span class="math display">\[
+\text{series}
+\rightarrow
+\text{windows}
+\rightarrow
+\text{scalograms}
+\rightarrow
+\text{embeddings}
+\rightarrow
+\text{distances}
+\rightarrow
+\text{candidates}.
+\]</span></p>
+<div id="data-3" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Data<a href="cs.html#data-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(X=(x_1,\ldots,x_T)\)</span> denote monthly global land temperature anomalies from Berkeley Earth <span class="citation">(<a href="#ref-berkeleyearth2024">Berkeley Earth 2024</a>)</span>. After removing missing observations, the remaining series is standardized globally,</p>
+<p><span class="math display">\[
+\tilde x_t=\frac{x_t-\bar x}{s_x}.
+\]</span></p>
+<p>The full historical sample is used for standardization because the analysis is retrospective. The standardized series is divided into windows of length <span class="math inline">\(L=144\)</span> months (12 years) with step <span class="math inline">\(\Delta=3\)</span> months,</p>
+<p><span class="math display">\[
+W_i
+=
+\bigl(\tilde x_{t_i},\ldots,\tilde x_{t_i+143}\bigr),
+\qquad
+t_i=1+3(i-1).
+\]</span></p>
+<p>Adjacent windows share 141 observations. Each window is associated with its centre <span class="math inline">\(c_i=t_i+L/2\)</span>.</p>
+</div>
+<div id="wavelet-preprocessing" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Wavelet preprocessing<a href="cs.html#wavelet-preprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Each window is transformed using a continuous wavelet transform. Only the magnitudes of the complex coefficients are retained. The resulting magnitude matrix is compressed using <span class="math inline">\(\log(1+\cdot)\)</span> and standardized separately within each window. This produces a scalogram</p>
+<p><span class="math display">\[
+S_i\in\mathbb{R}^{48\times144},
+\]</span></p>
+<p>which serves as a time–scale image for the convolutional encoder. The wavelet transform is used as a representation device rather than as a physically interpreted spectrum.</p>
+</div>
+<div id="cnn-architecture" class="section level3 hasAnchor" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> CNN architecture<a href="cs.html#cnn-architecture" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A shared two-dimensional CNN maps each scalogram to a unit-norm embedding <span class="math inline">\(z_i=f_\theta(S_i)\in\mathbb{R}^{32}\)</span>. After adding a channel dimension, the input tensor has shape <span class="math inline">\(1\times48\times144\)</span>. Three Conv2D–ReLU–MaxPool2D blocks expand the channel dimension from 1 to 16, 32, and 64. With <span class="math inline">\(2\times2\)</span> pooling after each convolution, the spatial dimensions are reduced successively from <span class="math inline">\(48\times144\)</span> to <span class="math inline">\(24\times72\)</span>, <span class="math inline">\(12\times36\)</span>, and <span class="math inline">\(6\times18\)</span>. The flattened representation therefore contains</p>
+<p><span class="math display">\[
+64\cdot6\cdot18=6912
+\]</span></p>
+<p>features. A two-layer projection head maps these features according to</p>
+<p><span class="math display">\[
+6912\rightarrow128\rightarrow32.
+\]</span></p>
+<p>The final embedding is <span class="math inline">\(\ell_2\)</span>-normalized, so that inner products correspond to cosine similarities. Both members of each training pair are processed by the same encoder with shared weights.</p>
+</div>
+<div id="contrastive-training" class="section level3 hasAnchor" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Contrastive training<a href="cs.html#contrastive-training" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>No labelled change points are used during training. For each index <span class="math inline">\(i\)</span>, the pair <span class="math inline">\((S_i,S_{i+1})\)</span> is treated as a positive example. In a mini-batch of <span class="math inline">\(B=64\)</span> adjacent pairs, normalized embedding matrices <span class="math inline">\(Z^{(1)},Z^{(2)}\in\mathbb{R}^{B\times32}\)</span> yield the similarity matrix</p>
+<p><span class="math display">\[
+A=\frac{Z^{(1)}{Z^{(2)}}^\top}{\tau},
+\qquad \tau=0.2.
+\]</span></p>
+<p>The symmetric contrastive loss is</p>
+<p><span class="math display">\[
+\mathcal{L}
+=
+\frac12
+\bigl(
+\mathcal{L}_{1\rightarrow2}
++
+\mathcal{L}_{2\rightarrow1}
+\bigr),
+\]</span></p>
+<p>where each direction is a temperature-scaled softmax cross-entropy objective that identifies the matching adjacent embedding among the batch negatives. The model is trained for 100 epochs using Adam with learning rate <span class="math inline">\(10^{-3}\)</span>.</p>
+<p>The underlying assumption is that neighbouring windows usually describe similar local regimes. Near a structural transition, the corresponding embeddings may become less similar. Because consecutive windows overlap strongly, the positive-pair task is relatively easy. The encoder should therefore be interpreted as learning a smooth local representation rather than a set of sharply separated regimes.</p>
+</div>
+<div id="postprocessing" class="section level3 hasAnchor" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> Postprocessing<a href="cs.html#postprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>After training, embeddings are computed in chronological order. The raw transition score is defined as the cosine distance</p>
+<p><span class="math display">\[
+s_i^{\mathrm{raw}}=1-z_i^\top z_{i+1},
+\]</span></p>
+<p>and normalized to <span class="math inline">\([0,1]\)</span>. A Gaussian filter with <span class="math inline">\(\sigma=4\)</span> is then applied to smooth the score, followed by a second normalization. Discrete candidates are obtained by</p>
+<ol style="list-style-type: decimal">
+<li>collecting local maxima,</li>
+<li>retaining peaks with height at least <span class="math inline">\(0.6\)</span>,</li>
+<li>enforcing a minimum separation of 120 months through non-maximum suppression.</li>
+</ol>
+<p>These settings were chosen empirically to suppress minor score fluctuations and produce a manageable set of candidates; they were not optimized against labelled change points. The procedure yields 56 local maxima after smoothing, 17 peaks after thresholding, and ten final candidates. The reported dates should be interpreted as approximate centres of structural transitions rather than exact monthly break locations.</p>
+</div>
+<div id="application-to-berkeley-earth-temperature-data" class="section level3 hasAnchor" number="8.4.6">
+<h3><span class="header-section-number">8.4.6</span> Application to Berkeley Earth Temperature Data<a href="cs.html#application-to-berkeley-earth-temperature-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Berkeley Earth data contain monthly global land temperature anomalies from 1750 onward <span class="citation">(<a href="#ref-berkeleyearth2024">Berkeley Earth 2024</a>)</span>. Because anomalies are defined relative to a reference climatology, the seasonal cycle has already been removed and no additional seasonal adjustment is applied. Exploratory analysis indicates a long-run increase in the mean, substantially greater variability in the early part of the record, and pronounced temporal dependence. Early observations are particularly unstable and may reflect changes in measurement quality or data coverage in addition to climate variability.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cs-full-series"></span>
+<img src="work/07-change_stats/figures/full_time_series.svg" alt="Berkeley Earth monthly land temperature anomalies (1753--2023). The blue curve shows the monthly anomaly series, while the orange curve represents a 12-month rolling mean that emphasizes lower-frequency variation. The early part of the record displays substantially greater variability, whereas the late twentieth and early twenty-first centuries are characterized by a pronounced increase in the anomaly level." width="100%" />
+<p class="caption">
+FIGURE 8.1: Berkeley Earth monthly land temperature anomalies (1753–2023). The blue curve shows the monthly anomaly series, while the orange curve represents a 12-month rolling mean that emphasizes lower-frequency variation. The early part of the record displays substantially greater variability, whereas the late twentieth and early twenty-first centuries are characterized by a pronounced increase in the anomaly level.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cs-postprocessing-score"></span>
+<img src="work/07-change_stats/figures/postprocessing_steps.svg" alt="Postprocessing of the raw Wavelet--CNN transition score. Gaussian smoothing with $\sigma=4$ suppresses short-scale fluctuations while retaining broad maxima (top). Applying a minimum height of 0.6 removes weaker peaks (middle). Non-maximum suppression with a minimum temporal separation of 120 months then reduces clusters of nearby peaks to ten final change-point candidates (bottom)." width="100%" />
+<p class="caption">
+FIGURE 8.2: Postprocessing of the raw Wavelet–CNN transition score. Gaussian smoothing with <span class="math inline">\(\sigma=4\)</span> suppresses short-scale fluctuations while retaining broad maxima (top). Applying a minimum height of 0.6 removes weaker peaks (middle). Non-maximum suppression with a minimum temporal separation of 120 months then reduces clusters of nearby peaks to ten final change-point candidates (bottom).
+</p>
+</div>
+<p>The ten final candidates and their normalized scores are reported in Table <a href="cs.html#tab:cs-deep-cp-results">8.1</a>.</p>
+<table>
+<caption><span id="tab:cs-deep-cp-results">TABLE 8.1: </span>Final Wavelet–CNN change-point candidates and normalized transition scores.</caption>
+<thead>
+<tr class="header">
+<th align="right">Year</th>
+<th align="right">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1763</td>
+<td align="right">0.917</td>
+</tr>
+<tr class="even">
+<td align="right">1804</td>
+<td align="right">0.600</td>
+</tr>
+<tr class="odd">
+<td align="right">1818</td>
+<td align="right">0.646</td>
+</tr>
+<tr class="even">
+<td align="right">1838</td>
+<td align="right">0.708</td>
+</tr>
+<tr class="odd">
+<td align="right">1851</td>
+<td align="right">0.634</td>
+</tr>
+<tr class="even">
+<td align="right">1885</td>
+<td align="right">0.736</td>
+</tr>
+<tr class="odd">
+<td align="right">1941</td>
+<td align="right">0.672</td>
+</tr>
+<tr class="even">
+<td align="right">1960</td>
+<td align="right">0.651</td>
+</tr>
+<tr class="odd">
+<td align="right">1988</td>
+<td align="right">1.000</td>
+</tr>
+<tr class="even">
+<td align="right">1999</td>
+<td align="right">0.745</td>
+</tr>
+</tbody>
+</table>
+<p>The largest normalized score occurs in 1988, while comparatively strong peaks also occur in 1763, 1999, and 1885. These values are relative to the trained representation and the normalization performed over the full score series. They should not be interpreted as probabilities or significance levels.</p>
+<p>Because verified labels are unavailable, the candidates are interpreted descriptively using the rolling mean, rolling standard deviation, local linear slope, and lag-one autocorrelation. All four statistics are computed using the same 144-month window length as the encoder.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cs-rolling-features"></span>
+<img src="work/07-change_stats/figures/rolling_features.svg" alt="Rolling statistical summaries of the temperature anomaly series. From top to bottom, the panels show the 144-month rolling mean, rolling standard deviation, rolling linear trend, and lag-1 autocorrelation. Red dashed lines mark the final Wavelet--CNN candidates. The candidate dates coincide with different combinations of changes in level, variability, trend, and temporal dependence, rather than with a single common statistical feature." width="100%" />
+<p class="caption">
+FIGURE 8.3: Rolling statistical summaries of the temperature anomaly series. From top to bottom, the panels show the 144-month rolling mean, rolling standard deviation, rolling linear trend, and lag-1 autocorrelation. Red dashed lines mark the final Wavelet–CNN candidates. The candidate dates coincide with different combinations of changes in level, variability, trend, and temporal dependence, rather than with a single common statistical feature.
+</p>
+</div>
+<p>The candidates do not align uniformly with any single rolling statistic.</p>
+<ul>
+<li><strong>1763</strong> falls within a period of high early-record variability and a changing local level. Although its score is large, the observational instability of the early instrumental period warrants a cautious interpretation.</li>
+<li><strong>1804</strong> coincides with a reversal in the local trend. The rolling mean approaches a local maximum, after which the estimated slope becomes strongly negative.</li>
+<li><strong>1818, 1838, and 1851</strong> occur during a prolonged decline in rolling variability accompanied by changes in local trend and dependence. Their distribution over several decades is consistent with stages of an extended transition rather than isolated mean jumps.</li>
+<li><strong>1885 and 1941</strong> are associated more clearly with changes in local trend and autocorrelation than with abrupt shifts in the rolling mean. This is consistent with the learned representation responding to aspects of temporal structure beyond the mean level alone.</li>
+<li><strong>1960</strong> has no comparably pronounced counterpart in the displayed rolling summaries. The candidate may therefore reflect either a weaker combination of features or characteristics not captured by these four descriptive statistics.</li>
+<li><strong>1988</strong> produces the strongest normalized score and lies near a period in which the rolling mean begins to rise persistently. <strong>1999</strong> occurs within the same broader modern warming phase. Although the ten-year minimum-distance rule permits both candidates to remain, they may represent different parts of one extended transition.</li>
+</ul>
+<p>Taken together, the results are consistent with sensitivity to several forms of structural variation. Nevertheless, an elevated embedding distance does not identify which statistical property has changed. Linking individual candidates to physical climate mechanisms, changes in data coverage, or measurement artefacts would require additional scientific analysis and lies outside the scope of this report.</p>
+</div>
+</div>
+<div id="comparison-of-changepoint-candidates-with-pelt" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Comparison of Changepoint Candidates with PELT<a href="cs.html#comparison-of-changepoint-candidates-with-pelt" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Using an L2 cost, a minimum segment length of 120 months, and penalty multiplier <span class="math inline">\(c=3\)</span>, PELT detects seven change points in 1788, 1808, 1818, 1863, 1921, 1979, and 2001.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cs-comparison-cnn-pelt"></span>
+<img src="work/07-change_stats/figures/comparison_cnn_pelt.svg" alt="Change-point candidates identified by the Wavelet--CNN and PELT procedures. Red dashed lines mark Wavelet--CNN candidates, while blue dotted lines mark PELT estimates. Several detections occur in similar periods, whereas others are specific to one procedure, reflecting differences in temporal resolution, model assumptions, and tuning choices." width="100%" />
+<p class="caption">
+FIGURE 8.4: Change-point candidates identified by the Wavelet–CNN and PELT procedures. Red dashed lines mark Wavelet–CNN candidates, while blue dotted lines mark PELT estimates. Several detections occur in similar periods, whereas others are specific to one procedure, reflecting differences in temporal resolution, model assumptions, and tuning choices.
+</p>
+</div>
+<p>To compare candidate locations, an optimal one-to-one matching is computed with the Hungarian algorithm using a tolerance of 72 months, corresponding to half the CNN window length. Three pairs fall within this tolerance (Table <a href="cs.html#tab:cs-match-table">8.2</a>).</p>
+<table>
+<caption><span id="tab:cs-match-table">TABLE 8.2: </span>One-to-one matches between Wavelet–CNN and PELT candidates within a tolerance of 72 months.</caption>
+<thead>
+<tr class="header">
+<th align="right">CNN year</th>
+<th align="right">PELT year</th>
+<th align="right">Difference (months)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1804</td>
+<td align="right">1808</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="right">1818</td>
+<td align="right">1818</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="right">1999</td>
+<td align="right">2001</td>
+<td align="right">25</td>
+</tr>
+</tbody>
+</table>
+<p>The remaining CNN candidates, including the strongest peak in 1988, and the remaining PELT dates in 1788, 1863, 1921, and 1979 are unmatched under the selected tolerance.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cs-matched-unmatched"></span>
+<img src="work/07-change_stats/figures/matched_and_unmatched_change_points.svg" alt="Matched and unmatched change-point candidates from the Wavelet--CNN and PELT procedures using a temporal tolerance of $\pm72$ months. Dark red and dark blue lines denote detections assigned to matched pairs, whereas lighter lines indicate candidates identified by only one procedure. The partial overlap highlights transitions that are salient under both approaches while also showing substantial method-specific variation." width="100%" />
+<p class="caption">
+FIGURE 8.5: Matched and unmatched change-point candidates from the Wavelet–CNN and PELT procedures using a temporal tolerance of <span class="math inline">\(\pm72\)</span> months. Dark red and dark blue lines denote detections assigned to matched pairs, whereas lighter lines indicate candidates identified by only one procedure. The partial overlap highlights transitions that are salient under both approaches while also showing substantial method-specific variation.
+</p>
+</div>
+<p>These results should not be interpreted as a ranking of correctness. No labelled change points are available for the series, and no statistical hypothesis test of agreement is performed. The matching procedure evaluates only temporal proximity between the two candidate sets.</p>
+<p>The partial overlap is nevertheless informative. Agreement near 1804/1808, 1818, and 1999/2001 indicates that some transitions are salient under both a mean-oriented cost and a learned time–frequency representation. Differences elsewhere are expected for at least three reasons. First, PELT with an L2 cost models piecewise-constant changes in the mean, whereas the Wavelet–CNN score may also respond to changes in variance, trend, or dependence. Second, the CNN assigns each score to the centre of a twelve-year window and subsequently smooths the score, giving it a coarser temporal resolution than monthly PELT estimates. Third, both procedures depend on design choices, including the PELT penalty multiplier and the CNN height threshold and minimum-distance constraint.</p>
+<p>A limited penalty-sensitivity analysis for PELT shows that the number of detections varies with <span class="math inline">\(c\)</span>, although several locations remain relatively stable across neighbouring penalty values. The CNN candidate set likewise depends on the score threshold and minimum temporal separation. In the absence of labels, these analyses describe stability under alternative design choices rather than validation against a known truth. Both outputs are therefore best regarded as candidate lists for further statistical and scientific inspection, not as definitive segmentations of the climate record.</p>
+</div>
+<div id="discussion-3" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Discussion<a href="cs.html#discussion-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The application illustrates both the appeal and the limitations of deep CPD in climate statistics. A self-supervised Wavelet–CNN can generate candidate dates without labelled regime shifts, and several neural peaks coincide with visible changes in the rolling mean, standard deviation, slope, or autocorrelation. These observations are consistent with the representation-learning perspective discussed by <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>: once local temporal structure is encoded flexibly, different types of transitions can contribute to a common change score.</p>
+<p>At the same time, neural change scores are relative quantities. Their values depend on the window length, wavelet settings, architecture, contrastive temperature, and postprocessing parameters, none of which were tuned extensively. Altering the score threshold or minimum-distance constraint would change the reported candidate set. The method is also entirely offline: because the encoder is trained using the full series, it cannot be interpreted as an online early-warning system. Most importantly, detection is not attribution. Determining whether a candidate reflects climate dynamics, observational artefacts, or preprocessing effects requires scientific evidence beyond the models considered here.</p>
+<p>Relative to classical segmentation, unsupervised deep CPD is best regarded as a candidate-generation tool. PELT provides a transparent mean-shift baseline with a clearly defined optimization criterion and an exact search algorithm <span class="citation">(<a href="#ref-killick2012">Killick et al. 2012</a>)</span>. The neural pipeline permits a broader, learned notion of local structural difference, but offers weaker interpretability and no built-in significance test. Used together, the procedures provide complementary views of structural instability in the same record. When the scientific question concerns a specific change in mean level, PELT may be sufficient. When several properties may change jointly or an appropriate cost is difficult to specify, a learned representation may identify additional periods for subsequent statistical and scientific scrutiny.</p>
+</div>
+<div id="conclusion-5" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Conclusion<a href="cs.html#conclusion-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This report reviewed deep-learning approaches to change-point detection following <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span> and illustrated the reviewed framework through a self-supervised Wavelet–CNN application to Berkeley Earth monthly land temperature anomalies <span class="citation">(<a href="#ref-berkeleyearth2024">Berkeley Earth 2024</a>)</span>. Ten candidates derived from contrastive embedding distances were compared with seven PELT change points based on an L2 cost <span class="citation">(<a href="#ref-killick2012">Killick et al. 2012</a>)</span>. Three pairs were matched within a tolerance of 72 months. Given the absence of ground-truth labels, this partial overlap represents differences and similarities between the procedures’ inductive assumptions rather than evidence that one method is more accurate.</p>
+<p>The application supports the modular view of deep CPD emphasized by <span class="citation">(<a href="#ref-xu2025">Xu et al. 2025</a>)</span>: neural networks learn representations of local temporal structure, whereas CPD-specific scoring and postprocessing convert those representations into candidate change times. Deep learning can thereby complement classical statistical procedures, particularly when several properties of a process may change simultaneously. It does not replace statistical modelling, validation, or physical interpretation. Future work could assess robustness more systematically, extend the approach to multivariate or spatially resolved climate fields, and combine detected candidates with substantive knowledge of the underlying climate processes.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-berkeleyearth2024" class="csl-entry">
+Berkeley Earth. 2024. <em>Global Temperature Data</em>. <a href="https://berkeleyearth.org/data/">https://berkeleyearth.org/data/</a>.
+</div>
+<div id="ref-killick2012" class="csl-entry">
+Killick, Rebecca, Paul Fearnhead, and Idris A. Eckley. 2012. <span>“Optimal Detection of Changepoints with a Linear Computational Cost.”</span> <em>Journal of the American Statistical Association</em> 107 (500): 1590–98. <a href="https://doi.org/10.1080/01621459.2012.737745">https://doi.org/10.1080/01621459.2012.737745</a>.
+</div>
+<div id="ref-truong2020" class="csl-entry">
+Truong, Charles, Laurent Oudre, and Nicolas Vayatis. 2020. <span>“Selective Review of Offline Change Point Detection Methods.”</span> <em>Signal Processing</em> 167: 107299. <a href="https://doi.org/10.1016/j.sigpro.2019.107299">https://doi.org/10.1016/j.sigpro.2019.107299</a>.
+</div>
+<div id="ref-xu2025" class="csl-entry">
+Xu, Ruiyu, Zheren Song, Jianguo Wu, Chao Wang, and Shiyu Zhou. 2025. <span>“Change-Point Detection with Deep Learning: A Review.”</span> <em>Frontiers of Engineering Management</em> 12 (1): 154–76. <a href="https://doi.org/10.1007/s42524-025-4109-z">https://doi.org/10.1007/s42524-025-4109-z</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unc.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tp-overview.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book.pdf", "book.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
